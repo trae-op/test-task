@@ -1,0 +1,33 @@
+/* CircleActionButton.module.css */
+
+/* * BEM Блок: .circle-action-btn
+ * Стилі для забезпечення абсолютної круглої форми.
+ */
+.circle-action-btn {
+  /* Головна умова для ідеального кола */
+  width: 50px;
+  height: 50px;
+  border-radius: 50% !important;
+
+  padding: 0;
+
+  /* Візуальні стилі, як на скріншоті */
+  background-color: white !important;
+  border: none !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  /* Центрування вмісту */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle-action-btn:hover {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15), 0 3px 5px rgba(0, 0, 0, 0.1);
+  background-color: #f0f0f0 !important;
+}
+
+/* BEM ЕЛЕМЕНТ: circle-action-btn__icon */
+.circle-action-btn__icon {
+  color: #778899;
+}

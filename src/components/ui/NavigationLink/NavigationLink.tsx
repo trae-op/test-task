@@ -4,7 +4,7 @@ import { useSelectedLayoutSegment } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import type { NavigationLinkProps } from "./types";
 
-export default function NavigationLink({
+function NavigationLink({
   href,
   component: Component,
   text,
@@ -20,3 +20,5 @@ export default function NavigationLink({
     </Link>
   );
 }
+
+export { NavigationLink };
