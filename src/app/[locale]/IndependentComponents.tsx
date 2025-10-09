@@ -7,7 +7,11 @@ import { TextField } from "@/components/ui/TextField";
 export default function IndependentComponents() {
   return (
     <>
-      <CircleActionButton Icon={Gear} aria-label="settings" />
+      <CircleActionButton
+        onClick={() => console.log(1111)}
+        Icon={Gear}
+        aria-label="settings"
+      />
       <TextField type="search" placeholder="enter" />
     </>
   );

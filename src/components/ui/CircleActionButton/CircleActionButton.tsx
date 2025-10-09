@@ -14,14 +14,12 @@ export const CircleActionButton: React.FC<CircleActionButtonProps> = ({
   iconClassName = "",
   ariaLabelText,
   iconSize = 20,
-  onClick,
   ...restProps
 }) => (
   <Button
     className={clsx(styles[BLOCK], className)}
     variant="light"
     aria-label={ariaLabelText}
-    onClick={onClick}
     {...restProps}
   >
     <Icon
