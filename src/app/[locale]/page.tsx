@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import Button from "./Button";
+import IndependentComponents from "./IndependentComponents";
 
 export default function Home() {
   const t = useTranslations("App");
@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <h1>home</h1>
 
-      <Button />
+      <IndependentComponents />
     </>
   );
 }

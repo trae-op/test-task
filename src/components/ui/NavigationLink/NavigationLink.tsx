@@ -4,12 +4,12 @@ import { useSelectedLayoutSegment } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import type { NavigationLinkProps } from "./types";
 
-function NavigationLink({
+export const NavigationLink = ({
   href,
   component: Component,
   text,
   ...rest
-}: NavigationLinkProps) {
+}: NavigationLinkProps) => {
   const selectedLayoutSegment = useSelectedLayoutSegment();
   const pathname = selectedLayoutSegment ? `/${selectedLayoutSegment}` : "/";
   const isActive = pathname === href;
@@ -19,6 +19,4 @@ function NavigationLink({
       <Component isActive={isActive} text={text} />
     </Link>
   );
-}
-
-export { NavigationLink };
+};
