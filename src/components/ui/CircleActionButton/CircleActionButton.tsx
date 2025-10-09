@@ -1,25 +1,30 @@
 import React from "react";
-
 import { Button } from "react-bootstrap";
 import { XLg } from "react-bootstrap-icons";
+import clsx from "clsx";
 
-import type { CircleActionButtonProps } from "./types";
-
-import styles from "./CircleActionButton.module.css";
+import { CircleActionButtonProps } from "./types";
+import styles from "./CircleActionButton.module.scss";
 
 export const CircleActionButton: React.FC<CircleActionButtonProps> = ({
   Icon = XLg,
   className = "",
   iconClassName = "",
-  size = 20,
+  ariaLabelText,
+  iconSize = 20,
+  onClick,
   ...restProps
-}) => {
-  const combinedClassName = `${styles["circle-action-btn"]} ${className}`;
-  const combinedIconClassName = `${styles["circle-action-btn__icon"]} ${iconClassName}`;
-
-  return (
-    <Button className={combinedClassName} variant="light" {...restProps}>
-      <Icon className={combinedIconClassName} size={size} />
-    </Button>
-  );
-};
+}) => (
+  <Button
+    className={clsx(styles["circle-action-btn"], className)}
+    variant="light"
+    aria-label={ariaLabelText}
+    onClick={onClick}
+    {...restProps}
+  >
+    <Icon
+      className={clsx(styles["circle-action-btn__icon"], iconClassName)}
+      size={iconSize}
+    />
+  </Button>
+);
