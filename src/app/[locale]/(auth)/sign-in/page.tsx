@@ -21,6 +21,7 @@ interface SignInFormData {
 export default function SignInPage() {
   const t = useTranslations("App.auth.signIn");
   const tp = useTranslations("App.auth.placeholders");
+  const te = useTranslations("App.errors");
 
   const {
     register,
@@ -48,10 +49,10 @@ export default function SignInPage() {
                   <RequiredLabel text={t("email")} />
                   <TextField
                     {...register("email", {
-                      required: validationMessages.required,
+                      required: te("required"),
                       pattern: {
                         value: EMAIL_PATTERN,
-                        message: validationMessages.email,
+                        message: te("email"),
                       },
                     })}
                     type="email"
@@ -65,10 +66,10 @@ export default function SignInPage() {
                   <RequiredLabel text={t("password")} />
                   <TextField
                     {...register("password", {
-                      required: validationMessages.required,
+                      required: te("required"),
                       pattern: {
                         value: PASSWORD_PATTERN,
-                        message: validationMessages.password,
+                        message: te("password"),
                       },
                     })}
                     type="password"

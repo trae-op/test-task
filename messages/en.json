@@ -29,6 +29,13 @@
         "enterPassword": "Password",
         "confirmPassword": "Confirm password"
       }
+    },
+    "errors": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address",
+      "password": "Password must be at least 8 characters and contain at least one letter and one number",
+      "name": "Name must be between 2 and 30 characters and contain only letters",
+      "passwordMatch": "Passwords must match"
     }
   }
 }

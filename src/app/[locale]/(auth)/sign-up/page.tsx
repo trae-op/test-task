@@ -24,6 +24,7 @@ interface SignUpFormData {
 export default function SignUpPage() {
   const t = useTranslations("App.auth.signUp");
   const tp = useTranslations("App.auth.placeholders");
+  const te = useTranslations("App.errors");
 
   const {
     register,
@@ -54,10 +55,10 @@ export default function SignUpPage() {
                   <RequiredLabel text={t("name")} />
                   <TextField
                     {...register("name", {
-                      required: validationMessages.required,
+                      required: te("required"),
                       pattern: {
                         value: NAME_PATTERN,
-                        message: validationMessages.name,
+                        message: te("name"),
                       },
                     })}
                     type="text"
@@ -71,10 +72,10 @@ export default function SignUpPage() {
                   <RequiredLabel text={t("email")} />
                   <TextField
                     {...register("email", {
-                      required: validationMessages.required,
+                      required: te("required"),
                       pattern: {
                         value: EMAIL_PATTERN,
-                        message: validationMessages.email,
+                        message: te("email"),
                       },
                     })}
                     type="email"
@@ -88,10 +89,10 @@ export default function SignUpPage() {
                   <RequiredLabel text={t("password")} />
                   <TextField
                     {...register("password", {
-                      required: validationMessages.required,
+                      required: te("required"),
                       pattern: {
                         value: PASSWORD_PATTERN,
-                        message: validationMessages.password,
+                        message: te("password"),
                       },
                     })}
                     type="password"
@@ -105,9 +106,9 @@ export default function SignUpPage() {
                   <RequiredLabel text={t("confirmPassword")} />
                   <TextField
                     {...register("confirmPassword", {
-                      required: validationMessages.required,
+                      required: te("required"),
                       validate: (value) =>
-                        value === password || validationMessages.passwordMatch,
+                        value === password || te("passwordMatch"),
                     })}
                     type="password"
                     placeholder={tp("confirmPassword")}
