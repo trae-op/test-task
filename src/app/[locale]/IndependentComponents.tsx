@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { Gear } from "react-bootstrap-icons";
-import { SingleValue, StylesConfig } from "react-select";
+import { SingleValue } from "react-select";
 import { CircleActionButton } from "@/components/ui/CircleActionButton";
 import { TextField } from "@/components/ui/TextField";
-import { OptionType, SelectField } from "@/components/ui/SelectField";
+import type { OptionType } from "@/components/ui/SelectField/types";
+import { SelectField } from "@/components/ui/SelectField";
 
 const colourOptions: OptionType[] = [
   { value: "red", label: "Red" },
