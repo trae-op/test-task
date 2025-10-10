@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Gear } from "react-bootstrap-icons";
+import { Gear, TrashFill } from "react-bootstrap-icons";
 import { MultiValue } from "react-select";
 import { CircleActionButton } from "@/components/ui/CircleActionButton";
 import { TextField } from "@/components/ui/TextField";
 import type { OptionType } from "@/components/ui/MultiSelectField/types";
 import { MultiSelectField } from "@/components/ui/MultiSelectField";
+import { Button } from "@/components/ui/Button";
 import { SelectField } from "@/components/ui/SelectField";
 import { SelectOption } from "@/components/ui/SelectField/types";
 
@@ -39,6 +40,12 @@ export default function IndependentComponents() {
         onClick={() => console.log(1111)}
         Icon={Gear}
         aria-label="settings"
+      />
+      <Button
+        IconComponent={TrashFill}
+        text="button"
+        variant="dark"
+        onClick={() => console.log("button")}
       />
       <TextField type="search" placeholder="enter" />
       <MultiSelectField

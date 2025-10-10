@@ -1,0 +1,11 @@
+.base-button {
+  padding: 0.5rem 1.5rem;
+
+  &--rounded {
+    border-radius: 50rem !important;
+  }
+
+  &__icon-wrapper {
+    margin-right: 0.5rem;
+  }
+}
