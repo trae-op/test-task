@@ -1,9 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { Container, Row, Col, Card, Form } from "react-bootstrap";
 import { TextField } from "@/components/ui/TextField";
 import { Button } from "@/components/ui/Button";
+import { RequiredLabel } from "@/components/ui/RequiredLabel";
 import {
   EMAIL_PATTERN,
   PASSWORD_PATTERN,
@@ -39,7 +41,7 @@ export default function SignInPage() {
             <Card.Body>
               <Form noValidate onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group className="mb-3" controlId="formEmail">
-                  <Form.Label>Email address</Form.Label>
+                  <RequiredLabel text="Email address" />
                   <TextField
                     {...register("email", {
                       required: validationMessages.required,
@@ -56,7 +58,7 @@ export default function SignInPage() {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formPassword">
-                  <Form.Label>Password</Form.Label>
+                  <RequiredLabel text="Password" />
                   <TextField
                     {...register("password", {
                       required: validationMessages.required,
@@ -72,7 +74,16 @@ export default function SignInPage() {
                   />
                 </Form.Group>
 
-                <Button text="Sign In" type="submit" className="w-100" />
+                <Button
+                  text="Sign In"
+                  type="submit"
+                  variant="success"
+                  className="w-100"
+                />
+
+                <div className="text-center mt-3">
+                  Don't have an account? <Link href="/sign-up">Sign Up</Link>
+                </div>
               </Form>
             </Card.Body>
           </Card>
