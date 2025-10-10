@@ -3,7 +3,7 @@ import { components, DropdownIndicatorProps } from "react-select";
 import type { OptionType } from "./types";
 
 export const DropdownIndicator = (
-  props: DropdownIndicatorProps<OptionType, false>
+  props: DropdownIndicatorProps<OptionType, true>
 ) => {
   return (
     <components.DropdownIndicator {...props}>

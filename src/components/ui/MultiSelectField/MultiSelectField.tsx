@@ -6,7 +6,7 @@ import type { OptionType, SelectFieldProps } from "./types";
 import { DropdownIndicator } from "./DropdownIndicator";
 import { defaultStyles } from "./defaultStyles";
 
-export const SelectField: React.FC<SelectFieldProps> = ({
+export const MultiSelectField: React.FC<SelectFieldProps> = ({
   options,
   value,
   onChange,
@@ -25,7 +25,8 @@ export const SelectField: React.FC<SelectFieldProps> = ({
   }, [styles]);
 
   return (
-    <Select<OptionType, false>
+    <Select<OptionType, true>
+      isMulti={true}
       options={options}
       value={value}
       onChange={onChange}

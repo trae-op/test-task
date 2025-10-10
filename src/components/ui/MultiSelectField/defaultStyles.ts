@@ -5,7 +5,7 @@ const dimgray = "dimgray";
 const white = "white";
 const lightGray = "#ccc";
 
-export const defaultStyles: StylesConfig<OptionType, false> = {
+export const defaultStyles: StylesConfig<OptionType, true> = {
   control: (styles, { isFocused }) => ({
     ...styles,
     backgroundColor: white,
@@ -16,9 +16,6 @@ export const defaultStyles: StylesConfig<OptionType, false> = {
       borderColor: dimgray,
     },
   }),
-  indicatorSeparator: () => ({
-    display: "none",
-  }),
   option: (styles, { isFocused, isSelected }) => ({
     ...styles,
     backgroundColor: isSelected ? dimgray : isFocused ? lightGray : undefined,
@@ -28,4 +25,12 @@ export const defaultStyles: StylesConfig<OptionType, false> = {
     },
   }),
   singleValue: (styles) => ({ ...styles, color: dimgray }),
+  multiValueRemove: (styles) => ({
+    ...styles,
+    ":hover": {
+      backgroundColor: dimgray,
+      color: white,
+      cursor: "pointer",
+    },
+  }),
 };

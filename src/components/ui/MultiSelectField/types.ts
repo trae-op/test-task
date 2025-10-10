@@ -1,7 +1,7 @@
 import {
-  SingleValue,
   ActionMeta,
   StylesConfig,
+  MultiValue,
   Props as SelectProps,
 } from "react-select";
 
@@ -10,12 +10,12 @@ export interface OptionType {
   label: string;
 }
 
-export interface SelectFieldProps extends SelectProps<OptionType, false> {
+export interface SelectFieldProps extends SelectProps<OptionType, true> {
   options: OptionType[];
-  value: SingleValue<OptionType>;
+  value: MultiValue<OptionType>;
   onChange: (
-    newValue: SingleValue<OptionType>,
+    newValue: MultiValue<OptionType>,
     actionMeta: ActionMeta<OptionType>
   ) => void;
-  styles?: StylesConfig<OptionType, false>;
+  styles?: StylesConfig<OptionType, true>;
 }

@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { Gear } from "react-bootstrap-icons";
-import { SingleValue } from "react-select";
+import { MultiValue } from "react-select";
 import { CircleActionButton } from "@/components/ui/CircleActionButton";
 import { TextField } from "@/components/ui/TextField";
-import type { OptionType } from "@/components/ui/SelectField/types";
-import { SelectField } from "@/components/ui/SelectField";
+import type { OptionType } from "@/components/ui/MultiSelectField/types";
+import { MultiSelectField } from "@/components/ui/MultiSelectField";
 
 const colourOptions: OptionType[] = [
   { value: "red", label: "Red" },
@@ -15,8 +15,9 @@ const colourOptions: OptionType[] = [
 ];
 
 export default function IndependentComponents() {
-  const [selectedColor, setSelectedColor] =
-    useState<SingleValue<OptionType>>(null);
+  const [selectedColor, setSelectedColor] = useState<MultiValue<OptionType>>(
+    []
+  );
 
   return (
     <>
@@ -26,11 +27,13 @@ export default function IndependentComponents() {
         aria-label="settings"
       />
       <TextField type="search" placeholder="enter" />
-      <SelectField
+      <MultiSelectField
         instanceId="color-selector"
         options={colourOptions}
         value={selectedColor}
-        onChange={(newValue) => setSelectedColor(newValue)}
+        onChange={(newValue: MultiValue<OptionType>) =>
+          setSelectedColor(newValue)
+        }
         placeholder="Choose a color..."
       />
     </>
