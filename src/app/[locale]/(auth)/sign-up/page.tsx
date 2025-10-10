@@ -12,6 +12,7 @@ import {
   NAME_PATTERN,
   validationMessages,
 } from "@/utils/regExp";
+import { useTranslations } from "next-intl";
 
 interface SignUpFormData {
   name: string;
@@ -21,6 +22,9 @@ interface SignUpFormData {
 }
 
 export default function SignUpPage() {
+  const t = useTranslations("App.auth.signUp");
+  const tp = useTranslations("App.auth.placeholders");
+
   const {
     register,
     handleSubmit,
@@ -42,12 +46,12 @@ export default function SignUpPage() {
         <Col xs={12} md={6} lg={4}>
           <Card>
             <Card.Header as="h4" className="text-center">
-              Sign Up
+              {t("title")}
             </Card.Header>
             <Card.Body>
               <Form noValidate onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group className="mb-3" controlId="formName">
-                  <RequiredLabel text="Name" />
+                  <RequiredLabel text={t("name")} />
                   <TextField
                     {...register("name", {
                       required: validationMessages.required,
@@ -57,14 +61,14 @@ export default function SignUpPage() {
                       },
                     })}
                     type="text"
-                    placeholder="Enter your name"
+                    placeholder={tp("enterName")}
                     isInvalid={!!errors.name}
                     errorMessage={errors.name?.message}
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formEmail">
-                  <RequiredLabel text="Email address" />
+                  <RequiredLabel text={t("email")} />
                   <TextField
                     {...register("email", {
                       required: validationMessages.required,
@@ -74,14 +78,14 @@ export default function SignUpPage() {
                       },
                     })}
                     type="email"
-                    placeholder="Enter email"
+                    placeholder={tp("enterEmail")}
                     isInvalid={!!errors.email}
                     errorMessage={errors.email?.message}
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formPassword">
-                  <RequiredLabel text="Password" />
+                  <RequiredLabel text={t("password")} />
                   <TextField
                     {...register("password", {
                       required: validationMessages.required,
@@ -91,14 +95,14 @@ export default function SignUpPage() {
                       },
                     })}
                     type="password"
-                    placeholder="Password"
+                    placeholder={tp("enterPassword")}
                     isInvalid={!!errors.password}
                     errorMessage={errors.password?.message}
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formConfirmPassword">
-                  <RequiredLabel text="Confirm Password" />
+                  <RequiredLabel text={t("confirmPassword")} />
                   <TextField
                     {...register("confirmPassword", {
                       required: validationMessages.required,
@@ -106,21 +110,22 @@ export default function SignUpPage() {
                         value === password || validationMessages.passwordMatch,
                     })}
                     type="password"
-                    placeholder="Confirm password"
+                    placeholder={tp("confirmPassword")}
                     isInvalid={!!errors.confirmPassword}
                     errorMessage={errors.confirmPassword?.message}
                   />
                 </Form.Group>
 
                 <Button
-                  text="Sign Up"
+                  text={t("submitButton")}
                   type="submit"
                   variant="success"
                   className="w-100"
                 />
 
                 <div className="text-center mt-3">
-                  Already have an account? <Link href="/sign-in">Sign In</Link>
+                  {t("haveAccount")}{" "}
+                  <Link href="/sign-in">{t("signInLink")}</Link>
                 </div>
               </Form>
             </Card.Body>

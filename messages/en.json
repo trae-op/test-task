@@ -3,6 +3,32 @@
     "Could not find requested resource": "Could not find requested resource",
     "Not Found": "Not Found",
     "Return Home": "Return Home",
-    "Something wrong with server": "Something wrong with server"
+    "Something wrong with server": "Something wrong with server",
+    "auth": {
+      "signIn": {
+        "title": "Sign In",
+        "email": "Email address",
+        "password": "Password",
+        "submitButton": "Sign In",
+        "noAccount": "Don't have an account?",
+        "signUpLink": "Sign Up"
+      },
+      "signUp": {
+        "title": "Sign Up",
+        "name": "Name",
+        "email": "Email address",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "submitButton": "Sign Up",
+        "haveAccount": "Already have an account?",
+        "signInLink": "Sign In"
+      },
+      "placeholders": {
+        "enterName": "Enter your name",
+        "enterEmail": "Enter email",
+        "enterPassword": "Password",
+        "confirmPassword": "Confirm password"
+      }
+    }
   }
 }

@@ -3,6 +3,32 @@
     "Could not find requested resource": "Не вдалося знайти запитуваний ресурс",
     "Not Found": "Не знайдено",
     "Return Home": "Повернення додому",
-    "Something wrong with server": "Щось не так із сервером"
+    "Something wrong with server": "Щось не так із сервером",
+    "auth": {
+      "signIn": {
+        "title": "Вхід",
+        "email": "Електронна пошта",
+        "password": "Пароль",
+        "submitButton": "Увійти",
+        "noAccount": "Немає облікового запису?",
+        "signUpLink": "Зареєструватися"
+      },
+      "signUp": {
+        "title": "Реєстрація",
+        "name": "Ім'я",
+        "email": "Електронна пошта",
+        "password": "Пароль",
+        "confirmPassword": "Підтвердження пароля",
+        "submitButton": "Зареєструватися",
+        "haveAccount": "Вже маєте обліковий запис?",
+        "signInLink": "Увійти"
+      },
+      "placeholders": {
+        "enterName": "Введіть ваше ім'я",
+        "enterEmail": "Введіть електронну пошту",
+        "enterPassword": "Введіть пароль",
+        "confirmPassword": "Підтвердіть пароль"
+      }
+    }
   }
 }

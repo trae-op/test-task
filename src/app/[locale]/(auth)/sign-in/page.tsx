@@ -11,6 +11,7 @@ import {
   PASSWORD_PATTERN,
   validationMessages,
 } from "@/utils/regExp";
+import { useTranslations } from "next-intl";
 
 interface SignInFormData {
   email: string;
@@ -18,6 +19,9 @@ interface SignInFormData {
 }
 
 export default function SignInPage() {
+  const t = useTranslations("App.auth.signIn");
+  const tp = useTranslations("App.auth.placeholders");
+
   const {
     register,
     handleSubmit,
@@ -36,12 +40,12 @@ export default function SignInPage() {
         <Col xs={12} md={6} lg={4}>
           <Card>
             <Card.Header as="h4" className="text-center">
-              Sign In
+              {t("title")}
             </Card.Header>
             <Card.Body>
               <Form noValidate onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group className="mb-3" controlId="formEmail">
-                  <RequiredLabel text="Email address" />
+                  <RequiredLabel text={t("email")} />
                   <TextField
                     {...register("email", {
                       required: validationMessages.required,
@@ -51,14 +55,14 @@ export default function SignInPage() {
                       },
                     })}
                     type="email"
-                    placeholder="Enter email"
+                    placeholder={tp("enterEmail")}
                     isInvalid={!!errors.email}
                     errorMessage={errors.email?.message}
                   />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formPassword">
-                  <RequiredLabel text="Password" />
+                  <RequiredLabel text={t("password")} />
                   <TextField
                     {...register("password", {
                       required: validationMessages.required,
@@ -68,21 +72,22 @@ export default function SignInPage() {
                       },
                     })}
                     type="password"
-                    placeholder="Password"
+                    placeholder={tp("enterPassword")}
                     isInvalid={!!errors.password}
                     errorMessage={errors.password?.message}
                   />
                 </Form.Group>
 
                 <Button
-                  text="Sign In"
+                  text={t("submitButton")}
                   type="submit"
                   variant="success"
                   className="w-100"
                 />
 
                 <div className="text-center mt-3">
-                  Don't have an account? <Link href="/sign-up">Sign Up</Link>
+                  {t("noAccount")}{" "}
+                  <Link href="/sign-up">{t("signUpLink")}</Link>
                 </div>
               </Form>
             </Card.Body>
