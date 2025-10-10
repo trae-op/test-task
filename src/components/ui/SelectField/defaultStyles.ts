@@ -1,22 +1,31 @@
 import { StylesConfig } from "react-select";
 import type { OptionType } from "./types";
 
+const dimgray = "dimgray";
+const white = "white";
+const lightGray = "#ccc";
+
 export const defaultStyles: StylesConfig<OptionType, false> = {
-  control: (styles) => ({
+  control: (styles, { isFocused }) => ({
     ...styles,
-    backgroundColor: "white",
+    backgroundColor: white,
     paddingRight: 0,
+    boxShadow: "none",
+    borderColor: isFocused ? dimgray : styles.borderColor,
+    "&:active, &:hover": {
+      borderColor: dimgray,
+    },
   }),
   indicatorSeparator: () => ({
     display: "none",
   }),
   option: (styles, { isFocused, isSelected }) => ({
     ...styles,
-    backgroundColor: isSelected ? "gray" : isFocused ? "#ccc" : undefined,
-    color: isSelected ? "white" : "#212529",
+    backgroundColor: isSelected ? dimgray : isFocused ? lightGray : undefined,
+    color: isSelected ? white : dimgray,
     "&:active": {
-      backgroundColor: "#ccc",
+      backgroundColor: lightGray,
     },
   }),
-  singleValue: (styles) => ({ ...styles, color: "#212529" }),
+  singleValue: (styles) => ({ ...styles, color: dimgray }),
 };
