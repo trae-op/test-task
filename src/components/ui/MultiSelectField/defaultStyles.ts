@@ -23,6 +23,9 @@ export const defaultStyles: StylesConfig<OptionType, true> = {
     "&:active": {
       backgroundColor: lightGray,
     },
+    "&:hover": {
+      backgroundColor: "#f0f0f0",
+    },
   }),
   singleValue: (styles) => ({ ...styles, color: dimgray }),
   multiValueRemove: (styles) => ({
@@ -32,5 +35,9 @@ export const defaultStyles: StylesConfig<OptionType, true> = {
       color: white,
       cursor: "pointer",
     },
+  }),
+  placeholder: (styles) => ({
+    ...styles,
+    color: "black",
   }),
 };

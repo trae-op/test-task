@@ -7,7 +7,7 @@ export const DropdownIndicator = (
 ) => {
   return (
     <components.DropdownIndicator {...props}>
-      <CaretDownFill size={12} color="#6c757d" style={{ marginRight: "8px" }} />{" "}
+      <CaretDownFill size={12} color="#6c757d" style={{ marginRight: 5 }} />
     </components.DropdownIndicator>
   );
 };
