@@ -1,13 +1,22 @@
 "use client";
 
-import { Gear, CaretDownFill } from "react-bootstrap-icons";
+import { useState } from "react";
+import { Gear } from "react-bootstrap-icons";
+import { SingleValue, StylesConfig } from "react-select";
 import { CircleActionButton } from "@/components/ui/CircleActionButton";
 import { TextField } from "@/components/ui/TextField";
-import { SelectField } from "@/components/ui/SelectField";
+import { OptionType, SelectField } from "@/components/ui/SelectField";
 
-// Caret down fill
+const colourOptions: OptionType[] = [
+  { value: "red", label: "Red" },
+  { value: "blue", label: "Blue" },
+  { value: "green", label: "Green" },
+];
 
 export default function IndependentComponents() {
+  const [selectedColor, setSelectedColor] =
+    useState<SingleValue<OptionType>>(null);
+
   return (
     <>
       <CircleActionButton
@@ -16,7 +25,13 @@ export default function IndependentComponents() {
         aria-label="settings"
       />
       <TextField type="search" placeholder="enter" />
-      <SelectField />
+      <SelectField
+        instanceId="color-selector"
+        options={colourOptions}
+        value={selectedColor}
+        onChange={(newValue) => setSelectedColor(newValue)}
+        placeholder="Choose a color..."
+      />
     </>
   );
 }
