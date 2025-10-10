@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "react-bootstrap";
 import { XLg } from "react-bootstrap-icons";
 import clsx from "clsx";
@@ -8,14 +7,14 @@ import styles from "./CircleActionButton.module.scss";
 
 const BLOCK = "circle-action-btn";
 
-export const CircleActionButton: React.FC<CircleActionButtonProps> = ({
+export const CircleActionButton = ({
   Icon = XLg,
   className = "",
   iconClassName = "",
   ariaLabelText,
   iconSize = 20,
   ...restProps
-}) => (
+}: CircleActionButtonProps) => (
   <Button
     className={clsx(styles[BLOCK], className)}
     variant="light"

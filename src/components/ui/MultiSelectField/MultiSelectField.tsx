@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import Select from "react-select";
 import type { OptionType, SelectFieldProps } from "./types";
 import { DropdownIndicator } from "./DropdownIndicator";
 import { defaultStyles } from "./defaultStyles";
 
-export const MultiSelectField: React.FC<SelectFieldProps> = ({
+export const MultiSelectField = ({
   options,
   value,
   onChange,
   styles,
   ...rest
-}) => {
+}: SelectFieldProps) => {
   const mergeStyles = useMemo(() => {
     if (!styles) {
       return defaultStyles;

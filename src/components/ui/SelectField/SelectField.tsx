@@ -1,4 +1,3 @@
-import React from "react";
 import { Form } from "react-bootstrap";
 import clsx from "clsx";
 import type { SelectProps } from "./types";

@@ -1,14 +1,25 @@
-import * as React from "react";
 import { Button as BaseButton } from "react-bootstrap";
 import clsx from "clsx";
 
-import { ButtonProps } from "./types";
+import type { ButtonProps, IconProps } from "./types";
 
 import styles from "./Button.module.scss";
 
 const BLOCK = "base-button";
 
-export const Button: React.FC<ButtonProps> = ({
+const Icon = ({ IconComponent, iconClassName }: IconProps) => {
+  if (IconComponent === undefined) {
+    return null;
+  }
+
+  return (
+    <span className={clsx(styles[`${BLOCK}__icon-wrapper`])}>
+      <IconComponent size={13} className={iconClassName} />
+    </span>
+  );
+};
+
+export const Button = ({
   text,
   IconComponent,
   className = "",
@@ -16,16 +27,12 @@ export const Button: React.FC<ButtonProps> = ({
   textClassName = "",
   children,
   ...rest
-}) => (
+}: ButtonProps) => (
   <BaseButton
     className={clsx(styles[BLOCK], styles[`${BLOCK}--rounded`], className)}
     {...rest}
   >
-    {IconComponent && (
-      <span className={clsx(styles[`${BLOCK}__icon-wrapper`])}>
-        <IconComponent size={13} className={iconClassName} />
-      </span>
-    )}
+    <Icon IconComponent={IconComponent} iconClassName={iconClassName} />
     <span className={textClassName}>
       {text}
       {children}
