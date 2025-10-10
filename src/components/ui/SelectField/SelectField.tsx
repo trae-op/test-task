@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import Select, { SingleValue, ActionMeta, StylesConfig } from "react-select";
+import Select, {
+  SingleValue,
+  ActionMeta,
+  StylesConfig,
+  components,
+  DropdownIndicatorProps, // Додаємо тип для пропсів DropdownIndicator
+} from "react-select";
+import { CaretDownFill } from "react-bootstrap-icons";
 
 interface OptionType {
   value: string;
@@ -15,30 +22,62 @@ const colourOptions: OptionType[] = [
   { value: "blue", label: "Blue" },
 ];
 
+const CustomDropdownIndicator = (
+  props: DropdownIndicatorProps<OptionType, false>
+) => {
+  return (
+    <components.DropdownIndicator {...props}>
+      <CaretDownFill size={12} color="#6c757d" style={{ marginRight: "8px" }} />{" "}
+      {/* Розмір та колір як на скріншоті */}
+    </components.DropdownIndicator>
+  );
+};
+
 const customStyles: StylesConfig<OptionType, false> = {
-  // ... (Ваші стилі залишилися незмінними)
   control: (styles, { isFocused }) => ({
     ...styles,
     backgroundColor: "white",
-    border: "1px solid #ced4da",
-    borderRadius: "0.25rem",
-    minHeight: "38px",
-    boxShadow: "none",
+    border: "1px solid #ced4da", // Світло-сіра рамка
+    borderRadius: "0.25rem", // Закруглення кутів
+    minHeight: "38px", // Стандартна висота
+    boxShadow: "none", // Прибираємо тінь при фокусі
     "&:hover": {
-      borderColor: "#ced4da",
+      borderColor: "#ced4da", // Залишаємо рамку світло-сірою при наведенні
     },
+    // Додаємо відступ праворуч, щоб іконка не прилипала до краю
+    // Якщо іконка має свій marginRight, це може бути і не потрібно,
+    // але для контролю краще додати тут або в стилях самої іконки.
+    paddingRight: "4px",
   }),
+
   indicatorSeparator: () => ({
-    display: "none",
+    display: "none", // Приховуємо роздільник
   }),
+
   valueContainer: (styles) => ({
     ...styles,
-    padding: "2px 8px",
+    padding: "2px 8px", // Відступи для тексту
   }),
+
   placeholder: (styles) => ({
     ...styles,
-    color: "#6c757d",
+    color: "#6c757d", // Колір тексту плейсхолдера
   }),
+
+  // Стилі для опцій у випадаючому списку
+  option: (styles, { isFocused, isSelected }) => ({
+    ...styles,
+    backgroundColor: isSelected
+      ? "#0d6efd" // Bootstrap primary blue for selected
+      : isFocused
+      ? "#e9ecef" // Bootstrap light gray for focused
+      : undefined, // 💡 ВИПРАВЛЕНО: Використовуємо undefined замість null
+    color: isSelected ? "white" : "#212529", // Text color
+    "&:active": {
+      backgroundColor: "#0a58ca", // Darker blue on active click
+    },
+  }),
+  singleValue: (styles) => ({ ...styles, color: "#212529" }), // Колір обраного значення
 };
 
 export const SelectField: React.FC = () => {
@@ -65,6 +104,7 @@ export const SelectField: React.FC = () => {
         onChange={handleSelectChange}
         placeholder="Select a color..."
         styles={customStyles}
+        components={{ DropdownIndicator: CustomDropdownIndicator }}
       />
       <p style={{ marginTop: "10px" }}>
         Обрано:
