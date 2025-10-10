@@ -1,8 +1,11 @@
 "use client";
 
-import { Gear } from "react-bootstrap-icons";
+import { Gear, CaretDownFill } from "react-bootstrap-icons";
 import { CircleActionButton } from "@/components/ui/CircleActionButton";
 import { TextField } from "@/components/ui/TextField";
+import { SelectField } from "@/components/ui/SelectField";
+
+// Caret down fill
 
 export default function IndependentComponents() {
   return (
@@ -13,6 +16,7 @@ export default function IndependentComponents() {
         aria-label="settings"
       />
       <TextField type="search" placeholder="enter" />
+      <SelectField />
     </>
   );
 }
