@@ -1,6 +1,8 @@
 {
   "App": {
-    "Second slide label": "Мітка другого слайда",
-    "First slide label": "Мітка першого слайда"
+    "Could not find requested resource": "Не вдалося знайти запитуваний ресурс",
+    "Not Found": "Не знайдено",
+    "Return Home": "Повернення додому",
+    "Something wrong with server": "Щось не так із сервером"
   }
 }

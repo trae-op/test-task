@@ -1,6 +1,8 @@
 {
   "App": {
-    "Second slide label": "Second slide label",
-    "First slide label": "First slide label"
+    "Could not find requested resource": "Could not find requested resource",
+    "Not Found": "Not Found",
+    "Return Home": "Return Home",
+    "Something wrong with server": "Something wrong with server"
   }
 }

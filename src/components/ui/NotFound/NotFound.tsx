@@ -1,22 +1,23 @@
-import { Alert } from "react-bootstrap";
-import { ExclamationDiamondFill } from "react-bootstrap-icons";
+"use client";
 
-import clsx from "clsx";
+import { useTranslations } from "next-intl";
+import Card from "react-bootstrap/Card";
 import Link from "next/link";
+import clsx from "clsx";
 
 import styles from "./NotFound.module.scss";
 
-const BLOCK = "base-alert";
-
-export const NotFound = () => (
-  <Alert variant="info" className={clsx(styles[BLOCK])}>
-    <span className={clsx(styles[`${BLOCK}__icon-wrapper`])}>
-      <ExclamationDiamondFill size={13} />
-    </span>
-    <div>
-      <h2>Not Found</h2>
-      <p>Could not find requested resource</p>
-      <Link href="/">Return Home</Link>
+export const NotFound = () => {
+  const t = useTranslations("App");
+  return (
+    <div className={clsx(styles["not-found"])}>
+      <Card style={{ width: "18rem" }}>
+        <Card.Body>
+          <Card.Title>{t("Not Found")}</Card.Title>
+          <Card.Text>{t("Could not find requested resource")}</Card.Text>
+          <Link href="/">{t("Return Home")}</Link>
+        </Card.Body>
+      </Card>
     </div>
-  </Alert>
-);
+  );
+};

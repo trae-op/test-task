@@ -1,32 +1,22 @@
-import { Alert } from "react-bootstrap";
-import type { AlertErrorProps, IconProps } from "./types";
+"use client";
+
+import { useTranslations } from "next-intl";
+import Card from "react-bootstrap/Card";
 import clsx from "clsx";
 
 import styles from "./AlertError.module.scss";
+import type { Props } from "./types";
 
-const BLOCK = "base-alert";
-
-const Icon = ({ IconComponent, iconClassName }: IconProps) => {
-  if (IconComponent === undefined) {
-    return null;
-  }
-
+export const AlertError = ({ text }: Props) => {
+  const t = useTranslations("App");
   return (
-    <span className={clsx(styles[`${BLOCK}__icon-wrapper`])}>
-      <IconComponent size={13} className={iconClassName} />
-    </span>
+    <div className={clsx(styles["alert-error"])}>
+      <Card style={{ width: "18rem" }}>
+        <Card.Body>
+          <Card.Title>{t("Something wrong with server")}!!!</Card.Title>
+          <Card.Text>{text}</Card.Text>
+        </Card.Body>
+      </Card>
+    </div>
   );
 };
-
-export const AlertError = ({
-  children,
-  iconClassName,
-  IconComponent,
-  text,
-  ...rest
-}: AlertErrorProps) => (
-  <Alert variant="danger" {...rest}>
-    <Icon iconClassName={iconClassName} IconComponent={IconComponent} />
-    {text}
-  </Alert>
-);

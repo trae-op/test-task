@@ -1,15 +1,10 @@
 "use client";
 
-import { ExclamationDiamondFill } from "react-bootstrap-icons";
 import { AlertError } from "@/components/ui/AlertError";
+import type { ErrorPageParams } from "@/components/ui/AlertError/types";
 
-const ErrorPage = () => {
-  return (
-    <AlertError
-      IconComponent={ExclamationDiamondFill}
-      text="Something wrong with server!!!"
-    />
-  );
+const ErrorPage = ({ error }: ErrorPageParams) => {
+  return <AlertError text={error.message} />;
 };
 
 export default ErrorPage;

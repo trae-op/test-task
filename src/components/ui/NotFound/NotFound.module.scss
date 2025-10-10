@@ -1,7 +1,7 @@
 .not-found {
   display: flex;
+  justify-content: center;
   align-items: center;
-  &__icon-wrapper {
-    margin-right: 0.3rem;
-  }
+  min-height: 100vh;
+  margin: 0;
 }
