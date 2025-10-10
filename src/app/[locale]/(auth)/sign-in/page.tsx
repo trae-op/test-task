@@ -6,11 +6,7 @@ import { Container, Row, Col, Card, Form } from "react-bootstrap";
 import { TextField } from "@/components/ui/TextField";
 import { Button } from "@/components/ui/Button";
 import { RequiredLabel } from "@/components/ui/RequiredLabel";
-import {
-  EMAIL_PATTERN,
-  PASSWORD_PATTERN,
-  validationMessages,
-} from "@/utils/regExp";
+import { EMAIL_PATTERN, PASSWORD_PATTERN } from "@/utils/regExp";
 import { useTranslations } from "next-intl";
 
 interface SignInFormData {
