@@ -9,6 +9,7 @@ import type { OptionType } from "@/components/ui/MultiSelectField/types";
 import { MultiSelectField } from "@/components/ui/MultiSelectField";
 import { Button } from "@/components/ui/Button";
 import { SelectField } from "@/components/ui/SelectField";
+import { Avatar } from "@/components/ui/Avatar";
 import { SelectOption } from "@/components/ui/SelectField/types";
 
 const colourOptions: OptionType[] = [
@@ -40,6 +41,12 @@ export default function IndependentComponents() {
         onClick={() => console.log(1111)}
         Icon={Gear}
         aria-label="settings"
+      />
+      <Avatar
+        src="https://placehold.co/600x400/000000/FFFFFF.png"
+        alt="John Doe"
+        size="lg"
+        loading="lazy"
       />
       <Button
         IconComponent={TrashFill}

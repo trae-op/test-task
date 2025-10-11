@@ -3,7 +3,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["placehold.co"],
+    remotePatterns: [new URL("https://placehold.co/**")],
   },
 };
 
