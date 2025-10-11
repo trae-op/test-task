@@ -7,3 +7,7 @@ export type TAvatarProps = ImageProps & {
 export type TAvatarPlaceholderProps = {
   isLoading: boolean;
 };
+export type TAvatarErrorProps = {
+  size?: string | number | undefined;
+  hasError: boolean;
+};
