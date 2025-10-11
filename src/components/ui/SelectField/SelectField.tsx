@@ -9,23 +9,21 @@ export const SelectField = ({
   onChange,
   placeholder,
   className,
-}: SelectProps) => {
-  return (
-    <Form.Select
-      value={value}
-      onChange={onChange}
-      className={clsx(styles["select-field"], className)}
-    >
-      {placeholder && (
-        <option value="" disabled hidden>
-          {placeholder}
-        </option>
-      )}
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </Form.Select>
-  );
-};
+}: SelectProps) => (
+  <Form.Select
+    value={value}
+    onChange={onChange}
+    className={clsx(styles["select-field"], className)}
+  >
+    {placeholder && (
+      <option value="" disabled hidden>
+        {placeholder}
+      </option>
+    )}
+    {options.map((option) => (
+      <option key={option.value} value={option.value}>
+        {option.label}
+      </option>
+    ))}
+  </Form.Select>
+);
