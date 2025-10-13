@@ -1,0 +1,146 @@
+$primary-color: #007bff;
+$border-color: #ddd;
+$light-gray: #f9f9f9;
+$text-color: #333;
+$gap-size: 30px;
+
+.table-scroll-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  flex-shrink: 1;
+  min-width: 0;
+  margin-top: 40px;
+
+  .order-table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    width: 100%;
+    min-width: 900px;
+    table-layout: auto;
+  }
+}
+
+.order-item {
+  vertical-align: middle;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  background-color: white;
+
+  & > td {
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    border-left: none;
+    border-right: none;
+    background-color: white;
+    padding: 0;
+    height: 60px;
+
+    &:first-child {
+      border-left: 1px solid $border-color;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      padding-left: 20px;
+    }
+    &:last-child {
+      border-right: 1px solid $border-color;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      text-align: center;
+    }
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    padding-right: $gap-size;
+  }
+
+  &__name {
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-color;
+    cursor: pointer;
+    margin-right: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: left;
+  }
+
+  &__details {
+    display: flex;
+    align-items: center;
+    gap: $gap-size;
+    font-size: 14px;
+    color: $text-color;
+  }
+
+  &__detail-item {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  &__container-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    border: 1px solid gray;
+    border-radius: 50%;
+  }
+
+  &__icon {
+    color: gray;
+  }
+
+  &__count {
+    text-align: left;
+    font-size: 16px;
+  }
+
+  &__primary-text {
+    font-weight: bold;
+    text-align: left;
+    font-size: 10px;
+    color: gray;
+  }
+
+  &__secondary-text {
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  &__price-group {
+    text-align: left;
+    min-width: 100px;
+    font-size: 10px;
+
+    &--usd {
+      color: gray;
+      font-weight: bold;
+    }
+  }
+
+  &__delete-btn {
+    cursor: pointer;
+    color: gray;
+    transition: color 0.2s;
+    width: 200px;
+
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+.order-table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  width: 100%;
+}
