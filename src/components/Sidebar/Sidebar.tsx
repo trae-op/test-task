@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { GearFill } from "react-bootstrap-icons";
 import { Avatar } from "@/components/ui/Avatar";
 import { NavigationLink } from "@/components/ui/NavigationLink";
-import { NavItem } from "./SidebarNavItem/NavItem";
+import { NavItem } from "./SidebarNavItem";
 import { CircleActionButton } from "@/components/ui/CircleActionButton";
 import styles from "./Sidebar.module.scss";
 import type { TSidebarProps } from "./types";

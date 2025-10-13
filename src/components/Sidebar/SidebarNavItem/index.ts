@@ -1,1 +1,1 @@
-export * from "./SidebarNavItem";
+export * from "./NavItem";
