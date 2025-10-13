@@ -68,12 +68,20 @@ export const Counter = memo(() => {
 
 ### File Organization
 
+- **`index.ts`** - Entity export file (components, hooks, utilities). **Mandatory in every component/feature folder.** It must import and export components/files, but **NEVER** import `types.ts`.
 - `Component.tsx` - component implementation
 - `types.ts` - all TypeScript types
-- `hooks.ts` or `useComponentName.ts` - custom hooks
+- `useComponentName.ts` - custom hooks
 - `utils.ts` - utility functions (if needed)
 
 ## Code Style
+
+If it is required to use CSS Architecture (BEM) and CSS Modules, the following rules must be adhered to (or followed):
+
+1.  **Technology:** Use **Sass/SCSS** for styling, combined with **CSS Modules**. Style files must use the **`.scss`** extension (e.g., `Component.module.scss`).
+2.  **Architecture:** Implement the **BEM (Block, Element, Modifier)** methodology for class naming.
+3.  **Variables:** Utilize **Sass variables** (e.g., `$text-color: #757575;`) for consistent management and reuse of values (colors, spacing, etc.).
+4.  **Optimization (DRY):** Strive to avoid code duplication in `.scss` files by leveraging Sass features like **mixins**, **functions**, and **placeholders** (`%`) to ensure optimal and maintainable styles.
 
 ### Naming Conventions
 
