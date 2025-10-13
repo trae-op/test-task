@@ -76,6 +76,8 @@ export const Counter = memo(() => {
 
 ## Code Style
 
+### Styling
+
 If it is required to use CSS Architecture (BEM) and CSS Modules, the following rules must be adhered to (or followed):
 
 1.  **Technology:** Use **Sass/SCSS** for styling, combined with **CSS Modules**. Style files must use the **`.scss`** extension (e.g., `Component.module.scss`).
@@ -102,7 +104,7 @@ If it is required to use CSS Architecture (BEM) and CSS Modules, the following r
 
 ## Performance
 
-- Memoize all components with React.memo
+- Memoize components with React.memo only when truly necessary
 - Use useMemo for expensive calculations
 - Use useCallback for function props passed to children
 - Avoid inline object/array creation in JSX
