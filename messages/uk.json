@@ -4,6 +4,10 @@
     "Not Found": "Не знайдено",
     "Return Home": "Повернення додому",
     "Something wrong with server": "Щось не так із сервером",
+    "sidebar": {
+      "Receipts": "Надходження",
+      "Products": "Продукти"
+    },
     "auth": {
       "signIn": {
         "title": "Вхід",

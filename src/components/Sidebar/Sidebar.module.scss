@@ -1,0 +1,50 @@
+// Головний блок
+.sidebar {
+  background-color: #f8f9fa;
+  width: 200px;
+  height: 100vh;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.1);
+
+  // Елемент: секція профілю
+  &__profile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    width: 100%;
+    position: relative;
+  }
+
+  // Елемент: аватар
+  &__avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+  }
+
+  &__settings-button {
+    position: absolute;
+    bottom: 0;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  &__settings-button-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    a {
+      display: inline-flex;
+      text-decoration: none;
+    }
+  }
+}

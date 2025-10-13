@@ -4,6 +4,10 @@
     "Not Found": "Not Found",
     "Return Home": "Return Home",
     "Something wrong with server": "Something wrong with server",
+    "sidebar": {
+      "Receipts": "Receipts",
+      "Products": "Products"
+    },
     "auth": {
       "signIn": {
         "title": "Sign In",

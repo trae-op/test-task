@@ -1,0 +1,48 @@
+/* Оновлений SCSS-код для стилізації Nav.Link */
+
+.nav-item {
+  display: flex !important;
+  align-items: center;
+
+  /* Збільшуємо відступи для кращого вигляду */
+  padding: 0.5rem 0.75rem !important;
+  margin-bottom: 1.25rem; /* Збільшуємо інтервал між пунктами */
+
+  /* Колір і шрифт для неактивних пунктів */
+  color: #495057; /* Темно-сірий колір, як на скріншоті */
+  font-weight: 500;
+  font-size: 1rem; /* Збільшуємо шрифт до 16px */
+
+  /* Встановлюємо всі літери великими */
+  text-transform: uppercase;
+
+  /* Прибираємо заокруглення, якщо не потрібно, але залишимо для чистоти */
+
+  transition: color 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
+
+  &:hover {
+    /* Наведення: колір стає трохи темнішим, щоб показати інтерактивність */
+    color: #212529;
+    background-color: transparent; /* Переконаємося, що фону немає */
+  }
+
+  &--active {
+    /* Активний пункт: темно-сірий, жирний */
+    color: #212529;
+    font-weight: bold;
+
+    /* Додаємо зелену лінію знизу, як на скріншоті */
+    border-bottom: 2px solid #6c7e3a; /* Колір "зеленої оливки" */
+
+    /* Зменшуємо нижній відступ, щоб лінія була ближче до тексту */
+    padding-bottom: 0.2rem !important;
+
+    /* Переконаємося, що фону немає */
+    background-color: transparent;
+
+    &:hover {
+      background-color: transparent;
+      color: #212529;
+    }
+  }
+}
