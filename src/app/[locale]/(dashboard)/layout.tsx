@@ -1,3 +1,4 @@
+import { TopHeader } from "@/components/TopHeader.ts";
 import styles from "./Layout.module.scss";
 
 export default async function AuthLayout({
@@ -5,5 +6,10 @@ export default async function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className={styles["dashboard-layout"]}>{children}</div>;
+  return (
+    <div className={styles["dashboard-layout"]}>
+      <TopHeader />
+      {children}
+    </div>
+  );
 }
