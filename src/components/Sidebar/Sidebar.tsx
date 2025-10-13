@@ -12,8 +12,6 @@ import type { TSidebarProps } from "./types";
 
 const BLOCK = "sidebar";
 
-//  className={styles[`${BLOCK}__avatar`]}
-
 export const Sidebar = memo(({ items }: TSidebarProps) => {
   const tReceipts = useTranslations("App.sidebar");
 
