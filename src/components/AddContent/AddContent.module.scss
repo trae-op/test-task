@@ -1,0 +1,20 @@
+$text-color: #343a40;
+$font-size-text: 1.2rem;
+$font-weight-bold: 600;
+
+.add-content {
+  &,
+  &__text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  &__separator,
+  &__text {
+    font-weight: $font-weight-bold;
+    color: $text-color;
+    font-size: $font-size-text;
+  }
+}

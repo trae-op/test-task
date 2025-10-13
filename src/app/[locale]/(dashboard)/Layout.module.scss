@@ -1,4 +1,12 @@
-.dashboard-layout {
+.dashboard {
   display: flex;
   flex-direction: column;
+
+  &__container {
+    display: flex;
+  }
+
+  &__content {
+    padding: 50px 50px 0;
+  }
 }
