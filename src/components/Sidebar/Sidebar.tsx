@@ -3,7 +3,7 @@
 import { memo } from "react";
 import { useTranslations } from "next-intl";
 import { GearFill } from "react-bootstrap-icons";
-import { Avatar } from "@/components/ui/Avatar";
+import { Picture } from "@/components/ui/Picture";
 import { NavigationLink } from "@/components/ui/NavigationLink";
 import { NavItem } from "./SidebarNavItem";
 import { CircleActionButton } from "@/components/ui/CircleActionButton";
@@ -18,11 +18,12 @@ export const Sidebar = memo(({ items }: TSidebarProps) => {
   return (
     <div className={styles[BLOCK]}>
       <div className={styles[`${BLOCK}__profile`]}>
-        <Avatar
+        <Picture
           src="https://placehold.co/600x400/000000/FFFFFF.png"
           alt="Ava"
-          size="lg"
+          size="full"
           loading="lazy"
+          className={styles[`${BLOCK}__avatar`]}
         />
 
         <CircleActionButton

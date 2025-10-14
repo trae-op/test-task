@@ -1,14 +1,16 @@
 import { ExclamationCircle } from "react-bootstrap-icons";
-import styles from "./Avatar.module.scss";
-import type { TAvatarErrorProps } from "./types";
+import styles from "./Picture.module.scss";
 
-const BLOCK = "avatar";
+const BLOCK = "picture";
 
-export const AvatarError = ({ size, hasError }: TAvatarErrorProps) => {
-  if (!hasError) {
-    return null;
-  }
-
+export const PictureError = ({
+  size,
+  hasError,
+}: {
+  size?: string | number;
+  hasError: boolean;
+}) => {
+  if (!hasError) return null;
   return (
     <div className={styles[`${BLOCK}__error`]}>
       <ExclamationCircle

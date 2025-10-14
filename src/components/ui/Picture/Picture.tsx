@@ -1,0 +1,92 @@
+"use client";
+
+import { memo, useMemo, useState, SyntheticEvent } from "react";
+import Image from "next/image";
+import clsx from "clsx";
+import styles from "./Picture.module.scss";
+import type { TPictureProps } from "./types";
+import { PicturePlaceholder } from "./PicturePlaceholder";
+import { PictureError } from "./PictureError";
+
+const BLOCK = "picture";
+
+export const Picture = memo(
+  ({
+    size = "md",
+    className,
+    width,
+    height,
+    onError,
+    onLoad,
+    aspectRatio,
+    fit = "cover",
+    ...rest
+  }: TPictureProps) => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
+
+    const sizeMap = { sm: 40, md: 80, lg: 120, xl: 160 } as const;
+
+    const isFull = size === "full";
+
+    const imageSize = useMemo(() => {
+      if (isFull) return undefined; // will use fill mode
+      if (width && height) return { width, height };
+      if (sizeMap[size]) return { width: sizeMap[size], height: sizeMap[size] };
+      return { width: 80, height: 80 };
+    }, [isFull, width, height, size]);
+
+    const containerClassName = useMemo(
+      () => clsx(styles[BLOCK], styles[`${BLOCK}__${size}`], className),
+      [size, className]
+    );
+
+    // const containerStyle = useMemo(() => {
+    //   if (!isFull) return undefined;
+    //   return aspectRatio ? { aspectRatio } : undefined;
+    // }, [isFull, aspectRatio]);
+
+    const imageClassName = useMemo(
+      () =>
+        clsx(
+          styles[`${BLOCK}__image`],
+          isLoading && styles[`${BLOCK}__image--hidden`],
+          isFull && styles[`${BLOCK}__full`]
+        ),
+      [isLoading, isFull]
+    );
+
+    const handleLoad = (event: SyntheticEvent<HTMLImageElement>) => {
+      setIsLoading(false);
+      onLoad?.(event);
+    };
+
+    const handleError = (event: SyntheticEvent<HTMLImageElement>) => {
+      setIsLoading(false);
+      setHasError(true);
+      onError?.(event);
+    };
+
+    const iconSize = useMemo(() => {
+      const base = size && size !== "full" ? sizeMap[size] : 80;
+      return Math.floor(base * 0.3);
+    }, [size]);
+
+    return (
+      <div className={containerClassName}>
+        <PicturePlaceholder isLoading={isLoading} />
+        <PictureError hasError={hasError} size={iconSize} />
+        <Image
+          className={imageClassName}
+          onLoad={handleLoad}
+          onError={handleError}
+          style={{ objectFit: fit }}
+          {...(isFull
+            ? { fill: true, sizes: rest.sizes ?? "100vw" }
+            : (imageSize as { width: number; height: number }))}
+          {...rest}
+        />
+      </div>
+    );
+  }
+);

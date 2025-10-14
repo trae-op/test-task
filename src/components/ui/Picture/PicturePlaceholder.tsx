@@ -1,14 +1,10 @@
 import { Placeholder } from "react-bootstrap";
-import styles from "./Avatar.module.scss";
-import type { TAvatarPlaceholderProps } from "./types";
+import styles from "./Picture.module.scss";
 
-const BLOCK = "avatar";
+const BLOCK = "picture";
 
-export const AvatarPlaceholder = ({ isLoading }: TAvatarPlaceholderProps) => {
-  if (!isLoading) {
-    return null;
-  }
-
+export const PicturePlaceholder = ({ isLoading }: { isLoading: boolean }) => {
+  if (!isLoading) return null;
   return (
     <div className={styles[`${BLOCK}__placeholder`]}>
       <Placeholder

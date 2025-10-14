@@ -1,5 +1,5 @@
 $primary-color: #5cb85c;
-$hover-color: #4d9a4d;
+$background-color: #4d9a4d;
 $border-color: #438743;
 $icon-size: 1rem;
 $white-color: #ffffff;
@@ -22,6 +22,7 @@ $white-color: #ffffff;
   }
 
   &:hover {
-    background-color: $hover-color;
+    background-color: $background-color;
+    border-color: $border-color;
   }
 }
