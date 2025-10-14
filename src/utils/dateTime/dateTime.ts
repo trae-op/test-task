@@ -1,7 +1,6 @@
 import { format, parseISO } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { TFormatDateParams } from "./types";
-import { Locale } from "date-fns";
 
 const DEFAULT_FORMAT = "dd MMMM yyyy HH:mm";
 
