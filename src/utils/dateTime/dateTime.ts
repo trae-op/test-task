@@ -1,23 +1,17 @@
-import type { TDateTimeFormat, TLocale } from "./types";
+import { format, parseISO } from "date-fns";
+import { enUS } from "date-fns/locale";
+import { TFormatDateParams } from "./types";
+import { Locale } from "date-fns";
 
-export const formatDateTime = (
-  date: Date,
-  locale: TLocale = "uk-UA"
-): TDateTimeFormat => {
-  const formattedDate = new Intl.DateTimeFormat(locale, {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(date);
+const DEFAULT_FORMAT = "dd MMMM yyyy HH:mm";
 
-  const formattedTime = new Intl.DateTimeFormat(locale, {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  }).format(date);
+export const formatDateTime = (params: TFormatDateParams): string => {
+  const { dateString, locale = enUS, formatString } = params;
 
-  return {
-    formattedDate,
-    formattedTime,
-  };
+  const dateToFormat =
+    typeof dateString === "string" ? parseISO(dateString) : dateString;
+
+  const finalFormat = formatString ?? DEFAULT_FORMAT;
+
+  return format(dateToFormat, finalFormat, { locale });
 };

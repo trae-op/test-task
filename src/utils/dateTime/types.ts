@@ -1,6 +1,11 @@
-export type TDateTimeFormat = {
-  formattedDate: string;
-  formattedTime?: string;
+import type { Locale } from "date-fns";
+
+export type TDateFnsLocale = {
+  locale: Locale;
 };
 
-export type TLocale = "uk-UA" | "en-US";
+export type TFormatDateParams = {
+  dateString: string | Date;
+  locale?: Locale;
+  formatString?: string;
+};
