@@ -1,9 +1,9 @@
-import styles from "./Layout.module.scss";
+import styles from './Layout.module.scss';
 
 export default async function AuthLayout({
-  children,
+	children
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return <div className={styles["auth-layout"]}>{children}</div>;
+	return <div className={styles['auth-layout']}>{children}</div>;
 }

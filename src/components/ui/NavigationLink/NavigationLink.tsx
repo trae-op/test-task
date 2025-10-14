@@ -1,25 +1,26 @@
-"use client";
+'use client';
 
-import { memo, useMemo } from "react";
-import { useSelectedLayoutSegment } from "next/navigation";
-import { Link } from "@/i18n/navigation";
-import type { NavigationLinkProps } from "./types";
+import { useSelectedLayoutSegment } from 'next/navigation';
+import { memo, useMemo } from 'react';
+
+import type { NavigationLinkProps } from './types';
+import { Link } from '@/i18n/navigation';
 
 export const NavigationLink = memo(
-  ({ href, component: Component, text, ...rest }: NavigationLinkProps) => {
-    const selectedLayoutSegment = useSelectedLayoutSegment();
+	({ href, component: Component, text, ...rest }: NavigationLinkProps) => {
+		const selectedLayoutSegment = useSelectedLayoutSegment();
 
-    const pathname = useMemo(
-      () => (selectedLayoutSegment ? `/${selectedLayoutSegment}` : "/"),
-      [selectedLayoutSegment]
-    );
+		const pathname = useMemo(
+			() => (selectedLayoutSegment ? `/${selectedLayoutSegment}` : '/'),
+			[selectedLayoutSegment]
+		);
 
-    const isActive = useMemo(() => pathname === href, [pathname, href]);
+		const isActive = useMemo(() => pathname === href, [pathname, href]);
 
-    return (
-      <Link href={href} {...rest}>
-        <Component isActive={isActive} text={text} />
-      </Link>
-    );
-  }
+		return (
+			<Link href={href} {...rest}>
+				<Component isActive={isActive} text={text} />
+			</Link>
+		);
+	}
 );

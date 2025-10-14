@@ -1,9 +1,9 @@
-import IndependentComponents from "./IndependentComponents";
+import IndependentComponents from './IndependentComponents';
 
 export default function Home() {
-  return (
-    <>
-      <IndependentComponents />
-    </>
-  );
+	return (
+		<>
+			<IndependentComponents />
+		</>
+	);
 }
