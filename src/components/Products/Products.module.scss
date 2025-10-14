@@ -1,23 +1,25 @@
+$primary-color: #007bff;
 $border-color: #ddd;
+$light-gray: #f9f9f9;
 $text-color: #333;
 $gap-size: 30px;
 
 .table-scroll-wrapper {
   width: 100%;
   max-width: 100%;
-  overflow-x: auto;
+  overflow-x: auto; // enable horizontal scroll when needed
   overflow-y: visible;
   -webkit-overflow-scrolling: touch;
   flex-shrink: 1;
-  min-width: 0;
+  min-width: 0; // allow wrapper to shrink within content area
   margin-top: 40px;
 
   .product-table {
     border-collapse: separate;
     border-spacing: 0 10px;
     width: 100%;
-    min-width: 1024px;
-    table-layout: fixed;
+    min-width: 1024px; // ensure horizontal scrollbar appears on narrow screens
+    table-layout: fixed; // predictable column widths for scrolling
   }
 }
 
@@ -33,7 +35,7 @@ $gap-size: 30px;
     border-right: none;
     background-color: white;
     padding: 0;
-    height: 80px;
+    height: 60px;
 
     &:first-child {
       border-left: 1px solid $border-color;
@@ -47,34 +49,6 @@ $gap-size: 30px;
       border-bottom-right-radius: 8px;
       text-align: center;
     }
-  }
-
-  &__left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-right: 10px;
-  }
-
-  &__status-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #9e9e9e;
-    display: inline-block;
-
-    &[data-status="free"] {
-      background-color: #cddc39;
-    }
-    &[data-status="repair"] {
-      background-color: #37474f;
-    }
-  }
-
-  &__name-group {
-    display: flex;
-    flex-direction: column;
-    min-width: 240px;
   }
 
   &__content {
@@ -95,11 +69,6 @@ $gap-size: 30px;
     text-overflow: ellipsis;
     width: 100%;
     text-align: left;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   &__details {
@@ -116,11 +85,36 @@ $gap-size: 30px;
     white-space: nowrap;
   }
 
-  &__sku {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-      "Liberation Mono", "Courier New", monospace;
-    font-size: 12px;
-    color: #666;
+  &__container-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    border: 1px solid gray;
+    border-radius: 50%;
+  }
+
+  &__icon {
+    color: gray;
+  }
+
+  &__count {
+    text-align: left;
+    font-size: 16px;
+  }
+
+  &__primary-text {
+    font-weight: bold;
+    text-align: left;
+    font-size: 10px;
+    color: gray;
+  }
+
+  &__secondary-text {
+    font-size: 13px;
+    font-weight: bold;
   }
 
   &__price-group {
@@ -134,20 +128,20 @@ $gap-size: 30px;
     }
   }
 
-  &__link {
-    color: inherit;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
   &__delete-btn {
     cursor: pointer;
     color: gray;
     transition: color 0.2s;
-    width: 40px;
+    width: 200px;
 
     &:hover {
       color: red;
     }
   }
+}
+
+.product-table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  width: 100%;
 }

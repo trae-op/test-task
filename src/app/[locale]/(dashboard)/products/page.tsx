@@ -1,89 +1,43 @@
-import { ProductTable } from "@/components/Products";
+import { ProductsTable } from "@/components/Products";
 import type { TProductData } from "@/components/Products/types";
 
-const dummyProducts: TProductData[] = [
+const dummyData: TProductData[] = [
   {
-    id: "p1",
-    name: "Gigabyte Technology X58-USB3 (Socket 1366) 6 X58-USB3",
-    sku: "12.3456789",
-    image: "https://placehold.co/96x64.png",
-    status: "free",
-    availabilityLabel: "свободен",
-    period: {
-      from: { day: "06", month: "04", year: "2017" },
-      to: { day: "06", month: "08", year: "2025" },
-    },
-    condition: "new",
-    inStock: 1,
+    id: "1",
+    name: "Длинное предлинное длиннющее название прихода",
+    productCount: 23,
+    date: { day: "04", month: "12", year: "2017" },
     priceUSD: 2500,
     priceUAH: 250000.5,
-    groupName: "Длинное предлинное  длиннючее название группы",
-    ownerName: "—",
-    receiptName: "Длинное предлинное  длиннючее название прихода",
-    receiptDate: { day: "06", month: "12", year: "2017" },
   },
   {
-    id: "p2",
-    name: "Gigabyte Technology X58-USB3 (Socket 1366) 6 X58-USB3",
-    sku: "12.3456789",
-    image: "https://placehold.co/96x64.png",
-    status: "repair",
-    availabilityLabel: "В ремонте",
-    period: {
-      from: { day: "06", month: "04", year: "2017" },
-      to: { day: "06", month: "08", year: "2025" },
-    },
-    condition: "used",
-    inStock: 1,
-    priceUSD: 2500,
-    priceUAH: 250000.5,
-    groupName: "Длинное предлинное  длиннючее название группы",
-    ownerName: "—",
-    receiptName: "Длинное предлинное  длиннючее название прихода",
-    receiptDate: { day: "06", month: "12", year: "2017" },
+    id: "2",
+    name: "Длинное название прихода",
+    productCount: 23,
+    date: { day: "09", month: "12", year: "2017" },
+    priceUAH: 50.0,
   },
   {
-    id: "p3",
-    name: "Gigabyte Technology X58-USB3 (Socket 1366) 6 X58-USB3",
-    sku: "12.3456789",
-    image: "https://placehold.co/96x64.png",
-    status: "free",
-    availabilityLabel: "свободен",
-    period: {
-      from: { day: "06", month: "04", year: "2017" },
-      to: { day: "06", month: "08", year: "2025" },
-    },
-    condition: "new",
-    inStock: 1,
-    priceUSD: 2500,
-    priceUAH: 250000.5,
-    groupName: "—",
-    ownerName: "Христорождественский Александр",
-    receiptName: "Длинное предлинное  длиннючее название прихода",
-    receiptDate: { day: "06", month: "12", year: "2017" },
+    id: "3",
+    name: "Длинное предлинное длиннющее название прихода",
+    productCount: 23,
+    date: { day: "06", month: "12", year: "2017" },
+    priceUSD: 2500.85,
+    priceUAH: 50.25,
   },
   {
-    id: "p4",
-    name: "Gigabyte Technology X58-USB3 (Socket 1366) 6 X58-USB3",
-    sku: "12.3456789",
-    image: "https://placehold.co/96x64.png",
-    status: "repair",
-    availabilityLabel: "В ремонте",
-    period: {
-      from: { day: "06", month: "04", year: "2017" },
-      to: { day: "06", month: "08", year: "2025" },
-    },
-    condition: "used",
-    inStock: 1,
-    priceUSD: 2500,
-    priceUAH: 250000.5,
-    groupName: "Длинное предлинное  длиннючее название группы",
-    ownerName: "—",
-    receiptName: "Длинное предлинное  длиннючее название прихода",
-    receiptDate: { day: "06", month: "12", year: "2017" },
+    id: "4",
+    name: "Длинное предлинное название прихода",
+    productCount: 23,
+    date: { day: "02", month: "12", year: "2017" },
+    priceUAH: 50.25,
   },
 ];
 
 export default function ProductsPage() {
-  return <ProductTable items={dummyProducts} />;
+  return (
+    <>
+      <ProductsTable items={dummyData} />
+    </>
+  );
 }
