@@ -5,16 +5,15 @@ $icon-size: 1rem;
 $white-color: #ffffff;
 
 .add-content-btn {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   padding: 0;
   background-color: $primary-color;
   display: flex;
   align-items: center;
   justify-content: center;
-  outline: 3px solid $border-color;
-  border: 0;
+  border: 3px solid $border-color;
 
   &__icon {
     color: $white-color;
