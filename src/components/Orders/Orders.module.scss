@@ -7,18 +7,19 @@ $gap-size: 30px;
 .table-scroll-wrapper {
   width: 100%;
   max-width: 100%;
-  overflow-x: auto;
+  overflow-x: auto; // enable horizontal scroll when needed
+  overflow-y: visible;
   -webkit-overflow-scrolling: touch;
   flex-shrink: 1;
-  min-width: 0;
+  min-width: 0; // allow wrapper to shrink within content area
   margin-top: 40px;
 
   .order-table {
     border-collapse: separate;
     border-spacing: 0 10px;
     width: 100%;
-    min-width: 900px;
-    table-layout: auto;
+    min-width: 1024px; // ensure horizontal scrollbar appears on narrow screens
+    table-layout: fixed; // predictable column widths for scrolling
   }
 }
 
