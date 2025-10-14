@@ -12,6 +12,9 @@
 
 ### Type System
 
+- Avoid redundant TypeScript code definitions
+- Actively leverage Utility Types (such as Partial, Pick, Omit, etc.) when appropriate
+- Utilize generics where necessary for type flexibility and code reuse
 - Always use `type` instead of `interface`
 - Type names must follow the pattern: `TName`, `TUserProps`, `TAvatarData`
 - Store all types in a separate `types.ts` file
@@ -32,7 +35,7 @@
 ### Component Structure
 
 - Components must be arrow functions
-- Always use React.memo for memoization
+- React components should be arrow functions and use memoization when necessary
 - Props must be destructured in function arguments
 - Never use `React.FC` or `FC` type annotations
 
