@@ -11,12 +11,7 @@ import { TextField } from '@/components/ui/TextField';
 
 import { EMAIL_PATTERN, NAME_PATTERN, PASSWORD_PATTERN } from '@/utils/regExp';
 
-interface SignUpFormData {
-	name: string;
-	email: string;
-	password: string;
-	confirmPassword: string;
-}
+import type { TSignUpFormData } from './types';
 
 export default function SignUpPage() {
 	const t = useTranslations('App.auth.signUp');
@@ -28,13 +23,13 @@ export default function SignUpPage() {
 		handleSubmit,
 		watch,
 		formState: { errors }
-	} = useForm<SignUpFormData>({
+	} = useForm<TSignUpFormData>({
 		mode: 'onBlur'
 	});
 
 	const password = watch('password');
 
-	const onSubmit = (data: SignUpFormData) => {
+	const onSubmit = (data: TSignUpFormData) => {
 		console.log('Form data:', data);
 	};
 

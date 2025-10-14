@@ -11,10 +11,7 @@ import { TextField } from '@/components/ui/TextField';
 
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from '@/utils/regExp';
 
-interface SignInFormData {
-	email: string;
-	password: string;
-}
+import type { TSignInFormData } from './types';
 
 export default function SignInPage() {
 	const t = useTranslations('App.auth.signIn');
@@ -25,11 +22,11 @@ export default function SignInPage() {
 		register,
 		handleSubmit,
 		formState: { errors }
-	} = useForm<SignInFormData>({
+	} = useForm<TSignInFormData>({
 		mode: 'onBlur'
 	});
 
-	const onSubmit = (data: SignInFormData) => {
+	const onSubmit = (data: TSignInFormData) => {
 		console.log('Form data:', data);
 	};
 
