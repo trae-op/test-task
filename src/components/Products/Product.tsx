@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
 import { Trash } from 'react-bootstrap-icons';
 
@@ -13,6 +14,7 @@ const BLOCK = 'product-item';
 
 export const ProductRow = memo(
 	({ title, serialNumber, isNew, guarantee, price }: TProductProps) => {
+		const tp = useTranslations('App.products.status');
 		const dateTime = useCallback(
 			(date: Date, formatString: string) =>
 				formatDateTime({
@@ -21,7 +23,6 @@ export const ProductRow = memo(
 				}),
 			[]
 		);
-
 		return (
 			<tr className={styles[BLOCK]}>
 				<td className={styles[`${BLOCK}__content`]}>
@@ -51,7 +52,7 @@ export const ProductRow = memo(
 					</div>
 
 					<div className={styles[`${BLOCK}__status`]}>
-						{isNew === 1 ? 'new' : 'used'}
+						{isNew === 1 ? tp('new') : tp('used')}
 					</div>
 
 					<ProductPrice price={price} />

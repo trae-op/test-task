@@ -1,45 +1,63 @@
 {
-  "App": {
-    "Could not find requested resource": "Не вдалося знайти запитуваний ресурс",
-    "Not Found": "Не знайдено",
-    "Return Home": "Повернення додому",
-    "Something wrong with server": "Щось не так із сервером",
-    "sidebar": {
-      "Receipts": "Надходження",
-      "Products": "Продукти"
-    },
-    "auth": {
-      "signIn": {
-        "title": "Вхід",
-        "email": "Електронна пошта",
-        "password": "Пароль",
-        "submitButton": "Увійти",
-        "noAccount": "Немає облікового запису?",
-        "signUpLink": "Зареєструватися"
-      },
-      "signUp": {
-        "title": "Реєстрація",
-        "name": "Ім'я",
-        "email": "Електронна пошта",
-        "password": "Пароль",
-        "confirmPassword": "Підтвердження пароля",
-        "submitButton": "Зареєструватися",
-        "haveAccount": "Вже маєте обліковий запис?",
-        "signInLink": "Увійти"
-      },
-      "placeholders": {
-        "enterName": "Введіть ваше ім'я",
-        "enterEmail": "Введіть електронну пошту",
-        "enterPassword": "Введіть пароль",
-        "confirmPassword": "Підтвердіть пароль"
-      }
-    },
-    "errors": {
-      "required": "Це поле обов'язкове",
-      "email": "Будь ласка, введіть дійсну електронну адресу",
-      "password": "Пароль повинен містити мінімум 8 символів, хоча б одну літеру та одну цифру",
-      "name": "Ім'я повинно містити від 2 до 30 символів і тільки літери",
-      "passwordMatch": "Паролі повинні співпадати"
-    }
-  }
+	"App": {
+		"Could not find requested resource": "Не вдалося знайти запитуваний ресурс",
+		"Not Found": "Не знайдено",
+		"Return Home": "Повернення додому",
+		"Something wrong with server": "Щось не так із сервером",
+		"sidebar": {
+			"Receipts": "Надходження",
+			"Products": "Продукти"
+		},
+		"auth": {
+			"signIn": {
+				"title": "Вхід",
+				"email": "Електронна пошта",
+				"password": "Пароль",
+				"submitButton": "Увійти",
+				"noAccount": "Немає облікового запису?",
+				"signUpLink": "Зареєструватися"
+			},
+			"signUp": {
+				"title": "Реєстрація",
+				"name": "Ім'я",
+				"email": "Електронна пошта",
+				"password": "Пароль",
+				"confirmPassword": "Підтвердження пароля",
+				"submitButton": "Зареєструватися",
+				"haveAccount": "Вже маєте обліковий запис?",
+				"signInLink": "Увійти"
+			},
+			"placeholders": {
+				"enterName": "Введіть ваше ім'я",
+				"enterEmail": "Введіть електронну пошту",
+				"enterPassword": "Введіть пароль",
+				"confirmPassword": "Підтвердіть пароль"
+			}
+		},
+		"products": {
+			"state": {
+				"available": "Доступний",
+				"inRepair": "В ремонті"
+			},
+			"status": {
+				"new": "новий",
+				"used": "вживаний"
+			}
+		},
+		"orders": {
+			"productLabel": "Продукта"
+		},
+		"ui": {
+			"addContent": {
+				"ariaLabel": "додати вміст"
+			}
+		},
+		"errors": {
+			"required": "Це поле обов'язкове",
+			"email": "Будь ласка, введіть дійсну електронну адресу",
+			"password": "Пароль повинен містити мінімум 8 символів, хоча б одну літеру та одну цифру",
+			"name": "Ім'я повинно містити від 2 до 30 символів і тільки літери",
+			"passwordMatch": "Паролі повинні співпадати"
+		}
+	}
 }
