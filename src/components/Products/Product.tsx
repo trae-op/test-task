@@ -12,6 +12,10 @@ export const ProductRow = memo((props: TProductProps) => {
   return (
     <tr className={styles[BLOCK]}>
       <td className={styles[`${BLOCK}__content`]}>
+        <div>
+          <div className={styles[`${BLOCK}__status-dot`]}></div>
+        </div>
+
         <div className={styles[`${BLOCK}__name`]} title={name}>
           {name}
         </div>
