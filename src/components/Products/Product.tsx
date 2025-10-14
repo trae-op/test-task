@@ -29,9 +29,7 @@ export const ProductRow = memo(
 						<div
 							className={clsx(
 								styles[`${BLOCK}__status-dot`],
-								isNew === 1
-									? styles[`${BLOCK}__status-dot-new`]
-									: styles[`${BLOCK}__status-dot-used`]
+								styles[`${BLOCK}__status-dot-${isNew === 1 ? 'new' : 'used'}`]
 							)}
 						></div>
 					</div>
