@@ -8,7 +8,6 @@ const navigationItems: TSidebarNavItem[] = [
   { href: "/orders", label: "Receipts" },
   { href: "/products", label: "Products" },
 ];
-// title, currentValue, totalValue
 export default async function AuthLayout({
   children,
 }: Readonly<{

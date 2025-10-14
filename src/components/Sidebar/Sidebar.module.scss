@@ -1,8 +1,8 @@
 .sidebar {
   background-color: #f8f9fa;
   width: 200px;
-  min-width: 200px; // do not allow sidebar to shrink
-  flex-shrink: 0; // keep fixed width inside flex container
+  min-width: 200px;
+  flex-shrink: 0;
   height: 100vh;
   padding: 1.5rem 1rem;
   display: flex;

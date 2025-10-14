@@ -13,19 +13,19 @@ $price-color: #6e727c;
 .table-scroll-wrapper {
   width: 100%;
   max-width: 100%;
-  overflow-x: auto; // enable horizontal scroll when needed
+  overflow-x: auto;
   overflow-y: visible;
   -webkit-overflow-scrolling: touch;
   flex-shrink: 1;
-  min-width: 0; // allow wrapper to shrink within content area
+  min-width: 0;
   margin-top: 40px;
 
   .product-table {
     border-collapse: separate;
     border-spacing: 0 10px;
     width: 100%;
-    min-width: 1024px; // ensure horizontal scrollbar appears on narrow screens
-    table-layout: fixed; // predictable column widths for scrolling
+    min-width: 1024px;
+    table-layout: fixed;
   }
 }
 

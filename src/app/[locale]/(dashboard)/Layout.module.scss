@@ -4,14 +4,14 @@
 
   &__container {
     display: flex;
-    min-width: 0; // allow children to shrink within viewport
+    min-width: 0;
   }
 
   &__content {
     padding: 50px 50px 0;
     width: 100%;
-    flex: 1 1 auto; // flexible content area
-    min-width: 0; // critical for horizontal scroll containers inside
-    overflow-x: hidden; // avoid double horizontal scrollbars at layout level
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-x: hidden;
   }
 }

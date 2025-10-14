@@ -30,7 +30,7 @@ export const Picture = memo(
     const isFull = size === "full";
 
     const imageSize = useMemo(() => {
-      if (isFull) return undefined; // will use fill mode
+      if (isFull) return undefined;
       if (width && height) return { width, height };
       if (sizeMap[size]) return { width: sizeMap[size], height: sizeMap[size] };
       return { width: 80, height: 80 };
@@ -40,11 +40,6 @@ export const Picture = memo(
       () => clsx(styles[BLOCK], styles[`${BLOCK}__${size}`], className),
       [size, className]
     );
-
-    // const containerStyle = useMemo(() => {
-    //   if (!isFull) return undefined;
-    //   return aspectRatio ? { aspectRatio } : undefined;
-    // }, [isFull, aspectRatio]);
 
     const imageClassName = useMemo(
       () =>
