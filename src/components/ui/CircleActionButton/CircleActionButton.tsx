@@ -1,29 +1,34 @@
-import { Button } from "react-bootstrap";
-import { XLg } from "react-bootstrap-icons";
-import clsx from "clsx";
+import clsx from 'clsx';
+import { Button } from 'react-bootstrap';
+import { XLg } from 'react-bootstrap-icons';
 
-import { CircleActionButtonProps } from "./types";
-import styles from "./CircleActionButton.module.scss";
+import styles from './CircleActionButton.module.scss';
+import { CircleActionButtonProps } from './types';
 
-const BLOCK = "circle-action-btn";
+const BLOCK = 'circle-action-btn';
 
 export const CircleActionButton = ({
-  Icon = XLg,
-  className = "",
-  iconClassName = "",
-  ariaLabelText,
-  iconSize = 20,
-  ...restProps
+	Icon,
+	className = '',
+	iconClassName = '',
+	ariaLabelText,
+	iconSize = 20,
+	children,
+	...restProps
 }: CircleActionButtonProps) => (
-  <Button
-    className={clsx(styles[BLOCK], className)}
-    variant="light"
-    aria-label={ariaLabelText}
-    {...restProps}
-  >
-    <Icon
-      className={clsx(styles[`${BLOCK}__icon`], iconClassName)}
-      size={iconSize}
-    />
-  </Button>
+	<Button
+		className={clsx(styles[BLOCK], className)}
+		variant='light'
+		aria-label={ariaLabelText}
+		{...restProps}
+	>
+		{Icon !== undefined && (
+			<Icon
+				className={clsx(styles[`${BLOCK}__icon`], iconClassName)}
+				size={iconSize}
+			/>
+		)}
+
+		{children !== undefined && children}
+	</Button>
 );

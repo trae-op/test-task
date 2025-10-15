@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 
 import { OrderTable } from '@/components/Orders';
 import { ProductsTable } from '@/components/Products';
+import { CloseEntityButton } from '@/components/ui/CloseEntityButton';
 import { DetailEntityLoading } from '@/components/ui/DetailEntityLoading/DetailEntityLoading';
 
 import type { TDynamicPageProps } from '@/types/dynamicPage';
@@ -53,17 +54,24 @@ async function Container({ params }: TDynamicPageProps) {
 			<div className='col-12 col-lg-4 col-xl-3'>
 				<OrderTable items={orders} isDetail />
 			</div>
-			<div className='col-12 col-lg-8 col-xl-9'>
+			<div className='col-12 col-lg-8 col-xl-9 position-relative'>
+				<CloseEntityButton
+					style={{ width: '2rem', height: '2rem' }}
+					aria-label='close'
+					className='d-flex align-items-center justify-content-center z-3 position-absolute negative-end-rem1 negative-top-rem1 border-0'
+					href='/orders'
+				/>
+
 				<ProductsTable items={products} isDetail />
 			</div>
 		</div>
 	);
 }
 
-export default function OrderPage(data: TDynamicPageProps) {
+export default function OrderPage(props: TDynamicPageProps) {
 	return (
 		<Suspense fallback={<DetailEntityLoading />}>
-			<Container {...data} />
+			<Container {...props} />
 		</Suspense>
 	);
 }

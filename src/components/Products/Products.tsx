@@ -1,3 +1,5 @@
+'use client';
+
 import { clsx } from 'clsx';
 import { memo } from 'react';
 import Table from 'react-bootstrap/Table';
@@ -15,7 +17,9 @@ export const ProductsTable = memo(
 		}
 
 		return (
-			<div className={styles['table-scroll-wrapper']}>
+			<div
+				className={clsx(styles['table-scroll-wrapper'], 'position-relative')}
+			>
 				<Table
 					className={clsx(styles[BLOCK], 'mb-0', {
 						[styles[`${BLOCK}--full-width`]]: !isDetail
