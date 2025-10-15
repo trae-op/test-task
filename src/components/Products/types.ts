@@ -1,6 +1,9 @@
 import type { TPrice, TProductData } from '@/types/product';
 
-export type TProductProps = TProductData;
+export type TProductProps = TProductData & {
+	isDeleteButton?: boolean;
+	isActive?: boolean;
+};
 
 export type TProductsProps = {
 	items: TProductData[];

@@ -1,23 +1,20 @@
 import { OrderTable } from '@/components/Orders';
 import { ProductsTable } from '@/components/Products';
 
+import type { TDynamicPageProps } from '@/types/dynamicPage';
 import type { TOrderData } from '@/types/order';
 import type { TProductData } from '@/types/product';
-
-import type { TPageProps } from './types';
 
 const orders: TOrderData[] = [
 	{
 		id: '1',
 		date: new Date('2017-06-29 12:09:33'),
-		products: ['1', '2', '3'],
-		isDeleteButton: false
+		products: ['1', '2', '3']
 	},
 	{
 		id: '2',
 		date: new Date('2017-06-29 12:09:33'),
-		products: ['3', '4'],
-		isDeleteButton: false
+		products: ['3', '4', '5', '6']
 	}
 ];
 
@@ -45,7 +42,7 @@ const products: TProductData[] = [
 	}
 ];
 
-export default async function OrderPage({ params }: TPageProps) {
+export default async function OrderPage({ params }: TDynamicPageProps) {
 	const { id } = await params;
 
 	return (

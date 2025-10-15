@@ -7,5 +7,4 @@ export type TOrderData = {
 	description?: string;
 	price?: TPrice[];
 	products?: string[];
-	isDeleteButton?: boolean;
 };

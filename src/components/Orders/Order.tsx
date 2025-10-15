@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
-import { ListUl } from 'react-bootstrap-icons';
+import { CaretRight, ListUl } from 'react-bootstrap-icons';
 
 import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 
@@ -20,7 +20,8 @@ export const OrderRow = memo(
 		price,
 		products,
 		id,
-		isDeleteButton = true
+		isDeleteButton = true,
+		isActive = false
 	}: TOrderProps) => {
 		const i18nLocale = useLocale();
 		const tp = useTranslations('App.products');
@@ -38,7 +39,7 @@ export const OrderRow = memo(
 
 		return (
 			<tr className={styles[BLOCK]}>
-				<td className={styles[`${BLOCK}__content`]}>
+				<td className={clsx(styles[`${BLOCK}__content`], 'overflow-hidden')}>
 					{title !== undefined && (
 						<div className={styles[`${BLOCK}__name`]} title={title}>
 							{title}
@@ -84,6 +85,21 @@ export const OrderRow = memo(
 						{isDeleteButton && (
 							<div className='d-flex align-items-center justify-content-center w-100 h-100'>
 								<DeleteEntityButton id={id} />
+							</div>
+						)}
+
+						{!isActive && !isDeleteButton && (
+							<div className='d-flex align-items-center justify-content-center h-100 px-3'></div>
+						)}
+
+						{isActive && (
+							<div
+								className={clsx(
+									styles[`${BLOCK}__arrow`],
+									'd-flex align-items-center justify-content-center h-100 px-2'
+								)}
+							>
+								<CaretRight size={18} />
 							</div>
 						)}
 					</div>
