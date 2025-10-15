@@ -17,6 +17,14 @@ export const NavigationLink = memo(
 
 		const isActive = useMemo(() => pathname === href, [pathname, href]);
 
+		if (!Component) {
+			return (
+				<Link href={href} {...rest}>
+					{text}
+				</Link>
+			);
+		}
+
 		return (
 			<Link href={href} {...rest}>
 				<Component isActive={isActive} text={text} />

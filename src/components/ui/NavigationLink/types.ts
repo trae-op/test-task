@@ -1,15 +1,16 @@
-import { ComponentProps, ComponentType } from "react";
-import { Link } from "@/i18n/navigation";
+import { ComponentProps, ComponentType } from 'react';
+
+import { Link } from '@/i18n/navigation';
 
 export type NavigationItemProps = {
-  isActive: boolean;
-  text?: string;
+	isActive: boolean;
+	text?: string;
 };
 
 export type NavigationLinkProps = Omit<
-  ComponentProps<typeof Link>,
-  "children"
+	ComponentProps<typeof Link>,
+	'children'
 > &
-  Pick<NavigationItemProps, "text"> & {
-    component: ComponentType<NavigationItemProps>;
-  };
+	Pick<NavigationItemProps, 'text'> & {
+		component?: ComponentType<NavigationItemProps>;
+	};

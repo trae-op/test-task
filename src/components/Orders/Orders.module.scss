@@ -67,15 +67,18 @@ $price-font-size: 12px;
 	}
 
 	&__name {
-		flex-grow: 1;
-		font-size: 16px;
-		font-weight: 500;
-		color: $text-color;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		width: 100%;
 		text-align: left;
+	}
+
+	&__name-link {
+		text-decoration: none;
+		font-size: 16px;
+		font-weight: 500;
+		color: $text-color;
 	}
 
 	&__price {

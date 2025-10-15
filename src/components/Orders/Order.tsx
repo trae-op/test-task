@@ -3,9 +3,11 @@ import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
 import { CaretRight, ListUl } from 'react-bootstrap-icons';
 
-import { DeleteEntityButton } from '@/components/DeleteEntityButton';
+import { DeleteEntityButton } from '@/components/ui/DeleteEntityButton';
+import { NavigationLink } from '@/components/ui/NavigationLink';
 
 import { formatDateTime } from '@/utils/dateTime';
+import { getOrderDetailHref } from '@/utils/routing';
 
 import styles from './Orders.module.scss';
 import { OrderPrice } from './Price';
@@ -41,8 +43,13 @@ export const OrderRow = memo(
 			<tr className={styles[BLOCK]}>
 				<td className={clsx(styles[`${BLOCK}__content`], 'overflow-hidden')}>
 					{title !== undefined && (
-						<div className={styles[`${BLOCK}__name`]} title={title}>
-							{title}
+						<div className={styles[`${BLOCK}__name`]}>
+							<NavigationLink
+								title={title}
+								className={styles[`${BLOCK}__name-link`]}
+								href={getOrderDetailHref(id)}
+								text={title}
+							/>
 						</div>
 					)}
 

@@ -19,8 +19,6 @@ export const OrderTable = memo(({ items, isDetail = false }: TOrdersProps) => {
 		return null;
 	}
 
-	console.log('id', id);
-
 	return (
 		<div className={styles['table-scroll-wrapper']}>
 			<Table

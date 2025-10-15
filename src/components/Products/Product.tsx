@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
 
-import { DeleteEntityButton } from '@/components/DeleteEntityButton';
+import { DeleteEntityButton } from '@/components/ui/DeleteEntityButton';
 
 import { formatDateTime } from '@/utils/dateTime';
 
