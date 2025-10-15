@@ -11,14 +11,14 @@ export type TGuarantee = {
 
 export type TProductData = {
 	id: string;
-	title: string;
-	serialNumber: string;
-	type: string;
+	title?: string;
+	serialNumber?: string;
+	type?: string;
 	date?: Date;
-	price: TPrice[];
-	isNew: 0 | 1;
-	photo: string;
-	specification: string;
-	guarantee: TGuarantee;
-	order: number;
+	price?: TPrice[];
+	isNew?: 0 | 1;
+	photo?: string;
+	specification?: string;
+	guarantee?: TGuarantee;
+	order?: number;
 };

@@ -13,12 +13,20 @@ import { TOrderProps } from './types';
 const BLOCK = 'order-item';
 
 export const OrderRow = memo(
-	({ title, date, price, products, id }: TOrderProps) => {
+	({
+		title,
+		date,
+		price,
+		products,
+		id,
+		isDeleteButton = true
+	}: TOrderProps) => {
 		const i18nLocale = useLocale();
 		const tp = useTranslations('App.products');
 
 		const dateTime = useCallback(
 			(formatString: string) =>
+				date &&
 				formatDateTime({
 					dateString: date,
 					i18nLocale,
@@ -30,40 +38,48 @@ export const OrderRow = memo(
 		return (
 			<tr className={styles[BLOCK]}>
 				<td className={styles[`${BLOCK}__content`]}>
-					<div className={styles[`${BLOCK}__name`]} title={title}>
-						{title}
-					</div>
+					{title !== undefined && (
+						<div className={styles[`${BLOCK}__name`]} title={title}>
+							{title}
+						</div>
+					)}
 					<div className={styles[`${BLOCK}__details`]}>
-						<div className={styles[`${BLOCK}__detail-item`]}>
-							<div className={styles[`${BLOCK}__container-icon`]}>
-								<ListUl className={styles[`${BLOCK}__icon`]} size={15} />
-							</div>
-							<div>
-								<div className={styles[`${BLOCK}__count`]}>
-									{products.length}
+						{products !== undefined && (
+							<div className={styles[`${BLOCK}__detail-item`]}>
+								<div className={styles[`${BLOCK}__container-icon`]}>
+									<ListUl className={styles[`${BLOCK}__icon`]} size={15} />
 								</div>
-								<div className={styles[`${BLOCK}__secondary-text`]}>
-									{tp('Products')}
+								<div>
+									<div className={styles[`${BLOCK}__count`]}>
+										{products.length}
+									</div>
+									<div className={styles[`${BLOCK}__secondary-text`]}>
+										{tp('Products')}
+									</div>
 								</div>
 							</div>
-						</div>
+						)}
 
-						<div className={styles[`${BLOCK}__detail-item`]}>
-							<div>
-								<div className={styles[`${BLOCK}__primary-text`]}>
-									{dateTime('dd / MM')}
-								</div>
-								<div className={styles[`${BLOCK}__secondary-text`]}>
-									{dateTime('dd MMM yyyy')}
+						{date !== undefined && (
+							<div className={styles[`${BLOCK}__detail-item`]}>
+								<div>
+									<div className={styles[`${BLOCK}__primary-text`]}>
+										{dateTime('dd / MM')}
+									</div>
+									<div className={styles[`${BLOCK}__secondary-text`]}>
+										{dateTime('dd MMM yyyy')}
+									</div>
 								</div>
 							</div>
-						</div>
+						)}
 
-						<OrderPrice price={price} />
+						{price !== undefined && <OrderPrice price={price} />}
 					</div>
-					<div className={styles[`${BLOCK}__delete-btn`]}>
-						<DeleteEntityButton id={id} />
-					</div>
+					{isDeleteButton && (
+						<div className={styles[`${BLOCK}__delete-btn`]}>
+							<DeleteEntityButton id={id} />
+						</div>
+					)}
 				</td>
 			</tr>
 		);

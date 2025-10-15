@@ -44,23 +44,26 @@ export const ProductRow = memo(
 						<span>{serialNumber}</span>
 					</div>
 
-					<ProductState isNew={isNew} />
+					{isNew !== undefined && <ProductState isNew={isNew} />}
 
-					<div className={styles[`${BLOCK}__guarantee`]}>
-						<span>
-							<span>{t('from')}</span>{' '}
-							{dateTime(guarantee.start, 'dd / MM / yyyy')}
-						</span>
-						<span>
-							<span>{t('to')}</span> {dateTime(guarantee.end, 'dd / MM / yyyy')}
-						</span>
-					</div>
+					{guarantee !== undefined && (
+						<div className={styles[`${BLOCK}__guarantee`]}>
+							<span>
+								<span>{t('from')}</span>{' '}
+								{dateTime(guarantee.start, 'dd / MM / yyyy')}
+							</span>
+							<span>
+								<span>{t('to')}</span>{' '}
+								{dateTime(guarantee.end, 'dd / MM / yyyy')}
+							</span>
+						</div>
+					)}
 
 					<div className={styles[`${BLOCK}__status`]}>
 						{isNew === 1 ? tp('new') : tp('used')}
 					</div>
 
-					<ProductPrice price={price} />
+					{price !== undefined && <ProductPrice price={price} />}
 
 					<div
 						className={styles[`${BLOCK}__order`]}
