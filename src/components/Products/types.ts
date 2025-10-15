@@ -4,6 +4,7 @@ export type TProductProps = TProductData;
 
 export type TProductsProps = {
 	items: TProductData[];
+	isDetail?: boolean;
 };
 
 export type TProductStateProps = {

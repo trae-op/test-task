@@ -1,3 +1,4 @@
+import { clsx } from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
 import { ListUl } from 'react-bootstrap-icons';
@@ -50,13 +51,18 @@ export const OrderRow = memo(
 								<div className={styles[`${BLOCK}__container-icon`]}>
 									<ListUl className={styles[`${BLOCK}__icon`]} size={15} />
 								</div>
-								<div>
-									<div className={styles[`${BLOCK}__count`]}>
+								<div
+									className={clsx(
+										styles[`${BLOCK}__container-count`],
+										'd-flex flex-column'
+									)}
+								>
+									<span className={styles[`${BLOCK}__count`]}>
 										{products.length}
-									</div>
-									<div className={styles[`${BLOCK}__secondary-text`]}>
+									</span>
+									<span className={styles[`${BLOCK}__primary-text`]}>
 										{tp('Products')}
-									</div>
+									</span>
 								</div>
 							</div>
 						)}

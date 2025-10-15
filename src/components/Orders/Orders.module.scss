@@ -2,6 +2,7 @@ $primary-color: #007bff;
 $border-color: #ddd;
 $light-gray: #f9f9f9;
 $text-color: #333;
+$gray-color: #696969;
 $gap-size: 30px;
 $price-color: #6e727c;
 $price-font-size: 12px;
@@ -20,8 +21,11 @@ $price-font-size: 12px;
 		border-collapse: separate;
 		border-spacing: 0 10px;
 		width: 100%;
-		min-width: 1024px;
 		table-layout: fixed;
+
+		&--full-width {
+			min-width: 1024px;
+		}
 	}
 }
 
@@ -103,8 +107,8 @@ $price-font-size: 12px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 25px;
-		height: 25px;
+		width: 30px;
+		height: 30px;
 		margin-right: 5px;
 		border: 1px solid gray;
 		border-radius: 50%;
@@ -112,6 +116,10 @@ $price-font-size: 12px;
 
 	&__icon {
 		color: gray;
+	}
+
+	&__container-count {
+		line-height: initial;
 	}
 
 	&__count {
@@ -123,7 +131,7 @@ $price-font-size: 12px;
 		font-weight: bold;
 		text-align: left;
 		font-size: 10px;
-		color: gray;
+		color: $gray-color;
 	}
 
 	&__secondary-text {

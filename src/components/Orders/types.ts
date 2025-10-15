@@ -5,6 +5,7 @@ export type TOrderProps = TOrderData;
 
 export type TOrdersProps = {
 	items: TOrderData[];
+	isDetail?: boolean;
 };
 
 export type TOrderPriceProps = {

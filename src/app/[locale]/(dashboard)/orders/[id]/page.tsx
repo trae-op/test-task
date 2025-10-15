@@ -50,8 +50,12 @@ export default async function OrderPage({ params }: TPageProps) {
 
 	return (
 		<div className='d-flex gap-1'>
-			<OrderTable items={orders} />
-			<ProductsTable items={products} />
+			<div className='w-50'>
+				<OrderTable items={orders} isDetail />
+			</div>
+			<div className='w-75'>
+				<ProductsTable items={products} isDetail />
+			</div>
 		</div>
 	);
 }

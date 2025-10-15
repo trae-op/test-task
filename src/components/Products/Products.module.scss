@@ -24,8 +24,11 @@ $price-color: #6e727c;
 		border-collapse: separate;
 		border-spacing: 0 10px;
 		width: 100%;
-		min-width: 1024px;
 		table-layout: fixed;
+
+		&--full-width {
+			min-width: 1024px;
+		}
 	}
 }
 
@@ -197,10 +200,4 @@ $price-color: #6e727c;
 
 		text-overflow: ellipsis;
 	}
-}
-
-.product-table {
-	border-collapse: separate;
-	border-spacing: 0 10px;
-	width: 100%;
 }
