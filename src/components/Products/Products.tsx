@@ -17,14 +17,14 @@ export const ProductsTable = memo(
 		return (
 			<div className={styles['table-scroll-wrapper']}>
 				<Table
-					className={clsx(styles[BLOCK], {
+					className={clsx(styles[BLOCK], 'mb-0', {
 						[styles[`${BLOCK}--full-width`]]: !isDetail
 					})}
 					borderless
 				>
 					<tbody>
 						{items.map(product => (
-							<ProductRow key={product.id} {...product} />
+							<ProductRow key={product.id} isDetail={isDetail} {...product} />
 						))}
 					</tbody>
 				</Table>

@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { memo, useCallback } from 'react';
 import { CaretRight, ListUl } from 'react-bootstrap-icons';
 
@@ -56,8 +57,25 @@ export const OrderRow = memo(
 					<div className={styles[`${BLOCK}__detail`]}>
 						{products !== undefined && (
 							<div className={styles[`${BLOCK}__detail-item`]}>
-								<div className={styles[`${BLOCK}__container-icon`]}>
-									<ListUl className={styles[`${BLOCK}__icon`]} size={15} />
+								<div
+									className={clsx(
+										styles[`${BLOCK}__container-icon`],
+										'd-flex align-items-center justify-content-center'
+									)}
+								>
+									<Link
+										className='d-flex align-items-center justify-content-center'
+										href={getOrderDetailHref(id)}
+										title={title}
+									>
+										<ListUl
+											style={{
+												stroke: 'black'
+											}}
+											className={styles[`${BLOCK}__icon`]}
+											size={15}
+										/>
+									</Link>
 								</div>
 								<div
 									className={clsx(

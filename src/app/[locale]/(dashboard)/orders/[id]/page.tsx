@@ -26,21 +26,21 @@ const products: TProductData[] = [
 		id: '1',
 		serialNumber: '1234',
 		isNew: 1,
-		photo: '',
+		photo: 'https://placehold.co/400x400.png',
 		title: 'Product 1'
 	},
 	{
 		id: '2',
 		serialNumber: '123433',
 		isNew: 0,
-		photo: '',
+		photo: 'https://placehold.co/400x400.png',
 		title: 'Product 2'
 	},
 	{
 		id: '3',
 		serialNumber: '12343355',
 		isNew: 1,
-		photo: '',
+		photo: 'https://placehold.co/400x400.png',
 		title: 'Product 3'
 	}
 ];
@@ -49,11 +49,11 @@ async function Container({ params }: TDynamicPageProps) {
 	const { id } = await params;
 
 	return (
-		<div className='d-flex gap-1'>
-			<div className='w-50'>
+		<div className='row g-1'>
+			<div className='col-12 col-lg-4 col-xl-3'>
 				<OrderTable items={orders} isDetail />
 			</div>
-			<div className='w-75'>
+			<div className='col-12 col-lg-8 col-xl-9'>
 				<ProductsTable items={products} isDetail />
 			</div>
 		</div>

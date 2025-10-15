@@ -3,6 +3,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
 
 import { DeleteEntityButton } from '@/components/ui/DeleteEntityButton';
+import { Picture } from '@/components/ui/Picture';
 
 import { formatDateTime } from '@/utils/dateTime';
 
@@ -21,7 +22,9 @@ export const ProductRow = memo(
 		guarantee,
 		price,
 		id,
-		order
+		order,
+		photo,
+		isDetail = false
 	}: TProductProps) => {
 		const i18nLocale = useLocale();
 		const tp = useTranslations('App.products.status');
@@ -47,41 +50,47 @@ export const ProductRow = memo(
 						></div>
 					</div>
 
-					<div className={styles[`${BLOCK}__name`]} title={title}>
-						<span>{title}</span>
-						<span>{serialNumber}</span>
+					<div
+						className={clsx(styles[`${BLOCK}__name`], 'd-flex gap-3 w-100')}
+						title={title}
+					>
+						{photo !== undefined && (
+							<Picture src={photo} alt={title || ''} size='sm' loading='lazy' />
+						)}
+						<div className='d-flex flex-column align-items-start '>
+							<span>{title}</span>
+							<span>{serialNumber}</span>
+						</div>
 					</div>
 
-					<div className={styles[`${BLOCK}__detail`]}>
-						{isNew !== undefined && <ProductState isNew={isNew} />}
+					{isNew !== undefined && <ProductState isNew={isNew} />}
 
-						{guarantee !== undefined && (
-							<div className={styles[`${BLOCK}__guarantee`]}>
-								<span>
-									<span>{t('from')}</span>{' '}
-									{dateTime(guarantee.start, 'dd / MM / yyyy')}
-								</span>
-								<span>
-									<span>{t('to')}</span>{' '}
-									{dateTime(guarantee.end, 'dd / MM / yyyy')}
-								</span>
-							</div>
-						)}
-
-						{price !== undefined && <ProductPrice price={price} />}
-
-						{order !== undefined && (
-							<div
-								className={styles[`${BLOCK}__order`]}
-								title='Длинное предлинное длиннющее название прихода'
-							>
-								Длинное предлинное длиннющее название прихода
-							</div>
-						)}
-
-						<div className='d-flex align-items-center justify-content-center w-100 h-100'>
-							<DeleteEntityButton id={id} />
+					{guarantee !== undefined && (
+						<div className={clsx(styles[`${BLOCK}__guarantee`], 'w-75')}>
+							<span>
+								<span>{t('from')}</span>{' '}
+								{dateTime(guarantee.start, 'dd / MM / yyyy')}
+							</span>
+							<span>
+								<span>{t('to')}</span>{' '}
+								{dateTime(guarantee.end, 'dd / MM / yyyy')}
+							</span>
 						</div>
+					)}
+
+					{price !== undefined && <ProductPrice price={price} />}
+
+					{order !== undefined && (
+						<div
+							className={styles[`${BLOCK}__order`]}
+							title='Длинное предлинное длиннющее название прихода'
+						>
+							Длинное предлинное длиннющее название прихода
+						</div>
+					)}
+
+					<div className='d-flex align-items-center justify-content-center w-50 h-100'>
+						<DeleteEntityButton id={id} />
 					</div>
 				</td>
 			</tr>

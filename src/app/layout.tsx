@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { clsx } from 'clsx';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
@@ -27,7 +28,12 @@ type Props = {
 export default function RootLayout({ children }: Props) {
 	return (
 		<html lang='en'>
-			<body className={`${geistSans.variable} ${geistMono.variable}`}>
+			<body
+				className={clsx(
+					`${geistSans.variable} ${geistMono.variable}`,
+					'bg-light'
+				)}
+			>
 				{children}
 			</body>
 		</html>

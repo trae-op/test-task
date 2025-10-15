@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { memo } from 'react';
 import { GearFill } from 'react-bootstrap-icons';
@@ -32,7 +33,7 @@ export const Sidebar = memo(({ items }: TSidebarProps) => {
 				<CircleActionButton
 					onClick={() => console.log(1111)}
 					Icon={GearFill}
-					className={styles[`${BLOCK}__settings-button`]}
+					className={clsx(styles[`${BLOCK}__settings-button`], 'z-3')}
 					iconClassName={styles[`${BLOCK}__settings-button-icon`]}
 					aria-label='settings'
 				/>

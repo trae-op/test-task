@@ -22,7 +22,7 @@ export const OrderTable = memo(({ items, isDetail = false }: TOrdersProps) => {
 	return (
 		<div className={styles['table-scroll-wrapper']}>
 			<Table
-				className={clsx(styles[BLOCK], {
+				className={clsx(styles[BLOCK], 'mb-0', {
 					[styles[`${BLOCK}--full-width`]]: !isDetail
 				})}
 				borderless

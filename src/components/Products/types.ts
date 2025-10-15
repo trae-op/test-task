@@ -3,6 +3,7 @@ import type { TPrice, TProductData } from '@/types/product';
 export type TProductProps = TProductData & {
 	isDeleteButton?: boolean;
 	isActive?: boolean;
+	isDetail?: boolean;
 };
 
 export type TProductsProps = {
