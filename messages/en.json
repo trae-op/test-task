@@ -4,6 +4,8 @@
 		"Not Found": "Not Found",
 		"Return Home": "Return Home",
 		"Something wrong with server": "Something wrong with server",
+		"from": "from",
+		"to": "to",
 		"sidebar": {
 			"Receipts": "Receipts",
 			"Products": "Products"

@@ -1,5 +1,4 @@
-import { uk } from 'date-fns/locale';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
 import { ListUl } from 'react-bootstrap-icons';
 
@@ -15,16 +14,17 @@ const BLOCK = 'order-item';
 
 export const OrderRow = memo(
 	({ title, date, price, products, id }: TOrderProps) => {
+		const i18nLocale = useLocale();
 		const tp = useTranslations('App.products');
 
 		const dateTime = useCallback(
 			(formatString: string) =>
 				formatDateTime({
 					dateString: date,
-					locale: uk,
+					i18nLocale,
 					formatString
 				}),
-			[date]
+			[date, i18nLocale]
 		);
 
 		return (

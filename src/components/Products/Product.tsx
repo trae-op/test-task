@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
 
 import { DeleteEntityButton } from '@/components/DeleteEntityButton';
@@ -15,14 +15,17 @@ const BLOCK = 'product-item';
 
 export const ProductRow = memo(
 	({ title, serialNumber, isNew, guarantee, price, id }: TProductProps) => {
+		const i18nLocale = useLocale();
 		const tp = useTranslations('App.products.status');
+		const t = useTranslations('App');
 		const dateTime = useCallback(
 			(date: Date, formatString: string) =>
 				formatDateTime({
 					dateString: date,
-					formatString
+					formatString,
+					i18nLocale
 				}),
-			[]
+			[i18nLocale]
 		);
 		return (
 			<tr className={styles[BLOCK]}>
@@ -45,10 +48,11 @@ export const ProductRow = memo(
 
 					<div className={styles[`${BLOCK}__guarantee`]}>
 						<span>
-							<span>from</span> {dateTime(guarantee.start, 'dd / MM / yyyy')}
+							<span>{t('from')}</span>{' '}
+							{dateTime(guarantee.start, 'dd / MM / yyyy')}
 						</span>
 						<span>
-							<span>to</span> {dateTime(guarantee.end, 'dd / MM / yyyy')}
+							<span>{t('to')}</span> {dateTime(guarantee.end, 'dd / MM / yyyy')}
 						</span>
 					</div>
 

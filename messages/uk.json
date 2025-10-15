@@ -4,6 +4,8 @@
 		"Not Found": "Не знайдено",
 		"Return Home": "Повернення додому",
 		"Something wrong with server": "Щось не так із сервером",
+		"from": "з",
+		"to": "до",
 		"sidebar": {
 			"Receipts": "Надходження",
 			"Products": "Продукти"

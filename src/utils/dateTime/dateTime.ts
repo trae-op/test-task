@@ -1,16 +1,31 @@
-import { format, parseISO } from "date-fns";
-import { enUS } from "date-fns/locale";
-import { TFormatDateParams } from "./types";
+import { format, parseISO } from 'date-fns';
+import { de, enUS, es, fr, pl, ru, uk } from 'date-fns/locale';
 
-const DEFAULT_FORMAT = "dd MMMM yyyy HH:mm";
+import { TFormatDateParams } from './types';
+
+const DEFAULT_FORMAT = 'dd MMMM yyyy HH:mm';
+
+const mapI18nToDateFns = (code?: string) => {
+	switch (code?.toLowerCase()) {
+		case 'uk':
+		case 'uk-ua':
+			return uk;
+		case 'en':
+		case 'en-us':
+		default:
+			return enUS;
+	}
+};
 
 export const formatDateTime = (params: TFormatDateParams): string => {
-  const { dateString, locale = enUS, formatString } = params;
+	const { dateString, locale, formatString, i18nLocale } = params;
 
-  const dateToFormat =
-    typeof dateString === "string" ? parseISO(dateString) : dateString;
+	const effectiveLocale = locale ?? mapI18nToDateFns(i18nLocale);
 
-  const finalFormat = formatString ?? DEFAULT_FORMAT;
+	const dateToFormat =
+		typeof dateString === 'string' ? parseISO(dateString) : dateString;
 
-  return format(dateToFormat, finalFormat, { locale });
+	const finalFormat = formatString ?? DEFAULT_FORMAT;
+
+	return format(dateToFormat, finalFormat, { locale: effectiveLocale });
 };

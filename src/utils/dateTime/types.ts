@@ -1,11 +1,12 @@
-import type { Locale } from "date-fns";
+import type { Locale } from 'date-fns';
 
 export type TDateFnsLocale = {
-  locale: Locale;
+	locale: Locale;
 };
 
 export type TFormatDateParams = {
-  dateString: string | Date;
-  locale?: Locale;
-  formatString?: string;
+	dateString: string | Date;
+	locale?: Locale;
+	formatString?: string;
+	i18nLocale?: string;
 };
