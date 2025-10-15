@@ -35,6 +35,7 @@
 			}
 		},
 		"products": {
+			"Products": "Products",
 			"state": {
 				"available": "Available",
 				"inRepair": "In Repair"

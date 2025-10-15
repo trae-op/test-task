@@ -35,6 +35,7 @@
 			}
 		},
 		"products": {
+			"Products": "Продукти",
 			"state": {
 				"available": "Доступний",
 				"inRepair": "В ремонті"

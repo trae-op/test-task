@@ -1,20 +1,12 @@
-export type TOrderData = {
-  id: string;
-  name: string;
-  productCount: number;
-  date: {
-    day: string;
-    month: string;
-    year: string;
-  };
-  priceUSD?: number;
-  priceUAH: number;
-};
+import type { TOrderData } from '@/types/order';
+import type { TPrice } from '@/types/product';
 
-export type TOrderProps = {
-  data: TOrderData;
-};
+export type TOrderProps = TOrderData;
 
 export type TOrdersProps = {
-  items: TOrderData[];
+	items: TOrderData[];
+};
+
+export type TOrderPriceProps = {
+	price: TPrice[];
 };
