@@ -1,5 +1,8 @@
+import { Suspense } from 'react';
+
 import { OrderTable } from '@/components/Orders';
 import { ProductsTable } from '@/components/Products';
+import { DetailEntityLoading } from '@/components/ui/DetailEntityLoading/DetailEntityLoading';
 
 import type { TDynamicPageProps } from '@/types/dynamicPage';
 import type { TOrderData } from '@/types/order';
@@ -42,7 +45,7 @@ const products: TProductData[] = [
 	}
 ];
 
-export default async function OrderPage({ params }: TDynamicPageProps) {
+async function Container({ params }: TDynamicPageProps) {
 	const { id } = await params;
 
 	return (
@@ -54,5 +57,13 @@ export default async function OrderPage({ params }: TDynamicPageProps) {
 				<ProductsTable items={products} isDetail />
 			</div>
 		</div>
+	);
+}
+
+export default function OrderPage(data: TDynamicPageProps) {
+	return (
+		<Suspense fallback={<DetailEntityLoading />}>
+			<Container {...data} />
+		</Suspense>
 	);
 }
