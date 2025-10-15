@@ -43,7 +43,8 @@ export const OrderRow = memo(
 							{title}
 						</div>
 					)}
-					<div className={styles[`${BLOCK}__details`]}>
+
+					<div className={styles[`${BLOCK}__detail`]}>
 						{products !== undefined && (
 							<div className={styles[`${BLOCK}__detail-item`]}>
 								<div className={styles[`${BLOCK}__container-icon`]}>
@@ -74,12 +75,12 @@ export const OrderRow = memo(
 						)}
 
 						{price !== undefined && <OrderPrice price={price} />}
+						{isDeleteButton && (
+							<div className='d-flex align-items-center justify-content-center w-100 h-100'>
+								<DeleteEntityButton id={id} />
+							</div>
+						)}
 					</div>
-					{isDeleteButton && (
-						<div className={styles[`${BLOCK}__delete-btn`]}>
-							<DeleteEntityButton id={id} />
-						</div>
-					)}
 				</td>
 			</tr>
 		);
