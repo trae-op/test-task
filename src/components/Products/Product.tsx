@@ -1,7 +1,8 @@
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
-import { Trash } from 'react-bootstrap-icons';
+
+import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 
 import { formatDateTime } from '@/utils/dateTime';
 
@@ -13,7 +14,7 @@ import type { TProductProps } from './types';
 const BLOCK = 'product-item';
 
 export const ProductRow = memo(
-	({ title, serialNumber, isNew, guarantee, price }: TProductProps) => {
+	({ title, serialNumber, isNew, guarantee, price, id }: TProductProps) => {
 		const tp = useTranslations('App.products.status');
 		const dateTime = useCallback(
 			(date: Date, formatString: string) =>
@@ -65,7 +66,7 @@ export const ProductRow = memo(
 					</div>
 
 					<div className={styles[`${BLOCK}__delete-btn`]}>
-						<Trash size={18} />
+						<DeleteEntityButton id={id} />
 					</div>
 				</td>
 			</tr>

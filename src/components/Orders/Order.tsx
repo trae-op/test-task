@@ -1,7 +1,9 @@
 import { uk } from 'date-fns/locale';
 import { useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
-import { ListUl, Trash } from 'react-bootstrap-icons';
+import { ListUl } from 'react-bootstrap-icons';
+
+import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 
 import { formatDateTime } from '@/utils/dateTime';
 
@@ -12,7 +14,7 @@ import { TOrderProps } from './types';
 const BLOCK = 'order-item';
 
 export const OrderRow = memo(
-	({ title, date, price, products }: TOrderProps) => {
+	({ title, date, price, products, id }: TOrderProps) => {
 		const tp = useTranslations('App.products');
 
 		const dateTime = useCallback(
@@ -60,7 +62,7 @@ export const OrderRow = memo(
 						<OrderPrice price={price} />
 					</div>
 					<div className={styles[`${BLOCK}__delete-btn`]}>
-						<Trash size={18} />
+						<DeleteEntityButton id={id} />
 					</div>
 				</td>
 			</tr>

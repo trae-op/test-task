@@ -146,14 +146,9 @@ $price-font-size: 12px;
 	}
 
 	&__delete-btn {
-		cursor: pointer;
-		color: gray;
-		transition: color 0.2s;
 		width: 200px;
-
-		&:hover {
-			color: red;
-		}
+		height: 100%;
+		position: relative;
 	}
 }
 
