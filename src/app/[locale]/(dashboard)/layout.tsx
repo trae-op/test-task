@@ -9,7 +9,7 @@ const navigationItems: TSidebarNavItem[] = [
 	{ href: '/orders', label: 'Receipts' },
 	{ href: '/products', label: 'Products' }
 ];
-export default async function AuthLayout({
+export default function AuthLayout({
 	children
 }: Readonly<{
 	children: React.ReactNode;

@@ -1,6 +1,6 @@
 import styles from './Layout.module.scss';
 
-export default async function AuthLayout({
+export default function AuthLayout({
 	children
 }: Readonly<{
 	children: React.ReactNode;
