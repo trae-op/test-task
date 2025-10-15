@@ -14,7 +14,15 @@ import type { TProductProps } from './types';
 const BLOCK = 'product-item';
 
 export const ProductRow = memo(
-	({ title, serialNumber, isNew, guarantee, price, id }: TProductProps) => {
+	({
+		title,
+		serialNumber,
+		isNew,
+		guarantee,
+		price,
+		id,
+		order
+	}: TProductProps) => {
 		const i18nLocale = useLocale();
 		const tp = useTranslations('App.products.status');
 		const t = useTranslations('App');
@@ -60,18 +68,16 @@ export const ProductRow = memo(
 							</div>
 						)}
 
-						<div className={styles[`${BLOCK}__status`]}>
-							{isNew === 1 ? tp('new') : tp('used')}
-						</div>
-
 						{price !== undefined && <ProductPrice price={price} />}
 
-						<div
-							className={styles[`${BLOCK}__order`]}
-							title='Длинное предлинное длиннющее название прихода'
-						>
-							Длинное предлинное длиннющее название прихода
-						</div>
+						{order !== undefined && (
+							<div
+								className={styles[`${BLOCK}__order`]}
+								title='Длинное предлинное длиннющее название прихода'
+							>
+								Длинное предлинное длиннющее название прихода
+							</div>
+						)}
 
 						<div className='d-flex align-items-center justify-content-center w-100 h-100'>
 							<DeleteEntityButton id={id} />
