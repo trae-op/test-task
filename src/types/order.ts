@@ -1,11 +1,10 @@
-import type { TPrice, TProductData } from './product';
+import type { TPrice } from './product';
 
 export type TOrderData = {
 	id: string;
 	title: string;
-	productCount: number;
 	date: Date;
 	description?: string;
 	price: TPrice[];
-	products: TProductData[];
+	products: string[];
 };

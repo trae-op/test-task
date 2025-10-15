@@ -44,9 +44,5 @@ const products: TProductData[] = [
 ];
 
 export default function ProductsPage() {
-	return (
-		<>
-			<ProductsTable items={products} />
-		</>
-	);
+	return <ProductsTable items={products} />;
 }

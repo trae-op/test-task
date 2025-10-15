@@ -12,7 +12,7 @@ import { TOrderProps } from './types';
 const BLOCK = 'order-item';
 
 export const OrderRow = memo(
-	({ title, productCount, date, price }: TOrderProps) => {
+	({ title, date, price, products }: TOrderProps) => {
 		const tp = useTranslations('App.products');
 
 		const dateTime = useCallback(
@@ -37,7 +37,9 @@ export const OrderRow = memo(
 								<ListUl className={styles[`${BLOCK}__icon`]} size={15} />
 							</div>
 							<div>
-								<div className={styles[`${BLOCK}__count`]}>{productCount}</div>
+								<div className={styles[`${BLOCK}__count`]}>
+									{products.length}
+								</div>
 								<div className={styles[`${BLOCK}__secondary-text`]}>
 									{tp('Products')}
 								</div>
