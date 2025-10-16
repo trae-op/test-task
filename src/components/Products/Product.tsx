@@ -1,7 +1,11 @@
+'use client';
+
 import clsx from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
+import { Trash } from 'react-bootstrap-icons';
 
+import { ConfirmPopup } from '@/components/ui/ConfirmPopup';
 import { DeleteEntityButton } from '@/components/ui/DeleteEntityButton';
 import { Picture } from '@/components/ui/Picture';
 
@@ -90,7 +94,17 @@ export const ProductRow = memo(
 					)}
 
 					<div className='d-flex align-items-center justify-content-center w-50 h-100'>
-						<DeleteEntityButton id={id} />
+						<ConfirmPopup
+							componentButton={DeleteEntityButton}
+							iconButton={Trash}
+							openButtonClassName={clsx('w-100 h-100')}
+							title={'Delete this product?'}
+							confirmText={'Delete'}
+							cancelText={'Cancel'}
+							onConfirm={() => {
+								console.log('Delete product', id);
+							}}
+						/>
 					</div>
 				</td>
 			</tr>

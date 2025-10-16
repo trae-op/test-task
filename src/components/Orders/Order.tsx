@@ -1,9 +1,12 @@
+'use client';
+
 import { clsx } from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { memo, useCallback } from 'react';
-import { CaretRight, ListUl } from 'react-bootstrap-icons';
+import { CaretRight, ListUl, Trash } from 'react-bootstrap-icons';
 
+import { ConfirmPopup } from '@/components/ui/ConfirmPopup/ConfirmPopup';
 import { DeleteEntityButton } from '@/components/ui/DeleteEntityButton';
 import { NavigationLink } from '@/components/ui/NavigationLink';
 
@@ -109,7 +112,17 @@ export const OrderRow = memo(
 						{price !== undefined && <OrderPrice price={price} />}
 						{isDeleteButton && (
 							<div className='d-flex align-items-center justify-content-center w-100 h-100'>
-								<DeleteEntityButton id={id} />
+								<ConfirmPopup
+									componentButton={DeleteEntityButton}
+									iconButton={Trash}
+									openButtonClassName={clsx('w-100 h-100')}
+									title={'Delete this order?'}
+									confirmText={'Delete'}
+									cancelText={'Cancel'}
+									onConfirm={() => {
+										console.log('Delete order', id);
+									}}
+								/>
 							</div>
 						)}
 

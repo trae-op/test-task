@@ -1,0 +1,46 @@
+.confirm-popup {
+	&__dialog {
+		max-width: 720px;
+		overflow: visible;
+	}
+
+	:global(.modal) {
+		overflow: visible;
+	}
+
+	&__content {
+		border: 0;
+		border-radius: 12px;
+		overflow: visible;
+	}
+
+	&__header {
+		border: 0;
+		padding: 1.25rem 1.5rem;
+	}
+
+	&__title {
+		font-size: 1.5rem;
+		font-weight: 700;
+	}
+
+	&__body {
+		padding: 0.75rem 1.5rem 0;
+	}
+
+	&__footer {
+		background-color: #7ac142;
+		border: 0;
+		padding: 1rem 1.5rem;
+		display: flex;
+		justify-content: flex-end;
+		gap: 1rem;
+	}
+
+	&__close {
+		position: absolute;
+		top: -0.5rem;
+		right: -0.5rem;
+		z-index: 2;
+	}
+}

@@ -7,17 +7,21 @@ import type { TDeleteButtonProps } from './types';
 
 const BLOCK = 'delete-button';
 
-export const DeleteEntityButton = memo(({ id }: TDeleteButtonProps) => {
-	return (
-		<button
-			type='button'
-			className={clsx(
-				styles[BLOCK],
-				'd-flex align-items-center justify-content-center border-0 bg-transparent w-100 h-100'
-			)}
-			aria-label='Delete'
-		>
-			<Trash size={18} />
-		</button>
-	);
-});
+export const DeleteEntityButton = memo(
+	({ text, className, children, ...rest }: TDeleteButtonProps) => {
+		return (
+			<button
+				type='button'
+				className={clsx(
+					styles[BLOCK],
+					'd-flex align-items-center justify-content-center border-0 bg-transparent w-100 h-100',
+					className
+				)}
+				aria-label='Delete'
+				{...rest}
+			>
+				{children ?? <Trash size={18} />}
+			</button>
+		);
+	}
+);
