@@ -1,36 +1,16 @@
 import clsx from 'clsx';
-import { type MouseEvent, memo, useMemo, useState } from 'react';
-import React from 'react';
+import { type MouseEvent, memo, useCallback } from 'react';
 import { Modal } from 'react-bootstrap';
 import { Trash } from 'react-bootstrap-icons';
 
 import { CloseEntityButton } from '@/components/ui/CloseEntityButton';
 
+import { useConfirmPopup } from '@/hooks/confirmPopup';
+
 import styles from './ConfirmPopup.module.scss';
-import type { TConfirmPopupProps, TUseConfirmPopup } from './types';
+import type { TConfirmPopupProps } from './types';
 
 const BLOCK = 'confirm-popup';
-
-const useConfirmPopup = (): TUseConfirmPopup => {
-	const [isOpen, setIsOpen] = useState(false);
-	const [entityId, setEntityId] = useState<string | undefined>(undefined);
-
-	const actions = useMemo(
-		() => ({
-			handleOpen: (id?: string) => {
-				setEntityId(id);
-				setIsOpen(true);
-			},
-			handleClose: () => {
-				setIsOpen(false);
-				setEntityId(undefined);
-			}
-		}),
-		[]
-	);
-
-	return { isOpen, entityId, ...actions };
-};
 
 export const ConfirmPopup = memo(
 	({
@@ -52,20 +32,27 @@ export const ConfirmPopup = memo(
 
 		const isControlled = show !== undefined;
 		const isModalOpen = isControlled ? show : isOpen;
-		const handleCancel = () => {
-			if (!isControlled) handleClose();
-			onCancel?.();
-			onHide?.();
-		};
 
 		const handleConfirm = () => {
 			onConfirm?.();
 			onHide?.();
 		};
 
-		const handlePopupOpen = () => {
-			if (!isControlled) handleOpen();
+		const handleCancel = (e?: MouseEvent<HTMLButtonElement>) => {
+			e?.preventDefault();
+			if (!isControlled) handleClose();
+			onCancel?.();
+			onHide?.();
 		};
+
+		const handlePopupOpen = useCallback(() => {
+			if (!isControlled) handleOpen();
+		}, [isControlled, handleOpen]);
+
+		const handleModalHide = useCallback(() => {
+			if (!isControlled) handleClose();
+			onHide?.();
+		}, [isControlled, handleClose, onHide]);
 
 		return (
 			<>
@@ -77,10 +64,7 @@ export const ConfirmPopup = memo(
 				</ComponentButton>
 				<Modal
 					show={isModalOpen}
-					onHide={() => {
-						if (!isControlled) handleClose();
-						onHide?.();
-					}}
+					onHide={handleModalHide}
 					className={clsx(styles[BLOCK], className)}
 					dialogClassName={styles[`${BLOCK}__dialog`]}
 					contentClassName={styles[`${BLOCK}__content`]}
@@ -117,10 +101,7 @@ export const ConfirmPopup = memo(
 								style={{ width: '2rem', height: '2rem' }}
 								aria-label='close'
 								href='#'
-								onClick={(e: MouseEvent<HTMLButtonElement>) => {
-									e.preventDefault();
-									onHide?.();
-								}}
+								onClick={handleCancel}
 							/>
 						</div>
 					</div>
