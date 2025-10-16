@@ -29,40 +29,41 @@
 	--color-dimgray: dimgray;
 
 	/* Typography */
-	--font-size-xs: 0.625rem;
-	--font-size-sm: 0.75rem;
-	--font-size-md: 0.8125rem;
-	--font-size-14: 0.875rem;
+	--font-size-xs: 0.6rem;
+	--font-size-sm: 0.8rem;
+	--font-size-md: 0.8rem;
+	--font-size-14: 0.9rem;
 	--font-size-base: 1rem;
 	--font-weight-semibold: 600;
 	--font-weight-bold: 700;
 
 	/* Radii */
-	--radius-sm: 0.25rem;
+	--radius-sm: 0.3rem;
 	--radius-md: 0.5rem;
-	--radius-lg: 0.75rem;
+	--radius-lg: 0.8rem;
 
 	/* Spacing */
-	--space-xxs: 0.25rem;
-	--space-xs: 0.3125rem;
+	--space-xxs: 0.3rem;
+	--space-xs: 0.3rem;
 	--space-sm: 0.5rem;
-	--space-md: 0.625rem;
-	--space-lg: 0.75rem;
-	--space-xl: 0.9375rem;
-	--space-2xl: 1.25rem;
-	--space-3xl: 1.875rem;
+	--space-md: 0.6rem;
+	--space-lg: 0.8rem;
+	--space-xl: 0.9rem;
+	--space-2xl: 1.3rem;
+	--space-3xl: 1.9rem;
 
 	/* Sizes */
-	--size-10: 0.625rem;
-	--size-15: 0.9375rem;
-	--size-25: 1.5625rem;
-	--size-30: 1.875rem;
+	--size-5: 0.3rem;
+	--size-10: 0.6rem;
+	--size-15: 0.9rem;
+	--size-25: 1.6rem;
+	--size-30: 1.9rem;
 	--size-32: 2rem;
 	--size-40: 2.5rem;
-	--size-50: 3.125rem;
-	--size-60: 3.75rem;
-	--size-100: 6.25rem;
-	--size-150: 9.375rem;
+	--size-50: 3.1rem;
+	--size-60: 3.8rem;
+	--size-100: 6.3rem;
+	--size-150: 9.4rem;
 
 	/* Layout widths */
 	--sidebar-width: 12.5rem;

@@ -21,7 +21,7 @@ export default function AuthLayout({
 				<Sidebar items={navigationItems} />
 				<div className={styles['dashboard__content']}>
 					<AddContent title='title' totalValue={40} />
-					{children}
+					<div className='mt-4'>{children}</div>
 				</div>
 			</div>
 		</div>
