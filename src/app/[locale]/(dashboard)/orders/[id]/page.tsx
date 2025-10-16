@@ -47,7 +47,7 @@ const products: TProductData[] = [
 ];
 
 async function Container({ params }: TDynamicPageProps) {
-	const { id } = await params;
+	await params;
 
 	return (
 		<div className='row g-1'>

@@ -1,4 +1,4 @@
-import { clsx } from 'clsx';
+import clsx from 'clsx';
 import { memo } from 'react';
 import { Trash } from 'react-bootstrap-icons';
 
@@ -8,7 +8,7 @@ import type { TDeleteButtonProps } from './types';
 const BLOCK = 'delete-button';
 
 export const DeleteEntityButton = memo(
-	({ text, className, children, ...rest }: TDeleteButtonProps) => {
+	({ className, children, ...rest }: TDeleteButtonProps) => {
 		return (
 			<button
 				type='button'

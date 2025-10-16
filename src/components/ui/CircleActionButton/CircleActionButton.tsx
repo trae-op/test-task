@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import { Button } from 'react-bootstrap';
-import { XLg } from 'react-bootstrap-icons';
 
 import styles from './CircleActionButton.module.scss';
 import { CircleActionButtonProps } from './types';

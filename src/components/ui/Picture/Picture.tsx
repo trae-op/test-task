@@ -22,8 +22,9 @@ export const Picture = memo(
 		onLoad,
 		aspectRatio,
 		fit = 'cover',
+		alt = '',
 		...rest
-	}: TPictureProps) => {
+	}: TPictureProps & { alt?: string }) => {
 		const [isLoading, setIsLoading] = useState(true);
 		const [hasError, setHasError] = useState(false);
 
@@ -68,7 +69,10 @@ export const Picture = memo(
 		}, [size]);
 
 		return (
-			<div className={containerClassName}>
+			<div
+				className={containerClassName}
+				style={aspectRatio ? { aspectRatio } : undefined}
+			>
 				<PicturePlaceholder isLoading={isLoading} />
 				<PictureError hasError={hasError} size={iconSize} />
 				<Image
@@ -76,6 +80,7 @@ export const Picture = memo(
 					onLoad={handleLoad}
 					onError={handleError}
 					style={{ objectFit: fit }}
+					alt={alt}
 					{...(isFull
 						? { fill: true, sizes: rest.sizes ?? '100vw' }
 						: (imageSize as { width: number; height: number }))}

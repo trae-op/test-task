@@ -9,11 +9,8 @@ import { ActionButtonProps } from './types';
 const BLOCK = 'action-btn';
 
 export const CloseEntityButton = ({
-	Icon,
 	className = '',
-	iconClassName = '',
 	ariaLabelText,
-	iconSize = 20,
 	href = '/',
 	...restProps
 }: ActionButtonProps) => (

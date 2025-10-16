@@ -1,5 +1,5 @@
 import { format, parseISO } from 'date-fns';
-import { de, enUS, es, fr, pl, ru, uk } from 'date-fns/locale';
+import { enUS, uk } from 'date-fns/locale';
 
 import { TFormatDateParams } from './types';
 

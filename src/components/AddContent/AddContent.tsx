@@ -1,9 +1,9 @@
 import { memo } from 'react';
-import { PlusLg } from 'react-bootstrap-icons';
+
+import { AddContentButton } from '@/components/ui/AddContentButton';
 
 import styles from './AddContent.module.scss';
 import type { TAddContentProps } from './types';
-import { AddContentButton } from '@/ui-components/AddContentButton';
 
 export const AddContent = memo((props: TAddContentProps) => {
 	const { title, totalValue } = props;

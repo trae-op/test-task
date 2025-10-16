@@ -27,11 +27,9 @@ export const ProductRow = memo(
 		price,
 		id,
 		order,
-		photo,
-		isDetail = false
+		photo
 	}: TProductProps) => {
 		const i18nLocale = useLocale();
-		const tp = useTranslations('App.products.status');
 		const t = useTranslations('App');
 		const dateTime = useCallback(
 			(date: Date, formatString: string) =>
