@@ -1,10 +1,10 @@
-import type { TSidebarNavItem } from "../types";
+import type { TSidebarNavItem } from '../types';
 
 export type TSidebarNavItemProps = {
-  item: TSidebarNavItem;
+	item: TSidebarNavItem;
 };
 
 export type TNavItemProps = {
-  isActive: boolean;
-  text?: string;
+	isActive: boolean;
+	text?: string;
 };

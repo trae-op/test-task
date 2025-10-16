@@ -1,1 +1,1 @@
-export * from "./AddContent";
+export * from './AddContent';

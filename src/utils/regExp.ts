@@ -3,16 +3,16 @@ export const PASSWORD_PATTERN = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 export const NAME_PATTERN = /^[A-Za-z\s]{2,30}$/;
 
 export const isValidEmail = (email: string): boolean =>
-  EMAIL_PATTERN.test(email);
+	EMAIL_PATTERN.test(email);
 export const isValidPassword = (password: string): boolean =>
-  PASSWORD_PATTERN.test(password);
+	PASSWORD_PATTERN.test(password);
 export const isValidName = (name: string): boolean => NAME_PATTERN.test(name);
 
 export const validationMessages = {
-  required: "This field is required",
-  email: "Please enter a valid email address",
-  password:
-    "Password must be at least 8 characters and contain at least one letter and one number",
-  name: "Name must be between 2 and 30 characters and contain only letters",
-  passwordMatch: "Passwords must match",
+	required: 'This field is required',
+	email: 'Please enter a valid email address',
+	password:
+		'Password must be at least 8 characters and contain at least one letter and one number',
+	name: 'Name must be between 2 and 30 characters and contain only letters',
+	passwordMatch: 'Passwords must match'
 };

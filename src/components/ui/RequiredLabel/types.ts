@@ -1,3 +1,3 @@
 export type TRequiredLabelProps = {
-  text: string;
+	text: string;
 };

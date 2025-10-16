@@ -1,1 +1,1 @@
-export * from "./AlertError";
+export * from './AlertError';

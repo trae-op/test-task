@@ -1,10 +1,10 @@
-import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
+import type { NextConfig } from 'next';
+import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [new URL("https://placehold.co/**")],
-  },
+	images: {
+		remotePatterns: [new URL('https://placehold.co/**')]
+	}
 };
 
 const withNextIntl = createNextIntlPlugin();

@@ -1,9 +1,9 @@
-import { Button } from "react-bootstrap";
+import { Button } from 'react-bootstrap';
 
 export type TAddContentButtonProps = Omit<
-  React.ComponentProps<typeof Button>,
-  "children" | "size" | "variant"
+	React.ComponentProps<typeof Button>,
+	'children' | 'size' | 'variant'
 > & {
-  className?: string;
-  iconClassName?: string;
+	className?: string;
+	iconClassName?: string;
 };

@@ -1,21 +1,21 @@
 export type TTopHeaderProps = {
-  onSearch?: (value: string) => void;
+	onSearch?: (value: string) => void;
 };
 
 export type TLogoProps = {
-  className?: string;
+	className?: string;
 };
 
 export type TSearchBarProps = {
-  placeholder?: string;
-  onSearch?: (value: string) => void;
+	placeholder?: string;
+	onSearch?: (value: string) => void;
 };
 
 export type TDateTimeDisplayProps = {
-  date: Date;
+	date: Date;
 };
 
 export type THeaderInfoProps = {
-  title: string;
-  icon?: string;
+	title: string;
+	icon?: string;
 };

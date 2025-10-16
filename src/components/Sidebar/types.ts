@@ -1,8 +1,8 @@
 export type TSidebarNavItem = {
-  href: string;
-  label: string;
+	href: string;
+	label: string;
 };
 
 export type TSidebarProps = {
-  items: TSidebarNavItem[];
+	items: TSidebarNavItem[];
 };

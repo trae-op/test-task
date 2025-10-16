@@ -1,4 +1,4 @@
 export type TAddContentProps = {
-  title: string;
-  totalValue: number;
+	title: string;
+	totalValue: number;
 };

@@ -1,58 +1,58 @@
 .sidebar {
-  background-color: #f8f9fa;
-  width: 200px;
-  min-width: 200px;
-  flex-shrink: 0;
-  height: 100vh;
-  padding: 1.5rem 1rem;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.1);
+	background-color: var(--color-bg-muted);
+	width: var(--sidebar-width);
+	min-width: var(--sidebar-width);
+	flex-shrink: 0;
+	height: 100vh;
+	padding: 1.5rem 1rem;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0.25rem 0 0.375rem 0 rgba(0, 0, 0, 0.1);
 
-  & &__avatar {
-    border-radius: 50%;
-    object-fit: cover;
-  }
+	& &__avatar {
+		border-radius: 50%;
+		object-fit: cover;
+	}
 
-  &__profile {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-    width: 100%;
-    position: relative;
-  }
+	&__profile {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 2rem;
+		width: 100%;
+		position: relative;
+	}
 
-  & &__avatar {
-    width: 150px;
-    height: 150px;
-  }
+	& &__avatar {
+		width: var(--size-150);
+		height: var(--size-150);
+	}
 
-  &__settings-button {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    border: none;
-  }
+	&__settings-button {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		width: var(--size-40);
+		height: var(--size-40);
+		border: none;
+	}
 
-  &__settings-button-icon {
-    width: 15px;
-    height: 15px;
-  }
+	&__settings-button-icon {
+		width: var(--size-15);
+		height: var(--size-15);
+	}
 
-  &__nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+	&__nav {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
 
-    a {
-      display: inline-flex;
-      text-decoration: none;
-      span {
-        font-size: 0.9rem;
-      }
-    }
-  }
+		a {
+			display: inline-flex;
+			text-decoration: none;
+			span {
+				font-size: 0.9rem;
+			}
+		}
+	}
 }

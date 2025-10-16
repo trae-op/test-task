@@ -1,28 +1,24 @@
-$primary-color: #5cb85c;
-$background-color: #4d9a4d;
-$border-color: #438743;
-$icon-size: 1rem;
-$white-color: #ffffff;
+/* Using global CSS variables from src/styles/variables.css */
 
 .add-content-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  padding: 0;
-  background-color: $primary-color;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid $border-color;
+	width: var(--size-30);
+	height: var(--size-30);
+	border-radius: 50%;
+	padding: 0;
+	background-color: var(--color-brand-green);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 0.1875rem solid var(--color-brand-green-border);
 
-  &__icon {
-    color: $white-color;
-    width: $icon-size;
-    height: $icon-size;
-  }
+	&__icon {
+		color: var(--color-white);
+		width: 1rem;
+		height: 1rem;
+	}
 
-  &:hover {
-    background-color: $background-color;
-    border-color: $border-color;
-  }
+	&:hover {
+		background-color: var(--color-brand-green-dark);
+		border-color: var(--color-brand-green-border);
+	}
 }

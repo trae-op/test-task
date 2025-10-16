@@ -1,14 +1,4 @@
-$primary-color: #007bff;
-$border-color: #ddd;
-$light-gray: #f9f9f9;
-$text-color: #333;
-$gap-size: 30px;
-$color-odd: #c9e05d;
-$color-even: hwb(221 23% 68%);
-$serial-number-color: #6e727c;
-$serial-number-font-size: 12px;
-$price-font-size: 12px;
-$price-color: #6e727c;
+/* Using global CSS variables from src/styles/variables.css */
 
 .table-scroll-wrapper {
 	width: 100%;
@@ -21,12 +11,12 @@ $price-color: #6e727c;
 
 	.product-table {
 		border-collapse: separate;
-		border-spacing: 0 10px;
+		border-spacing: 0 var(--size-10);
 		width: 100%;
 		table-layout: fixed;
 
 		&--full-width {
-			min-width: 1024px;
+			min-width: var(--table-min-width);
 		}
 	}
 }
@@ -38,24 +28,24 @@ $price-color: #6e727c;
 		border-color 0.2s;
 
 	& > td {
-		border-top: 1px solid $border-color;
-		border-bottom: 1px solid $border-color;
+		border-top: 1px solid var(--color-border);
+		border-bottom: 1px solid var(--color-border);
 		border-left: none;
 		border-right: none;
-		background-color: white;
+		background-color: var(--color-surface);
 		padding: 0;
-		height: 60px;
+		height: var(--size-60);
 
 		&:first-child {
-			border-left: 1px solid $border-color;
-			border-top-left-radius: 8px;
-			border-bottom-left-radius: 8px;
-			padding-left: 20px;
+			border-left: 1px solid var(--color-border);
+			border-top-left-radius: var(--radius-md);
+			border-bottom-left-radius: var(--radius-md);
+			padding-left: var(--space-2xl);
 		}
 		&:last-child {
-			border-right: 1px solid $border-color;
-			border-top-right-radius: 8px;
-			border-bottom-right-radius: 8px;
+			border-right: 1px solid var(--color-border);
+			border-top-right-radius: var(--radius-md);
+			border-bottom-right-radius: var(--radius-md);
 			text-align: center;
 		}
 	}
@@ -63,7 +53,7 @@ $price-color: #6e727c;
 	&__content {
 		display: flex;
 		align-items: center;
-		padding-right: $gap-size;
+		padding-right: var(--space-3xl);
 	}
 
 	&__status {
@@ -71,26 +61,26 @@ $price-color: #6e727c;
 	}
 
 	&__status-dot {
-		width: 10px;
-		height: 10px;
+		width: var(--size-10);
+		height: var(--size-10);
 		border-radius: 50%;
-		margin-right: 20px;
+		margin-right: var(--space-2xl);
 	}
 
 	&:nth-child(odd) &__status-dot-new {
-		background-color: $color-odd;
+		background-color: var(--color-state-odd);
 	}
 
 	&:nth-child(even) &__status-dot-used {
-		background-color: $color-even;
+		background-color: var(--color-state-even);
 	}
 
 	&__state {
 		&-new {
-			color: $color-odd;
+			color: var(--color-state-odd);
 		}
 		&-used {
-			color: $color-even;
+			color: var(--color-state-even);
 		}
 	}
 
@@ -100,19 +90,19 @@ $price-color: #6e727c;
 		text-align: left;
 
 		span {
-			color: $text-color;
-			font-size: 14px;
+			color: var(--color-text);
+			font-size: var(--font-size-14);
 		}
 
 		span > span {
-			color: $color-even;
+			color: var(--color-state-even);
 		}
 	}
 
 	&__name {
-		font-size: 16px;
+		font-size: var(--font-size-base);
 		font-weight: 500;
-		color: $text-color;
+		color: var(--color-text);
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -122,8 +112,8 @@ $price-color: #6e727c;
 		}
 
 		& span:last-child {
-			color: $serial-number-color;
-			font-size: $serial-number-font-size;
+			color: var(--color-muted);
+			font-size: var(--font-size-sm);
 		}
 	}
 
@@ -131,31 +121,31 @@ $price-color: #6e727c;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 25px;
-		height: 25px;
-		margin-right: 5px;
-		border: 1px solid gray;
+		width: var(--size-25);
+		height: var(--size-25);
+		margin-right: var(--space-xs);
+		border: 1px solid var(--color-gray);
 		border-radius: 50%;
 	}
 
 	&__icon {
-		color: gray;
+		color: var(--color-gray);
 	}
 
 	&__count {
 		text-align: left;
-		font-size: 16px;
+		font-size: var(--font-size-base);
 	}
 
 	&__primary-text {
 		font-weight: bold;
 		text-align: left;
-		font-size: 10px;
-		color: gray;
+		font-size: var(--font-size-xs);
+		color: var(--color-gray);
 	}
 
 	&__secondary-text {
-		font-size: 13px;
+		font-size: var(--font-size-md);
 		font-weight: bold;
 	}
 
@@ -167,15 +157,15 @@ $price-color: #6e727c;
 	}
 
 	&__price-not-default {
-		color: $price-color;
+		color: var(--color-muted);
 		font-weight: bold;
-		font-size: $price-font-size;
+		font-size: var(--font-size-sm);
 	}
 
 	&__order {
-		font-size: 16px;
+		font-size: var(--font-size-base);
 		font-weight: 500;
-		color: $text-color;
+		color: var(--color-text);
 		text-align: left;
 		width: 100%;
 		white-space: nowrap;

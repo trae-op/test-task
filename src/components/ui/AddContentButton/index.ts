@@ -1,1 +1,1 @@
-export * from "./AddContentButton";
+export * from './AddContentButton';

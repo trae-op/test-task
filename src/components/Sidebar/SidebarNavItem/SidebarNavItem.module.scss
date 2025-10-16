@@ -1,27 +1,29 @@
 .nav-item {
-  display: flex !important;
-  align-items: center;
-  color: #495057;
-  font-weight: 500;
-  font-size: 1rem;
-  text-transform: uppercase;
-  transition: color 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
+	display: flex !important;
+	align-items: center;
+	color: var(--color-text-subtle);
+	font-weight: 500;
+	font-size: 1rem;
+	text-transform: uppercase;
+	transition:
+		color 0.2s ease-in-out,
+		border-bottom 0.2s ease-in-out;
 
-  &:hover {
-    color: #212529;
-    background-color: transparent;
-  }
+	&:hover {
+		color: var(--color-text-strong);
+		background-color: transparent;
+	}
 
-  &--active {
-    color: #212529;
-    font-weight: bold;
-    border-bottom: 2px solid #6c7e3a;
-    padding-bottom: 0.2rem !important;
-    background-color: transparent;
+	&--active {
+		color: var(--color-text-strong);
+		font-weight: bold;
+		border-bottom: 0.125rem solid #6c7e3a;
+		padding-bottom: 0.2rem !important;
+		background-color: transparent;
 
-    &:hover {
-      background-color: transparent;
-      color: #212529;
-    }
-  }
+		&:hover {
+			background-color: transparent;
+			color: var(--color-text-strong);
+		}
+	}
 }
