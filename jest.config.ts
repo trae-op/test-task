@@ -9,8 +9,13 @@ const config: Config = {
 	coverageProvider: 'v8',
 	testEnvironment: 'jsdom',
 	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+	modulePathIgnorePatterns: ['<rootDir>/__tests__/__mocks__'],
 	moduleNameMapper: {
-		'^@/components/(.*)$': '<rootDir>/components/$1'
+		'^@/i18n/navigation$': '<rootDir>/__mocks__/i18n-navigation.ts',
+		'^next-intl$': '<rootDir>/__mocks__/next-intl.ts',
+		'^next-intl/routing$': '<rootDir>/__mocks__/next-intl-routing.ts',
+		'^next-intl/navigation$': '<rootDir>/__mocks__/next-intl-navigation.ts',
+		'^@/(.*)$': '<rootDir>/src/$1'
 	}
 };
 

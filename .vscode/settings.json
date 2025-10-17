@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["Привет", "Привіт"]
+	"cSpell.words": ["Привет", "Привіт"],
+	"task.allowAutomaticTasks": "on"
 }

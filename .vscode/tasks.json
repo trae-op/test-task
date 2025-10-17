@@ -5,15 +5,50 @@
 			"label": "Run Jest once",
 			"type": "shell",
 			"command": "npm",
-			"args": [
-				"test",
-				"--",
-				"--runInBand"
-			],
-			"problemMatcher": [
-				"$jest-stare"
-			],
+			"args": ["test", "--", "--runInBand"],
 			"group": "build"
+		},
+		{
+			"label": "Dev server",
+			"type": "shell",
+			"command": "npm",
+			"args": ["run", "dev"],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"isBackground": true
+		},
+		{
+			"label": "Test (watch)",
+			"type": "shell",
+			"command": "npm",
+			"args": ["run", "test:watch"],
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			},
+			"isBackground": true,
+			"group": "test"
+		},
+		{
+			"label": "Build",
+			"type": "shell",
+			"command": "npm",
+			"args": ["run", "build"],
+			"group": "build",
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Dev + Tests",
+			"dependsOn": ["Dev server", "Test (watch)"],
+			"dependsOrder": "parallel",
+			"runOptions": {
+				"runOn": "folderOpen"
+			}
 		}
 	]
 }
