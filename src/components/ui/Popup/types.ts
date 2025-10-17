@@ -5,11 +5,14 @@ export type TConfirmPopupProps = Omit<ModalProps, 'children'> & {
 	title: string;
 	confirmText?: string;
 	cancelText?: string;
-	onConfirm?: () => void;
+	onApply?: (handleClose: () => void) => void;
 	onCancel?: () => void;
 	componentButton: ElementType;
+	componentApplyButton?: ElementType;
 	iconButton?: ElementType;
+	iconApplyButton?: ElementType;
 	openButtonClassName?: string;
+	applyButtonClassName?: string;
 	children?: ReactNode;
 };
 

@@ -6,9 +6,9 @@ import Link from 'next/link';
 import { memo, useCallback } from 'react';
 import { CaretRight, ListUl, Trash } from 'react-bootstrap-icons';
 
-import { ConfirmPopup } from '@/components/ui/ConfirmPopup/ConfirmPopup';
 import { DeleteEntityButton } from '@/components/ui/DeleteEntityButton';
 import { NavigationLink } from '@/components/ui/NavigationLink';
+import { Popup } from '@/components/ui/Popup/Popup';
 
 import { formatDateTime } from '@/utils/dateTime';
 import { getOrderDetailHref } from '@/utils/routing';
@@ -106,15 +106,18 @@ export const OrderRow = memo(
 						{price !== undefined && <OrderPrice price={price} />}
 						{isDeleteButton && (
 							<div className='d-flex align-items-center justify-content-center w-100 h-100'>
-								<ConfirmPopup
+								<Popup
 									componentButton={DeleteEntityButton}
+									applyIconButton={Trash}
 									iconButton={Trash}
 									openButtonClassName={clsx('w-100 h-100')}
 									title={'Delete this order?'}
 									confirmText={'Delete'}
 									cancelText={'Cancel'}
-									onConfirm={() => {
+									applyButtonClassName=''
+									onApply={onClose => {
 										console.log('Delete order', id);
+										onClose();
 									}}
 								/>
 							</div>

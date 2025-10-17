@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { within } from '@testing-library/react';
 
-import { ConfirmPopup } from '@/components/ui/ConfirmPopup/ConfirmPopup';
 import { DeleteEntityButton } from '@/components/ui/DeleteEntityButton';
+import { ConfirmPopup } from '@/components/ui/Popup/Popup';
 
 describe('components/ui/ConfirmPopup', () => {
 	it('opens and invokes confirm handler', () => {

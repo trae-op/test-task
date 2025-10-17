@@ -7,25 +7,28 @@ import { CloseEntityButton } from '@/components/ui/CloseEntityButton';
 
 import { useConfirmPopup } from '@/hooks/confirmPopup';
 
-import styles from './ConfirmPopup.module.scss';
+import styles from './Popup.module.scss';
 import type { TConfirmPopupProps } from './types';
 
-const BLOCK = 'confirm-popup';
+const BLOCK = 'popup';
 
-export const ConfirmPopup = memo(
+export const Popup = memo(
 	({
 		title,
 		confirmText = 'Delete',
 		cancelText = 'Cancel',
-		onConfirm,
+		onApply,
 		onCancel,
 		onHide,
 		show,
 		children,
 		className,
 		componentButton: ComponentButton,
+		componentApplyButton: ComponentApplyButton,
 		iconButton: Icon,
+		applyIconButton: ApplyIcon,
 		openButtonClassName,
+		applyButtonClassName,
 		...rest
 	}: TConfirmPopupProps) => {
 		const { isOpen, handleOpen, handleClose } = useConfirmPopup();
@@ -33,8 +36,14 @@ export const ConfirmPopup = memo(
 		const isControlled = show !== undefined;
 		const isModalOpen = isControlled ? show : isOpen;
 
-		const handleConfirm = () => {
-			onConfirm?.();
+		const handlePopupOpen = () => {
+			handleOpen?.();
+			onHide?.();
+		};
+
+		const popupClose = () => {
+			handleClose();
+			onCancel?.();
 			onHide?.();
 		};
 
@@ -45,8 +54,10 @@ export const ConfirmPopup = memo(
 			onHide?.();
 		};
 
-		const handlePopupOpen = useCallback(() => {
-			if (!isControlled) handleOpen();
+		const handlePopupApply = useCallback(() => {
+			if (!isControlled) {
+				onApply?.(popupClose);
+			}
 		}, [isControlled, handleOpen]);
 
 		const handleModalHide = useCallback(() => {
@@ -86,14 +97,24 @@ export const ConfirmPopup = memo(
 							>
 								{cancelText}
 							</button>
-							<button
-								type='button'
-								className='btn btn-light text-danger d-flex align-items-center gap-2'
-								onClick={handleConfirm}
-							>
-								<Trash size={16} />
-								{confirmText}
-							</button>
+
+							{ComponentApplyButton !== undefined ? (
+								<ComponentApplyButton
+									className={applyButtonClassName}
+									onClick={handlePopupApply}
+								>
+									{ApplyIcon ? <ApplyIcon /> : null}
+								</ComponentApplyButton>
+							) : (
+								<button
+									type='button'
+									className='btn btn-light text-danger d-flex align-items-center gap-2'
+									onClick={handlePopupApply}
+								>
+									{ApplyIcon ? <ApplyIcon size={16} /> : null}
+									{confirmText}
+								</button>
+							)}
 						</div>
 
 						<div className={styles[`${BLOCK}__close`]}>
