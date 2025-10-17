@@ -28,6 +28,7 @@ export const Popup = memo(
 		iconButton: Icon,
 		applyIconButton: ApplyIcon,
 		openButtonClassName,
+		openButtonAriaLabel,
 		applyButtonClassName,
 		...rest
 	}: TConfirmPopupProps) => {
@@ -69,6 +70,7 @@ export const Popup = memo(
 			<>
 				<ComponentButton
 					className={openButtonClassName}
+					aria-label={openButtonAriaLabel}
 					onClick={handlePopupOpen}
 				>
 					{Icon ? <Icon /> : null}
@@ -131,3 +133,5 @@ export const Popup = memo(
 		);
 	}
 );
+
+export { Popup as ConfirmPopup };

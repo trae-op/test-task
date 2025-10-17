@@ -2,27 +2,27 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { within } from '@testing-library/react';
 
 import { DeleteEntityButton } from '@/components/ui/DeleteEntityButton';
-import { ConfirmPopup } from '@/components/ui/Popup/Popup';
+import { Popup } from '@/components/ui/Popup/Popup';
 
-describe('components/ui/ConfirmPopup', () => {
-	it('opens and invokes confirm handler', () => {
-		const onConfirm = jest.fn();
+describe('components/ui/Popup', () => {
+	it('opens and invokes popup handler', () => {
+		const onApply = jest.fn();
 		render(
-			<ConfirmPopup
-				title='Confirm?'
+			<Popup
+				title='popup?'
 				componentButton={DeleteEntityButton}
-				onConfirm={onConfirm}
+				onApply={onApply}
 			/>
 		);
 
 		// click trigger (DeleteEntityButton)
 		fireEvent.click(screen.getAllByRole('button', { name: /Delete/i })[0]);
-		// click confirm button inside the modal footer
+		// click popup button inside the modal footer
 		const footer = screen.getByText('Cancel').closest('div') as HTMLElement;
-		const confirmBtn = within(footer).getByRole('button', {
+		const btn = within(footer).getByRole('button', {
 			name: /^Delete$/i
 		});
-		fireEvent.click(confirmBtn);
-		expect(onConfirm).toHaveBeenCalled();
+		fireEvent.click(btn);
+		expect(onApply).toHaveBeenCalled();
 	});
 });

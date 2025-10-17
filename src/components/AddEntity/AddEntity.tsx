@@ -15,6 +15,7 @@ export const AddEntity = memo(({ title, totalValue }: TAddEntityProps) => {
 		<div className={styles[BLOCK]}>
 			<Popup
 				componentButton={AddEntityButton}
+				openButtonAriaLabel='add entity'
 				title={'Add this order?'}
 				confirmText={'Add'}
 				cancelText={'Cancel'}

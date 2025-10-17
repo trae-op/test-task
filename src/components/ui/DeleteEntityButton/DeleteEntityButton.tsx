@@ -9,6 +9,11 @@ const BLOCK = 'delete-button';
 
 export const DeleteEntityButton = memo(
 	({ className, children, ...rest }: TDeleteButtonProps) => {
+		const { ['aria-label']: ariaLabel, ...restProps } = rest as Record<
+			string,
+			unknown
+		>;
+
 		return (
 			<button
 				type='button'
@@ -17,8 +22,8 @@ export const DeleteEntityButton = memo(
 					'd-flex align-items-center justify-content-center border-0 bg-transparent w-100 h-100',
 					className
 				)}
-				aria-label='Delete'
-				{...rest}
+				aria-label={(ariaLabel as string | undefined) ?? 'Delete'}
+				{...restProps}
 			>
 				{children ?? <Trash size={18} />}
 			</button>

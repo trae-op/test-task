@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+}
+
+enum Currency {
+  USD
+  UAH
+}
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String?
+  email     String   @unique
+  password  String?
+  ava       String?
+  provider  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id             String         @id @default(uuid()) @db.Uuid
+  serialNumber   String
+  isNew          Boolean        @default(false)
+  photo          String?
+  title          String
+  type           String?
+  specification  String?
+  guaranteeStart DateTime?
+  guaranteeEnd   DateTime?
+  order          Int?
+  date           DateTime?
+  prices         ProductPrice[]
+  orders         Order[]        @relation("ProductsOnOrders")
+
+  @@index([serialNumber])
+}
+
+model ProductPrice {
+  id        String   @id @default(uuid()) @db.Uuid
+  value     Decimal  @db.Decimal(10, 2)
+  symbol    Currency
+  isDefault Boolean  @default(false)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String   @db.Uuid
+
+  @@index([productId])
+}
+
+model Order {
+  id          String       @id @default(uuid()) @db.Uuid
+  title       String
+  date        DateTime
+  description String?
+  prices      OrderPrice[]
+  products    Product[]    @relation("ProductsOnOrders")
+}
+
+model OrderPrice {
+  id       String  @id @default(uuid()) @db.Uuid
+  value    Decimal @db.Decimal(10, 2)
+  symbol   Currency
+  isDefault Boolean @default(false)
+  order    Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId  String  @db.Uuid
+
+  @@index([orderId])
+}

@@ -110,6 +110,7 @@ export const OrderRow = memo(
 									componentButton={DeleteEntityButton}
 									applyIconButton={Trash}
 									iconButton={Trash}
+									openButtonAriaLabel='Delete'
 									openButtonClassName={clsx('w-100 h-100')}
 									title={'Delete this order?'}
 									confirmText={'Delete'}
