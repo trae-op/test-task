@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/Button';
 import { RequiredLabel } from '@/components/ui/RequiredLabel';
 import { TextField } from '@/components/ui/TextField';
 
-import { useAuth } from '@/hooks/auth';
+import { useAuthActions } from '@/hooks/auth';
 
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from '@/utils/regExp';
 
@@ -24,7 +24,7 @@ export const SignIn = () => {
 	const router = useRouter();
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
-	const { signIn } = useAuth();
+	const { signIn } = useAuthActions();
 	const [error, setError] = useState<string | null>(null);
 
 	const {

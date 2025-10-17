@@ -9,11 +9,22 @@ import { CircleActionButton } from '@/components/ui/CircleActionButton';
 import { NavigationLink } from '@/components/ui/NavigationLink';
 import { Picture } from '@/components/ui/Picture';
 
+import { getProfileHref } from '@/utils/routing';
+
 import styles from './Sidebar.module.scss';
 import { NavItem } from './SidebarNavItem';
 import type { TSidebarProps } from './types';
 
 const BLOCK = 'sidebar';
+
+const ProfileSettingsButton = () => (
+	<CircleActionButton
+		Icon={GearFill}
+		className={clsx(styles[`${BLOCK}__settings-button`], 'z-3')}
+		iconClassName={styles[`${BLOCK}__settings-button-icon`]}
+		aria-label='settings'
+	/>
+);
 
 export const Sidebar = memo(({ items }: TSidebarProps) => {
 	const tReceipts = useTranslations('App.sidebar');
@@ -30,12 +41,9 @@ export const Sidebar = memo(({ items }: TSidebarProps) => {
 					className={styles[`${BLOCK}__avatar`]}
 				/>
 
-				<CircleActionButton
-					onClick={() => console.log(1111)}
-					Icon={GearFill}
-					className={clsx(styles[`${BLOCK}__settings-button`], 'z-3')}
-					iconClassName={styles[`${BLOCK}__settings-button-icon`]}
-					aria-label='settings'
+				<NavigationLink
+					href={getProfileHref()}
+					component={ProfileSettingsButton}
 				/>
 			</div>
 			<nav className={styles[`${BLOCK}__nav`]}>
