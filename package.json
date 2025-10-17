@@ -15,10 +15,12 @@
 	},
 	"dependencies": {
 		"@prisma/client": "^6.17.1",
+		"bcryptjs": "^3.0.2",
 		"bootstrap": "^5.3.8",
 		"clsx": "^2.1.1",
 		"date-fns": "^4.1.0",
 		"next": "15.5.4",
+		"next-auth": "^4.24.11",
 		"next-intl": "^4.3.11",
 		"react": "19.1.0",
 		"react-bootstrap": "^2.10.10",

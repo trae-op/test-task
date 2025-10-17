@@ -1,6 +1,8 @@
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 
+import { AuthProvider } from '@/components/Auth';
+
 import { routing } from '@/i18n/routing';
 
 type Props = {
@@ -14,5 +16,9 @@ export default async function LocaleLayout({ children, params }: Props) {
 		notFound();
 	}
 
-	return <NextIntlClientProvider>{children}</NextIntlClientProvider>;
+	return (
+		<NextIntlClientProvider>
+			<AuthProvider>{children}</AuthProvider>
+		</NextIntlClientProvider>
+	);
 }
