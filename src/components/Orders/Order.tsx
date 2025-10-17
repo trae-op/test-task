@@ -71,13 +71,7 @@ export const OrderRow = memo(
 										href={getOrderDetailHref(id)}
 										title={title}
 									>
-										<ListUl
-											style={{
-												stroke: 'black'
-											}}
-											className={styles[`${BLOCK}__icon`]}
-											size={15}
-										/>
+										<ListUl className={styles[`${BLOCK}__icon`]} size={15} />
 									</Link>
 								</div>
 								<div
