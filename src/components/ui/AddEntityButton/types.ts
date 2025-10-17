@@ -1,0 +1,9 @@
+import { Button } from 'react-bootstrap';
+
+export type TAddEntityButtonProps = Omit<
+	React.ComponentProps<typeof Button>,
+	'children' | 'size' | 'variant'
+> & {
+	className?: string;
+	iconClassName?: string;
+};
