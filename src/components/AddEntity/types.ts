@@ -1,4 +1,4 @@
-export type TAddContentProps = {
+export type TAddEntityProps = {
 	title: string;
 	totalValue: number;
 };

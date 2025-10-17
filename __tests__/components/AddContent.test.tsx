@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { AddContent } from '@/components/AddContent';
+import { AddContent } from '@/components/AddEntity';
 
 describe('components/AddContent', () => {
 	it('renders title and total value and button', () => {

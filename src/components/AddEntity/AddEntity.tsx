@@ -2,12 +2,12 @@ import { memo } from 'react';
 
 import { AddEntityButton } from '@/components/ui/AddEntityButton';
 
-import styles from './AddContent.module.scss';
-import type { TAddContentProps } from './types';
+import styles from './AddEntity.module.scss';
+import type { TAddEntityProps } from './types';
 
-const BLOCK = 'add-content';
+const BLOCK = 'add-entity';
 
-export const AddContent = memo((props: TAddContentProps) => {
+export const AddEntity = memo((props: TAddEntityProps) => {
 	const { title, totalValue } = props;
 
 	return (

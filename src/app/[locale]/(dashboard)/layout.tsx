@@ -1,4 +1,4 @@
-import { AddContent } from '@/components/AddContent';
+import { AddEntity } from '@/components/AddEntity';
 import { Sidebar } from '@/components/Sidebar';
 import type { TSidebarNavItem } from '@/components/Sidebar/types';
 import { TopHeader } from '@/components/TopHeader.ts';
@@ -9,18 +9,20 @@ const navigationItems: TSidebarNavItem[] = [
 	{ href: '/orders', label: 'Receipts' },
 	{ href: '/products', label: 'Products' }
 ];
+const BLOCK = 'dashboard';
+
 export default function AuthLayout({
 	children
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
 	return (
-		<div className={styles['dashboard']}>
+		<div className={styles[BLOCK]}>
 			<TopHeader />
-			<div className={styles['dashboard__container']}>
+			<div className={styles[`${BLOCK}__container`]}>
 				<Sidebar items={navigationItems} />
-				<div className={styles['dashboard__content']}>
-					<AddContent title='title' totalValue={40} />
+				<div className={styles[`${BLOCK}__content`]}>
+					<AddEntity title='title' totalValue={40} />
 					<div className='mt-4'>{children}</div>
 				</div>
 			</div>
