@@ -14,5 +14,7 @@ describe('components/TopHeader', () => {
 		render(<DateTimeDisplay date={date} />);
 		// We assert presence of some parts; exact strings depend on date-fns locale formatting
 		expect(screen.getByText(/2025/)).toBeInTheDocument();
+		expect(screen.getByText(/\d{2}:\d{2}/)).toBeInTheDocument();
+		expect(screen.getByText(/^[A-Za-z]+$/)).toBeInTheDocument();
 	});
 });
