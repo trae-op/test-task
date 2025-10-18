@@ -14,10 +14,8 @@ import { TextField } from '@/components/ui/TextField';
 
 import { EMAIL_PATTERN, NAME_PATTERN, PASSWORD_PATTERN } from '@/utils/regExp';
 
-import {
-	type TSignUpSubmitState,
-	signUpSubmit
-} from '@/actions/auth/signUp/submit';
+import { signUpSubmit } from '@/actions/auth/signUp/submit';
+import type { TSignUpSubmitState } from '@/actions/auth/signUp/types';
 
 export const SignUp = () => {
 	const params = useParams();

@@ -22,6 +22,7 @@ export const SignIn = () => {
 	const t = useTranslations('App.auth.signIn');
 	const tp = useTranslations('App.auth.placeholders');
 	const te = useTranslations('App.errors');
+	const tae = useTranslations('App.auth.errors');
 	const router = useRouter();
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
@@ -38,7 +39,9 @@ export const SignIn = () => {
 		setError(null);
 		const res = await signIn(data.email, data.password);
 		if (!res.ok) {
-			setError(res.error || 'Failed to sign in');
+			const message =
+				res.error === 'CredentialsSignin' ? 'invalidCredentials' : 'default';
+			setError(message);
 			return;
 		}
 		router.push(`/${locale}/${getOrdersHref()}`);
@@ -55,7 +58,7 @@ export const SignIn = () => {
 						<Card.Body>
 							{error && (
 								<div style={{ color: 'crimson', marginBottom: '1rem' }}>
-									{error}
+									{tae(error)}
 								</div>
 							)}
 							<Form noValidate onSubmit={handleSubmit(onSubmit)}>

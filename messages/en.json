@@ -19,6 +19,10 @@
 				"noAccount": "Don't have an account?",
 				"signUpLink": "Sign Up"
 			},
+			"errors": {
+				"invalidCredentials": "Invalid email or password",
+				"default": "Failed to sign in"
+			},
 			"signUp": {
 				"title": "Sign Up",
 				"name": "Name",
