@@ -18,3 +18,5 @@ export type TSignUpResult =
 				| 'WRONG_PASSWORD';
 			message: string;
 	  };
+
+export type TSignUpSubmitState = { ok: boolean; message?: string };

@@ -3,8 +3,7 @@
 import { redirect } from 'next/navigation';
 
 import { signUp } from './action';
-
-export type TSignUpSubmitState = { ok: boolean; message?: string };
+import type { TSignUpSubmitState } from './types';
 
 export const signUpSubmit = async (
 	_prevState: TSignUpSubmitState,
