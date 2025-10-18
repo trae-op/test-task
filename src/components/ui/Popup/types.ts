@@ -3,7 +3,7 @@ import type { ModalProps } from 'react-bootstrap';
 
 export type TConfirmPopupProps = Omit<ModalProps, 'children'> & {
 	title: string;
-	confirmText?: string;
+	applyText?: string;
 	cancelText?: string;
 	onApply?: (handleClose: () => void) => void;
 	onCancel?: () => void;

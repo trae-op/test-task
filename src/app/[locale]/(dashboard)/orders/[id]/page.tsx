@@ -9,6 +9,8 @@ import type { TDynamicPageProps } from '@/types/dynamicPage';
 import type { TOrderData } from '@/types/order';
 import type { TProductData } from '@/types/product';
 
+import { AddProduct } from '@/app/_conceptions/AddProduct';
+
 const orders: TOrderData[] = [
 	{
 		id: '1',
@@ -61,6 +63,8 @@ async function Container({ params }: TDynamicPageProps) {
 					className='d-flex align-items-center justify-content-center z-3 position-absolute negative-end-rem1 negative-top-rem1 border-0'
 					href='/orders'
 				/>
+
+				<AddProduct />
 
 				<ProductsTable items={products} isDetail />
 			</div>

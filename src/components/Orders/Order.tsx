@@ -111,10 +111,9 @@ export const OrderRow = memo(
 									applyIconButton={Trash}
 									iconButton={Trash}
 									openButtonAriaLabel='Delete'
+									applyText='Delete'
 									openButtonClassName={clsx('w-100 h-100')}
 									title={'Delete this order?'}
-									confirmText={'Delete'}
-									cancelText={'Cancel'}
 									applyButtonClassName=''
 									onApply={onClose => {
 										console.log('Delete order', id);

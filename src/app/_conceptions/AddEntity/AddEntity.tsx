@@ -17,7 +17,7 @@ export const AddEntity = memo(({ title, totalValue }: TAddEntityProps) => {
 				componentButton={AddEntityButton}
 				openButtonAriaLabel='add entity'
 				title={'Add this order?'}
-				confirmText={'Add'}
+				applyText={'Add'}
 				cancelText={'Cancel'}
 				applyButtonClassName=''
 				onApply={onClose => {

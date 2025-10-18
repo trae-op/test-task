@@ -6,6 +6,11 @@
 		"Something wrong with server": "Щось не так із сервером",
 		"from": "з",
 		"to": "до",
+		"Apply": "Застосувати",
+		"Cancel": "Скасувати",
+		"Add": "Додати",
+		"Delete": "Видалити",
+		"Products": "Продукти",
 		"sidebar": {
 			"Receipts": "Надходження",
 			"Products": "Продукти"
@@ -42,6 +47,7 @@
 			}
 		},
 		"products": {
+			"Add Product": "Додати продукт",
 			"Products": "Продукти",
 			"state": {
 				"available": "Доступний",

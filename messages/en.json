@@ -6,6 +6,11 @@
 		"Something wrong with server": "Something wrong with server",
 		"from": "from",
 		"to": "to",
+		"Apply": "Apply",
+		"Cancel": "Cancel",
+		"Add": "Add",
+		"Delete": "Delete",
+		"Products": "Products",
 		"sidebar": {
 			"Receipts": "Receipts",
 			"Products": "Products"
@@ -42,6 +47,7 @@
 			}
 		},
 		"products": {
+			"Add Product": "Add Product",
 			"Products": "Products",
 			"state": {
 				"available": "Available",

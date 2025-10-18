@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 import { type MouseEvent, memo, useCallback } from 'react';
 import { Modal } from 'react-bootstrap';
 
@@ -14,7 +15,7 @@ const BLOCK = 'popup';
 export const Popup = memo(
 	({
 		title,
-		confirmText = 'Delete',
+		applyText,
 		cancelText = 'Cancel',
 		onApply,
 		onCancel,
@@ -31,6 +32,7 @@ export const Popup = memo(
 		applyButtonClassName,
 		...rest
 	}: TConfirmPopupProps) => {
+		const t = useTranslations('App');
 		const { isOpen, handleOpen, handleClose } = usePopup();
 
 		const isControlled = show !== undefined;
@@ -96,7 +98,7 @@ export const Popup = memo(
 								className='btn btn-outline-light'
 								onClick={handleCancel}
 							>
-								{cancelText}
+								{t(cancelText, { default: cancelText })}
 							</button>
 
 							{ComponentApplyButton !== undefined ? (
@@ -113,7 +115,7 @@ export const Popup = memo(
 									onClick={handlePopupApply}
 								>
 									{ApplyIcon ? <ApplyIcon size={16} /> : null}
-									{confirmText}
+									{t(applyText ?? 'Apply', { default: applyText ?? 'Apply' })}
 								</button>
 							)}
 						</div>

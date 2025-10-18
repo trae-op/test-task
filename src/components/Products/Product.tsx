@@ -98,8 +98,7 @@ export const ProductRow = memo(
 							iconButton={Trash}
 							openButtonClassName={clsx('w-100 h-100')}
 							title={'Delete this order?'}
-							confirmText={'Delete'}
-							cancelText={'Cancel'}
+							applyText='Delete'
 							applyButtonClassName=''
 							onApply={onClose => {
 								console.log('Delete order', id);

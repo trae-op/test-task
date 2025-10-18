@@ -1,10 +1,10 @@
-import { AddEntity } from '@/components/AddEntity';
 import { DropdownLocalization } from '@/components/DropdownLocalization';
 import { Sidebar } from '@/components/Sidebar';
 import type { TSidebarNavItem } from '@/components/Sidebar/types';
 import { TopHeader } from '@/components/TopHeader.ts';
 
 import styles from './Layout.module.scss';
+import { AddEntity } from '@/app/_conceptions/AddEntity';
 
 const navigationItems: TSidebarNavItem[] = [
 	{ href: '/orders', label: 'Receipts' },
