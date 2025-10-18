@@ -1,5 +1,8 @@
+import type { ReactNode } from 'react';
+
 export type TTopHeaderProps = {
 	onSearch?: (value: string) => void;
+	endContentComponent?: ReactNode;
 };
 
 export type TLogoProps = {

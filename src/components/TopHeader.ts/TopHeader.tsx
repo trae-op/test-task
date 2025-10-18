@@ -6,8 +6,9 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { DateTimeDisplay } from './DateTimeDisplay';
 import { HeaderInfo } from './HeaderInfo';
 import styles from './styles/TopHeader.module.scss';
+import type { TTopHeaderProps } from './types';
 
-export const TopHeader = memo(() => {
+export const TopHeader = memo(({ endContentComponent }: TTopHeaderProps) => {
 	const [currentDate] = useState(new Date());
 
 	return (
@@ -18,6 +19,7 @@ export const TopHeader = memo(() => {
 						<HeaderInfo title='INVENTORY' />
 					</Col>
 					<Col xs='auto' className={styles['top-header__col']}>
+						{endContentComponent}
 						<DateTimeDisplay date={currentDate} />
 					</Col>
 				</Row>
