@@ -6,26 +6,7 @@ import { EMAIL_PATTERN, PASSWORD_PATTERN, isValidName } from '@/utils/regExp';
 
 import { prisma } from '../../../../prisma/prisma-client';
 
-type TSignUpInput = {
-	name?: string;
-	email: string;
-	password: string;
-	confirmPassword?: string;
-};
-
-type TSignUpResult =
-	| { ok: true; userId: string }
-	| {
-			ok: false;
-			code:
-				| 'USER_EXISTS'
-				| 'INVALID_INPUT'
-				| 'PASSWORD_MISMATCH'
-				| 'WEAK_PASSWORD'
-				| 'SERVER_ERROR'
-				| 'WRONG_PASSWORD';
-			message: string;
-	  };
+import type { TSignUpInput, TSignUpResult } from './types';
 
 export const signUp = async (input: TSignUpInput): Promise<TSignUpResult> => {
 	try {
