@@ -2,8 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useParams } from 'next/navigation';
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
@@ -14,7 +13,8 @@ import { TextField } from '@/components/ui/TextField';
 import { useAuthActions } from '@/hooks/auth';
 
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from '@/utils/regExp';
-import { getOrdersHref } from '@/utils/routing/routing';
+
+import { ErrorServer } from '../ErrorServer';
 
 import type { TSignInFormData } from './types';
 
@@ -22,30 +22,15 @@ export const SignIn = () => {
 	const t = useTranslations('App.auth.signIn');
 	const tp = useTranslations('App.auth.placeholders');
 	const te = useTranslations('App.errors');
-	const tae = useTranslations('App.auth.errors');
-	const router = useRouter();
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
-	const { signIn } = useAuthActions();
-	const [error, setError] = useState<string | null>(null);
+	const { onSignInSubmit, signInError } = useAuthActions();
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors, isSubmitting }
 	} = useForm<TSignInFormData>({ mode: 'onBlur' });
-
-	const onSubmit = async (data: TSignInFormData) => {
-		setError(null);
-		const res = await signIn(data.email, data.password);
-		if (!res.ok) {
-			const message =
-				res.error === 'CredentialsSignin' ? 'invalidCredentials' : 'default';
-			setError(message);
-			return;
-		}
-		router.push(`/${locale}/${getOrdersHref()}`);
-	};
 
 	return (
 		<Container>
@@ -56,12 +41,8 @@ export const SignIn = () => {
 							{t('title')}
 						</Card.Header>
 						<Card.Body>
-							{error && (
-								<div style={{ color: 'crimson', marginBottom: '1rem' }}>
-									{tae(error)}
-								</div>
-							)}
-							<Form noValidate onSubmit={handleSubmit(onSubmit)}>
+							<ErrorServer message={signInError} />
+							<Form noValidate onSubmit={handleSubmit(onSignInSubmit)}>
 								<Form.Group className='mb-3' controlId='formEmail'>
 									<RequiredLabel text={t('email')} />
 									<TextField

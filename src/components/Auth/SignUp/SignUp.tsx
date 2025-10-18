@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { startTransition, useActionState } from 'react';
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
@@ -12,10 +11,11 @@ import { Button } from '@/components/ui/Button';
 import { RequiredLabel } from '@/components/ui/RequiredLabel';
 import { TextField } from '@/components/ui/TextField';
 
+import { useAuthActions } from '@/hooks/auth';
+
 import { EMAIL_PATTERN, NAME_PATTERN, PASSWORD_PATTERN } from '@/utils/regExp';
 
-import { signUpSubmit } from '@/actions/auth/signUp/submit';
-import type { TSignUpSubmitState } from '@/actions/auth/signUp/types';
+import { ErrorServer } from '../ErrorServer';
 
 export const SignUp = () => {
 	const params = useParams();
@@ -23,7 +23,6 @@ export const SignUp = () => {
 	const t = useTranslations('App.auth.signUp');
 	const tp = useTranslations('App.auth.placeholders');
 	const te = useTranslations('App.errors');
-	const thu = useTranslations('App.auth.errors');
 
 	const {
 		register,
@@ -33,23 +32,7 @@ export const SignUp = () => {
 	} = useForm<TSignUpFormData>({ mode: 'onBlur' });
 	const password = watch('password');
 
-	const [state, formAction, isPending] = useActionState<
-		TSignUpSubmitState,
-		FormData
-	>(signUpSubmit, { ok: false });
-
-	const onSubmit = (data: TSignUpFormData) => {
-		const fd = new FormData();
-		fd.append('locale', locale);
-		fd.append('name', data.name);
-		fd.append('email', data.email);
-		fd.append('password', data.password);
-		fd.append('confirmPassword', data.confirmPassword);
-		startTransition(() => {
-			formAction(fd);
-		});
-	};
-
+	const { onSignUpSubmit, signUpState, signUpIsPending } = useAuthActions();
 	return (
 		<Container>
 			<Row className='justify-content-center align-items-center min-vh-100'>
@@ -59,12 +42,8 @@ export const SignUp = () => {
 							{t('title')}
 						</Card.Header>
 						<Card.Body>
-							{state.message && (
-								<div style={{ color: 'crimson', marginBottom: '1rem' }}>
-									{thu(state.message)}
-								</div>
-							)}
-							<Form noValidate onSubmit={handleSubmit(onSubmit)}>
+							<ErrorServer message={signUpState.message} />
+							<Form noValidate onSubmit={handleSubmit(onSignUpSubmit)}>
 								<Form.Group className='mb-3' controlId='formName'>
 									<RequiredLabel text={t('name')} />
 									<TextField
@@ -130,7 +109,7 @@ export const SignUp = () => {
 									type='submit'
 									variant='success'
 									className='w-100'
-									disabled={isSubmitting || isPending}
+									disabled={isSubmitting || signUpIsPending}
 								/>
 
 								<div className='text-center mt-3'>
