@@ -21,7 +21,8 @@
 			},
 			"errors": {
 				"invalidCredentials": "Невірна електронна пошта або пароль",
-				"default": "Не вдалося увійти"
+				"default": "Не вдалося увійти",
+				"User already exists": "Користувач вже існує"
 			},
 			"signUp": {
 				"title": "Реєстрація",

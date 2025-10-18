@@ -23,6 +23,7 @@ export const SignUp = () => {
 	const t = useTranslations('App.auth.signUp');
 	const tp = useTranslations('App.auth.placeholders');
 	const te = useTranslations('App.errors');
+	const thu = useTranslations('App.auth.errors');
 
 	const {
 		register,
@@ -60,7 +61,7 @@ export const SignUp = () => {
 						<Card.Body>
 							{state.message && (
 								<div style={{ color: 'crimson', marginBottom: '1rem' }}>
-									{state.message}
+									{thu(state.message)}
 								</div>
 							)}
 							<Form noValidate onSubmit={handleSubmit(onSubmit)}>

@@ -21,7 +21,8 @@
 			},
 			"errors": {
 				"invalidCredentials": "Invalid email or password",
-				"default": "Failed to sign in"
+				"default": "Failed to sign in",
+				"User already exists": "User already exists"
 			},
 			"signUp": {
 				"title": "Sign Up",
