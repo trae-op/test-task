@@ -32,10 +32,7 @@ export default function RootLayout({ children }: Props) {
 	return (
 		<html lang='en'>
 			<body
-				className={clsx(
-					`${geistSans.variable} ${geistMono.variable}`,
-					'bg-light'
-				)}
+				className={clsx(geistSans.variable, geistMono.variable, 'bg-light')}
 			>
 				{children}
 			</body>

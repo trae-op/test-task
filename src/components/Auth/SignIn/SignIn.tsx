@@ -14,6 +14,7 @@ import { TextField } from '@/components/ui/TextField';
 import { useAuthActions } from '@/hooks/auth';
 
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from '@/utils/regExp';
+import { getOrdersHref } from '@/utils/routing/routing';
 
 import type { TSignInFormData } from './types';
 
@@ -40,7 +41,7 @@ export const SignIn = () => {
 			setError(res.error || 'Failed to sign in');
 			return;
 		}
-		router.push(`/${locale}`);
+		router.push(`/${locale}/${getOrdersHref()}`);
 	};
 
 	return (
