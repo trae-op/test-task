@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 
-import type { TUseConfirmPopup } from './types';
+import type { TUsePopup } from './types';
 
-export const useConfirmPopup = (): TUseConfirmPopup => {
+export const usePopup = (): TUsePopup => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [entityId, setEntityId] = useState<string | undefined>(undefined);
 

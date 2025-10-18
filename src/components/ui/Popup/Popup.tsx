@@ -1,11 +1,10 @@
 import clsx from 'clsx';
 import { type MouseEvent, memo, useCallback } from 'react';
 import { Modal } from 'react-bootstrap';
-import { Trash } from 'react-bootstrap-icons';
 
 import { CloseEntityButton } from '@/components/ui/CloseEntityButton';
 
-import { useConfirmPopup } from '@/hooks/confirmPopup';
+import { usePopup } from '@/hooks/popup';
 
 import styles from './Popup.module.scss';
 import type { TConfirmPopupProps } from './types';
@@ -32,7 +31,7 @@ export const Popup = memo(
 		applyButtonClassName,
 		...rest
 	}: TConfirmPopupProps) => {
-		const { isOpen, handleOpen, handleClose } = useConfirmPopup();
+		const { isOpen, handleOpen, handleClose } = usePopup();
 
 		const isControlled = show !== undefined;
 		const isModalOpen = isControlled ? show : isOpen;

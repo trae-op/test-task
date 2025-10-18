@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { useConfirmPopup } from '@/hooks/confirmPopup/useConfirmPopup';
+import { useConfirmPopup } from '@/hooks/popup/usePopup';
 
 describe('useConfirmPopup', () => {
 	it('returns initial state: closed with no entityId', () => {
