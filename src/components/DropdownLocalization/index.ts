@@ -1,1 +1,0 @@
-export { DropdownLocalization } from './DropdownLocalization';

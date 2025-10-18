@@ -1,4 +1,4 @@
-import { DropdownLocalization } from '@/components/DropdownLocalization';
+import { LocalizationDropdown } from '@/components/LocalizationDropdown';
 import { Sidebar } from '@/components/Sidebar';
 import type { TSidebarNavItem } from '@/components/Sidebar/types';
 import { TopHeader } from '@/components/TopHeader.ts';
@@ -20,7 +20,7 @@ export default function AuthLayout({
 	return (
 		<div className={styles[BLOCK]}>
 			<TopHeader
-				endContentComponent={<DropdownLocalization className='me-2' />}
+				endContentComponent={<LocalizationDropdown className='me-2' />}
 			/>
 			<div className={styles[`${BLOCK}__container`]}>
 				<Sidebar items={navigationItems} />
