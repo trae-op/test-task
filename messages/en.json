@@ -27,7 +27,11 @@
 			"errors": {
 				"invalidCredentials": "Invalid email or password",
 				"default": "Failed to sign in",
-				"User already exists": "User already exists"
+				"User already exists": "User already exists",
+				"invalidInput": "Invalid input",
+				"passwordMatch": "Passwords must match",
+				"password": "Password must be at least 8 characters and contain at least one letter and one number",
+				"wrongPassword": "Wrong password"
 			},
 			"signUp": {
 				"title": "Sign Up",

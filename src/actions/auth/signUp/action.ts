@@ -18,23 +18,19 @@ export const signUp = async (input: TSignUpInput): Promise<TSignUpResult> => {
 		const name = input.name?.trim();
 
 		if (!EMAIL_PATTERN.test(email)) {
-			return { ok: false, code: 'INVALID_INPUT', message: 'Invalid email' };
+			return { ok: false, code: 'INVALID_INPUT' };
 		}
 
 		if (name && !isValidName(name)) {
-			return { ok: false, code: 'INVALID_INPUT', message: 'Invalid name' };
+			return { ok: false, code: 'INVALID_INPUT' };
 		}
 
 		if (!PASSWORD_PATTERN.test(password)) {
-			return { ok: false, code: 'WEAK_PASSWORD', message: 'Weak password' };
+			return { ok: false, code: 'WEAK_PASSWORD' };
 		}
 
 		if (confirmPassword && password !== confirmPassword) {
-			return {
-				ok: false,
-				code: 'PASSWORD_MISMATCH',
-				message: 'Passwords do not match'
-			};
+			return { ok: false, code: 'PASSWORD_MISMATCH' };
 		}
 
 		const existing = await prisma.user.findUnique({ where: { email } });
@@ -42,17 +38,9 @@ export const signUp = async (input: TSignUpInput): Promise<TSignUpResult> => {
 			if (existing.password) {
 				const same = await compare(password, existing.password);
 				if (!same) {
-					return {
-						ok: false,
-						code: 'WRONG_PASSWORD',
-						message: 'Wrong password'
-					};
+					return { ok: false, code: 'WRONG_PASSWORD' };
 				}
-				return {
-					ok: false,
-					code: 'USER_EXISTS',
-					message: 'User already exists'
-				};
+				return { ok: false, code: 'USER_EXISTS' };
 			}
 			if (!existing.password && password) {
 				const hashed = await hash(password, 10);
@@ -80,6 +68,6 @@ export const signUp = async (input: TSignUpInput): Promise<TSignUpResult> => {
 
 		return { ok: true, userId: user.id };
 	} catch (e) {
-		return { ok: false, code: 'SERVER_ERROR', message: 'Server error' };
+		return { ok: false, code: 'SERVER_ERROR' };
 	}
 };

@@ -37,7 +37,7 @@ export const useAuthActions = (): TAuthActions => {
 				setSignInError(message);
 				return;
 			}
-			router.push(`/${locale}/${getOrdersHref()}`);
+			router.push(`/${locale}${getOrdersHref()}`);
 		},
 		[router, locale, signIn]
 	);

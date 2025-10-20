@@ -19,5 +19,13 @@ export const signUpSubmit = async (
 	if (res.ok) {
 		redirect(`/${locale}/sign-in?registered=1`);
 	}
-	return { ok: false, message: res.message };
+	const codeToKey: Record<string, string> = {
+		USER_EXISTS: 'User already exists',
+		INVALID_INPUT: 'invalidInput',
+		PASSWORD_MISMATCH: 'passwordMatch',
+		WEAK_PASSWORD: 'password',
+		SERVER_ERROR: 'default',
+		WRONG_PASSWORD: 'wrongPassword'
+	};
+	return { ok: false, message: codeToKey[res.code] ?? 'default' };
 };
