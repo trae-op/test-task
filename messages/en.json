@@ -98,6 +98,34 @@
 				"ariaLabel": "add content"
 			}
 		},
+		"Profile": {
+			"title": "Profile",
+			"signOut": "Sign Out",
+			"info": {
+				"title": "Profile Info",
+				"fields": {
+					"name": "Name",
+					"email": "Email"
+				},
+				"placeholders": {
+					"name": "Enter your name",
+					"email": "Enter email"
+				}
+			},
+			"password": {
+				"title": "Update Password",
+				"fields": {
+					"oldPassword": "Old password",
+					"newPassword": "New password",
+					"confirmPassword": "Confirm new password"
+				},
+				"placeholders": {
+					"oldPassword": "Enter old password",
+					"newPassword": "Enter new password",
+					"confirmPassword": "Confirm new password"
+				}
+			}
+		},
 		"errors": {
 			"required": "This field is required",
 			"email": "Please enter a valid email address",

@@ -38,24 +38,24 @@ export const UpdatePassword = () => {
 	return (
 		<Card>
 			<Card.Body>
-				<h5 className='mb-3'>Update Password</h5>
+				<h5 className='mb-3'>{t('Profile.password.title')}</h5>
 				<ErrorServer message={state.message} />
 				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
 					<Form.Group className='mb-3' controlId='oldPassword'>
-						<Form.Label>Old password</Form.Label>
+						<Form.Label>{t('Profile.password.fields.oldPassword')}</Form.Label>
 						<TextField
 							{...register('oldPassword', {
 								required: te('required')
 							})}
 							type='password'
-							placeholder='Enter old password'
+							placeholder={t('Profile.password.placeholders.oldPassword')}
 							isInvalid={!!errors.oldPassword}
 							errorMessage={errors.oldPassword?.message}
 						/>
 					</Form.Group>
 
 					<Form.Group className='mb-3' controlId='newPassword'>
-						<Form.Label>New password</Form.Label>
+						<Form.Label>{t('Profile.password.fields.newPassword')}</Form.Label>
 						<TextField
 							{...register('newPassword', {
 								required: te('required'),
@@ -63,21 +63,23 @@ export const UpdatePassword = () => {
 									PASSWORD_PATTERN.test(value) || te('password')
 							})}
 							type='password'
-							placeholder='Enter new password'
+							placeholder={t('Profile.password.placeholders.newPassword')}
 							isInvalid={!!errors.newPassword}
 							errorMessage={errors.newPassword?.message}
 						/>
 					</Form.Group>
 
 					<Form.Group className='mb-3' controlId='confirmPassword'>
-						<Form.Label>Confirm new password</Form.Label>
+						<Form.Label>
+							{t('Profile.password.fields.confirmPassword')}
+						</Form.Label>
 						<TextField
 							{...register('confirmPassword', {
 								required: te('required'),
 								validate: value => value === newPassword || te('passwordMatch')
 							})}
 							type='password'
-							placeholder='Confirm new password'
+							placeholder={t('Profile.password.placeholders.confirmPassword')}
 							isInvalid={!!errors.confirmPassword}
 							errorMessage={errors.confirmPassword?.message}
 						/>

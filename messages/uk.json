@@ -98,6 +98,34 @@
 				"ariaLabel": "додати вміст"
 			}
 		},
+		"Profile": {
+			"title": "Профіль",
+			"signOut": "Вийти",
+			"info": {
+				"title": "Інформація профілю",
+				"fields": {
+					"name": "Ім'я",
+					"email": "Електронна пошта"
+				},
+				"placeholders": {
+					"name": "Введіть ваше ім'я",
+					"email": "Введіть електронну пошту"
+				}
+			},
+			"password": {
+				"title": "Оновити пароль",
+				"fields": {
+					"oldPassword": "Старий пароль",
+					"newPassword": "Новий пароль",
+					"confirmPassword": "Підтвердіть новий пароль"
+				},
+				"placeholders": {
+					"oldPassword": "Введіть старий пароль",
+					"newPassword": "Введіть новий пароль",
+					"confirmPassword": "Підтвердіть новий пароль"
+				}
+			}
+		},
 		"errors": {
 			"required": "Це поле обов'язкове",
 			"email": "Будь ласка, введіть дійсну електронну адресу",
