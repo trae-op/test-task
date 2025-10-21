@@ -22,10 +22,11 @@ export const useAddProductActions = (): TAddProductActions => {
 			prices: MultiValue<OptionType>,
 			locale: string
 		) => {
-			const pricesPayload = prices.map((p, idx) => ({
+			const anyPrices = prices as unknown as Array<any>;
+			const pricesPayload = anyPrices.map((p, idx) => ({
 				symbol: p.value as 'USD' | 'UAH',
-				value: Number((p as any).valueAmount ?? 0),
-				isDefault: idx === 0
+				value: Number(p.valueAmount ?? 0),
+				isDefault: typeof p.isDefault === 'boolean' ? p.isDefault : idx === 0
 			}));
 
 			const fd = new FormData();

@@ -32,6 +32,7 @@ export const AddProduct = ({
 	currencyOptions
 }: TAddProductProps) => {
 	const t = useTranslations('App.addProduct');
+	const tg = useTranslations('App');
 	const te = useTranslations('App.errors');
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
@@ -45,6 +46,10 @@ export const AddProduct = ({
 		control
 	} = useForm<TAddProductFormData>({ mode: 'onBlur' });
 
+	// Local state for building individual price entries
+	const [priceAmount, setPriceAmount] = useState<string>('');
+	const [priceCurrency, setPriceCurrency] = useState<string>('');
+	const [priceIsDefault, setPriceIsDefault] = useState<boolean>(false);
 	const [prices, setPrices] = useState<MultiValue<OptionType>>([]);
 
 	const { onAddProductSubmit, state, isPending } = useAddProductActions();
@@ -62,6 +67,38 @@ export const AddProduct = ({
 		() => currencyOptions,
 		[currencyOptions]
 	);
+
+	const onAddPrice = () => {
+		const amountNum = Number(priceAmount);
+		if (!priceCurrency) return;
+		if (Number.isNaN(amountNum) || amountNum <= 0) return;
+
+		// create enriched option: label shows amount + currency, carry amount and default as extra fields
+		const newOption: any = {
+			value: priceCurrency,
+			label: `${amountNum} ${priceCurrency}`,
+			valueAmount: amountNum,
+			isDefault: priceIsDefault
+		};
+
+		setPrices(prev => {
+			// replace existing for same currency, else append
+			let next = prev.filter((p: any) => p.value !== priceCurrency);
+			next = [...next, newOption];
+			// ensure only one default if this one is default
+			if (priceIsDefault) {
+				next = next.map((p: any) => ({
+					...p,
+					isDefault: p.value === priceCurrency
+				}));
+			}
+			return next as MultiValue<OptionType>;
+		});
+
+		// reset input fields (keep currency for faster entry)
+		setPriceAmount('');
+		setPriceIsDefault(false);
+	};
 
 	return (
 		<Container>
@@ -162,11 +199,75 @@ export const AddProduct = ({
 									<input type='hidden' {...register('orderId')} />
 								</Form.Group>
 
+								{/* Price builder fields */}
+								<Row>
+									<Col md={4}>
+										<Form.Group className='mb-3' controlId='priceAmount'>
+											<Form.Label>Amount</Form.Label>
+											<TextField
+												type='number'
+												min='0'
+												step='0.01'
+												value={priceAmount}
+												onChange={e => setPriceAmount(e.target.value)}
+												placeholder='0.00'
+											/>
+										</Form.Group>
+									</Col>
+									<Col md={4}>
+										<Form.Group className='mb-3' controlId='priceCurrency'>
+											<Form.Label>Currency</Form.Label>
+											<SelectField
+												options={currencySelectOptions.map(o => ({
+													value: o.value,
+													label: o.label
+												}))}
+												value={toSelectValue(
+													currencySelectOptions.map(o => ({
+														value: o.value,
+														label: o.label
+													})),
+													priceCurrency
+												)}
+												onChange={e => setPriceCurrency(e.target.value)}
+												placeholder={t('selectCurrencies')}
+											/>
+										</Form.Group>
+									</Col>
+									<Col md={2} className='d-flex align-items-end'>
+										<Form.Group className='mb-3' controlId='priceDefault'>
+											<div className='form-check'>
+												<input
+													className='form-check-input'
+													type='checkbox'
+													checked={priceIsDefault}
+													onChange={e => setPriceIsDefault(e.target.checked)}
+													id='isDefaultPrice'
+												/>
+												<label
+													className='form-check-label'
+													htmlFor='isDefaultPrice'
+												>
+													Default
+												</label>
+											</div>
+										</Form.Group>
+									</Col>
+									<Col md={2} className='d-flex align-items-end'>
+										<Button
+											text={tg('Add')}
+											variant='primary'
+											onClick={onAddPrice}
+											className='w-100'
+										/>
+									</Col>
+								</Row>
+
 								<Form.Group className='mb-3' controlId='prices'>
 									<Form.Label>{t('prices')}</Form.Label>
 									<MultiSelectField
 										instanceId='product-prices'
-										options={currencySelectOptions}
+										options={prices as any}
 										value={prices}
 										onChange={setPrices}
 										placeholder={t('selectCurrencies')}
