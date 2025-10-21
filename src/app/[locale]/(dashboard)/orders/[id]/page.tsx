@@ -1,13 +1,18 @@
+import { getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
 
 import { OrderTable } from '@/components/Orders';
 import { ProductsTable } from '@/components/Products';
+import { AddEntityButton } from '@/components/ui/AddEntityButton';
 import { CloseEntityButton } from '@/components/ui/CloseEntityButton';
 import { DetailEntityLoading } from '@/components/ui/DetailEntityLoading/DetailEntityLoading';
+import { NavigationLink } from '@/components/ui/NavigationLink';
 
 import type { TDynamicPageProps } from '@/types/dynamicPage';
 import type { TOrderData } from '@/types/order';
 import type { TProductData } from '@/types/product';
+
+import { getAddProductHref } from '@/utils/routing';
 
 const orders: TOrderData[] = [
 	{
@@ -48,6 +53,7 @@ const products: TProductData[] = [
 
 async function Container({ params }: TDynamicPageProps) {
 	await params;
+	const t = await getTranslations('App.addProduct');
 
 	return (
 		<div className='row g-1'>
@@ -61,6 +67,14 @@ async function Container({ params }: TDynamicPageProps) {
 					className='d-flex align-items-center justify-content-center z-3 position-absolute negative-end-rem1 negative-top-rem1 border-0'
 					href='/orders'
 				/>
+
+				<div className='d-flex align-items-center justify-content-start gap-2'>
+					<NavigationLink
+						href={getAddProductHref()}
+						component={AddEntityButton}
+					/>
+					<span>{t('title')}</span>
+				</div>
 
 				<ProductsTable items={products} isDetail />
 			</div>
