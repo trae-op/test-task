@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 
-import { addProduct } from './AddProduct';
+import { addProduct } from './action';
 import type { TAddProductSubmitState } from './types';
 
 export const addProductSubmit = async (
