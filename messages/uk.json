@@ -81,6 +81,15 @@
 			"isNew": "Новий продукт?",
 			"submit": "Додати продукт"
 		},
+		"addOrder": {
+			"title": "Додати надходження",
+			"titleLabel": "Назва",
+			"enterTitle": "Введіть назву",
+			"description": "Опис",
+			"enterDescription": "Введіть опис",
+			"products": "Продукти",
+			"submit": "Додати надходження"
+		},
 		"orders": {
 			"productLabel": "Продукта"
 		},

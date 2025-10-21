@@ -69,6 +69,15 @@
 			"isNew": "Is new product?",
 			"submit": "Add Product"
 		},
+		"addOrder": {
+			"title": "Add Order",
+			"titleLabel": "Title",
+			"enterTitle": "Enter title",
+			"description": "Description",
+			"enterDescription": "Enter description",
+			"products": "Products",
+			"submit": "Add Order"
+		},
 		"products": {
 			"Add Product": "Add Product",
 			"Products": "Products",

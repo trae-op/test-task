@@ -3,7 +3,9 @@
 import { memo } from 'react';
 
 import { AddEntityButton } from '@/components/ui/AddEntityButton';
-import { Popup } from '@/components/ui/Popup';
+import { NavigationLink } from '@/components/ui/NavigationLink';
+
+import { getAddOrderHref } from '@/utils/routing/routing';
 
 import styles from './AddEntity.module.scss';
 import type { TAddEntityProps } from './types';
@@ -13,18 +15,7 @@ const BLOCK = 'add-entity';
 export const AddEntity = memo(({ title, totalValue }: TAddEntityProps) => {
 	return (
 		<div className={styles[BLOCK]}>
-			<Popup
-				componentButton={AddEntityButton}
-				openButtonAriaLabel='add entity'
-				title={'Add this order?'}
-				applyText={'Add'}
-				cancelText={'Cancel'}
-				applyButtonClassName=''
-				onApply={onClose => {
-					console.log('add order');
-					onClose();
-				}}
-			/>
+			<NavigationLink href={getAddOrderHref()} component={AddEntityButton} />
 
 			<div className={styles[`${BLOCK}__text`]}>
 				<span>{title}</span>
