@@ -7,14 +7,13 @@ import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/Button';
+import { ErrorServer } from '@/components/ui/ErrorServer';
 import { RequiredLabel } from '@/components/ui/RequiredLabel';
 import { TextField } from '@/components/ui/TextField';
 
 import { useAuthActions } from '@/hooks/auth';
 
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from '@/utils/regExp';
-
-import { ErrorServer } from '../ErrorServer';
 
 import type { TSignInFormData } from './types';
 

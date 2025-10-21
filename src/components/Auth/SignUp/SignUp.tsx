@@ -8,14 +8,13 @@ import { useForm } from 'react-hook-form';
 
 import { type TSignUpFormData } from '@/components/Auth/SignUp/types';
 import { Button } from '@/components/ui/Button';
+import { ErrorServer } from '@/components/ui/ErrorServer';
 import { RequiredLabel } from '@/components/ui/RequiredLabel';
 import { TextField } from '@/components/ui/TextField';
 
 import { useAuthActions } from '@/hooks/auth';
 
 import { EMAIL_PATTERN, NAME_PATTERN, PASSWORD_PATTERN } from '@/utils/regExp';
-
-import { ErrorServer } from '../ErrorServer';
 
 export const SignUp = () => {
 	const params = useParams();
