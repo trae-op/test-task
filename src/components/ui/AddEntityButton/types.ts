@@ -6,4 +6,9 @@ export type TAddEntityButtonProps = Omit<
 > & {
 	className?: string;
 	iconClassName?: string;
+	ariaLabelText?: string;
+	iconSize?: number;
+	// Provided by NavigationLink wrapper; should not reach DOM
+	isActive?: boolean;
+	text?: string;
 };

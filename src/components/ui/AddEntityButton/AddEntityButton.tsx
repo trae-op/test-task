@@ -14,6 +14,8 @@ export const AddEntityButton = ({
 	iconClassName = '',
 	ariaLabelText,
 	iconSize = 20,
+	isActive: _isActive,
+	text: _text,
 	...restProps
 }: TAddEntityButtonProps) => (
 	<Button
