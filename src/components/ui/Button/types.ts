@@ -1,13 +1,14 @@
 import { ButtonProps as BaseButtonProps } from 'react-bootstrap';
-import { Icon as IconType } from 'react-bootstrap-icons';
+import { Icon as TIcon } from 'react-bootstrap-icons';
 
 export type IconProps = {
-	IconComponent?: IconType;
+	IconComponent?: TIcon;
 	iconClassName?: string;
+	iconSize?: number;
 };
 
 export type ButtonProps = BaseButtonProps &
 	IconProps & {
-		text: string;
+		text?: string;
 		textClassName?: string;
 	};

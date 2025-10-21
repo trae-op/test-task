@@ -6,16 +6,12 @@ import type { ButtonProps, IconProps } from './types';
 
 const BLOCK = 'base-button';
 
-const Icon = ({ IconComponent, iconClassName }: IconProps) => {
+const Icon = ({ IconComponent, iconClassName, iconSize }: IconProps) => {
 	if (IconComponent === undefined) {
 		return null;
 	}
 
-	return (
-		<span className={clsx(styles[`${BLOCK}__icon-wrapper`])}>
-			<IconComponent size={13} className={iconClassName} />
-		</span>
-	);
+	return <IconComponent size={iconSize} className={iconClassName} />;
 };
 
 export const Button = ({
@@ -25,16 +21,28 @@ export const Button = ({
 	iconClassName = '',
 	textClassName = '',
 	children,
+	iconSize,
 	...rest
 }: ButtonProps) => (
 	<BaseButton
-		className={clsx(styles[BLOCK], styles[`${BLOCK}--rounded`], className)}
+		className={clsx(
+			'd-flex align-items-center justify-content-center',
+			styles[BLOCK],
+			styles[`${BLOCK}--rounded`],
+			className
+		)}
 		{...rest}
 	>
-		<Icon IconComponent={IconComponent} iconClassName={iconClassName} />
-		<span className={textClassName}>
-			{text}
-			{children}
-		</span>
+		<Icon
+			iconSize={iconSize}
+			IconComponent={IconComponent}
+			iconClassName={iconClassName}
+		/>
+		{text !== undefined && (
+			<span className={textClassName}>
+				{text}
+				{children}
+			</span>
+		)}
 	</BaseButton>
 );

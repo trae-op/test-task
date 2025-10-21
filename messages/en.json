@@ -50,6 +50,25 @@
 				"confirmPassword": "Confirm password"
 			}
 		},
+		"addProduct": {
+			"title": "Add Product",
+			"titleLabel": "Title",
+			"enterTitle": "Enter title",
+			"serialNumber": "Serial number",
+			"enterSerialNumber": "Enter serial number",
+			"type": "Type",
+			"selectType": "Select type",
+			"specification": "Specification",
+			"enterSpecification": "Enter specification",
+			"guaranteeStart": "Guarantee start",
+			"guaranteeEnd": "Guarantee end",
+			"order": "Order",
+			"selectOrder": "Select order",
+			"prices": "Prices",
+			"selectCurrencies": "Select currencies",
+			"isNew": "Is new product?",
+			"submit": "Add Product"
+		},
 		"products": {
 			"Add Product": "Add Product",
 			"Products": "Products",
@@ -75,7 +94,8 @@
 			"email": "Please enter a valid email address",
 			"password": "Password must be at least 8 characters and contain at least one letter and one number",
 			"name": "Name must be between 2 and 30 characters and contain only letters",
-			"passwordMatch": "Passwords must match"
+			"passwordMatch": "Passwords must match",
+			"invalidInput": "Invalid input"
 		}
 	}
 }

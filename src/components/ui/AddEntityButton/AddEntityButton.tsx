@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { Button } from 'react-bootstrap';
 import { PlusLg } from 'react-bootstrap-icons';

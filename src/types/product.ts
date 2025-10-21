@@ -1,6 +1,6 @@
 export type TPrice = {
 	value: number;
-	symbol: 'USD' | 'UAH';
+	symbol: string;
 	isDefault: 0 | 1;
 };
 
