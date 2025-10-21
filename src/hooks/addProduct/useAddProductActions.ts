@@ -24,7 +24,7 @@ export const useAddProductActions = (): TAddProductActions => {
 		) => {
 			const anyPrices = prices as unknown as Array<any>;
 			const pricesPayload = anyPrices.map((p, idx) => ({
-				symbol: p.value as 'USD' | 'UAH',
+				symbol: p.value,
 				value: Number(p.valueAmount ?? 0),
 				isDefault: typeof p.isDefault === 'boolean' ? p.isDefault : idx === 0
 			}));

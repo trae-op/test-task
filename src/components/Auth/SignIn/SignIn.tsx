@@ -23,7 +23,7 @@ export const SignIn = () => {
 	const te = useTranslations('App.errors');
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
-	const { onSignInSubmit, signInError } = useAuthActions();
+	const { onSignInSubmit, signInError, signUpIsPending } = useAuthActions();
 
 	const {
 		register,
@@ -78,7 +78,7 @@ export const SignIn = () => {
 									type='submit'
 									variant='success'
 									className='w-100'
-									disabled={isSubmitting}
+									disabled={isSubmitting || signUpIsPending}
 								/>
 
 								<div className='text-center mt-3'>

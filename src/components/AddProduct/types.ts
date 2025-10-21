@@ -1,11 +1,7 @@
+import type { MultiValue } from 'react-select';
+
 import type { OptionType } from '@/components/ui/MultiSelectField/types';
 import type { SelectOption } from '@/components/ui/SelectField/types';
-
-export type TPriceInput = {
-	symbol: 'USD' | 'UAH';
-	value: number;
-	isDefault: boolean;
-};
 
 export type TAddProductFormData = {
 	title: string;
@@ -22,4 +18,9 @@ export type TAddProductProps = {
 	typeOptions: SelectOption[];
 	orderOptions: SelectOption[];
 	currencyOptions: OptionType[];
+};
+
+export type TPriceProps = {
+	currencyOptions: OptionType[];
+	onChange: (val: MultiValue<OptionType>) => void;
 };

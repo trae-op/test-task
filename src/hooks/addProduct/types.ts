@@ -2,12 +2,6 @@ import type { MultiValue } from 'react-select';
 
 import type { OptionType } from '@/components/ui/MultiSelectField/types';
 
-export type TPriceInput = {
-	symbol: 'USD' | 'UAH';
-	value: number;
-	isDefault: boolean;
-};
-
 export type TAddProductFormData = {
 	title: string;
 	serialNumber: string;
@@ -29,4 +23,8 @@ export type TAddProductActions = {
 	onAddProductSubmit: TOnAddProductSubmit;
 	state: { ok: boolean; message?: string };
 	isPending: boolean;
+};
+
+export type TUsePriceActionsArgs = {
+	onChange?: (val: MultiValue<OptionType>) => void;
 };
