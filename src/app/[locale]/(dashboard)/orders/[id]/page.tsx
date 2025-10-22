@@ -54,11 +54,11 @@ async function Container({ params }: TDynamicPageProps) {
 	const t = await getTranslations('App.addProduct');
 
 	return (
-		<div className='row g-1'>
-			<div className='col-12 col-lg-4 col-xl-3'>
+		<div className='row g-2'>
+			<div className='col-12 col-lg-4 col-xl-3 mt-0'>
 				<OrderTable items={orders} isDetail />
 			</div>
-			<div className='col-12 col-lg-8 col-xl-9 position-relative'>
+			<div className='col-12 col-lg-8 col-xl-9 position-relative bg-white rounded-2 p-3 mt-1 border'>
 				<CloseEntityButton
 					style={{ width: '2rem', height: '2rem' }}
 					aria-label='close'

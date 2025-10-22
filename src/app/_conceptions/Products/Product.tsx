@@ -27,7 +27,8 @@ export const ProductRow = memo(
 		price,
 		id,
 		order,
-		photo
+		photo,
+		isDetail = false
 	}: TProductProps) => {
 		const i18nLocale = useLocale();
 		const t = useTranslations('App');
@@ -42,7 +43,12 @@ export const ProductRow = memo(
 		);
 		return (
 			<tr className={styles[BLOCK]}>
-				<td className={styles[`${BLOCK}__content`]}>
+				<td
+					className={clsx({
+						[styles[`${BLOCK}__content`]]: !isDetail,
+						[styles[`${BLOCK}__detail`]]: isDetail
+					})}
+				>
 					<div>
 						<div
 							className={clsx(
