@@ -38,6 +38,8 @@ export const AddOrder = ({ productOptions }: TAddOrderProps) => {
 
 	const { onAddOrderSubmit, state, isPending } = useAddOrderActions();
 
+	const isLoading = isSubmitting || isPending;
+
 	const onFormSubmit = (data: TAddOrderFormData) => {
 		onAddOrderSubmit(
 			{
@@ -89,7 +91,8 @@ export const AddOrder = ({ productOptions }: TAddOrderProps) => {
 							text={t('submit')}
 							type='submit'
 							variant='success'
-							disabled={isSubmitting || isPending}
+							isLoading={isLoading}
+							disabled={isLoading}
 							className='ps-3 pe-3'
 						/>
 					</div>

@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
+import { memo } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
@@ -10,22 +11,16 @@ import { Button } from '@/components/ui/Button/Button';
 import { ErrorServer } from '@/components/ui/ErrorServer/ErrorServer';
 import { TextField } from '@/components/ui/TextField/TextField';
 
+import type { TProfileFormData } from '@/hooks/profile/types';
+import { useProfileActions } from '@/hooks/profile/useProfileActions';
+
 import { EMAIL_PATTERN, isValidName } from '@/utils/regExp';
 
-import type { TProfileFormData } from '../../hooks/profile/types';
-import { useProfileActions } from '../../hooks/profile/useProfileActions';
-
-export const Info = () => {
+export const Info = memo((defaultValues: TProfileFormData) => {
 	const t = useTranslations('App');
 	const te = useTranslations('App.errors');
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
-	const { data: session } = useSession();
-
-	const defaultValues: TProfileFormData = {
-		name: session?.user?.name ?? '',
-		email: session?.user?.email ?? ''
-	};
 
 	const {
 		register,
@@ -34,6 +29,7 @@ export const Info = () => {
 	} = useForm<TProfileFormData>({ mode: 'onBlur', defaultValues });
 
 	const { onProfileSubmit, state, isPending } = useProfileActions();
+	const isLoading = isSubmitting || isPending;
 
 	const onFormSubmit = (data: TProfileFormData) => {
 		onProfileSubmit(data, locale);
@@ -80,7 +76,8 @@ export const Info = () => {
 							text={t('Apply')}
 							type='submit'
 							variant='success'
-							disabled={isSubmitting || isPending}
+							isLoading={isLoading}
+							disabled={isLoading}
 							className='ps-3 pe-3'
 						/>
 					</div>
@@ -88,4 +85,4 @@ export const Info = () => {
 			</Card.Body>
 		</Card>
 	);
-};
+});

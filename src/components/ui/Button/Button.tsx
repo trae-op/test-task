@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Button as BaseButton } from 'react-bootstrap';
+import { Button as BaseButton, Spinner } from 'react-bootstrap';
 
 import styles from './Button.module.scss';
 import type { ButtonProps, IconProps } from './types';
@@ -22,6 +22,7 @@ export const Button = ({
 	textClassName = '',
 	children,
 	iconSize,
+	isLoading = false,
 	...rest
 }: ButtonProps) => (
 	<BaseButton
@@ -33,16 +34,24 @@ export const Button = ({
 		)}
 		{...rest}
 	>
-		<Icon
-			iconSize={iconSize}
-			IconComponent={IconComponent}
-			iconClassName={iconClassName}
-		/>
-		{text !== undefined && (
-			<span className={textClassName}>
-				{text}
-				{children}
-			</span>
+		{isLoading ? (
+			<Spinner animation='border' role='status'>
+				<span className='visually-hidden'>Loading...</span>
+			</Spinner>
+		) : (
+			<>
+				<Icon
+					iconSize={iconSize}
+					IconComponent={IconComponent}
+					iconClassName={iconClassName}
+				/>
+				{text !== undefined && (
+					<span className={textClassName}>
+						{text}
+						{children}
+					</span>
+				)}
+			</>
 		)}
 	</BaseButton>
 );

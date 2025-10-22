@@ -28,6 +28,7 @@ export const UpdatePassword = () => {
 	} = useForm<TPasswordFormData>({ mode: 'onBlur' });
 
 	const { onPasswordSubmit, state, isPending } = usePasswordActions();
+	const isLoading = isSubmitting || isPending;
 
 	const onFormSubmit = (data: TPasswordFormData) => {
 		onPasswordSubmit(data, locale);
@@ -90,7 +91,8 @@ export const UpdatePassword = () => {
 							text={t('Apply')}
 							type='submit'
 							variant='primary'
-							disabled={isSubmitting || isPending}
+							isLoading={isLoading}
+							disabled={isLoading}
 							className='ps-3 pe-3'
 						/>
 					</div>

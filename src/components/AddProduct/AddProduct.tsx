@@ -54,6 +54,8 @@ export const AddProduct = ({
 	const watchOrderId = useWatch({ control, name: 'orderId' });
 	const watchGuaranteeStart = useWatch({ control, name: 'guaranteeStart' });
 
+	const isLoading = isSubmitting || isPending;
+
 	const onFormSubmit = (data: TAddProductFormData) => {
 		onAddProductSubmit(data, prices, locale);
 	};
@@ -165,7 +167,8 @@ export const AddProduct = ({
 							text={t('submit')}
 							type='submit'
 							variant='success'
-							disabled={isSubmitting || isPending}
+							isLoading={isLoading}
+							disabled={isLoading}
 							className='ps-3 pe-3'
 						/>
 					</div>

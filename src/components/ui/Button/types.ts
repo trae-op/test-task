@@ -11,4 +11,5 @@ export type ButtonProps = BaseButtonProps &
 	IconProps & {
 		text?: string;
 		textClassName?: string;
+		isLoading?: boolean;
 	};

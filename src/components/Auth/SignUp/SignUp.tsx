@@ -32,6 +32,8 @@ export const SignUp = () => {
 	const password = watch('password');
 
 	const { onSignUpSubmit, signUpState, signUpIsPending } = useAuthActions();
+	const isLoading = isSubmitting || signUpIsPending;
+
 	return (
 		<Container>
 			<Row className='justify-content-center align-items-center min-vh-100'>
@@ -108,7 +110,8 @@ export const SignUp = () => {
 									type='submit'
 									variant='success'
 									className='w-100'
-									disabled={isSubmitting || signUpIsPending}
+									isLoading={isLoading}
+									disabled={isLoading}
 								/>
 
 								<div className='text-center mt-3'>

@@ -30,6 +30,7 @@ export const SignIn = () => {
 		handleSubmit,
 		formState: { errors, isSubmitting }
 	} = useForm<TSignInFormData>({ mode: 'onBlur' });
+	const isLoading = isSubmitting || signUpIsPending;
 
 	return (
 		<Container>
@@ -78,7 +79,8 @@ export const SignIn = () => {
 									type='submit'
 									variant='success'
 									className='w-100'
-									disabled={isSubmitting || signUpIsPending}
+									isLoading={isLoading}
+									disabled={isLoading}
 								/>
 
 								<div className='text-center mt-3'>
