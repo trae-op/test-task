@@ -5,9 +5,9 @@ import { useTranslations } from 'next-intl';
 import { memo } from 'react';
 import { GearFill } from 'react-bootstrap-icons';
 
-import { CircleActionButton } from '@/components/ui/CircleActionButton';
-import { NavigationLink } from '@/components/ui/NavigationLink';
-import { Picture } from '@/components/ui/Picture';
+import { CircleActionButton } from '@/components/CircleActionButton';
+import { NavigationLink } from '@/components/NavigationLink';
+import { Picture } from '@/components/Picture';
 
 import { getProfileHref } from '@/utils/routing';
 

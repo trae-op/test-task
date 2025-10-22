@@ -5,9 +5,9 @@ import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
 import { Trash } from 'react-bootstrap-icons';
 
-import { DeleteEntityButton } from '@/components/ui/DeleteEntityButton';
-import { Picture } from '@/components/ui/Picture';
-import { Popup } from '@/components/ui/Popup';
+import { DeleteEntityButton } from '@/components/DeleteEntityButton';
+import { Picture } from '@/components/Picture';
+import { Popup } from '@/components/Popup';
 
 import { formatDateTime } from '@/utils/dateTime';
 

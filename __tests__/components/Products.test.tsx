@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 
-import { ProductsTable } from '@/components/Products/Products';
-
 import { TProductData } from '@/types/product';
+
+import { ProductsTable } from '@/app/_conceptions/Products/Products';
 
 const items: TProductData[] = [
 	{

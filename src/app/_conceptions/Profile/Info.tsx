@@ -7,9 +7,9 @@ import { memo } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
-import { Button } from '@/components/ui/Button/Button';
-import { MessagesServer } from '@/components/ui/MessagesServer/MessagesServer';
-import { TextField } from '@/components/ui/TextField/TextField';
+import { Button } from '@/components/Button/Button';
+import { MessagesServer } from '@/components/MessagesServer/MessagesServer';
+import { TextField } from '@/components/TextField/TextField';
 
 import type { TProfileFormData } from '@/hooks/profile/types';
 import { useProfileActions } from '@/hooks/profile/useProfileActions';

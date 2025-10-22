@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { OrderPrice } from '@/components/Orders/Price';
+import { OrderPrice } from '@/app/_conceptions/Orders/Price';
 
 describe('components/Orders/Price', () => {
 	it('renders default and non-default prices with proper classes', () => {

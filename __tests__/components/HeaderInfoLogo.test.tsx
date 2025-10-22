@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
-import { HeaderInfo } from '@/components/TopHeader.ts/HeaderInfo';
-import { Logo } from '@/components/TopHeader.ts/Logo';
+import { HeaderInfo } from '@/app/_conceptions/TopHeader.ts/HeaderInfo';
+import { Logo } from '@/app/_conceptions/TopHeader.ts/Logo';
 
 describe('components/TopHeader/HeaderInfo & Logo', () => {
 	it('HeaderInfo shows title', () => {

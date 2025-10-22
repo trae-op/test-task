@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { ProductState } from '@/components/Products/State';
+import { ProductState } from '@/app/_conceptions/Products/State';
 
 describe('components/Products/State', () => {
 	it('renders NEW (available) state when isNew=1', () => {

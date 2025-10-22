@@ -4,13 +4,13 @@ import { useState } from 'react';
 import { Gear, TrashFill } from 'react-bootstrap-icons';
 import { MultiValue } from 'react-select';
 
-import { Button } from '@/components/ui/Button';
-import { CircleActionButton } from '@/components/ui/CircleActionButton';
-import { MultiSelectField } from '@/components/ui/MultiSelectField';
-import type { OptionType } from '@/components/ui/MultiSelectField/types';
-import { SelectField } from '@/components/ui/SelectField';
-import { SelectOption } from '@/components/ui/SelectField/types';
-import { TextField } from '@/components/ui/TextField';
+import { Button } from '@/components/Button';
+import { CircleActionButton } from '@/components/CircleActionButton';
+import { MultiSelectField } from '@/components/MultiSelectField';
+import type { OptionType } from '@/components/MultiSelectField/types';
+import { SelectField } from '@/components/SelectField';
+import { SelectOption } from '@/components/SelectField/types';
+import { TextField } from '@/components/TextField';
 
 const colourOptions: OptionType[] = [
 	{ value: 'red', label: 'Red' },

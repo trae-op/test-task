@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { NavigationLink } from '@/components/ui/NavigationLink';
+import { NavigationLink } from '@/components/NavigationLink';
 
 const Dummy = ({ isActive, text }: { isActive: boolean; text?: string }) => (
 	<span data-testid='nav-item' data-active={isActive}>

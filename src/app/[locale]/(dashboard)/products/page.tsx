@@ -1,6 +1,6 @@
-import { ProductsTable } from '@/components/Products';
-
 import type { TProductData } from '@/types/product';
+
+import { ProductsTable } from '@/app/_conceptions/Products';
 
 const products: TProductData[] = [
 	{

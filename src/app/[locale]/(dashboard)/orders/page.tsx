@@ -1,6 +1,6 @@
-import { OrderTable } from '@/components/Orders';
-
 import type { TOrderData } from '@/types/order';
+
+import { OrderTable } from '@/app/_conceptions/Orders';
 
 const dummyData: TOrderData[] = [
 	{

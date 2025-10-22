@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { Sidebar } from '@/components/Sidebar/Sidebar';
+import { Sidebar } from '@/app/_conceptions/Sidebar/Sidebar';
 
 describe('components/Sidebar', () => {
 	it('renders nav items', () => {

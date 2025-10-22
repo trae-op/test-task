@@ -3,13 +3,13 @@
 import { memo } from 'react';
 import { Form } from 'react-bootstrap';
 
-import { MultiSelectField } from '@/components/ui/MultiSelectField';
-import { SelectField } from '@/components/ui/SelectField';
-import type { SelectOption } from '@/components/ui/SelectField/types';
-import { TextField } from '@/components/ui/TextField';
+import { MultiSelectField } from '@/components/MultiSelectField';
+import { SelectField } from '@/components/SelectField';
+import type { SelectOption } from '@/components/SelectField/types';
+import { TextField } from '@/components/TextField';
 
-import { usePriceActions } from '../../hooks/addProduct/usePriceActions';
-import { Button } from '../ui/Button';
+import { Button } from '../../../components/Button';
+import { usePriceActions } from '../../../hooks/addProduct/usePriceActions';
 
 import type { TPriceProps } from './types';
 

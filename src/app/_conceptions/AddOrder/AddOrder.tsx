@@ -7,11 +7,11 @@ import { Card, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import type { MultiValue } from 'react-select';
 
-import { Button } from '@/components/ui/Button';
-import { MessagesServer } from '@/components/ui/MessagesServer';
-import { MultiSelectField } from '@/components/ui/MultiSelectField';
-import type { OptionType } from '@/components/ui/MultiSelectField/types';
-import { TextField } from '@/components/ui/TextField';
+import { Button } from '@/components/Button';
+import { MessagesServer } from '@/components/MessagesServer';
+import { MultiSelectField } from '@/components/MultiSelectField';
+import type { OptionType } from '@/components/MultiSelectField/types';
+import { TextField } from '@/components/TextField';
 
 import { useAddOrderActions } from '@/hooks/addOrder';
 

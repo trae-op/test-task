@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { type MouseEvent, memo, useCallback } from 'react';
 import { Modal } from 'react-bootstrap';
 
-import { CloseEntityButton } from '@/components/ui/CloseEntityButton';
+import { CloseEntityButton } from '@/components/CloseEntityButton';
 
 import { usePopup } from '@/hooks/popup';
 

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
-import { DateTimeDisplay } from '@/components/TopHeader.ts/DateTimeDisplay';
-import { TopHeader } from '@/components/TopHeader.ts/TopHeader';
+import { DateTimeDisplay } from '@/app/_conceptions/TopHeader.ts/DateTimeDisplay';
+import { TopHeader } from '@/app/_conceptions/TopHeader.ts/TopHeader';
 
 describe('components/TopHeader', () => {
 	it('renders header info and date time', () => {

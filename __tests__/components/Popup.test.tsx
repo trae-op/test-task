@@ -1,10 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { within } from '@testing-library/react';
 
-import { DeleteEntityButton } from '@/components/ui/DeleteEntityButton';
-import { Popup } from '@/components/ui/Popup/Popup';
+import { DeleteEntityButton } from '@/components/DeleteEntityButton';
+import { Popup } from '@/components/Popup/Popup';
 
-describe('components/ui/Popup', () => {
+describe('components/Popup', () => {
 	it('opens and invokes popup handler', () => {
 		const onApply = jest.fn();
 		render(

@@ -2,22 +2,25 @@
 
 import { clsx } from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { memo, useCallback } from 'react';
 import { CaretRight, ListUl, Trash } from 'react-bootstrap-icons';
 
-import { DeleteEntityButton } from '@/components/ui/DeleteEntityButton';
-import { NavigationLink } from '@/components/ui/NavigationLink';
-import { Popup } from '@/components/ui/Popup/Popup';
+import { DeleteEntityButton } from '@/components/DeleteEntityButton';
+import { NavigationLink } from '@/components/NavigationLink';
+import { Popup } from '@/components/Popup/Popup';
 
 import { formatDateTime } from '@/utils/dateTime';
 import { getOrderDetailHref } from '@/utils/routing';
 
 import styles from './Orders.module.scss';
 import { OrderPrice } from './Price';
-import { TOrderProps } from './types';
+import { type TOrderProps } from './types';
 
 const BLOCK = 'order-item';
+
+function ListUlIcon() {
+	return <ListUl className={styles[`${BLOCK}__icon`]} size={15} />;
+}
 
 export const OrderRow = memo(
 	({
@@ -66,13 +69,13 @@ export const OrderRow = memo(
 										'd-flex align-items-center justify-content-center'
 									)}
 								>
-									<Link
+									<NavigationLink
+										title={title}
 										className='d-flex align-items-center justify-content-center'
 										href={getOrderDetailHref(id)}
-										title={title}
-									>
-										<ListUl className={styles[`${BLOCK}__icon`]} size={15} />
-									</Link>
+										text={title}
+										component={ListUlIcon}
+									/>
 								</div>
 								<div
 									className={clsx(

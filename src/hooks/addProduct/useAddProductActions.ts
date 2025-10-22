@@ -3,7 +3,7 @@
 import { startTransition, useActionState, useCallback } from 'react';
 import type { MultiValue } from 'react-select';
 
-import type { OptionType } from '@/components/ui/MultiSelectField/types';
+import type { OptionType } from '@/components/MultiSelectField/types';
 
 import { addProductSubmit } from '../../actions/addProduct/submit';
 import type { TAddProductSubmitState } from '../../actions/addProduct/types';

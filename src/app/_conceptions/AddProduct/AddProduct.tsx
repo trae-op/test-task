@@ -1,5 +1,6 @@
 'use client';
 
+import { Price } from '.';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
@@ -7,17 +8,16 @@ import { Card, Col, Form, Row } from 'react-bootstrap';
 import { useForm, useWatch } from 'react-hook-form';
 import { MultiValue } from 'react-select';
 
-import { Button } from '@/components/ui/Button';
-import { MessagesServer } from '@/components/ui/MessagesServer';
-import type { OptionType } from '@/components/ui/MultiSelectField/types';
-import { SelectField } from '@/components/ui/SelectField';
-import type { SelectOption } from '@/components/ui/SelectField/types';
-import { TextField } from '@/components/ui/TextField';
+import { Button } from '@/components/Button';
+import { MessagesServer } from '@/components/MessagesServer';
+import type { OptionType } from '@/components/MultiSelectField/types';
+import { SelectField } from '@/components/SelectField';
+import type { SelectOption } from '@/components/SelectField/types';
+import { TextField } from '@/components/TextField';
 
 import type { TAddProductFormData } from '@/hooks/addProduct/types';
 import { useAddProductActions } from '@/hooks/addProduct/useAddProductActions';
 
-import { Price } from './';
 import type { TAddProductProps } from './types';
 
 const toSelectValue = (options: SelectOption[], value?: string | number) => {

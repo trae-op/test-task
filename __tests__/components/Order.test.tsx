@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { OrderRow } from '@/components/Orders/Order';
+import { OrderRow } from '@/app/_conceptions/Orders/Order';
 
 jest.mock('next/navigation', () => ({
 	useParams: () => ({ id: 'active-id' })

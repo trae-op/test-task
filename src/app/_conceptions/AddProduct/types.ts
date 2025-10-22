@@ -1,7 +1,7 @@
 import type { MultiValue } from 'react-select';
 
-import type { OptionType } from '@/components/ui/MultiSelectField/types';
-import type { SelectOption } from '@/components/ui/SelectField/types';
+import type { OptionType } from '@/components/MultiSelectField/types';
+import type { SelectOption } from '@/components/SelectField/types';
 
 export type TAddProductFormData = {
 	title: string;

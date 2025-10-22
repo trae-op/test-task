@@ -6,15 +6,16 @@ import { useParams } from 'next/navigation';
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
-import { type TSignUpFormData } from '@/components/Auth/SignUp/types';
-import { Button } from '@/components/ui/Button';
-import { MessagesServer } from '@/components/ui/MessagesServer';
-import { RequiredLabel } from '@/components/ui/RequiredLabel';
-import { TextField } from '@/components/ui/TextField';
+import { Button } from '@/components/Button';
+import { MessagesServer } from '@/components/MessagesServer';
+import { RequiredLabel } from '@/components/RequiredLabel';
+import { TextField } from '@/components/TextField';
 
 import { useAuthActions } from '@/hooks/auth';
 
 import { EMAIL_PATTERN, NAME_PATTERN, PASSWORD_PATTERN } from '@/utils/regExp';
+
+import { type TSignUpFormData } from '@/app/_conceptions/Auth/SignUp/types';
 
 export const SignUp = () => {
 	const params = useParams();

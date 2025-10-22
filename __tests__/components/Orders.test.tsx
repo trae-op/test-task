@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 
-import { OrderTable } from '@/components/Orders/Orders';
-
 import { TOrderData } from '@/types/order';
+
+import { OrderTable } from '@/app/_conceptions/Orders';
 
 const items: TOrderData[] = [
 	{

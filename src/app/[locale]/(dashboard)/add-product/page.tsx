@@ -1,6 +1,6 @@
-import { AddProduct } from '@/components/AddProduct';
-import type { SelectOption } from '@/components/ui/SelectField/types';
+import type { SelectOption } from '@/components/SelectField/types';
 
+import { AddProduct } from '@/app/_conceptions/AddProduct';
 import { prisma } from '@/prisma/prisma-client';
 
 const TYPE_OPTIONS: SelectOption[] = [

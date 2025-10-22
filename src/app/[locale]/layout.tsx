@@ -1,9 +1,8 @@
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 
-import { AuthProvider } from '@/components/Auth';
-
 import type { TLocaleLayoutProps } from './types';
+import { AuthProvider } from '@/app/_conceptions/Auth';
 import { routing } from '@/i18n/routing';
 
 export default async function LocaleLayout({

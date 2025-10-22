@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { NavItem } from '@/components/Sidebar/SidebarNavItem/NavItem';
+import { NavItem } from '@/app/_conceptions/Sidebar/SidebarNavItem/NavItem';
 
 describe('components/Sidebar/NavItem', () => {
 	it('renders active state', () => {

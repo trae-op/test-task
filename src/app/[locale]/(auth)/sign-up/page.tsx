@@ -1,4 +1,4 @@
-import { SignUp } from '@/components/Auth/SignUp';
+import { SignUp } from '@/app/_conceptions/Auth/SignUp';
 
 export default function SignUpPage() {
 	return <SignUp />;

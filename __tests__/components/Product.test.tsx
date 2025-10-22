@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 
-import { ProductRow } from '@/components/Products/Product';
-
 import type { TProductData } from '@/types/product';
+
+import { ProductRow } from '@/app/_conceptions/Products/Product';
 
 const base = {
 	id: 'p1',

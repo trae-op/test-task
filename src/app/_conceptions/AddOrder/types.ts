@@ -1,4 +1,4 @@
-import type { OptionType } from '@/components/ui/MultiSelectField/types';
+import type { OptionType } from '@/components/MultiSelectField/types';
 
 export type TAddOrderFormData = {
 	title: string;

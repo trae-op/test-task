@@ -1,6 +1,6 @@
-import { AddOrder } from '@/components/AddOrder';
-import type { OptionType } from '@/components/ui/MultiSelectField/types';
+import type { OptionType } from '@/components/MultiSelectField/types';
 
+import { AddOrder } from '@/app/_conceptions/AddOrder';
 import { prisma } from '@/prisma/prisma-client';
 
 export default async function AddOrderPage() {

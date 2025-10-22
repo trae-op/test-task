@@ -2,8 +2,8 @@
 
 import { memo } from 'react';
 
-import { AddEntityButton } from '@/components/ui/AddEntityButton';
-import { NavigationLink } from '@/components/ui/NavigationLink';
+import { AddEntityButton } from '@/components/AddEntityButton';
+import { NavigationLink } from '@/components/NavigationLink';
 
 import { getAddOrderHref } from '@/utils/routing/routing';
 
