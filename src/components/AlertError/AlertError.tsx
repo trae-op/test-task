@@ -11,7 +11,7 @@ export const AlertError = ({ text }: Props) => {
 	const t = useTranslations('App');
 	return (
 		<div className={clsx(styles['alert-error'])}>
-			<Card style={{ width: '18rem' }}>
+			<Card className='w-50 mx-auto'>
 				<Card.Body>
 					<Card.Title>{t('Something wrong with server')}!!!</Card.Title>
 					<Card.Text>{text}</Card.Text>

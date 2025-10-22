@@ -2,6 +2,7 @@
 
 import { Prisma } from '@prisma/client';
 import { getServerSession } from 'next-auth';
+import { revalidateTag } from 'next/cache';
 
 import type { TAddProductInput, TAddProductResult } from './types';
 import { authOptions } from '@/app/api/auth/config';
@@ -74,6 +75,9 @@ export const addProduct = async (
 					: {})
 			}
 		});
+
+		// Invalidate cached products queries
+		revalidateTag('products');
 
 		return { ok: true, id: created.id };
 	} catch (e) {

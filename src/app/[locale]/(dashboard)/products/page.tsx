@@ -1,48 +1,25 @@
+import { Suspense } from 'react';
+
+import { DetailEntityLoading } from '@/components/DetailEntityLoading';
+
 import type { TProductData } from '@/types/product';
 
-import { ProductsTable } from '@/app/_conceptions/Products';
+import { API_PRODUCTS_PATH, getApiUrl } from '@/utils/routing';
 
-const products: TProductData[] = [
-	{
-		id: '1',
-		serialNumber: '1234',
-		isNew: 1,
-		photo: 'https://placehold.co/400x400.png',
-		title: 'Product 1',
-		type: 'Monitors',
-		specification: 'Specification 1',
-		guarantee: {
-			start: new Date('2017-06-29 12:09:33'),
-			end: new Date('2017-06-29 12:09:33')
-		},
-		price: [
-			{ value: 100, symbol: 'USD', isDefault: 0 },
-			{ value: 2600, symbol: 'UAH', isDefault: 1 }
-		],
-		order: 1,
-		date: new Date('2017-06-29 12:09:33')
-	},
-	{
-		id: '2',
-		serialNumber: '1234',
-		isNew: 0,
-		photo: 'https://placehold.co/400x400.png',
-		title: 'Product 1',
-		type: 'Monitors',
-		specification: 'Specification 1',
-		guarantee: {
-			start: new Date('2017-06-29 12:09:33'),
-			end: new Date('2017-06-29 12:09:33')
-		},
-		price: [
-			{ value: 100, symbol: 'USD', isDefault: 0 },
-			{ value: 2600, symbol: 'UAH', isDefault: 1 }
-		],
-		order: 2,
-		date: new Date('2017-06-29 12:09:33')
-	}
-];
+import { ProductsTable } from '@/conceptions/Products';
+
+async function Container() {
+	const res = await fetch(getApiUrl(API_PRODUCTS_PATH), {
+		next: { tags: ['products'] }
+	});
+	const items: TProductData[] = await res.json();
+	return <ProductsTable items={items} />;
+}
 
 export default function ProductsPage() {
-	return <ProductsTable items={products} />;
+	return (
+		<Suspense fallback={<DetailEntityLoading />}>
+			<Container />
+		</Suspense>
+	);
 }

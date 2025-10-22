@@ -9,6 +9,7 @@ export type TOrderProps = TOrderData & {
 export type TOrdersProps = {
 	items: TOrderData[];
 	isDetail?: boolean;
+	activeId?: string;
 };
 
 export type TOrderPriceProps = {

@@ -136,7 +136,9 @@
 			"invalidCredentials": "Невірна електронна пошта або пароль",
 			"default": "Не вдалося увійти",
 			"User already exists": "Користувач вже існує",
-			"wrongPassword": "Невірний пароль"
+			"wrongPassword": "Невірний пароль",
+			"failedToLoadProducts": "Не вдалося завантажити продукти",
+			"failedToLoadOrders": "Не вдалося завантажити надходження"
 		},
 		"success": {
 			"profileUpdated": "Профіль успішно оновлено"

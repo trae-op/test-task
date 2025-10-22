@@ -127,7 +127,9 @@
 			"invalidCredentials": "Invalid email or password",
 			"default": "Failed to sign in",
 			"User already exists": "User already exists",
-			"wrongPassword": "Wrong password"
+			"wrongPassword": "Wrong password",
+			"failedToLoadProducts": "Failed to load products",
+			"failedToLoadOrders": "Failed to load orders"
 		},
 		"success": {
 			"profileUpdated": "Profile updated successfully"

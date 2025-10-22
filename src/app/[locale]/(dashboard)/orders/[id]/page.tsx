@@ -49,12 +49,12 @@ const products: TProductData[] = [
 ];
 
 async function Container({ params }: TDynamicPageProps) {
-	await params;
+	const { id } = await params;
 
 	return (
 		<div className='row g-2'>
 			<div className='col-12 col-lg-4 col-xl-3 mt-0'>
-				<OrderTable items={orders} isDetail />
+				<OrderTable items={orders} isDetail activeId={id} />
 			</div>
 			<div className='col-12 col-lg-8 col-xl-9 position-relative bg-white rounded-2 mt-1 border'>
 				<CloseEntityButton

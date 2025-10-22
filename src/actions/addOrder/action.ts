@@ -2,6 +2,7 @@
 
 import { Prisma } from '@prisma/client';
 import { getServerSession } from 'next-auth';
+import { revalidateTag } from 'next/cache';
 
 import type { TAddOrderInput, TAddOrderResult } from './types';
 import { authOptions } from '@/app/api/auth/config';
@@ -53,6 +54,9 @@ export const addOrder = async (
 					: {})
 			}
 		});
+
+		// Invalidate cached orders queries
+		revalidateTag('orders');
 
 		return { ok: true, id: created.id };
 	} catch (e) {
