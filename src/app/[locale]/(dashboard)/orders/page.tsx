@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
 import { DetailEntityLoading } from '@/components/DetailEntityLoading';
+import { NotFound } from '@/components/NotFound';
 
 import type { TOrderData } from '@/types/order';
 
@@ -13,6 +14,9 @@ async function Container() {
 		next: { tags: ['orders'] }
 	});
 	const items: TOrderData[] = await res.json();
+	if (!items?.length) {
+		return <NotFound />;
+	}
 	return <OrderTable items={items} />;
 }
 

@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
 import { DetailEntityLoading } from '@/components/DetailEntityLoading';
+import { NotFound } from '@/components/NotFound';
 
 import type { TProductData } from '@/types/product';
 
@@ -13,6 +14,9 @@ async function Container() {
 		next: { tags: ['products'] }
 	});
 	const items: TProductData[] = await res.json();
+	if (!items?.length) {
+		return <NotFound />;
+	}
 	return <ProductsTable items={items} />;
 }
 
