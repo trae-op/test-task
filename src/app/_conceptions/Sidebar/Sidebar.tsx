@@ -42,7 +42,7 @@ export const Sidebar = memo(({ items }: TSidebarProps) => {
 				/>
 
 				<NavigationLink
-					href={getProfileHref()}
+					href={getProfileHref}
 					component={ProfileSettingsButton}
 				/>
 			</div>

@@ -1,3 +1,5 @@
+'use client';
+
 import { useLocale } from 'next-intl';
 import { memo, useCallback } from 'react';
 import { Clock } from 'react-bootstrap-icons';

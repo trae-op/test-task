@@ -11,6 +11,7 @@
 		"Add": "Додати",
 		"Delete": "Видалити",
 		"Products": "Продукти",
+		"Orders": "Замовлення",
 		"sidebar": {
 			"Receipts": "Надходження",
 			"Products": "Продукти"
@@ -52,7 +53,7 @@
 		},
 		"products": {
 			"Add Product": "Додати продукт",
-			"Products": "Продукти",
+
 			"state": {
 				"available": "Доступний",
 				"inRepair": "В ремонті"
@@ -91,7 +92,8 @@
 			"submit": "Додати надходження"
 		},
 		"orders": {
-			"productLabel": "Продукта"
+			"productLabel": "Продукта",
+			"Orders": "Надходження"
 		},
 		"ui": {
 			"addContent": {
@@ -138,7 +140,13 @@
 			"User already exists": "Користувач вже існує",
 			"wrongPassword": "Невірний пароль",
 			"failedToLoadProducts": "Не вдалося завантажити продукти",
-			"failedToLoadOrders": "Не вдалося завантажити надходження"
+			"failedToLoadOrders": "Не вдалося завантажити надходження",
+			"checkPathnames": {
+				"noConfigurationsProvided": "checkPathnames: не надано жодної конфігурації",
+				"failedToParsePathname": "checkPathnames: не вдалося розібрати шлях із заголовків запиту",
+				"noMatchingPathname": "checkPathnames: не знайдено відповідного шляху серед наданих конфігурацій",
+				"failedToFetchItems": "checkPathnames: не вдалося отримати елементи для розділу \"{section}\": {reason}"
+			}
 		},
 		"success": {
 			"profileUpdated": "Профіль успішно оновлено"

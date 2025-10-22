@@ -20,10 +20,7 @@ export const AddProductButton = () => {
 
 	return (
 		<div className='d-flex align-items-center justify-content-start gap-2 '>
-			<NavigationLink
-				href={getAddProductHref()}
-				component={NavigationLinkIcon}
-			/>
+			<NavigationLink href={getAddProductHref} component={NavigationLinkIcon} />
 			<span>{t('title')}</span>
 		</div>
 	);

@@ -1,12 +1,13 @@
 import type { TEntityId } from './types';
 
 export const getOrderDetailHref = (id: TEntityId): string => `/orders/${id}`;
-export const getProfileHref = (): string => '/profile';
-export const getOrdersHref = (): string => '/orders';
-export const getSignInHref = (): string => '/sign-in';
-export const getSignUpHref = (): string => '/sign-up';
-export const getAddProductHref = (): string => '/add-product';
-export const getAddOrderHref = (): string => '/add-order';
+export const getProfileHref = '/profile';
+export const getOrdersHref = '/orders';
+export const getProductsHref = '/products';
+export const getSignInHref = '/sign-in';
+export const getSignUpHref = '/sign-up';
+export const getAddProductHref = `/${getProductsHref}/new`;
+export const getAddOrderHref = `/${getOrdersHref}/new`;
 
 // API paths
 export const API_PRODUCTS_PATH = '/api/products';

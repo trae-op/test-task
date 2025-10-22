@@ -1,4 +1,4 @@
-import type { OptionType } from '@/components/MultiSelectField/types';
+import type { TProductData } from '@/types/product';
 
 export type TAddOrderFormData = {
 	title: string;
@@ -7,5 +7,5 @@ export type TAddOrderFormData = {
 };
 
 export type TAddOrderProps = {
-	productOptions: OptionType[];
+	products: TProductData[];
 };

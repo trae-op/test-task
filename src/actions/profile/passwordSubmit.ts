@@ -18,7 +18,7 @@ export const passwordSubmit = async (
 	const res = await updatePassword({ oldPassword, newPassword });
 
 	if (res.ok) {
-		redirect(`/${locale}${getProfileHref()}`);
+		redirect(`/${locale}${getProfileHref}`);
 	}
 
 	const codeToKey: Record<string, string> = {

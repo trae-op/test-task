@@ -5,15 +5,12 @@ import { NotFound } from '@/components/NotFound';
 
 import type { TOrderData } from '@/types/order';
 
-import { API_ORDERS_PATH, getApiUrl } from '@/utils/routing';
+import { fetchOrders } from '@/utils/orders';
 
 import { OrderTable } from '@/app/_conceptions/Orders';
 
 async function Container() {
-	const res = await fetch(getApiUrl(API_ORDERS_PATH), {
-		next: { tags: ['orders'] }
-	});
-	const items: TOrderData[] = await res.json();
+	const items: TOrderData[] = await fetchOrders();
 	if (!items?.length) {
 		return <NotFound />;
 	}

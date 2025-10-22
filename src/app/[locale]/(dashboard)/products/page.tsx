@@ -5,15 +5,12 @@ import { NotFound } from '@/components/NotFound';
 
 import type { TProductData } from '@/types/product';
 
-import { API_PRODUCTS_PATH, getApiUrl } from '@/utils/routing';
+import { fetchProducts } from '@/utils/products';
 
 import { ProductsTable } from '@/conceptions/Products';
 
 async function Container() {
-	const res = await fetch(getApiUrl(API_PRODUCTS_PATH), {
-		next: { tags: ['products'] }
-	});
-	const items: TProductData[] = await res.json();
+	const items: TProductData[] = await fetchProducts();
 	if (!items?.length) {
 		return <NotFound />;
 	}

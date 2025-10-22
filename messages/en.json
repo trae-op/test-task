@@ -11,6 +11,7 @@
 		"Add": "Add",
 		"Delete": "Delete",
 		"Products": "Products",
+		"Orders": "Orders",
 		"sidebar": {
 			"Receipts": "Receipts",
 			"Products": "Products"
@@ -129,7 +130,13 @@
 			"User already exists": "User already exists",
 			"wrongPassword": "Wrong password",
 			"failedToLoadProducts": "Failed to load products",
-			"failedToLoadOrders": "Failed to load orders"
+			"failedToLoadOrders": "Failed to load orders",
+			"checkPathnames": {
+				"noConfigurationsProvided": "checkPathnames: no configurations provided",
+				"failedToParsePathname": "checkPathnames: failed to parse pathname from request headers",
+				"noMatchingPathname": "checkPathnames: no matching pathname found among provided configurations",
+				"failedToFetchItems": "checkPathnames: failed to fetch items for section \"{section}\": {reason}"
+			}
 		},
 		"success": {
 			"profileUpdated": "Profile updated successfully"

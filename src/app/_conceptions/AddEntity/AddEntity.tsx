@@ -1,27 +1,42 @@
-'use client';
-
-import { memo } from 'react';
-
 import { AddEntityButton } from '@/components/AddEntityButton';
 import { NavigationLink } from '@/components/NavigationLink';
 
-import { getAddOrderHref } from '@/utils/routing/routing';
+import { checkPathnames } from '@/utils/checkPathnames/checkPathnames';
+import { fetchOrders } from '@/utils/orders';
+import { fetchProducts } from '@/utils/products';
 
 import styles from './AddEntity.module.scss';
-import type { TAddEntityProps } from './types';
+import { Title } from './Title';
 
 const BLOCK = 'add-entity';
 
-export const AddEntity = memo(({ title, totalValue }: TAddEntityProps) => {
+export const AddEntity = async () => {
+	const result = await checkPathnames([
+		{
+			pathname: 'orders',
+			fetch: async () => await fetchOrders()
+		},
+		{
+			pathname: 'products',
+			fetch: async () => await fetchProducts()
+		}
+	]);
+
+	if (!result) {
+		return null;
+	}
+
+	const { href, displayTotal, displayTitle } = result;
+
 	return (
 		<div className={styles[BLOCK]}>
-			<NavigationLink href={getAddOrderHref()} component={AddEntityButton} />
+			<NavigationLink
+				href={href}
+				component={AddEntityButton}
+				aria-label='add entity'
+			/>
 
-			<div className={styles[`${BLOCK}__text`]}>
-				<span>{title}</span>
-				<span className={styles[`${BLOCK}__separator`]}>/</span>
-				<span>{totalValue}</span>
-			</div>
+			<Title title={displayTitle} total={displayTotal} />
 		</div>
 	);
-});
+};

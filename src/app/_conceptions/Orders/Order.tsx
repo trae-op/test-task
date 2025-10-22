@@ -33,7 +33,7 @@ export const OrderRow = memo(
 		isActive = false
 	}: TOrderProps) => {
 		const i18nLocale = useLocale();
-		const tp = useTranslations('App.products');
+		const tp = useTranslations('App');
 
 		const dateTime = useCallback(
 			(formatString: string) =>

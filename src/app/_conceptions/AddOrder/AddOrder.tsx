@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import type { MultiValue } from 'react-select';
@@ -17,11 +17,19 @@ import { useAddOrderActions } from '@/hooks/addOrder';
 
 import type { TAddOrderFormData, TAddOrderProps } from './types';
 
-export const AddOrder = ({ productOptions }: TAddOrderProps) => {
+export const AddOrder = ({ products }: TAddOrderProps) => {
 	const t = useTranslations('App.addOrder');
 	const te = useTranslations('App.errors');
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
+	const productOptions: OptionType[] = useMemo(
+		() =>
+			products.map(p => ({
+				value: p.id,
+				label: p.title ?? ''
+			})),
+		[products]
+	);
 
 	const {
 		register,
