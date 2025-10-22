@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import type { MultiValue } from 'react-select';
 
 import { Button } from '@/components/ui/Button';
-import { ErrorServer } from '@/components/ui/ErrorServer';
+import { MessagesServer } from '@/components/ui/MessagesServer';
 import { MultiSelectField } from '@/components/ui/MultiSelectField';
 import type { OptionType } from '@/components/ui/MultiSelectField/types';
 import { TextField } from '@/components/ui/TextField';
@@ -54,7 +54,7 @@ export const AddOrder = ({ productOptions }: TAddOrderProps) => {
 	return (
 		<Card>
 			<Card.Body>
-				<ErrorServer message={state.message} />
+				<MessagesServer message={state.message} type='error' />
 				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
 					<Form.Group className='mb-3' controlId='title'>
 						<Form.Label>{t('titleLabel')}</Form.Label>

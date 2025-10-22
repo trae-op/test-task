@@ -5,10 +5,9 @@ import { getServerSession } from 'next-auth';
 
 import { PASSWORD_PATTERN } from '@/utils/regExp';
 
-import { prisma } from '../../../prisma/prisma-client';
-
 import type { TPasswordInput, TPasswordResult } from './types';
 import { authOptions } from '@/app/api/auth/config';
+import { prisma } from '@/prisma/prisma-client';
 
 export const updatePassword = async (
 	input: TPasswordInput

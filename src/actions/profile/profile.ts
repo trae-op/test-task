@@ -4,10 +4,9 @@ import { getServerSession } from 'next-auth';
 
 import { EMAIL_PATTERN, isValidName } from '@/utils/regExp';
 
-import { prisma } from '../../../prisma/prisma-client';
-
 import type { TProfileInput, TProfileResult } from './types';
 import { authOptions } from '@/app/api/auth/config';
+import { prisma } from '@/prisma/prisma-client';
 
 export const updateProfile = async (
 	input: TProfileInput
@@ -49,7 +48,7 @@ export const updateProfile = async (
 		});
 
 		// Note: with JWT sessions, claims may not reflect changes until next token refresh.
-		return { ok: true };
+		return { ok: true, code: 'SUCCESS' };
 	} catch (e) {
 		return { ok: false, code: 'SERVER_ERROR' };
 	}

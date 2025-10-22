@@ -3,14 +3,21 @@ export type TProfileInput = {
 	email: string;
 };
 
-export type TProfileResult =
-	| { ok: true }
-	| {
-			ok: false;
-			code: 'UNAUTHORIZED' | 'INVALID_INPUT' | 'EMAIL_TAKEN' | 'SERVER_ERROR';
-	  };
+export type TProfileResult = {
+	ok: boolean;
+	code:
+		| 'UNAUTHORIZED'
+		| 'INVALID_INPUT'
+		| 'EMAIL_TAKEN'
+		| 'SERVER_ERROR'
+		| 'SUCCESS';
+};
 
-export type TProfileSubmitState = { ok: boolean; message?: string };
+export type TProfileSubmitState = {
+	ok: boolean;
+	message?: string;
+	type?: 'error' | 'success';
+};
 
 export type TPasswordInput = {
 	oldPassword: string;

@@ -3,10 +3,9 @@
 import { Prisma } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 
-import { prisma } from '../../../prisma/prisma-client';
-
 import type { TAddProductInput, TAddProductResult } from './types';
 import { authOptions } from '@/app/api/auth/config';
+import { prisma } from '@/prisma/prisma-client';
 
 const isValidUuid = (v?: string | null) => !v || /^[0-9a-fA-F-]{36}$/.test(v);
 

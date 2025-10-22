@@ -8,7 +8,7 @@ import { Card, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/Button/Button';
-import { ErrorServer } from '@/components/ui/ErrorServer/ErrorServer';
+import { MessagesServer } from '@/components/ui/MessagesServer/MessagesServer';
 import { TextField } from '@/components/ui/TextField/TextField';
 
 import type { TProfileFormData } from '@/hooks/profile/types';
@@ -39,7 +39,10 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 		<Card className='mb-4'>
 			<Card.Body>
 				<h5 className='mb-3'>{t('Profile.info.title')}</h5>
-				<ErrorServer message={state.message} />
+				<MessagesServer
+					message={state.message}
+					type={state.ok ? 'success' : 'error'}
+				/>
 				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
 					<Form.Group className='mb-3' controlId='name'>
 						<Form.Label>{t('Profile.info.fields.name')}</Form.Label>

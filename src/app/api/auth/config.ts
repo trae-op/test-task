@@ -4,7 +4,7 @@ import Credentials from 'next-auth/providers/credentials';
 
 import { EMAIL_PATTERN, PASSWORD_PATTERN } from '@/utils/regExp';
 
-import { prisma } from '../../../../prisma/prisma-client';
+import { prisma } from '@/prisma/prisma-client';
 
 export const authOptions: NextAuthOptions = {
 	session: {
@@ -49,7 +49,15 @@ export const authOptions: NextAuthOptions = {
 		})
 	],
 	callbacks: {
-		async jwt({ token, user }) {
+		async jwt({ token, user, trigger, session }) {
+			// Allow client-side session.update(...) to push fresh values into the JWT
+			if (trigger === 'update' && session) {
+				const nextName = (session as any).name ?? (session as any).user?.name;
+				const nextEmail =
+					(session as any).email ?? (session as any).user?.email;
+				if (typeof nextName !== 'undefined') token.name = nextName as any;
+				if (typeof nextEmail !== 'undefined') token.email = nextEmail as any;
+			}
 			if (user) {
 				token.id = (user as any).id;
 				token.name = user.name ?? token.name;

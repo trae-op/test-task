@@ -1,7 +1,7 @@
 import { AddProduct } from '@/components/AddProduct';
 import type { SelectOption } from '@/components/ui/SelectField/types';
 
-import { prisma } from '../../../../../prisma/prisma-client';
+import { prisma } from '@/prisma/prisma-client';
 
 const TYPE_OPTIONS: SelectOption[] = [
 	{ value: 'phone', label: 'Phone' },

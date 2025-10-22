@@ -6,7 +6,7 @@ import { Card, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/Button/Button';
-import { ErrorServer } from '@/components/ui/ErrorServer/ErrorServer';
+import { MessagesServer } from '@/components/ui/MessagesServer/MessagesServer';
 import { TextField } from '@/components/ui/TextField/TextField';
 
 import { PASSWORD_PATTERN } from '@/utils/regExp';
@@ -40,7 +40,10 @@ export const UpdatePassword = () => {
 		<Card>
 			<Card.Body>
 				<h5 className='mb-3'>{t('Profile.password.title')}</h5>
-				<ErrorServer message={state.message} />
+				<MessagesServer
+					message={state.message}
+					type={state.ok ? 'success' : 'error'}
+				/>
 				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
 					<Form.Group className='mb-3' controlId='oldPassword'>
 						<Form.Label>{t('Profile.password.fields.oldPassword')}</Form.Label>

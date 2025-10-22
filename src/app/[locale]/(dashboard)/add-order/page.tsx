@@ -1,7 +1,7 @@
 import { AddOrder } from '@/components/AddOrder';
 import type { OptionType } from '@/components/ui/MultiSelectField/types';
 
-import { prisma } from '../../../../../prisma/prisma-client';
+import { prisma } from '@/prisma/prisma-client';
 
 export default async function AddOrderPage() {
 	const products = await prisma.product.findMany({

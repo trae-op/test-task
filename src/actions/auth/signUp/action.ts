@@ -4,9 +4,8 @@ import { compare, hash } from 'bcryptjs';
 
 import { EMAIL_PATTERN, PASSWORD_PATTERN, isValidName } from '@/utils/regExp';
 
-import { prisma } from '../../../../prisma/prisma-client';
-
 import type { TSignUpInput, TSignUpResult } from './types';
+import { prisma } from '@/prisma/prisma-client';
 
 export const signUp = async (input: TSignUpInput): Promise<TSignUpResult> => {
 	try {

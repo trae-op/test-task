@@ -24,15 +24,6 @@
 				"noAccount": "Don't have an account?",
 				"signUpLink": "Sign Up"
 			},
-			"errors": {
-				"invalidCredentials": "Invalid email or password",
-				"default": "Failed to sign in",
-				"User already exists": "User already exists",
-				"invalidInput": "Invalid input",
-				"passwordMatch": "Passwords must match",
-				"password": "Password must be at least 8 characters and contain at least one letter and one number",
-				"wrongPassword": "Wrong password"
-			},
 			"signUp": {
 				"title": "Sign Up",
 				"name": "Name",
@@ -132,7 +123,14 @@
 			"password": "Password must be at least 8 characters and contain at least one letter and one number",
 			"name": "Name must be between 2 and 30 characters and contain only letters",
 			"passwordMatch": "Passwords must match",
-			"invalidInput": "Invalid input"
+			"invalidInput": "Invalid input",
+			"invalidCredentials": "Invalid email or password",
+			"default": "Failed to sign in",
+			"User already exists": "User already exists",
+			"wrongPassword": "Wrong password"
+		},
+		"success": {
+			"profileUpdated": "Profile updated successfully"
 		}
 	}
 }

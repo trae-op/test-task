@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 
 import { type TSignUpFormData } from '@/components/Auth/SignUp/types';
 import { Button } from '@/components/ui/Button';
-import { ErrorServer } from '@/components/ui/ErrorServer';
+import { MessagesServer } from '@/components/ui/MessagesServer';
 import { RequiredLabel } from '@/components/ui/RequiredLabel';
 import { TextField } from '@/components/ui/TextField';
 
@@ -43,7 +43,7 @@ export const SignUp = () => {
 							{t('title')}
 						</Card.Header>
 						<Card.Body>
-							<ErrorServer message={signUpState.message} />
+							<MessagesServer message={signUpState.message} type='error' />
 							<Form noValidate onSubmit={handleSubmit(onSignUpSubmit)}>
 								<Form.Group className='mb-3' controlId='formName'>
 									<RequiredLabel text={t('name')} />
