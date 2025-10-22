@@ -46,9 +46,7 @@
 			"label": "Dev + Tests",
 			"dependsOn": ["Dev server", "Test (watch)"],
 			"dependsOrder": "parallel",
-			"runOptions": {
-				"runOn": "folderOpen"
-			}
+			"runOptions": {}
 		}
 	]
 }
