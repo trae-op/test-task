@@ -9,6 +9,7 @@ import { useAuthActions } from '@/hooks/auth';
 import type { TProfileFormData } from '@/hooks/profile/types';
 
 import { Info } from './Info';
+import { Loading } from './Loading';
 import { UpdatePassword } from './UpdatePassword';
 
 export const Profile = () => {
@@ -31,7 +32,7 @@ export const Profile = () => {
 	}, [session?.user?.name, session?.user?.email]);
 
 	if (!defaultValues) {
-		return null;
+		return <Loading />;
 	}
 
 	return (
