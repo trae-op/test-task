@@ -1,4 +1,3 @@
-import { getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
 
 import { CloseEntityButton } from '@/components/CloseEntityButton';
@@ -51,14 +50,13 @@ const products: TProductData[] = [
 
 async function Container({ params }: TDynamicPageProps) {
 	await params;
-	const t = await getTranslations('App.addProduct');
 
 	return (
 		<div className='row g-2'>
 			<div className='col-12 col-lg-4 col-xl-3 mt-0'>
 				<OrderTable items={orders} isDetail />
 			</div>
-			<div className='col-12 col-lg-8 col-xl-9 position-relative bg-white rounded-2 p-3 mt-1 border'>
+			<div className='col-12 col-lg-8 col-xl-9 position-relative bg-white rounded-2 mt-1 border'>
 				<CloseEntityButton
 					style={{ width: '2rem', height: '2rem' }}
 					aria-label='close'
@@ -66,7 +64,11 @@ async function Container({ params }: TDynamicPageProps) {
 					href='/orders'
 				/>
 
-				<AddProductButton />
+				<div className='p-3'>
+					<h2 className='fs-5'>sdsdsd</h2>
+
+					<AddProductButton />
+				</div>
 
 				<ProductsTable items={products} isDetail />
 			</div>

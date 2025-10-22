@@ -19,7 +19,7 @@ export const AddProductButton = () => {
 	const t = useTranslations('App.addProduct');
 
 	return (
-		<div className='d-flex align-items-center justify-content-start gap-2'>
+		<div className='d-flex align-items-center justify-content-start gap-2 '>
 			<NavigationLink
 				href={getAddProductHref()}
 				component={NavigationLinkIcon}

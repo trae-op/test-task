@@ -45,6 +45,10 @@
 			background: none;
 		}
 	}
+	&:first-child > td.product-item__detail {
+		border-top: 1px solid var(--color-border);
+	}
+
 	&:not(:last-child) > td.product-item__detail {
 		border-bottom: 1px solid var(--color-border);
 	}
