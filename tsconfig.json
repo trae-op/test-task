@@ -21,6 +21,7 @@
 		"paths": {
 			"@/*": ["./src/*"],
 			"@/prisma*": ["./prisma/*"],
+			"@/conceptions/*": ["./src/app/_conceptions/*"],
 			"@/components/*": ["./src/components/*"]
 		}
 	},
