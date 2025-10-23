@@ -1,9 +1,9 @@
-import { fetchProducts } from '@/utils/products';
-
-import { AddOrder } from '@/app/_conceptions/AddOrder';
+import { getProducts } from '@/actions/products';
+import { AddOrder } from '@/conceptions/AddOrder';
 
 export default async function AddOrderPage() {
-	const items = await fetchProducts();
+	const products = await getProducts();
+	const isProductsArray = Array.isArray(products);
 
-	return <AddOrder products={items} />;
+	return <AddOrder products={isProductsArray ? products : []} />;
 }

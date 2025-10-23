@@ -33,15 +33,24 @@ model Product {
   specification  String?
   guaranteeStart DateTime?
   guaranteeEnd   DateTime?
-  order          Int?
   date           DateTime?
-  prices         ProductPrice[]
-  orders         Order[]        @relation("ProductsOnOrders")
+  prices         Price[]
+  order          Order? @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId        String?  @db.Uuid
 
   @@index([serialNumber])
 }
 
-model ProductPrice {
+model Order {
+  id          String       @id @default(uuid()) @db.Uuid
+  title       String
+  date        DateTime
+  description String?
+  amountOfProducts Int?
+  products    Product[]
+}
+
+model Price {
   id        String   @id @default(uuid()) @db.Uuid
   value     Decimal  @db.Decimal(10, 2)
   symbol    Currency
@@ -50,24 +59,4 @@ model ProductPrice {
   productId String   @db.Uuid
 
   @@index([productId])
-}
-
-model Order {
-  id          String       @id @default(uuid()) @db.Uuid
-  title       String
-  date        DateTime
-  description String?
-  prices      OrderPrice[]
-  products    Product[]    @relation("ProductsOnOrders")
-}
-
-model OrderPrice {
-  id       String  @id @default(uuid()) @db.Uuid
-  value    Decimal @db.Decimal(10, 2)
-  symbol   Currency
-  isDefault Boolean @default(false)
-  order    Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  orderId  String  @db.Uuid
-
-  @@index([orderId])
 }

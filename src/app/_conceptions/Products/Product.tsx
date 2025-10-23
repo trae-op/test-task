@@ -8,10 +8,10 @@ import { Trash } from 'react-bootstrap-icons';
 import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 import { Picture } from '@/components/Picture';
 import { Popup } from '@/components/Popup';
+import { Price } from '@/components/Price';
 
 import { formatDateTime } from '@/utils/dateTime';
 
-import { ProductPrice } from './Price';
 import styles from './Products.module.scss';
 import { ProductState } from './State';
 import type { TProductProps } from './types';
@@ -23,10 +23,11 @@ export const ProductRow = memo(
 		title,
 		serialNumber,
 		isNew,
-		guarantee,
-		price,
+		guaranteeStart,
+		guaranteeEnd,
 		id,
-		order,
+		prices,
+		orderTitle,
 		photo,
 		isDetail = false
 	}: TProductProps) => {
@@ -53,7 +54,7 @@ export const ProductRow = memo(
 						<div
 							className={clsx(
 								styles[`${BLOCK}__status-dot`],
-								styles[`${BLOCK}__status-dot-${isNew === 1 ? 'new' : 'used'}`]
+								styles[`${BLOCK}__status-dot-${isNew ? 'new' : 'used'}`]
 							)}
 						></div>
 					</div>
@@ -62,7 +63,7 @@ export const ProductRow = memo(
 						className={clsx(styles[`${BLOCK}__name`], 'd-flex gap-3 w-100')}
 						title={title}
 					>
-						{photo !== undefined && (
+						{photo !== null && photo.length && (
 							<Picture src={photo} alt={title || ''} size='sm' loading='lazy' />
 						)}
 						<div className='d-flex flex-column align-items-start '>
@@ -73,27 +74,29 @@ export const ProductRow = memo(
 
 					{isNew !== undefined && <ProductState isNew={isNew} />}
 
-					{guarantee !== undefined && (
+					{Boolean(guaranteeStart || guaranteeEnd) && (
 						<div className={clsx(styles[`${BLOCK}__guarantee`], 'w-75')}>
-							<span>
-								<span>{t('from')}</span>{' '}
-								{dateTime(guarantee.start, 'dd / MM / yyyy')}
-							</span>
-							<span>
-								<span>{t('to')}</span>{' '}
-								{dateTime(guarantee.end, 'dd / MM / yyyy')}
-							</span>
+							{guaranteeStart && (
+								<span>
+									<span>{t('from')}</span>{' '}
+									{dateTime(guaranteeStart, 'dd / MM / yyyy')}
+								</span>
+							)}
+
+							{guaranteeEnd && (
+								<span>
+									<span>{t('to')}</span>{' '}
+									{dateTime(guaranteeEnd, 'dd / MM / yyyy')}
+								</span>
+							)}
 						</div>
 					)}
 
-					{price !== undefined && <ProductPrice price={price} />}
+					<Price prices={prices} />
 
-					{order !== undefined && (
-						<div
-							className={styles[`${BLOCK}__order`]}
-							title='Длинное предлинное длиннющее название прихода'
-						>
-							Длинное предлинное длиннющее название прихода
+					{orderTitle !== undefined && (
+						<div className={styles[`${BLOCK}__order`]} title={orderTitle}>
+							{orderTitle}
 						</div>
 					)}
 

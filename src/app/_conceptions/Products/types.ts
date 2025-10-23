@@ -1,20 +1,17 @@
-import type { TPrice, TProductData } from '@/types/product';
+import type { TProduct } from '@/types/products';
 
-export type TProductProps = TProductData & {
+export type TProductProps = TProduct & {
 	isDeleteButton?: boolean;
 	isActive?: boolean;
 	isDetail?: boolean;
+	orderTitle?: string;
 };
 
 export type TProductsProps = {
-	items: TProductData[];
+	items: TProduct[];
 	isDetail?: boolean;
 };
 
 export type TProductStateProps = {
-	isNew: 0 | 1;
-};
-
-export type TProductPriceProps = {
-	price: TPrice[];
+	isNew: true | false;
 };

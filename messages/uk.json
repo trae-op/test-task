@@ -20,6 +20,8 @@
 		"Amount": "Сума",
 		"Currency": "Валюта",
 		"Submit": "Надіслати",
+		"Could not find any products": "Не вдалося знайти жодного продукту",
+		"Could not find any orders": "Не вдалося знайти жодного замовлення",
 		"Select": "Оберіть",
 		"Enter description": "Введіть опис",
 		"Default": "За замовчуванням",

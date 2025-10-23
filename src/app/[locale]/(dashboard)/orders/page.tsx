@@ -3,30 +3,30 @@ import { Suspense } from 'react';
 import { DetailEntityLoading } from '@/components/DetailEntityLoading';
 import { NotFound } from '@/components/NotFound';
 
-import type { TOrderData } from '@/types/order';
-
-import { fetchOrders } from '@/utils/orders';
 import { getAddOrderHref } from '@/utils/routing/routing';
 
+import { getOrders } from '@/actions/orders';
 import { AddEntity, Title as AddEntityTitle } from '@/conceptions/AddEntity';
 import { OrderTable } from '@/conceptions/Orders';
 
 async function Container() {
-	const items: TOrderData[] = await fetchOrders();
+	const orders = await getOrders();
+	const isOrdersArray = Array.isArray(orders);
 
-	if (!items?.length) {
-		return <NotFound />;
-	}
 	return (
 		<>
 			<AddEntity
 				addEntityHref={getAddOrderHref}
 				titleComponent={<AddEntityTitle title='Receipts' />}
-				total={items.length}
+				total={isOrdersArray ? orders.length : 0}
 			/>
-			<div className='mt-4'>
-				<OrderTable items={items} />
-			</div>
+			{isOrdersArray && !orders.length ? (
+				<NotFound text='Could not find any orders' />
+			) : (
+				<div className='mt-4'>
+					<OrderTable items={isOrdersArray ? orders : []} />
+				</div>
+			)}
 		</>
 	);
 }

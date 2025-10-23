@@ -1,17 +1,14 @@
-import type { TOrderData } from '@/types/order';
-import type { TPrice } from '@/types/product';
+import type { TOrder } from '@/types/orders';
+import type { TPrice } from '@/types/price';
 
-export type TOrderProps = TOrderData & {
+export type TOrderProps = TOrder & {
 	isDeleteButton?: boolean;
 	isActive?: boolean;
+	prices?: TPrice[];
 };
 
 export type TOrdersProps = {
-	items: TOrderData[];
+	items: TOrder[];
 	isDetail?: boolean;
 	activeId?: string;
-};
-
-export type TOrderPriceProps = {
-	price: TPrice[];
 };

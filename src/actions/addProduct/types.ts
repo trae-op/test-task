@@ -5,7 +5,7 @@ export type TAddProductInput = {
 	guaranteeStart?: string | null; // ISO date string yyyy-mm-dd
 	guaranteeEnd?: string | null;
 	orderId?: string | null;
-	isNew?: '0' | '1' | boolean;
+	isNew?: boolean;
 	prices: Array<{ symbol: 'USD' | 'UAH'; value: number; isDefault?: boolean }>;
 };
 

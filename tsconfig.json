@@ -21,8 +21,7 @@
 		"paths": {
 			"@/*": ["./src/*"],
 			"@/prisma*": ["./prisma/*"],
-			"@/conceptions/*": ["./src/app/_conceptions/*"],
-			"@/components/*": ["./src/components/*"]
+			"@/conceptions/*": ["./src/app/_conceptions/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

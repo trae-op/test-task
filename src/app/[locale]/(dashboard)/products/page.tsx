@@ -3,29 +3,30 @@ import { Suspense } from 'react';
 import { DetailEntityLoading } from '@/components/DetailEntityLoading';
 import { NotFound } from '@/components/NotFound';
 
-import type { TProductData } from '@/types/product';
-
-import { fetchProducts } from '@/utils/products';
 import { getAddProductHref } from '@/utils/routing';
 
+import { getProducts } from '@/actions/products';
 import { AddEntity, Title as AddEntityTitle } from '@/conceptions/AddEntity';
 import { ProductsTable } from '@/conceptions/Products';
 
 async function Container() {
-	const items: TProductData[] = await fetchProducts();
-	if (!items?.length) {
-		return <NotFound />;
-	}
+	const products = await getProducts();
+	const isProductsArray = Array.isArray(products);
+
 	return (
 		<>
 			<AddEntity
 				addEntityHref={getAddProductHref}
 				titleComponent={<AddEntityTitle title='Products' />}
-				total={items.length}
+				total={isProductsArray ? products.length : 0}
 			/>
-			<div className='mt-4'>
-				<ProductsTable items={items} />
-			</div>
+			{isProductsArray && !products.length ? (
+				<NotFound text='Could not find any products' />
+			) : (
+				<div className='mt-4'>
+					<ProductsTable items={isProductsArray ? products : []} />
+				</div>
+			)}
 		</>
 	);
 }

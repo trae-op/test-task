@@ -36,7 +36,7 @@ export const useAddProductActions = (): TAddProductActions => {
 			if (data.specification) fd.append('specification', data.specification);
 			if (data.guaranteeStart) fd.append('guaranteeStart', data.guaranteeStart);
 			if (data.guaranteeEnd) fd.append('guaranteeEnd', data.guaranteeEnd);
-			if (data.orderId) fd.append('orderId', data.orderId);
+
 			fd.append('prices', JSON.stringify(pricesPayload));
 			fd.append('locale', locale);
 

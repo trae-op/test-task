@@ -11,7 +11,7 @@ export const ProductState = memo(({ isNew }: TProductStateProps) => {
 	const t = useTranslations('App.products.state');
 	return (
 		<div className={clsx(styles[`${BLOCK}__state`], 'w-50')}>
-			{isNew === 1 ? (
+			{isNew ? (
 				<span className={styles[`${BLOCK}__state-new`]}>{t('available')}</span>
 			) : (
 				<span className={styles[`${BLOCK}__state-used`]}>{t('inRepair')}</span>

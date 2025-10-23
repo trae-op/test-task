@@ -50,7 +50,6 @@ export const AddProduct = ({
 	const { onAddProductSubmit, state, isPending } = useAddProductActions();
 
 	const watchType = useWatch({ control, name: 'type' });
-	const watchOrderId = useWatch({ control, name: 'orderId' });
 	const watchGuaranteeStart = useWatch({ control, name: 'guaranteeStart' });
 
 	const isLoading = isSubmitting || isPending;
@@ -134,19 +133,6 @@ export const AddProduct = ({
 							</Form.Group>
 						</Col>
 					</Row>
-
-					<Form.Group className='mb-3' controlId='order'>
-						<Form.Label>{t('Order')}</Form.Label>
-						<SelectField
-							options={orderOptions}
-							value={toSelectValue(orderOptions, watchOrderId)}
-							onChange={e => {
-								setValue('orderId', e.target.value);
-							}}
-							placeholder={t('Select order')}
-						/>
-						<input type='hidden' {...register('orderId')} />
-					</Form.Group>
 
 					{/* Price builder (encapsulated) */}
 					<Price currencyOptions={currencySelectOptions} onChange={setPrices} />

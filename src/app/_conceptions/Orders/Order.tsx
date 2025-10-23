@@ -8,12 +8,12 @@ import { CaretRight, ListUl, Trash } from 'react-bootstrap-icons';
 import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 import { NavigationLink } from '@/components/NavigationLink';
 import { Popup } from '@/components/Popup/Popup';
+import { Price } from '@/components/Price';
 
 import { formatDateTime } from '@/utils/dateTime';
 import { getOrderDetailHref } from '@/utils/routing';
 
 import styles from './Orders.module.scss';
-import { OrderPrice } from './Price';
 import { type TOrderProps } from './types';
 
 const BLOCK = 'order-item';
@@ -26,8 +26,8 @@ export const OrderRow = memo(
 	({
 		title,
 		date,
-		price,
-		products,
+		prices,
+		amountOfProducts,
 		id,
 		isDeleteButton = true,
 		isActive = false
@@ -61,7 +61,7 @@ export const OrderRow = memo(
 					)}
 
 					<div className={styles[`${BLOCK}__detail`]}>
-						{products !== undefined && (
+						{amountOfProducts !== null && (
 							<div className={styles[`${BLOCK}__detail-item`]}>
 								<div
 									className={clsx(
@@ -84,7 +84,7 @@ export const OrderRow = memo(
 									)}
 								>
 									<span className={styles[`${BLOCK}__count`]}>
-										{products.length}
+										{amountOfProducts}
 									</span>
 									<span className={styles[`${BLOCK}__primary-text`]}>
 										{tp('Products')}
@@ -106,7 +106,7 @@ export const OrderRow = memo(
 							</div>
 						)}
 
-						{price !== undefined && <OrderPrice price={price} />}
+						<Price prices={prices} />
 						{isDeleteButton && (
 							<div className='d-flex align-items-center justify-content-center w-100 h-100'>
 								<Popup

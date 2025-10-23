@@ -36,7 +36,7 @@ export const addProductSubmit = async (
 		guaranteeStart: guaranteeStart ?? null,
 		guaranteeEnd: guaranteeEnd ?? null,
 		orderId: orderId ?? null,
-		isNew: isNewRaw === '1' || isNewRaw === 'true' ? '1' : '0',
+		isNew: isNewRaw === 'true',
 		prices
 	});
 
