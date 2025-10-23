@@ -31,8 +31,7 @@ export const AddProduct = ({
 	orderOptions,
 	currencyOptions
 }: TAddProductProps) => {
-	const t = useTranslations('App.addProduct');
-	const tg = useTranslations('App');
+	const t = useTranslations('App');
 	const te = useTranslations('App.errors');
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
@@ -67,67 +66,69 @@ export const AddProduct = ({
 
 	return (
 		<Card>
+			<Card.Header as='h4' className='text-center'>
+				{t('Add product')}
+			</Card.Header>
 			<Card.Body>
 				<MessagesServer message={state.message} type='error' />
 				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
 					<Form.Group className='mb-3' controlId='title'>
-						<Form.Label>{t('titleLabel')}</Form.Label>
+						<Form.Label>{t('Title')}</Form.Label>
 						<TextField
 							{...register('title', {
 								required: te('required')
 							})}
 							type='text'
-							placeholder={t('enterTitle')}
+							placeholder={t('Enter title')}
 							isInvalid={!!errors.title}
 							errorMessage={errors.title?.message}
 						/>
 					</Form.Group>
 
 					<Form.Group className='mb-3' controlId='serialNumber'>
-						<Form.Label>{t('serialNumber')}</Form.Label>
+						<Form.Label>{t('Serial number')}</Form.Label>
 						<TextField
 							{...register('serialNumber', {
 								required: te('required')
 							})}
 							type='text'
-							placeholder={t('enterSerialNumber')}
+							placeholder={t('Enter serial number')}
 							isInvalid={!!errors.serialNumber}
 							errorMessage={errors.serialNumber?.message}
 						/>
 					</Form.Group>
-
 					<Form.Group className='mb-3' controlId='type'>
-						<Form.Label>{t('type')}</Form.Label>
+						<Form.Label>{t('Type')}</Form.Label>
 						<SelectField
 							options={typeOptions}
 							value={toSelectValue(typeOptions, watchType)}
 							onChange={e => {
 								setValue('type', e.target.value);
 							}}
-							placeholder={t('selectType')}
+							placeholder={t('Select type')}
 						/>
 						<input type='hidden' {...register('type')} />
 					</Form.Group>
 
 					<Form.Group className='mb-3' controlId='specification'>
-						<Form.Label>{t('specification')}</Form.Label>
+						<Form.Label>{t('Specification')}</Form.Label>
 						<TextField
 							{...register('specification')}
 							as='textarea'
-							placeholder={t('enterSpecification')}
+							placeholder={t('Enter specification')}
 						/>
 					</Form.Group>
 
 					<Row>
 						<Col>
 							<Form.Group className='mb-3' controlId='guaranteeStart'>
-								<Form.Label>{t('guaranteeStart')}</Form.Label>
+								<Form.Label>{t('Guarantee start')}</Form.Label>
 								<TextField {...register('guaranteeStart')} type='date' />
 							</Form.Group>
 						</Col>
 						<Col>
 							<Form.Group className='mb-3' controlId='guaranteeEnd'>
-								<Form.Label>{t('guaranteeEnd')}</Form.Label>
+								<Form.Label>{t('Guarantee end')}</Form.Label>
 								<TextField
 									{...register('guaranteeEnd', {
 										validate: value => {
@@ -147,14 +148,14 @@ export const AddProduct = ({
 					</Row>
 
 					<Form.Group className='mb-3' controlId='order'>
-						<Form.Label>{t('order')}</Form.Label>
+						<Form.Label>{t('Order')}</Form.Label>
 						<SelectField
 							options={orderOptions}
 							value={toSelectValue(orderOptions, watchOrderId)}
 							onChange={e => {
 								setValue('orderId', e.target.value);
 							}}
-							placeholder={t('selectOrder')}
+							placeholder={t('Select order')}
 						/>
 						<input type='hidden' {...register('orderId')} />
 					</Form.Group>
@@ -164,7 +165,7 @@ export const AddProduct = ({
 
 					<div className='d-flex align-items-center justify-content-center'>
 						<Button
-							text={t('submit')}
+							text={t('Submit')}
 							type='submit'
 							variant='success'
 							isLoading={isLoading}

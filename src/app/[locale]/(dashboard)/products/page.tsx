@@ -6,7 +6,9 @@ import { NotFound } from '@/components/NotFound';
 import type { TProductData } from '@/types/product';
 
 import { fetchProducts } from '@/utils/products';
+import { getAddProductHref } from '@/utils/routing';
 
+import { AddEntity } from '@/app/_conceptions/AddEntity/AddEntity';
 import { ProductsTable } from '@/conceptions/Products';
 
 async function Container() {
@@ -14,7 +16,18 @@ async function Container() {
 	if (!items?.length) {
 		return <NotFound />;
 	}
-	return <ProductsTable items={items} />;
+	return (
+		<>
+			<AddEntity
+				addEntityHref={getAddProductHref}
+				title='Products'
+				total={items.length}
+			/>
+			<div className='mt-4'>
+				<ProductsTable items={items} />
+			</div>
+		</>
+	);
 }
 
 export default function ProductsPage() {

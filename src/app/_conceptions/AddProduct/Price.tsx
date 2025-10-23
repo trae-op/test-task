@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { memo } from 'react';
 import { Form } from 'react-bootstrap';
 
@@ -25,6 +26,7 @@ export const Price = memo(({ currencyOptions, onChange }: TPriceProps) => {
 		handleAddPrice,
 		handlePricesChange
 	} = usePriceActions({ onChange });
+	const t = useTranslations('App');
 
 	const selectOptions: SelectOption[] = currencyOptions.map(o => ({
 		value: o.value,
@@ -35,7 +37,7 @@ export const Price = memo(({ currencyOptions, onChange }: TPriceProps) => {
 		<>
 			<div className='d-flex flex-column'>
 				<Form.Group className='mb-3' controlId='priceAmount'>
-					<Form.Label>Amount</Form.Label>
+					<Form.Label>{t('Amount')}</Form.Label>
 					<TextField
 						type='number'
 						min='0'
@@ -46,35 +48,39 @@ export const Price = memo(({ currencyOptions, onChange }: TPriceProps) => {
 					/>
 				</Form.Group>
 				<Form.Group className='mb-3' controlId='priceCurrency'>
-					<Form.Label>Currency</Form.Label>
+					<Form.Label>{t('Currency')}</Form.Label>
 					<SelectField
 						options={selectOptions}
 						value={currency}
 						onChange={e => setCurrency(e.target.value)}
-						placeholder='Select currency'
+						placeholder={t('Select currency')}
 					/>
 				</Form.Group>
 				<Form.Group className='mb-3' controlId='priceDefault'>
 					<Form.Check
 						type='checkbox'
-						label='Default'
+						label={t('Default')}
 						checked={isDefault}
 						onChange={e => setIsDefault(e.target.checked)}
 					/>
 				</Form.Group>
 				<div className='ms-auto'>
-					<Button type='button' onClick={handleAddPrice} text='Add Price' />
+					<Button
+						type='button'
+						onClick={handleAddPrice}
+						text={t('Add price')}
+					/>
 				</div>
 			</div>
 
 			<Form.Group className='mb-3' controlId='prices'>
-				<Form.Label>Prices</Form.Label>
+				<Form.Label>{t('Prices')}</Form.Label>
 				<MultiSelectField
 					instanceId='product-prices'
 					options={prices as any}
 					value={prices}
 					onChange={handlePricesChange}
-					placeholder='Select currencies'
+					placeholder={t('Select prices')}
 				/>
 			</Form.Group>
 		</>

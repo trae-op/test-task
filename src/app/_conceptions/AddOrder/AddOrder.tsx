@@ -18,7 +18,7 @@ import { useAddOrderActions } from '@/hooks/addOrder';
 import type { TAddOrderFormData, TAddOrderProps } from './types';
 
 export const AddOrder = ({ products }: TAddOrderProps) => {
-	const t = useTranslations('App.addOrder');
+	const t = useTranslations('App');
 	const te = useTranslations('App.errors');
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
@@ -61,31 +61,34 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 
 	return (
 		<Card>
+			<Card.Header as='h4' className='text-center'>
+				{t('Add receipt')}
+			</Card.Header>
 			<Card.Body>
 				<MessagesServer message={state.message} type='error' />
 				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
 					<Form.Group className='mb-3' controlId='title'>
-						<Form.Label>{t('titleLabel')}</Form.Label>
+						<Form.Label>{t('Title')}</Form.Label>
 						<TextField
 							{...register('title', { required: te('required') })}
 							type='text'
-							placeholder={t('enterTitle')}
+							placeholder={t('Enter title')}
 							isInvalid={!!errors.title}
 							errorMessage={errors.title?.message}
 						/>
 					</Form.Group>
 
 					<Form.Group className='mb-3' controlId='description'>
-						<Form.Label>{t('description')}</Form.Label>
+						<Form.Label>{t('Description')}</Form.Label>
 						<TextField
 							{...register('description')}
 							as='textarea'
-							placeholder={t('enterDescription')}
+							placeholder={t('Enter description')}
 						/>
 					</Form.Group>
 
 					<Form.Group className='mb-4' controlId='products'>
-						<Form.Label>{t('products')}</Form.Label>
+						<Form.Label>{t('Receipts')}</Form.Label>
 						<MultiSelectField
 							options={productOptions}
 							value={selectedProducts}
@@ -96,7 +99,7 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 
 					<div className='d-flex align-items-center justify-content-center'>
 						<Button
-							text={t('submit')}
+							text={t('Submit')}
 							type='submit'
 							variant='success'
 							isLoading={isLoading}

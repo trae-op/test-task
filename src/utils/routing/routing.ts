@@ -6,8 +6,8 @@ export const getOrdersHref = '/orders';
 export const getProductsHref = '/products';
 export const getSignInHref = '/sign-in';
 export const getSignUpHref = '/sign-up';
-export const getAddProductHref = `/${getProductsHref}/new`;
-export const getAddOrderHref = `/${getOrdersHref}/new`;
+export const getAddProductHref = `${getProductsHref}/new`;
+export const getAddOrderHref = `${getOrdersHref}/new`;
 
 // API paths
 export const API_PRODUCTS_PATH = '/api/products';

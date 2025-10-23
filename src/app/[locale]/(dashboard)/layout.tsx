@@ -1,7 +1,6 @@
 import { getOrdersHref, getProductsHref } from '@/utils/routing/routing';
 
 import styles from './Layout.module.scss';
-import { AddEntity } from '@/app/_conceptions/AddEntity';
 import { LocalizationDropdown } from '@/app/_conceptions/LocalizationDropdown';
 import { Sidebar } from '@/app/_conceptions/Sidebar';
 import type { TSidebarNavItem } from '@/app/_conceptions/Sidebar/types';
@@ -25,10 +24,7 @@ export default function AuthLayout({
 			/>
 			<div className={styles[`${BLOCK}__container`]}>
 				<Sidebar items={navigationItems} />
-				<div className={styles[`${BLOCK}__content`]}>
-					<AddEntity />
-					<div className='mt-4'>{children}</div>
-				</div>
+				<div className={styles[`${BLOCK}__content`]}>{children}</div>
 			</div>
 		</div>
 	);

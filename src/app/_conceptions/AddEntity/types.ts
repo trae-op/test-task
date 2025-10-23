@@ -1,4 +1,5 @@
-export type TTitleProps = {
+export type TAddEntityProps = {
 	title: string;
 	total: number;
+	addEntityHref: string;
 };

@@ -1,42 +1,33 @@
+import { getTranslations } from 'next-intl/server';
+
 import { AddEntityButton } from '@/components/AddEntityButton';
 import { NavigationLink } from '@/components/NavigationLink';
 
-import { checkPathnames } from '@/utils/checkPathnames/checkPathnames';
-import { fetchOrders } from '@/utils/orders';
-import { fetchProducts } from '@/utils/products';
-
 import styles from './AddEntity.module.scss';
-import { Title } from './Title';
+import type { TAddEntityProps } from './types';
 
 const BLOCK = 'add-entity';
 
-export const AddEntity = async () => {
-	const result = await checkPathnames([
-		{
-			pathname: 'orders',
-			fetch: async () => await fetchOrders()
-		},
-		{
-			pathname: 'products',
-			fetch: async () => await fetchProducts()
-		}
-	]);
-
-	if (!result) {
-		return null;
-	}
-
-	const { href, displayTotal, displayTitle } = result;
+export const AddEntity = async ({
+	title,
+	total,
+	addEntityHref
+}: TAddEntityProps) => {
+	const t = await getTranslations('App');
 
 	return (
 		<div className={styles[BLOCK]}>
 			<NavigationLink
-				href={href}
+				href={addEntityHref}
 				component={AddEntityButton}
 				aria-label='add entity'
 			/>
 
-			<Title title={displayTitle} total={displayTotal} />
+			<div className={styles[`${BLOCK}__text`]}>
+				<span>{t(title)}</span>
+				<span className={styles[`${BLOCK}__separator`]}>/</span>
+				<span>{total}</span>
+			</div>
 		</div>
 	);
 };
