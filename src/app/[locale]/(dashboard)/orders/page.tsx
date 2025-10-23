@@ -8,11 +8,12 @@ import type { TOrderData } from '@/types/order';
 import { fetchOrders } from '@/utils/orders';
 import { getAddOrderHref } from '@/utils/routing/routing';
 
-import { AddEntity } from '@/conceptions/AddEntity';
+import { AddEntity, Title as AddEntityTitle } from '@/conceptions/AddEntity';
 import { OrderTable } from '@/conceptions/Orders';
 
 async function Container() {
 	const items: TOrderData[] = await fetchOrders();
+
 	if (!items?.length) {
 		return <NotFound />;
 	}
@@ -20,7 +21,7 @@ async function Container() {
 		<>
 			<AddEntity
 				addEntityHref={getAddOrderHref}
-				title='Receipts'
+				titleComponent={<AddEntityTitle title='Receipts' />}
 				total={items.length}
 			/>
 			<div className='mt-4'>

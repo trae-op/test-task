@@ -1,5 +1,3 @@
-import { getTranslations } from 'next-intl/server';
-
 import { AddEntityButton } from '@/components/AddEntityButton';
 import { NavigationLink } from '@/components/NavigationLink';
 
@@ -9,25 +7,22 @@ import type { TAddEntityProps } from './types';
 const BLOCK = 'add-entity';
 
 export const AddEntity = async ({
-	title,
 	total,
-	addEntityHref
-}: TAddEntityProps) => {
-	const t = await getTranslations('App');
+	addEntityHref,
+	titleComponent
+}: TAddEntityProps) => (
+	<div className={styles[BLOCK]}>
+		<NavigationLink
+			href={addEntityHref}
+			component={AddEntityButton}
+			aria-label='add entity'
+			text='Receipts'
+		/>
 
-	return (
-		<div className={styles[BLOCK]}>
-			<NavigationLink
-				href={addEntityHref}
-				component={AddEntityButton}
-				aria-label='add entity'
-			/>
-
-			<div className={styles[`${BLOCK}__text`]}>
-				<span>{t('Receipts')}</span>
-				<span className={styles[`${BLOCK}__separator`]}>/</span>
-				<span>{total}</span>
-			</div>
+		<div className={styles[`${BLOCK}__text`]}>
+			{titleComponent}
+			<span className={styles[`${BLOCK}__separator`]}>/</span>
+			<span>{total}</span>
 		</div>
-	);
-};
+	</div>
+);

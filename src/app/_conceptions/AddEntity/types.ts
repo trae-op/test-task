@@ -1,5 +1,11 @@
+import type { ReactElement } from 'react';
+
 export type TAddEntityProps = {
-	title: string;
 	total: number;
 	addEntityHref: string;
+	titleComponent: ReactElement;
+};
+
+export type TTitleProps = {
+	title: string;
 };

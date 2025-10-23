@@ -8,7 +8,7 @@ import type { TProductData } from '@/types/product';
 import { fetchProducts } from '@/utils/products';
 import { getAddProductHref } from '@/utils/routing';
 
-import { AddEntity } from '@/app/_conceptions/AddEntity/AddEntity';
+import { AddEntity, Title as AddEntityTitle } from '@/conceptions/AddEntity';
 import { ProductsTable } from '@/conceptions/Products';
 
 async function Container() {
@@ -20,7 +20,7 @@ async function Container() {
 		<>
 			<AddEntity
 				addEntityHref={getAddProductHref}
-				title='Products'
+				titleComponent={<AddEntityTitle title='Products' />}
 				total={items.length}
 			/>
 			<div className='mt-4'>
