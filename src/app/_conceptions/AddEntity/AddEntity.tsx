@@ -24,7 +24,7 @@ export const AddEntity = async ({
 			/>
 
 			<div className={styles[`${BLOCK}__text`]}>
-				<span>{t(title)}</span>
+				<span>{t('Receipts')}</span>
 				<span className={styles[`${BLOCK}__separator`]}>/</span>
 				<span>{total}</span>
 			</div>
