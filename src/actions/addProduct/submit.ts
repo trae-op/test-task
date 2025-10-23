@@ -10,7 +10,6 @@ export const addProductSubmit = async (
 	formData: FormData
 ): Promise<TAddProductSubmitState> => {
 	const title = String(formData.get('title') || '');
-	const serialNumber = String(formData.get('serialNumber') || '');
 	const type = (formData.get('type') as string) || undefined;
 	const specification = (formData.get('specification') as string) || undefined;
 	const guaranteeStart =
@@ -32,7 +31,6 @@ export const addProductSubmit = async (
 
 	const res = await addProduct({
 		title,
-		serialNumber,
 		type: type ?? null,
 		specification: specification ?? null,
 		guaranteeStart: guaranteeStart ?? null,

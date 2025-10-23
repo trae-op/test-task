@@ -85,18 +85,6 @@ export const AddProduct = ({
 						/>
 					</Form.Group>
 
-					<Form.Group className='mb-3' controlId='serialNumber'>
-						<Form.Label>{t('Serial number')}</Form.Label>
-						<TextField
-							{...register('serialNumber', {
-								required: te('required')
-							})}
-							type='text'
-							placeholder={t('Enter serial number')}
-							isInvalid={!!errors.serialNumber}
-							errorMessage={errors.serialNumber?.message}
-						/>
-					</Form.Group>
 					<Form.Group className='mb-3' controlId='type'>
 						<Form.Label>{t('Type')}</Form.Label>
 						<SelectField

@@ -16,3 +16,6 @@ export const validationMessages = {
 	name: 'Name must be between 2 and 30 characters and contain only letters',
 	passwordMatch: 'Passwords must match'
 };
+
+export const isValidUuid = (v?: string | null) =>
+	!v || /^[0-9a-fA-F-]{36}$/.test(v);

@@ -4,11 +4,12 @@ import { Prisma } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 
+import { generateSerialNumber } from '@/utils/generateSerialNumber';
+import { isValidUuid } from '@/utils/regExp';
+
 import type { TAddProductInput, TAddProductResult } from './types';
 import { authOptions } from '@/app/api/auth/config';
 import { prisma } from '@/prisma/prisma-client';
-
-const isValidUuid = (v?: string | null) => !v || /^[0-9a-fA-F-]{36}$/.test(v);
 
 export const addProduct = async (
 	input: TAddProductInput
@@ -18,7 +19,7 @@ export const addProduct = async (
 		if (!session?.user?.email) return { ok: false, code: 'UNAUTHORIZED' };
 
 		const title = String(input.title || '').trim();
-		const serialNumber = String(input.serialNumber || '').trim();
+		const serialNumber = generateSerialNumber();
 		const type = input.type ? String(input.type).trim() : null;
 		const specification = input.specification
 			? String(input.specification).trim()
@@ -32,7 +33,9 @@ export const addProduct = async (
 		const orderId = input.orderId ? String(input.orderId) : null;
 		const prices = Array.isArray(input.prices) ? input.prices : [];
 
-		if (!title || !serialNumber) return { ok: false, code: 'INVALID_INPUT' };
+		if (!title) return { ok: false, code: 'INVALID_INPUT' };
+		// Utility for serial number generation
+
 		if (orderId && !isValidUuid(orderId))
 			return { ok: false, code: 'INVALID_INPUT' };
 		if (guaranteeStart && Number.isNaN(guaranteeStart.getTime()))

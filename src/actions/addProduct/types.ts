@@ -1,6 +1,5 @@
 export type TAddProductInput = {
 	title: string;
-	serialNumber: string;
 	type?: string | null;
 	specification?: string | null;
 	guaranteeStart?: string | null; // ISO date string yyyy-mm-dd
