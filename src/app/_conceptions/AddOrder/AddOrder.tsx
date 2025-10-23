@@ -48,6 +48,10 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 
 	const isLoading = isSubmitting || isPending;
 
+	const onChange = (value: MultiValue<OptionType>) => {
+		setSelectedProducts(value);
+	};
+
 	const onFormSubmit = (data: TAddOrderFormData) => {
 		onAddOrderSubmit(
 			{
@@ -92,8 +96,9 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 						<MultiSelectField
 							options={productOptions}
 							value={selectedProducts}
-							onChange={v => setSelectedProducts(v)}
+							onChange={onChange}
 							closeMenuOnSelect={false}
+							placeholder={t('Select')}
 						/>
 					</Form.Group>
 
