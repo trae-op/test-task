@@ -24,7 +24,7 @@ export const getBaseUrl = (): string => {
 	if (vercelUrl) return `https://${vercelUrl}`;
 
 	// Fallback for local development
-	return 'http://localhost:3000';
+	return process.env.NEXT_PUBLIC_APP_URL || '';
 };
 
 export const getApiUrl = (path: string): string => {

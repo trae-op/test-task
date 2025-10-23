@@ -16,7 +16,7 @@ import type { SelectOption } from '@/components/SelectField/types';
 import { TextField } from '@/components/TextField';
 
 import type { TAddProductFormData } from '@/hooks/addProduct/types';
-import { useAddProductActions } from '@/hooks/addProduct/useAddProductActions';
+import { useAddProductActions } from '@/hooks/addProduct/useActions';
 
 import type { TAddProductProps } from './types';
 

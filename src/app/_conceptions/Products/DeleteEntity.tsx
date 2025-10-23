@@ -1,0 +1,37 @@
+'use client';
+
+import { memo, useCallback } from 'react';
+import { Trash } from 'react-bootstrap-icons';
+
+import { DeleteEntityButton } from '@/components/DeleteEntityButton';
+import { Popup } from '@/components/Popup/Popup';
+
+import { useActions } from '@/hooks/deleteProduct';
+
+export const DeleteEntity = memo(({ id }: { id: string }) => {
+	const { deleteEntity, pending } = useActions();
+
+	const onDelete = useCallback(
+		async (onClose: () => void) => {
+			await deleteEntity(id);
+			onClose();
+		},
+		[id]
+	);
+
+	return (
+		<div className='d-flex align-items-center justify-content-center w-100 h-100'>
+			<Popup
+				componentButton={DeleteEntityButton}
+				applyIconButton={Trash}
+				iconButton={Trash}
+				openButtonAriaLabel='Delete'
+				applyText='Delete'
+				applyDisabled={pending}
+				openButtonClassName='w-100 h-100'
+				title='Delete this product?'
+				onApply={onDelete}
+			/>
+		</div>
+	);
+});

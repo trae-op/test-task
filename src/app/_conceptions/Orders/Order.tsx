@@ -10,6 +10,8 @@ import { NavigationLink } from '@/components/NavigationLink';
 import { Popup } from '@/components/Popup/Popup';
 import { Price } from '@/components/Price';
 
+import { useActions as useDeleteOrderActions } from '@/hooks/deleteOrder';
+
 import { formatDateTime } from '@/utils/dateTime';
 import { getOrderDetailHref } from '@/utils/routing';
 
@@ -34,6 +36,15 @@ export const OrderRow = memo(
 	}: TOrderProps) => {
 		const i18nLocale = useLocale();
 		const tp = useTranslations('App');
+		const { deleteEntity, pending } = useDeleteOrderActions();
+
+		const onDelete = useCallback(
+			(onClose: () => void) => {
+				deleteEntity(id);
+				onClose();
+			},
+			[id]
+		);
 
 		const dateTime = useCallback(
 			(formatString: string) =>
@@ -118,10 +129,7 @@ export const OrderRow = memo(
 									openButtonClassName={clsx('w-100 h-100')}
 									title={'Delete this order?'}
 									applyButtonClassName=''
-									onApply={onClose => {
-										console.log('Delete order', id);
-										onClose();
-									}}
+									onApply={onDelete}
 								/>
 							</div>
 						)}

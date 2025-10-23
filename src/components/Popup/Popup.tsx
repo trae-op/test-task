@@ -23,6 +23,7 @@ export const Popup = memo(
 		show,
 		children,
 		className,
+		applyDisabled = false,
 		componentButton: ComponentButton,
 		componentApplyButton: ComponentApplyButton,
 		iconButton: Icon,
@@ -111,6 +112,7 @@ export const Popup = memo(
 							) : (
 								<button
 									type='button'
+									disabled={applyDisabled}
 									className='btn btn-light text-danger d-flex align-items-center gap-2'
 									onClick={handlePopupApply}
 								>

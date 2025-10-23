@@ -5,6 +5,7 @@ export type TConfirmPopupProps = Omit<ModalProps, 'children'> & {
 	title: string;
 	applyText?: string;
 	cancelText?: string;
+	applyDisabled?: boolean;
 	onApply?: (handleClose: () => void) => void;
 	onCancel?: () => void;
 	componentButton: ElementType;

@@ -1,4 +1,4 @@
-import { getApiUrl } from '../routing';
+import { getApiUrl } from '@/utils/routing';
 
 import type { TApiResults, TOptions } from './types';
 
