@@ -9,7 +9,7 @@ import type { TProductsProps } from './types';
 const BLOCK = 'product-table';
 
 export const ProductsTable = memo(
-	({ items, isDetail = false }: TProductsProps) => {
+	({ items, isDetail = false, isDeleteButton }: TProductsProps) => {
 		if (!items || items.length === 0) {
 			return null;
 		}
@@ -26,7 +26,12 @@ export const ProductsTable = memo(
 				>
 					<tbody>
 						{items.map(product => (
-							<ProductRow key={product.id} isDetail={isDetail} {...product} />
+							<ProductRow
+								key={product.id}
+								isDeleteButton={isDeleteButton}
+								isDetail={isDetail}
+								{...product}
+							/>
 						))}
 					</tbody>
 				</Table>

@@ -10,6 +10,7 @@ export type TProductProps = TProduct & {
 export type TProductsProps = {
 	items: TProduct[];
 	isDetail?: boolean;
+	isDeleteButton?: boolean;
 };
 
 export type TProductStateProps = {

@@ -9,7 +9,7 @@ import type { TOrdersProps } from './types';
 const BLOCK = 'order-table';
 
 export const OrderTable = memo(
-	({ items, isDetail = false, activeId }: TOrdersProps) => {
+	({ items, isDetail = false, activeId, isDeleteButton }: TOrdersProps) => {
 		if (!items || items.length === 0) {
 			return null;
 		}
@@ -27,7 +27,7 @@ export const OrderTable = memo(
 							<OrderRow
 								key={item.id}
 								isActive={activeId ? item.id === activeId : false}
-								isDeleteButton={!activeId}
+								isDeleteButton={isDeleteButton}
 								{...item}
 							/>
 						))}

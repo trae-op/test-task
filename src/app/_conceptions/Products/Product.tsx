@@ -13,6 +13,7 @@ import styles from './Products.module.scss';
 import { ProductState } from './State';
 import type { TProductProps } from './types';
 import { DeleteEntity } from '@/conceptions/DeleteEntity';
+import { OrderTable } from '@/conceptions/Orders';
 
 const BLOCK = 'product-item';
 
@@ -27,6 +28,7 @@ export const ProductRow = memo(
 		prices,
 		orderTitle,
 		photo,
+		isDeleteButton = true,
 		isDetail = false
 	}: TProductProps) => {
 		const i18nLocale = useLocale();
@@ -99,7 +101,13 @@ export const ProductRow = memo(
 						</div>
 					)}
 
-					<DeleteEntity id={id} entityName='products' />
+					{isDeleteButton && (
+						<DeleteEntity
+							entityTableComponent={OrderTable}
+							id={id}
+							entityName='products'
+						/>
+					)}
 				</td>
 			</tr>
 		);

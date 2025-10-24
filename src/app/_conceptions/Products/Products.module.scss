@@ -62,22 +62,12 @@
 		height: var(--size-10);
 		border-radius: 50%;
 		margin-right: var(--space-2xl);
-	}
 
-	&:nth-child(odd) &__status-dot-new {
-		background-color: var(--color-state-odd);
-	}
-
-	&:nth-child(even) &__status-dot-used {
-		background-color: var(--color-state-even);
-	}
-
-	&__state {
 		&-new {
-			color: var(--color-state-odd);
+			background-color: var(--color-state-odd);
 		}
 		&-used {
-			color: var(--color-state-even);
+			background-color: var(--color-state-even);
 		}
 	}
 

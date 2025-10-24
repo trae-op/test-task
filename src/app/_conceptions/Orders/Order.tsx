@@ -14,6 +14,7 @@ import { getOrderDetailHref } from '@/utils/routing';
 import styles from './Orders.module.scss';
 import { type TOrderProps } from './types';
 import { DeleteEntity } from '@/conceptions/DeleteEntity';
+import { ProductsTable } from '@/conceptions/Products';
 
 const BLOCK = 'order-item';
 
@@ -26,7 +27,7 @@ export const OrderRow = memo(
 		title,
 		date,
 		prices,
-		amountOfProducts,
+		amountOfProducts = 0,
 		id,
 		isDeleteButton = true,
 		isActive = false
@@ -60,37 +61,35 @@ export const OrderRow = memo(
 					)}
 
 					<div className={styles[`${BLOCK}__detail`]}>
-						{amountOfProducts !== null && (
-							<div className={styles[`${BLOCK}__detail-item`]}>
-								<div
-									className={clsx(
-										styles[`${BLOCK}__container-icon`],
-										'd-flex align-items-center justify-content-center'
-									)}
-								>
-									<NavigationLink
-										title={title}
-										className='d-flex align-items-center justify-content-center'
-										href={getOrderDetailHref(id)}
-										text={title}
-										component={ListUlIcon}
-									/>
-								</div>
-								<div
-									className={clsx(
-										styles[`${BLOCK}__container-count`],
-										'd-flex flex-column'
-									)}
-								>
-									<span className={styles[`${BLOCK}__count`]}>
-										{amountOfProducts}
-									</span>
-									<span className={styles[`${BLOCK}__primary-text`]}>
-										{tp('Products')}
-									</span>
-								</div>
+						<div className={styles[`${BLOCK}__detail-item`]}>
+							<div
+								className={clsx(
+									styles[`${BLOCK}__container-icon`],
+									'd-flex align-items-center justify-content-center'
+								)}
+							>
+								<NavigationLink
+									title={title}
+									className='d-flex align-items-center justify-content-center'
+									href={getOrderDetailHref(id)}
+									text={title}
+									component={ListUlIcon}
+								/>
 							</div>
-						)}
+							<div
+								className={clsx(
+									styles[`${BLOCK}__container-count`],
+									'd-flex flex-column'
+								)}
+							>
+								<span className={styles[`${BLOCK}__count`]}>
+									{amountOfProducts}
+								</span>
+								<span className={styles[`${BLOCK}__primary-text`]}>
+									{tp('Products')}
+								</span>
+							</div>
+						</div>
 
 						{date !== undefined && (
 							<div className={styles[`${BLOCK}__detail-item`]}>
@@ -106,7 +105,13 @@ export const OrderRow = memo(
 						)}
 
 						<Price prices={prices} />
-						{isDeleteButton && <DeleteEntity id={id} entityName='orders' />}
+						{isDeleteButton && (
+							<DeleteEntity
+								entityTableComponent={ProductsTable}
+								id={id}
+								entityName='orders'
+							/>
+						)}
 
 						{!isActive && !isDeleteButton && (
 							<div className='d-flex align-items-center justify-content-center h-100 px-3'></div>

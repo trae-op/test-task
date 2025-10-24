@@ -19,6 +19,7 @@ export const Popup = memo(
 		cancelText = 'Cancel',
 		onApply,
 		onCancel,
+		onOpen,
 		onHide,
 		show,
 		children,
@@ -40,6 +41,7 @@ export const Popup = memo(
 		const isModalOpen = isControlled ? show : isOpen;
 
 		const handlePopupOpen = () => {
+			onOpen?.();
 			handleOpen?.();
 			onHide?.();
 		};

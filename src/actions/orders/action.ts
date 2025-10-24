@@ -78,14 +78,7 @@ export async function getOrderById(id: string) {
 
 		const products = (order.products ?? []).map(product => ({
 			...product,
-			photo: product.photo ?? 'https://placehold.co/600x400/000000/FFFFFF.png',
-			guaranteeStart: product.guaranteeStart?.toISOString() ?? null,
-			guaranteeEnd: product.guaranteeEnd?.toISOString() ?? null,
-			date: product.date?.toISOString() ?? null,
-			prices: (product.prices ?? []).map(p => ({
-				...p,
-				value: Number((p as any).value ?? 0)
-			}))
+			photo: product.photo ?? 'https://placehold.co/600x400/000000/FFFFFF.png'
 		}));
 
 		return { orderTitle: order.title, products };

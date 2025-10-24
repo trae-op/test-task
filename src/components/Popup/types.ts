@@ -8,6 +8,7 @@ export type TConfirmPopupProps = Omit<ModalProps, 'children'> & {
 	applyDisabled?: boolean;
 	onApply?: (handleClose: () => void) => void;
 	onCancel?: () => void;
+	onOpen?: () => void;
 	componentButton: ElementType;
 	componentApplyButton?: ElementType;
 	iconButton?: ElementType;

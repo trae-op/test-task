@@ -11,4 +11,5 @@ export type TOrdersProps = {
 	items: TOrder[];
 	isDetail?: boolean;
 	activeId?: string;
+	isDeleteButton?: boolean;
 };

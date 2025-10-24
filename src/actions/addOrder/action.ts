@@ -15,7 +15,7 @@ export const addOrder = async (
 ): Promise<TAddOrderResult> => {
 	try {
 		const session = await getServerSession(authOptions);
-		console.log('session in addOrder:', session);
+
 		if (!session?.user?.email) return { ok: false, code: 'UNAUTHORIZED' };
 
 		const title = String(input.title || '').trim();
