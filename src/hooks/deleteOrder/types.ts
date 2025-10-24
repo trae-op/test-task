@@ -1,5 +1,6 @@
 export type TDeleteEntityParams = {
 	id: string;
+	entityName: string;
 	onSuccess?: () => void;
 };
 

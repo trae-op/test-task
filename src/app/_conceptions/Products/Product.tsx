@@ -9,10 +9,10 @@ import { Price } from '@/components/Price';
 
 import { formatDateTime } from '@/utils/dateTime';
 
-import { DeleteEntity } from './DeleteEntity';
 import styles from './Products.module.scss';
 import { ProductState } from './State';
 import type { TProductProps } from './types';
+import { DeleteEntity } from '@/conceptions/DeleteEntity';
 
 const BLOCK = 'product-item';
 
@@ -99,7 +99,7 @@ export const ProductRow = memo(
 						</div>
 					)}
 
-					<DeleteEntity id={id} />
+					<DeleteEntity id={id} entityName='products' />
 				</td>
 			</tr>
 		);

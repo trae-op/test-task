@@ -1,26 +1,32 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { memo, useCallback } from 'react';
 import { Trash } from 'react-bootstrap-icons';
 
 import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 import { Popup } from '@/components/Popup/Popup';
 
-import { useActions } from '@/hooks/deleteProduct';
+import { useActions } from '@/hooks/deleteOrder';
 
-export const DeleteEntity = memo(({ id }: { id: string }) => {
+import type { TDeleteEntityProps } from './types';
+
+export const DeleteEntity = memo(({ id, entityName }: TDeleteEntityProps) => {
 	const { deleteEntity, pending } = useActions();
+	const router = useRouter();
 
 	const onDelete = useCallback(
 		(onClose: () => void) => {
 			deleteEntity({
 				id,
+				entityName,
 				onSuccess: () => {
 					onClose();
+					router.refresh();
 				}
 			});
 		},
-		[id]
+		[id, entityName]
 	);
 
 	return (
@@ -33,7 +39,8 @@ export const DeleteEntity = memo(({ id }: { id: string }) => {
 				applyText='Delete'
 				applyDisabled={pending}
 				openButtonClassName='w-100 h-100'
-				title='Delete this product?'
+				title='Delete this order?'
+				applyButtonClassName=''
 				onApply={onDelete}
 			/>
 		</div>
