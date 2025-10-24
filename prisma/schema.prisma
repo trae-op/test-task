@@ -7,11 +7,6 @@ datasource db {
   url      = env("POSTGRES_PRISMA_URL")
 }
 
-enum Currency {
-  USD
-  UAH
-}
-
 model User {
   id        String   @id @default(uuid()) @db.Uuid
   name      String?
@@ -24,9 +19,9 @@ model User {
 }
 
 model Product {
-  id             String         @id @default(uuid()) @db.Uuid
+  id             String    @id @default(uuid()) @db.Uuid
   serialNumber   String
-  isNew          Boolean        @default(false)
+  isNew          Boolean   @default(false)
   photo          String?
   title          String
   type           String?
@@ -34,20 +29,20 @@ model Product {
   guaranteeStart DateTime?
   guaranteeEnd   DateTime?
   date           DateTime?
+  orderId        String?   @db.Uuid
   prices         Price[]
-  order          Order? @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  orderId        String?  @db.Uuid
+  order          Order?    @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@index([serialNumber])
 }
 
 model Order {
-  id          String       @id @default(uuid()) @db.Uuid
-  title       String
-  date        DateTime
-  description String?
+  id               String    @id @default(uuid()) @db.Uuid
+  title            String
+  date             DateTime
+  description      String?
   amountOfProducts Int?
-  products    Product[]
+  products         Product[]
 }
 
 model Price {
@@ -55,8 +50,13 @@ model Price {
   value     Decimal  @db.Decimal(10, 2)
   symbol    Currency
   isDefault Boolean  @default(false)
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String   @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@index([productId])
+}
+
+enum Currency {
+  USD
+  UAH
 }
