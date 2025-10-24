@@ -10,6 +10,8 @@ import { Picture } from '@/components/Picture';
 import { Popup } from '@/components/Popup';
 import { Price } from '@/components/Price';
 
+import { useActions as useDeleteOrderActions } from '@/hooks/deleteOrder';
+
 import { formatDateTime } from '@/utils/dateTime';
 
 import styles from './Products.module.scss';
@@ -33,6 +35,19 @@ export const ProductRow = memo(
 	}: TProductProps) => {
 		const i18nLocale = useLocale();
 		const t = useTranslations('App');
+
+		const { deleteEntity, pending } = useDeleteOrderActions();
+
+		const onDelete = useCallback(
+			(onClose: () => void) => {
+				deleteEntity({
+					id,
+					cabSuccess: onClose
+				});
+			},
+			[id]
+		);
+
 		const dateTime = useCallback(
 			(date: Date, formatString: string) =>
 				formatDateTime({
@@ -108,11 +123,8 @@ export const ProductRow = memo(
 							openButtonClassName={clsx('w-100 h-100')}
 							title={'Delete this order?'}
 							applyText='Delete'
-							applyButtonClassName=''
-							onApply={onClose => {
-								console.log('Delete order', id);
-								onClose();
-							}}
+							applyDisabled={pending}
+							onApply={onDelete}
 						/>
 					</div>
 				</td>

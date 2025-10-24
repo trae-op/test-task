@@ -40,8 +40,10 @@ export const OrderRow = memo(
 
 		const onDelete = useCallback(
 			(onClose: () => void) => {
-				deleteEntity(id);
-				onClose();
+				deleteEntity({
+					id,
+					cabSuccess: onClose
+				});
 			},
 			[id]
 		);
@@ -128,7 +130,7 @@ export const OrderRow = memo(
 									applyText='Delete'
 									openButtonClassName={clsx('w-100 h-100')}
 									title={'Delete this order?'}
-									applyButtonClassName=''
+									applyDisabled={pending}
 									onApply={onDelete}
 								/>
 							</div>

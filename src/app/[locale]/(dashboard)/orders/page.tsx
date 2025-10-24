@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
 import { DetailEntityLoading } from '@/components/DetailEntityLoading';
-import { NotFound } from '@/components/NotFound';
+import { EmptyData } from '@/components/EmptyData';
 
 import { getAddOrderHref } from '@/utils/routing/routing';
 
@@ -21,7 +21,7 @@ async function Container() {
 				total={isOrdersArray ? orders.length : 0}
 			/>
 			{isOrdersArray && !orders.length ? (
-				<NotFound text='Could not find any orders' />
+				<EmptyData text='Could not find any orders' />
 			) : (
 				<div className='mt-4'>
 					<OrderTable items={isOrdersArray ? orders : []} />

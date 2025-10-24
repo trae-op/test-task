@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
 import { DetailEntityLoading } from '@/components/DetailEntityLoading';
-import { NotFound } from '@/components/NotFound';
+import { EmptyData } from '@/components/EmptyData';
 
 import { getAddProductHref } from '@/utils/routing';
 
@@ -21,7 +21,7 @@ async function Container() {
 				total={isProductsArray ? products.length : 0}
 			/>
 			{isProductsArray && !products.length ? (
-				<NotFound text='Could not find any products' />
+				<EmptyData text='Could not find any products' />
 			) : (
 				<div className='mt-4'>
 					<ProductsTable items={isProductsArray ? products : []} />
