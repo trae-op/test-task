@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { clsx } from 'clsx';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import NextTopLoader from 'nextjs-toploader';
 
 import '@/styles/custom-classes.css';
 import '@/styles/variables.css';
@@ -34,6 +35,16 @@ export default function RootLayout({ children }: Props) {
 			<body
 				className={clsx(geistSans.variable, geistMono.variable, 'bg-light')}
 			>
+				<NextTopLoader
+					color='#5cb85c'
+					initialPosition={0.08}
+					crawlSpeed={200}
+					height={4}
+					crawl={true}
+					showSpinner={false}
+					easing='ease'
+					speed={200}
+				/>
 				{children}
 			</body>
 		</html>
