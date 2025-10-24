@@ -10,12 +10,12 @@ export const useActions = (): TActionsHook => {
 	const [pending, setPending] = useState(false);
 
 	const deleteEntity = useCallback(
-		async ({ id, cabSuccess }: TDeleteEntityParams) => {
+		async ({ id, onSuccess }: TDeleteEntityParams) => {
 			setPending(true);
 			try {
 				await deleteOrderById('orders', id);
-				if (cabSuccess) {
-					cabSuccess();
+				if (onSuccess) {
+					onSuccess();
 				}
 			} catch (error) {
 				// Handle error

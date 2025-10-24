@@ -36,11 +36,20 @@ export const DELETE = async (req: NextRequest) => {
 			);
 		}
 
-		await prisma.product.delete({
-			where: {
-				id
-			}
-		});
+		const product = await prisma.product.findUnique({ where: { id } });
+		if (!product) {
+			return NextResponse.json(
+				{
+					message: 'NOT_FOUND',
+					ok: false
+				},
+				{
+					status: 404
+				}
+			);
+		}
+
+		await prisma.product.delete({ where: { id } });
 
 		revalidatePath('/[locale]/products');
 

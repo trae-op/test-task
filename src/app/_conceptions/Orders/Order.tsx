@@ -42,7 +42,9 @@ export const OrderRow = memo(
 			(onClose: () => void) => {
 				deleteEntity({
 					id,
-					cabSuccess: onClose
+					onSuccess: () => {
+						onClose();
+					}
 				});
 			},
 			[id]

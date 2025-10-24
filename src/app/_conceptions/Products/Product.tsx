@@ -10,7 +10,7 @@ import { Picture } from '@/components/Picture';
 import { Popup } from '@/components/Popup';
 import { Price } from '@/components/Price';
 
-import { useActions as useDeleteOrderActions } from '@/hooks/deleteOrder';
+import { useActions as useDeleteProductActions } from '@/hooks/deleteProduct';
 
 import { formatDateTime } from '@/utils/dateTime';
 
@@ -36,13 +36,15 @@ export const ProductRow = memo(
 		const i18nLocale = useLocale();
 		const t = useTranslations('App');
 
-		const { deleteEntity, pending } = useDeleteOrderActions();
+		const { deleteEntity, pending } = useDeleteProductActions();
 
 		const onDelete = useCallback(
 			(onClose: () => void) => {
 				deleteEntity({
 					id,
-					cabSuccess: onClose
+					onSuccess: () => {
+						onClose();
+					}
 				});
 			},
 			[id]

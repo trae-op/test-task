@@ -36,11 +36,20 @@ export const DELETE = async (req: NextRequest) => {
 			);
 		}
 
-		await prisma.order.delete({
-			where: {
-				id
-			}
-		});
+		const order = await prisma.order.findUnique({ where: { id } });
+		if (!order) {
+			return NextResponse.json(
+				{
+					message: 'NOT_FOUND',
+					ok: false
+				},
+				{
+					status: 404
+				}
+			);
+		}
+
+		await prisma.order.delete({ where: { id } });
 
 		revalidatePath('/[locale]/orders');
 

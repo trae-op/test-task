@@ -1,6 +1,6 @@
 export type TDeleteEntityParams = {
 	id: string;
-	cabSuccess?: () => void;
+	onSuccess?: () => void;
 };
 
 export type TActionsHook = {
