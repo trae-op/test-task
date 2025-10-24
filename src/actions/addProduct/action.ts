@@ -1,6 +1,5 @@
 'use server';
 
-import { Prisma } from '@prisma/client';
 import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 
@@ -64,7 +63,7 @@ export const addProduct = async (
 					createMany: {
 						data: prices.map(p => ({
 							symbol: p.symbol,
-							value: new Prisma.Decimal(p.value || 0),
+							value: p.value || 0,
 							isDefault: Boolean(p.isDefault)
 						}))
 					}

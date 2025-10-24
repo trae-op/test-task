@@ -16,7 +16,7 @@ export const Price = memo(({ prices }: TPriceProps) => {
 				if (!isDefault) {
 					return (
 						<span className={styles[`${BLOCK}__not-default`]} key={symbol}>
-							{String(value)} {symbol}
+							{value} {symbol}
 						</span>
 					);
 				}
