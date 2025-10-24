@@ -3,17 +3,13 @@
 import clsx from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
-import { Trash } from 'react-bootstrap-icons';
 
-import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 import { Picture } from '@/components/Picture';
-import { Popup } from '@/components/Popup';
 import { Price } from '@/components/Price';
-
-import { useActions as useDeleteProductActions } from '@/hooks/deleteProduct';
 
 import { formatDateTime } from '@/utils/dateTime';
 
+import { DeleteEntity } from './DeleteEntity';
 import styles from './Products.module.scss';
 import { ProductState } from './State';
 import type { TProductProps } from './types';
@@ -35,20 +31,6 @@ export const ProductRow = memo(
 	}: TProductProps) => {
 		const i18nLocale = useLocale();
 		const t = useTranslations('App');
-
-		const { deleteEntity, pending } = useDeleteProductActions();
-
-		const onDelete = useCallback(
-			(onClose: () => void) => {
-				deleteEntity({
-					id,
-					onSuccess: () => {
-						onClose();
-					}
-				});
-			},
-			[id]
-		);
 
 		const dateTime = useCallback(
 			(date: Date, formatString: string) =>
@@ -117,18 +99,7 @@ export const ProductRow = memo(
 						</div>
 					)}
 
-					<div className='d-flex align-items-center justify-content-center w-50 h-100'>
-						<Popup
-							componentButton={DeleteEntityButton}
-							applyIconButton={Trash}
-							iconButton={Trash}
-							openButtonClassName={clsx('w-100 h-100')}
-							title={'Delete this order?'}
-							applyText='Delete'
-							applyDisabled={pending}
-							onApply={onDelete}
-						/>
-					</div>
+					<DeleteEntity id={id} />
 				</td>
 			</tr>
 		);

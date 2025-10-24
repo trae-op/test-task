@@ -12,9 +12,13 @@ export const DeleteEntity = memo(({ id }: { id: string }) => {
 	const { deleteEntity, pending } = useActions();
 
 	const onDelete = useCallback(
-		async (onClose: () => void) => {
-			await deleteEntity(id);
-			onClose();
+		(onClose: () => void) => {
+			deleteEntity({
+				id,
+				onSuccess: () => {
+					onClose();
+				}
+			});
 		},
 		[id]
 	);
