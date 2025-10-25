@@ -36,7 +36,9 @@ export const DELETE = async (req: NextRequest) => {
 			);
 		}
 
-		const order = await prisma.order.findUnique({ where: { id } });
+		const order = await prisma.order.findUnique({
+			where: { id, userId: userSession.id }
+		});
 		if (!order) {
 			return NextResponse.json(
 				{

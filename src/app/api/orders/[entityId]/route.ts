@@ -14,50 +14,29 @@ export const GET = async (
 ) => {
 	try {
 		const { entityId: id } = await params;
-
 		const userSession = await getUserSession();
-
 		if (userSession === null) {
 			return NextResponse.json(
-				{
-					code: 'UNAUTHORIZED',
-					ok: false
-				},
-				{
-					status: 401
-				}
+				{ code: 'UNAUTHORIZED', ok: false },
+				{ status: 401 }
 			);
 		}
-
 		if (!id) {
 			return NextResponse.json(
-				{
-					message: 'ID_NOT_FOUND',
-					ok: false
-				},
-				{
-					status: 400
-				}
+				{ message: 'ID_NOT_FOUND', ok: false },
+				{ status: 400 }
 			);
 		}
-
-		const order = await prisma.order.findUnique({
-			where: { id },
+		const order = await prisma.order.findFirst({
+			where: { id, userId: userSession.id },
 			include: { products: true }
 		});
-
-		if (order?.products == undefined) {
+		if (!order?.products) {
 			return NextResponse.json(
-				{
-					message: 'PRODUCTS_NOT_FOUND',
-					ok: false
-				},
-				{
-					status: 404
-				}
+				{ message: 'PRODUCTS_NOT_FOUND', ok: false },
+				{ status: 404 }
 			);
 		}
-
 		return NextResponse.json(
 			{
 				items: order.products.map(
@@ -70,19 +49,12 @@ export const GET = async (
 					})
 				)
 			},
-			{
-				status: 200
-			}
+			{ status: 200 }
 		);
 	} catch (error) {
 		return NextResponse.json(
-			{
-				message: 'SERVER_ERROR',
-				ok: false
-			},
-			{
-				status: 500
-			}
+			{ message: 'SERVER_ERROR', ok: false },
+			{ status: 500 }
 		);
 	}
 };

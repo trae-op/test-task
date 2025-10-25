@@ -11,6 +11,7 @@ export async function getOrders() {
 		}
 
 		const orders = await prisma.order.findMany({
+			where: { userId: userSession.id },
 			orderBy: { date: 'desc' },
 			include: {
 				products: {
@@ -68,7 +69,7 @@ export async function getOrderById(id: string) {
 		}
 
 		const order = await prisma.order.findUnique({
-			where: { id },
+			where: { id, userId: userSession.id },
 			include: { products: { include: { prices: true } } }
 		});
 

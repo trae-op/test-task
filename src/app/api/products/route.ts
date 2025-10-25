@@ -5,6 +5,27 @@ import { getUserSession } from '@/utils/session';
 
 import { prisma } from '@/prisma/prisma-client';
 
+export const GET = async (req: NextRequest) => {
+	try {
+		const userSession = await getUserSession();
+		if (userSession === null) {
+			return NextResponse.json(
+				{ code: 'UNAUTHORIZED', ok: false },
+				{ status: 401 }
+			);
+		}
+		const products = await prisma.product.findMany({
+			where: { userId: userSession.id }
+		});
+		return NextResponse.json({ ok: true, products }, { status: 200 });
+	} catch (error) {
+		return NextResponse.json(
+			{ message: 'SERVER_ERROR', ok: false },
+			{ status: 500 }
+		);
+	}
+};
+
 export const DELETE = async (req: NextRequest) => {
 	try {
 		const searchParams = req.nextUrl.searchParams;
@@ -36,7 +57,9 @@ export const DELETE = async (req: NextRequest) => {
 			);
 		}
 
-		const product = await prisma.product.findUnique({ where: { id } });
+		const product = await prisma.product.findUnique({
+			where: { id, userId: userSession.id }
+		});
 		if (!product) {
 			return NextResponse.json(
 				{

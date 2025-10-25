@@ -1,21 +1,20 @@
 'use server';
 
-import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 
 import { generateSerialNumber } from '@/utils/generateSerialNumber';
 import { isValidUuid } from '@/utils/regExp';
+import { getUserSession } from '@/utils/session';
 
 import type { TAddProductInput, TAddProductResult } from './types';
-import { authOptions } from '@/app/api/auth/config';
 import { prisma } from '@/prisma/prisma-client';
 
 export const addProduct = async (
 	input: TAddProductInput
 ): Promise<TAddProductResult> => {
 	try {
-		const session = await getServerSession(authOptions);
-		if (!session?.user?.email) return { ok: false, code: 'UNAUTHORIZED' };
+		const userSession = await getUserSession();
+		if (userSession === null) return { ok: false, code: 'UNAUTHORIZED' };
 
 		const title = String(input.title || '').trim();
 		const serialNumber = generateSerialNumber();
@@ -33,7 +32,6 @@ export const addProduct = async (
 		const prices = Array.isArray(input.prices) ? input.prices : [];
 
 		if (!title) return { ok: false, code: 'INVALID_INPUT' };
-		// Utility for serial number generation
 
 		if (orderId && !isValidUuid(orderId))
 			return { ok: false, code: 'INVALID_INPUT' };
@@ -59,10 +57,12 @@ export const addProduct = async (
 				guaranteeEnd,
 				isNew: true,
 				date: new Date(),
+				userId: userSession.id,
 				prices: {
 					createMany: {
 						data: prices.map(p => ({
 							symbol: p.symbol,
+							userId: userSession.id,
 							value: p.value || 0,
 							isDefault: Boolean(p.isDefault)
 						}))
@@ -78,7 +78,6 @@ export const addProduct = async (
 			}
 		});
 
-		// Invalidate cached products queries
 		revalidateTag('products');
 
 		return { ok: true, id: created.id };

@@ -11,6 +11,7 @@ export async function getProducts() {
 		}
 
 		const products = await prisma.product.findMany({
+			where: { userId: userSession.id },
 			orderBy: { date: 'desc' },
 			include: {
 				prices: true

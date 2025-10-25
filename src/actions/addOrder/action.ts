@@ -1,11 +1,10 @@
 'use server';
 
-import { Prisma } from '@prisma/client';
-import { getServerSession } from 'next-auth';
 import { revalidateTag } from 'next/cache';
 
+import { getUserSession } from '@/utils/session';
+
 import type { TAddOrderInput, TAddOrderResult } from './types';
-import { authOptions } from '@/app/api/auth/config';
 import { prisma } from '@/prisma/prisma-client';
 
 const isValidUuid = (v?: string | null) => !v || /^[0-9a-fA-F-]{36}$/.test(v);
@@ -14,9 +13,9 @@ export const addOrder = async (
 	input: TAddOrderInput
 ): Promise<TAddOrderResult> => {
 	try {
-		const session = await getServerSession(authOptions);
+		const userSession = await getUserSession();
 
-		if (!session?.user?.email) return { ok: false, code: 'UNAUTHORIZED' };
+		if (userSession === null) return { ok: false, code: 'UNAUTHORIZED' };
 
 		const title = String(input.title || '').trim();
 		const description = input.description
@@ -26,12 +25,10 @@ export const addOrder = async (
 
 		if (!title) return { ok: false, code: 'INVALID_INPUT' };
 
-		// Validate product ids
 		for (const id of products) {
 			if (!isValidUuid(id)) return { ok: false, code: 'INVALID_INPUT' };
 		}
 
-		// Check existence if provided
 		if (products.length > 0) {
 			const found = await prisma.product.findMany({
 				where: { id: { in: products } },
@@ -46,6 +43,7 @@ export const addOrder = async (
 				title,
 				description,
 				date: new Date(),
+				userId: userSession.id,
 				...(products.length
 					? {
 							products: {
@@ -56,7 +54,6 @@ export const addOrder = async (
 			}
 		});
 
-		// Invalidate cached orders queries
 		revalidateTag('orders');
 
 		return { ok: true, id: created.id };

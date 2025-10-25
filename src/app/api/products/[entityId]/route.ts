@@ -14,56 +14,33 @@ export const GET = async (
 ) => {
 	try {
 		const { entityId: id } = await params;
-
 		const userSession = await getUserSession();
-
 		if (userSession === null) {
 			return NextResponse.json(
-				{
-					code: 'UNAUTHORIZED',
-					ok: false
-				},
-				{
-					status: 401
-				}
+				{ code: 'UNAUTHORIZED', ok: false },
+				{ status: 401 }
 			);
 		}
-
 		if (!id) {
 			return NextResponse.json(
-				{
-					message: 'ID_NOT_FOUND',
-					ok: false
-				},
-				{
-					status: 400
-				}
+				{ message: 'ID_NOT_FOUND', ok: false },
+				{ status: 400 }
 			);
 		}
-
-		const product = await prisma.product.findUnique({
-			where: { id },
+		const product = await prisma.product.findFirst({
+			where: { id, userId: userSession.id },
 			include: {
 				order: {
-					include: {
-						products: true
-					}
+					include: { products: true }
 				}
 			}
 		});
-
-		if (product?.order == undefined) {
+		if (!product?.order) {
 			return NextResponse.json(
-				{
-					message: 'PRODUCTS_NOT_FOUND',
-					ok: false
-				},
-				{
-					status: 404
-				}
+				{ message: 'PRODUCTS_NOT_FOUND', ok: false },
+				{ status: 404 }
 			);
 		}
-
 		return NextResponse.json(
 			{
 				items: [product.order].map(({ title, id, date, products }) => ({
@@ -73,19 +50,12 @@ export const GET = async (
 					amountOfProducts: products.length
 				}))
 			},
-			{
-				status: 200
-			}
+			{ status: 200 }
 		);
 	} catch (error) {
 		return NextResponse.json(
-			{
-				message: 'SERVER_ERROR',
-				ok: false
-			},
-			{
-				status: 500
-			}
+			{ message: 'SERVER_ERROR', ok: false },
+			{ status: 500 }
 		);
 	}
 };
