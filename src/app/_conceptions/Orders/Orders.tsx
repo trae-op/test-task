@@ -14,10 +14,14 @@ import { useListSelector } from '@/context/entities/useContext';
 const BLOCK = 'order-table';
 
 export const OrderTable = memo(
-	({ isDetail = false, activeId, isDeleteButton }: TOrdersProps) => {
-		const items = useListSelector<TOrder>();
-
-		console.log('OrderTable items', items);
+	({
+		isDetail = false,
+		activeId,
+		isDeleteButton,
+		items: orders
+	}: TOrdersProps) => {
+		const itemsState = useListSelector<TOrder>();
+		const items = orders || itemsState;
 
 		if (!items || items.length === 0) {
 			return null;

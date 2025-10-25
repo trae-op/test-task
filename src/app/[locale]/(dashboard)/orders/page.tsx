@@ -7,10 +7,8 @@ import { getAddOrderHref } from '@/utils/routing/routing';
 
 import { getOrders } from '@/actions/orders';
 import { AddEntity, Title as AddEntityTitle } from '@/conceptions/AddEntity';
-import {
-	OrderTable,
-	Provider as ProviderContainer
-} from '@/conceptions/Orders';
+import { EntitiesProvider } from '@/conceptions/EntitiesProvider';
+import { OrderTable } from '@/conceptions/Orders';
 
 async function Container() {
 	const orders = await getOrders();
@@ -18,7 +16,7 @@ async function Container() {
 	const items = isOrdersArray ? orders : [];
 
 	return (
-		<ProviderContainer items={items}>
+		<EntitiesProvider items={items}>
 			<>
 				<AddEntity
 					addEntityHref={getAddOrderHref}
@@ -33,7 +31,7 @@ async function Container() {
 					</div>
 				)}
 			</>
-		</ProviderContainer>
+		</EntitiesProvider>
 	);
 }
 

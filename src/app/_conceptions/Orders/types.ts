@@ -13,9 +13,9 @@ export type TOrdersProps = {
 	isDetail?: boolean;
 	activeId?: string;
 	isDeleteButton?: boolean;
+	items?: TOrder[];
 };
 
-export type TProviderProps = {
-	items: TOrder[];
+export type TProviderProps = Pick<TOrdersProps, 'items'> & {
 	children: ReactNode;
 };

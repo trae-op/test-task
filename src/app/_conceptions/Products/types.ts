@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import type { TProduct } from '@/types/products';
 
 export type TProductProps = TProduct & {
@@ -8,11 +10,15 @@ export type TProductProps = TProduct & {
 };
 
 export type TProductsProps = {
-	items: TProduct[];
 	isDetail?: boolean;
 	isDeleteButton?: boolean;
+	items?: TProduct[];
 };
 
 export type TProductStateProps = {
 	isNew: true | false;
+};
+
+export type TProviderProps = Pick<TProductsProps, 'items'> & {
+	children: ReactNode;
 };
