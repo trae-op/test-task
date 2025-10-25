@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from 'react';
 
 export type TEntity = {
-	[key: string]: string | number | boolean;
+	[key: string]: any;
 };
 
 export type TProviderProps<T> = PropsWithChildren & {
