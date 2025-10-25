@@ -6,7 +6,7 @@ import type { TAddEntityProps } from './types';
 
 const BLOCK = 'add-entity';
 
-export const AddEntity = async ({
+export const AddEntity = ({
 	total,
 	addEntityHref,
 	titleComponent

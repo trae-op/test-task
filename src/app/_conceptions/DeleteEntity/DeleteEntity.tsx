@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { memo, useCallback, useState } from 'react';
 import { Placeholder } from 'react-bootstrap';
 import { Trash } from 'react-bootstrap-icons';
@@ -12,6 +11,7 @@ import { useActions as useDeleteEntityActions } from '@/hooks/deleteEntity';
 import { useActions as useGetEntitiesActions } from '@/hooks/getEntities';
 
 import type { TDeleteEntityProps } from './types';
+import { useRemoveDispatch } from '@/context/entities';
 
 export const DeleteEntity = memo(
 	({
@@ -19,11 +19,11 @@ export const DeleteEntity = memo(
 		entityName,
 		entityTableComponent: EntityTableComponent
 	}: TDeleteEntityProps) => {
+		const removeEntity = useRemoveDispatch();
 		const [entities, setEntities] = useState<[] | undefined>(undefined);
 		const { deleteEntity, pending: deleteEntityPending } =
 			useDeleteEntityActions();
 		const { getEntity, pending: entityPending } = useGetEntitiesActions();
-		const router = useRouter();
 
 		const onDelete = useCallback(
 			(onClose: () => void) => {
@@ -32,7 +32,7 @@ export const DeleteEntity = memo(
 					entityName,
 					onSuccess: () => {
 						onClose();
-						router.refresh();
+						removeEntity(id);
 					}
 				});
 			},
@@ -68,8 +68,8 @@ export const DeleteEntity = memo(
 					onApply={onDelete}
 				>
 					{Boolean(entityPending && !entities?.length) && (
-						<Placeholder animation='glow' className='w-100 '>
-							<Placeholder className='w-100 my-1' style={{ height: '4rem' }} />
+						<Placeholder animation='glow' className='w-100'>
+							<Placeholder className='my-1 w-100' style={{ height: '4rem' }} />
 						</Placeholder>
 					)}
 					{EntityTableComponent !== undefined && (

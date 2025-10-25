@@ -1,15 +1,24 @@
+'use client';
+
 import clsx from 'clsx';
 import { memo } from 'react';
 import Table from 'react-bootstrap/Table';
 
+import { TOrder } from '@/types/orders';
+
 import { OrderRow } from './Order';
 import styles from './Orders.module.scss';
 import type { TOrdersProps } from './types';
+import { useListSelector } from '@/context/entities/useContext';
 
 const BLOCK = 'order-table';
 
 export const OrderTable = memo(
-	({ items, isDetail = false, activeId, isDeleteButton }: TOrdersProps) => {
+	({ isDetail = false, activeId, isDeleteButton }: TOrdersProps) => {
+		const items = useListSelector<TOrder>();
+
+		console.log('OrderTable items', items);
+
 		if (!items || items.length === 0) {
 			return null;
 		}

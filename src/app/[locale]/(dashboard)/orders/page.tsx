@@ -7,27 +7,33 @@ import { getAddOrderHref } from '@/utils/routing/routing';
 
 import { getOrders } from '@/actions/orders';
 import { AddEntity, Title as AddEntityTitle } from '@/conceptions/AddEntity';
-import { OrderTable } from '@/conceptions/Orders';
+import {
+	OrderTable,
+	Provider as ProviderContainer
+} from '@/conceptions/Orders';
 
 async function Container() {
 	const orders = await getOrders();
 	const isOrdersArray = Array.isArray(orders);
+	const items = isOrdersArray ? orders : [];
 
 	return (
-		<>
-			<AddEntity
-				addEntityHref={getAddOrderHref}
-				titleComponent={<AddEntityTitle title='Receipts' />}
-				total={isOrdersArray ? orders.length : 0}
-			/>
-			{isOrdersArray && !orders.length ? (
-				<EmptyData text='Could not find any orders' />
-			) : (
-				<div className='mt-4'>
-					<OrderTable items={isOrdersArray ? orders : []} />
-				</div>
-			)}
-		</>
+		<ProviderContainer items={items}>
+			<>
+				<AddEntity
+					addEntityHref={getAddOrderHref}
+					titleComponent={<AddEntityTitle title='Receipts' />}
+					total={items.length}
+				/>
+				{!items.length ? (
+					<EmptyData text='Could not find any orders' />
+				) : (
+					<div className='mt-4'>
+						<OrderTable />
+					</div>
+				)}
+			</>
+		</ProviderContainer>
 	);
 }
 

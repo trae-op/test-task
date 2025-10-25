@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import type { TOrder } from '@/types/orders';
 import type { TPrice } from '@/types/price';
 
@@ -8,8 +10,12 @@ export type TOrderProps = TOrder & {
 };
 
 export type TOrdersProps = {
-	items: TOrder[];
 	isDetail?: boolean;
 	activeId?: string;
 	isDeleteButton?: boolean;
+};
+
+export type TProviderProps = {
+	items: TOrder[];
+	children: ReactNode;
 };
