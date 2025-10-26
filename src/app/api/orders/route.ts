@@ -81,6 +81,14 @@ export const DELETE = async (req: NextRequest) => {
 
 export const GET = async (req: NextRequest) => {
 	try {
+		const userSession = await getUserSession();
+		if (userSession === null) {
+			return NextResponse.json(
+				{ code: 'UNAUTHORIZED', ok: false },
+				{ status: 401 }
+			);
+		}
+
 		const searchParams = req.nextUrl.searchParams;
 		const entityId = searchParams.get('entityId');
 		const type = searchParams.get('type');
@@ -95,27 +103,27 @@ export const GET = async (req: NextRequest) => {
 		if (type) where.type = type;
 
 		// Fetch orders
-		const orders = await prisma.order.findMany({
+		const entities = await prisma.order.findMany({
 			where,
 			include: { products: { include: { prices: true } } }
 		});
 
 		// Filter fields if specified
-		let result: Partial<TOrder>[] = orders;
+		let result: Partial<TOrder>[] = entities;
 		if (fields && fields.length) {
-			result = orders.map(order => {
+			result = entities.map(entity => {
 				const filtered: Partial<TOrder> = {};
 				fields.forEach(key => {
-					if (key in order) {
+					if (key in entity) {
 						// @ts-ignore
-						filtered[key] = order[key];
+						filtered[key] = entity[key];
 					}
 				});
 				return filtered;
 			});
 		}
 
-		return NextResponse.json({ ok: true, result }, { status: 200 });
+		return NextResponse.json({ ok: true, items: result }, { status: 200 });
 	} catch (error) {
 		return NextResponse.json(
 			{ ok: false, message: 'SERVER_ERROR' },

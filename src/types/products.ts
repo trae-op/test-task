@@ -1,3 +1,7 @@
 import type { Product } from '@prisma/client';
 
-export type TProduct = Product;
+import { TOrder } from './orders';
+
+export type TProduct = Product & {
+	order?: TOrder;
+};
