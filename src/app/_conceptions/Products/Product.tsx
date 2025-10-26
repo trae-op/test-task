@@ -12,8 +12,7 @@ import { formatDateTime } from '@/utils/dateTime';
 import styles from './Products.module.scss';
 import { ProductState } from './State';
 import type { TProductProps } from './types';
-import { DeleteEntity as DeleteOrder } from '@/app/_conceptions/DeleteOrder';
-import { OrderTable } from '@/conceptions/Orders';
+import { DeleteEntity as DeleteProducts } from '@/conceptions/DeleteProducts';
 
 const BLOCK = 'product-item';
 
@@ -101,9 +100,7 @@ export const ProductRow = memo(
 						</div>
 					)}
 
-					{isDeleteButton && (
-						<DeleteOrder entityTableComponent={OrderTable} id={id} />
-					)}
+					{isDeleteButton && <DeleteProducts id={id} />}
 				</td>
 			</tr>
 		);

@@ -4,8 +4,6 @@ import clsx from 'clsx';
 import { memo } from 'react';
 import Table from 'react-bootstrap/Table';
 
-import { TOrder } from '@/types/orders';
-
 import { OrderRow } from './Order';
 import styles from './Orders.module.scss';
 import type { TOrdersProps } from './types';

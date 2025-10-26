@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 
 import { useActions as useControlToaster } from '@/components/Toaster/useActions';
 
-import { deleteEntityById } from '@/services/orders';
+import { deleteEntityById } from '@/services/products';
 
 import type { TActionsHook, TDeleteEntityParams } from './types';
 
@@ -20,7 +20,7 @@ export const useActions = (): TActionsHook => {
 				if (onSuccess) {
 					onSuccess();
 				}
-			} catch (error) {
+			} catch (_error) {
 				setToast('Error deleting entity', 'error');
 			} finally {
 				setPending(false);
