@@ -2,23 +2,26 @@
 
 import { useCallback, useState } from 'react';
 
-import { deleteEntityById } from '@/services/deleteEntity';
+import { useControlToaster } from '@/components/Toaster';
+
+import { deleteEntityById } from '@/services/orders';
 
 import type { TActionsHook, TDeleteEntityParams } from './types';
 
 export const useActions = (): TActionsHook => {
 	const [pending, setPending] = useState(false);
+	const { setToast } = useControlToaster();
 
 	const deleteEntity = useCallback(
-		async ({ id, onSuccess, entityName }: TDeleteEntityParams) => {
+		async ({ id, onSuccess }: TDeleteEntityParams) => {
 			setPending(true);
 			try {
-				await deleteEntityById(entityName, id);
+				await deleteEntityById(id);
 				if (onSuccess) {
 					onSuccess();
 				}
 			} catch (error) {
-				// Handle error
+				setToast('Error deleting entity', 'error');
 			} finally {
 				setPending(false);
 			}

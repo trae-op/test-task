@@ -1,0 +1,10 @@
+.toaster {
+	display: flex;
+	align-items: center;
+
+	&__container-icon {
+		margin-right: var(--size-12);
+		width: var(--size-40);
+		height: var(--size-40);
+	}
+}

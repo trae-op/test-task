@@ -4,6 +4,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
 
+import { InitToaster } from '@/components/Toaster';
+
 import '@/styles/custom-classes.css';
 import '@/styles/variables.css';
 
@@ -36,7 +38,7 @@ export default function RootLayout({ children }: Props) {
 				className={clsx(geistSans.variable, geistMono.variable, 'bg-light')}
 			>
 				<NextTopLoader
-					color='#5cb85c'
+					color='#4c9148ff'
 					initialPosition={0.08}
 					crawlSpeed={200}
 					height={4}
@@ -46,6 +48,7 @@ export default function RootLayout({ children }: Props) {
 					speed={200}
 				/>
 				{children}
+				<InitToaster />
 			</body>
 		</html>
 	);
