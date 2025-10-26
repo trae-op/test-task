@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 
-import { getEntityById } from '@/services/entities';
+import { getEntityById } from '@/services/orders';
 
 import type { TActionsHook, TGetEntityParams, TRestResults } from './types';
 

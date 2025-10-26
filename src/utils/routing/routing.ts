@@ -1,4 +1,14 @@
-import type { TEntityId } from './types';
+import type { TCollectParams, TEntityId } from './types';
+
+export const getCollectParams = (params: TCollectParams): string => {
+	const query: string[] = [];
+	if (params.entityId)
+		query.push(`entityId=${encodeURIComponent(params.entityId)}`);
+	if (params.type) query.push(`type=${encodeURIComponent(params.type)}`);
+	if (params.fields && params.fields.length)
+		query.push(`fields=${params.fields.map(encodeURIComponent).join(',')}`);
+	return query.length ? `?${query.join('&')}` : '';
+};
 
 export const getOrderDetailHref = (id: TEntityId): string => `/orders/${id}`;
 export const getProfileHref = '/profile';
