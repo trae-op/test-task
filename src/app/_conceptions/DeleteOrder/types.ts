@@ -4,14 +4,13 @@ import { TOrder } from '@/types/orders';
 
 export type TEntity = TOrder;
 
-export type TEntityTableProps<T> = {
-	items: T[];
+export type TEntityTableProps = {
+	items: TEntity[];
 	isDetail: boolean;
 	isDeleteButton: boolean;
 };
 
-export type TDeleteEntityProps<T> = {
+export type TDeleteEntityProps = {
 	id: string;
-	entityName: 'orders' | 'products';
-	entityTableComponent?: ComponentType<TEntityTableProps<T>>;
+	entityTableComponent?: ComponentType<TEntityTableProps>;
 };

@@ -16,11 +16,7 @@ import type { TDeleteEntityProps, TEntity } from './types';
 import { useRemoveDispatch } from '@/context/entities';
 
 export const DeleteEntity = memo(
-	({
-		id,
-		entityName,
-		entityTableComponent: EntityTableComponent
-	}: TDeleteEntityProps<TEntity>) => {
+	({ id, entityTableComponent: EntityTableComponent }: TDeleteEntityProps) => {
 		const removeEntity = useRemoveDispatch();
 		const [entities, setEntities] = useState<TEntity[] | undefined>(undefined);
 		const { deleteEntity, pending: deleteEntityPending } =
@@ -37,7 +33,7 @@ export const DeleteEntity = memo(
 					}
 				});
 			},
-			[id, entityName]
+			[id]
 		);
 
 		const onOpen = useCallback(() => {
@@ -50,7 +46,7 @@ export const DeleteEntity = memo(
 					setEntities(response.results.items);
 				}
 			});
-		}, [id, entityName]);
+		}, [id]);
 
 		return (
 			<div className='d-flex align-items-center justify-content-center w-100 h-100'>
