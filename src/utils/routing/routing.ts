@@ -1,12 +1,17 @@
 import type { TCollectParams, TEntityId } from './types';
 
-export const getCollectParams = (params: TCollectParams): string => {
+export const getCollectParams = <T = string, F extends object = {}>(
+	params: TCollectParams<T, F>
+): string => {
 	const query: string[] = [];
 	if (params.entityId)
-		query.push(`entityId=${encodeURIComponent(params.entityId)}`);
-	if (params.type) query.push(`type=${encodeURIComponent(params.type)}`);
+		query.push(`entityId=${encodeURIComponent(String(params.entityId))}`);
+	if (params.type)
+		query.push(`type=${encodeURIComponent(String(params.type))}`);
 	if (params.fields && params.fields.length)
-		query.push(`fields=${params.fields.map(encodeURIComponent).join(',')}`);
+		query.push(
+			`fields=${params.fields.map(String).map(encodeURIComponent).join(',')}`
+		);
 	return query.length ? `?${query.join('&')}` : '';
 };
 

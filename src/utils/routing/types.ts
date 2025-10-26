@@ -1,7 +1,7 @@
 export type TEntityId = string | number;
 
-export type TCollectParams = {
+export type TCollectParams<T = string, F extends object = {}> = {
 	entityId?: string;
-	type?: string;
-	fields?: string[];
+	type?: T;
+	fields?: Array<keyof F>;
 };

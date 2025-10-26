@@ -10,15 +10,6 @@ export async function getEntities<T>(params: string): Promise<TApiResults<T>> {
 	});
 }
 
-export async function getEntityById<T>(
-	entityId: string
-): Promise<TApiResults<T>> {
-	return await getFetch(`${PATHNAME}/${entityId}`, {
-		method: 'GET',
-		next: { revalidate: 60 }
-	});
-}
-
 export async function deleteEntityById<T>(id: string): Promise<TApiResults<T>> {
 	return await getFetch(`${PATHNAME}?id=${id}`, {
 		method: 'DELETE'

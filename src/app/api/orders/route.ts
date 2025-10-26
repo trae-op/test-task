@@ -1,6 +1,8 @@
 import { revalidatePath } from 'next/cache';
 import { type NextRequest, NextResponse } from 'next/server';
 
+import { type TOrder } from '@/types/orders';
+
 import { getUserSession } from '@/utils/session';
 
 import { prisma } from '@/prisma/prisma-client';
@@ -73,6 +75,51 @@ export const DELETE = async (req: NextRequest) => {
 			{
 				status: 500
 			}
+		);
+	}
+};
+
+export const GET = async (req: NextRequest) => {
+	try {
+		const searchParams = req.nextUrl.searchParams;
+		const entityId = searchParams.get('entityId');
+		const type = searchParams.get('type');
+		const fieldsParam = searchParams.get('fields');
+
+		// Parse fields as array of keys
+		const fields = fieldsParam ? fieldsParam.split(',') : undefined;
+
+		// Build Prisma query
+		const where: Record<string, any> = {};
+		if (entityId) where.id = entityId;
+		if (type) where.type = type;
+
+		// Fetch orders
+		const orders = await prisma.order.findMany({
+			where,
+			include: { products: { include: { prices: true } } }
+		});
+
+		// Filter fields if specified
+		let result: Partial<TOrder>[] = orders;
+		if (fields && fields.length) {
+			result = orders.map(order => {
+				const filtered: Partial<TOrder> = {};
+				fields.forEach(key => {
+					if (key in order) {
+						// @ts-ignore
+						filtered[key] = order[key];
+					}
+				});
+				return filtered;
+			});
+		}
+
+		return NextResponse.json({ ok: true, result }, { status: 200 });
+	} catch (error) {
+		return NextResponse.json(
+			{ ok: false, message: 'SERVER_ERROR' },
+			{ status: 500 }
 		);
 	}
 };

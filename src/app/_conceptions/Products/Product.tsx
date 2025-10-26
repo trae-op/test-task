@@ -12,7 +12,7 @@ import { formatDateTime } from '@/utils/dateTime';
 import styles from './Products.module.scss';
 import { ProductState } from './State';
 import type { TProductProps } from './types';
-import { DeleteEntity } from '@/conceptions/DeleteEntity';
+import { DeleteEntity } from '@/app/_conceptions/DeleteOrder';
 import { OrderTable } from '@/conceptions/Orders';
 
 const BLOCK = 'product-item';
@@ -67,7 +67,7 @@ export const ProductRow = memo(
 						{photo !== null && photo.length && (
 							<Picture src={photo} alt={title || ''} size='sm' loading='lazy' />
 						)}
-						<div className='d-flex flex-column align-items-start '>
+						<div className='d-flex flex-column align-items-start'>
 							<span>{title}</span>
 							<span>{serialNumber}</span>
 						</div>

@@ -13,7 +13,7 @@ import { getOrderDetailHref } from '@/utils/routing';
 
 import styles from './Orders.module.scss';
 import { type TOrderProps } from './types';
-import { DeleteEntity } from '@/conceptions/DeleteEntity';
+import { DeleteEntity } from '@/app/_conceptions/DeleteOrder';
 import { ProductsTable } from '@/conceptions/Products';
 
 const BLOCK = 'order-item';
@@ -114,7 +114,7 @@ export const OrderRow = memo(
 						)}
 
 						{!isActive && !isDeleteButton && (
-							<div className='d-flex align-items-center justify-content-center h-100 px-3'></div>
+							<div className='d-flex align-items-center justify-content-center px-3 h-100'></div>
 						)}
 
 						{isActive && (
