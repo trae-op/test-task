@@ -1,16 +1,17 @@
+import { TProduct } from '@/types/products';
+
 import type { TApiResults } from '@/utils/api/types';
 
 export type TRestResults = {
-	items: [] | undefined;
+	items: TProduct[];
 };
 
-export type TGetEntityParams = {
-	entityId: string;
-	entityName: string;
+export type TGetEntitiesParams = {
+	params: string;
 	onSuccess?: (response: TApiResults<TRestResults>) => void;
 };
 
 export type TActionsHook = {
-	getEntity: (params: TGetEntityParams) => Promise<void>;
+	getAllEntities: (params: TGetEntitiesParams) => Promise<void>;
 	pending: boolean;
 };

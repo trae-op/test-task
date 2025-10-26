@@ -8,7 +8,7 @@ import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 import { Popup } from '@/components/Popup/Popup';
 
 import { useActions as useDeleteEntityActions } from '@/hooks/deleteOrder';
-import { useActions as useGetEntitiesActions } from '@/hooks/getEntities';
+import { useActions as useGetEntitiesActions } from '@/hooks/getOrders';
 
 import type { TDeleteEntityProps } from './types';
 import { useRemoveDispatch } from '@/context/entities';
