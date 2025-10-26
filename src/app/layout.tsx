@@ -4,8 +4,6 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
 
-import { InitToaster } from '@/components/Toaster';
-
 import '@/styles/custom-classes.css';
 import '@/styles/variables.css';
 
@@ -48,7 +46,6 @@ export default function RootLayout({ children }: Props) {
 					speed={200}
 				/>
 				{children}
-				<InitToaster />
 			</body>
 		</html>
 	);

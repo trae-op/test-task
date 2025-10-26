@@ -4,18 +4,16 @@ import { clsx } from 'clsx';
 import { memo } from 'react';
 import Table from 'react-bootstrap/Table';
 
-import { TProduct } from '@/types/products';
-
 import { ProductRow } from './Product';
 import styles from './Products.module.scss';
 import type { TProductsProps } from './types';
-import { useListSelector } from '@/context/entities';
+import { useListSelector } from '@/context/products/useContext';
 
 const BLOCK = 'product-table';
 
 export const ProductsTable = memo(
 	({ isDetail = false, isDeleteButton, items: products }: TProductsProps) => {
-		const itemsState = useListSelector<TProduct>();
+		const itemsState = useListSelector();
 		const items = products || itemsState;
 
 		if (!items || items.length === 0) {

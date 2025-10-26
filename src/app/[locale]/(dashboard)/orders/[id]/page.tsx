@@ -9,6 +9,8 @@ import { getOrderById, getOrders } from '@/actions/orders';
 import { AddProductButton } from '@/conceptions/AddProductButton';
 import { OrderTable } from '@/conceptions/Orders';
 import { ProductsTable } from '@/conceptions/Products';
+import { Provider as OrdersProvider } from '@/context/orders';
+import { Provider as ProductsProvider } from '@/context/products';
 
 async function Container({ params }: TDynamicPageProps) {
 	const { id } = await params;
@@ -22,18 +24,16 @@ async function Container({ params }: TDynamicPageProps) {
 
 	return (
 		<div className='row g-2'>
-			<div className='col-12 col-lg-4 col-xl-3 mt-0'>
-				<OrderTable
-					items={isOrdersArray ? responseOrders : []}
-					isDetail
-					activeId={id}
-				/>
+			<div className='mt-0 col-12 col-lg-4 col-xl-3'>
+				<OrdersProvider items={isOrdersArray ? responseOrders : []}>
+					<OrderTable isDetail activeId={id} />
+				</OrdersProvider>
 			</div>
-			<div className='col-12 col-lg-8 col-xl-9 position-relative bg-white rounded-2 mt-1 border'>
+			<div className='position-relative bg-white mt-1 border rounded-2 col-12 col-lg-8 col-xl-9'>
 				<CloseEntityButton
 					style={{ width: '2rem', height: '2rem' }}
 					aria-label='close'
-					className='d-flex align-items-center justify-content-center z-3 position-absolute negative-end-rem1 negative-top-rem1 border-0'
+					className='negative-top-rem1 z-3 position-absolute d-flex align-items-center justify-content-center border-0 negative-end-rem1'
 					href='/orders'
 				/>
 
@@ -43,11 +43,9 @@ async function Container({ params }: TDynamicPageProps) {
 					<AddProductButton />
 				</div>
 
-				<ProductsTable
-					items={responseOrder.products || []}
-					isDetail
-					isDeleteButton={false}
-				/>
+				<ProductsProvider items={responseOrder.products || []}>
+					<ProductsTable isDetail isDeleteButton={false} />
+				</ProductsProvider>
 			</div>
 		</div>
 	);

@@ -7,8 +7,8 @@ import { getAddProductHref } from '@/utils/routing';
 
 import { getProducts } from '@/actions/products';
 import { AddEntity, Title as AddEntityTitle } from '@/conceptions/AddEntity';
-import { EntitiesProvider } from '@/conceptions/EntitiesProvider';
 import { ProductsTable } from '@/conceptions/Products';
+import { Provider as ProductsProvider } from '@/context/products';
 
 async function Container() {
 	const products = await getProducts();
@@ -16,7 +16,7 @@ async function Container() {
 	const items = isProductsArray ? products : [];
 
 	return (
-		<EntitiesProvider items={items}>
+		<ProductsProvider items={items}>
 			<AddEntity
 				addEntityHref={getAddProductHref}
 				titleComponent={<AddEntityTitle title='Products' />}
@@ -29,7 +29,7 @@ async function Container() {
 					<ProductsTable />
 				</div>
 			)}
-		</EntitiesProvider>
+		</ProductsProvider>
 	);
 }
 

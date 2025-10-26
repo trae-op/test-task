@@ -13,7 +13,7 @@ import { useActions as useGetEntitiesActions } from '@/hooks/getOrders';
 import { getCollectParams } from '@/utils/routing';
 
 import type { TDeleteEntityProps, TEntity } from './types';
-import { useRemoveDispatch } from '@/context/entities';
+import { useRemoveDispatch } from '@/context/orders/useContext';
 
 export const DeleteEntity = memo(
 	({ id, entityTableComponent: EntityTableComponent }: TDeleteEntityProps) => {

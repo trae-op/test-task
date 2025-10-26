@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from 'react';
 
-import { useControlToaster } from '@/components/Toaster';
+import { useActions as useControlToaster } from '@/components/Toaster/useActions';
 
 import { getEntities } from '@/services/orders';
 

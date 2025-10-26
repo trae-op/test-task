@@ -3,5 +3,18 @@
 	justify-content: center;
 	align-items: center;
 	min-height: 70vh;
-	margin: 0;
+	margin: auto;
+
+	&__card {
+		width: 100%;
+		min-height: 30vh;
+		text-align: center;
+
+		&-body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+		}
+	}
 }

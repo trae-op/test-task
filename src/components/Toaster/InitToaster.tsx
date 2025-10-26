@@ -8,7 +8,7 @@ import styles from './Toaster.module.scss';
 
 const BLOCK = 'toaster';
 
-export const InitToaster: React.FC = () => {
+export const InitToaster = () => {
 	const tm = useTranslations('App');
 
 	return (

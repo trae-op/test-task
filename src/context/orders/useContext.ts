@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext, useSyncExternalStore } from 'react';
 
 import { Context } from './Context';
@@ -7,15 +9,14 @@ export const useEntityContext = () => {
 	const entityContext = useContext(Context);
 
 	if (!entityContext)
-		throw new Error('useEntityContext must be used within a Provider');
+		throw new Error('Order useEntityContext must be used within a Provider');
 
 	return entityContext;
 };
 
-export function useListSelector<T = TEntity>(): T[] {
+export function useListSelector(): TEntity[] {
 	const { get, subscribe } = useEntityContext();
-	const getEntities = () => get() as T[];
-	return useSyncExternalStore(subscribe, getEntities, getEntities);
+	return useSyncExternalStore(subscribe, get, get);
 }
 
 export const useRemoveDispatch = () => {

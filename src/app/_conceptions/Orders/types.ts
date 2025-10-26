@@ -3,19 +3,16 @@ import { ReactNode } from 'react';
 import type { TOrder } from '@/types/orders';
 import type { TPrice } from '@/types/price';
 
-export type TOrderProps = TOrder & {
+export type TEntity = TOrder;
+
+export type TOrderProps = TEntity & {
 	isDeleteButton?: boolean;
 	isActive?: boolean;
 	prices?: TPrice[];
 };
 
-export type TOrdersProps = {
+export type TOrdersProps = Pick<TOrderProps, 'isDeleteButton'> & {
 	isDetail?: boolean;
 	activeId?: string;
-	isDeleteButton?: boolean;
-	items?: TOrder[];
-};
-
-export type TProviderProps = Pick<TOrdersProps, 'items'> & {
-	children: ReactNode;
+	items?: TEntity[];
 };

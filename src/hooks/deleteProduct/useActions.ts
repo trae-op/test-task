@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 
-import { useControlToaster } from '@/components/Toaster';
+import { useActions as useControlToaster } from '@/components/Toaster/useActions';
 
 import { deleteEntityById } from '@/services/orders';
 

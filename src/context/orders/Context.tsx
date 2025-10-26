@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useCallback, useRef } from 'react';
 
 import type {
@@ -7,16 +9,13 @@ import type {
 	TSubscriberCallback
 } from './types';
 
-export const Context = createContext<TContext<TEntity> | null>(null);
+export const Context = createContext<TContext | null>(null);
 
-export function Provider<T extends TEntity>({
-	children,
-	items
-}: TProviderProps<T>) {
-	const state = useRef<T[]>(items);
+export function Provider({ children, items }: TProviderProps) {
+	const state = useRef<TEntity[]>(items);
 	const subscribers = useRef<Set<TSubscriberCallback>>(new Set());
 
-	const get = useCallback((): T[] => {
+	const get = useCallback((): TEntity[] => {
 		return state.current;
 	}, []);
 
