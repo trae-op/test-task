@@ -4,19 +4,19 @@ import { memo, useEffect } from 'react';
 
 import { LoadingPage } from '@/components/LoadingPage/LoadingPage';
 
-import { useActions } from '@/hooks/getOrders';
+import { useActions } from '@/hooks/getProducts';
 
 import { getAddOrderHref } from '@/utils/routing/routing';
 
-import { OrderTable } from './Orders';
+import { ProductsTable } from './Products';
 import { AddEntity, Title as AddEntityTitle } from '@/conceptions/AddEntity';
 import {
 	useAmountEntitiesSelector,
 	useListLoadingSelector,
 	useSetAllEntitiesDispatch
-} from '@/context/orders/useContext';
+} from '@/context/products/useContext';
 
-const Orders = memo(() => {
+const Products = memo(() => {
 	const pending = useListLoadingSelector();
 
 	if (pending) {
@@ -25,7 +25,7 @@ const Orders = memo(() => {
 
 	return (
 		<div className='mt-4'>
-			<OrderTable />
+			<ProductsTable />
 		</div>
 	);
 });
@@ -48,10 +48,10 @@ export const Container = () => {
 		<>
 			<AddEntity
 				addEntityHref={getAddOrderHref}
-				titleComponent={<AddEntityTitle title='Receipts' />}
+				titleComponent={<AddEntityTitle title='Products' />}
 				total={itemsCount}
 			/>
-			<Orders />
+			<Products />
 		</>
 	);
 };

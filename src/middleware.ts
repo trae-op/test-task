@@ -23,6 +23,7 @@ export default async function middleware(req: NextRequest) {
 		req,
 		secureCookie: process.env.NODE_ENV === 'production'
 	});
+
 	const isAuthenticated = Boolean(token);
 
 	if (isAuthenticated && isAuthPage) {

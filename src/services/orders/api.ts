@@ -3,10 +3,12 @@ import type { TApiResults } from '@/utils/api/types';
 
 const PATHNAME = 'orders';
 
-export async function getEntities<T>(params: string): Promise<TApiResults<T>> {
+export async function getEntities<T>(
+	params: string = ''
+): Promise<TApiResults<T>> {
 	return await getFetch(`${PATHNAME}/${params}`, {
 		method: 'GET',
-		next: { revalidate: 60 }
+		next: { tags: [PATHNAME] }
 	});
 }
 

@@ -18,14 +18,13 @@ import { getCollectParams } from '@/utils/routing';
 import type { TDeleteEntityProps } from './types';
 import { OrderTable } from '@/conceptions/Orders';
 import { Provider as OrdersProvider } from '@/context/orders';
-import { useRemoveDispatch } from '@/context/products/useContext';
+import { useDeleteLoadingSelector } from '@/context/products/useContext';
 
 export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
-	const removeEntity = useRemoveDispatch();
 	const [entities, setEntities] = useState<TOrder[] | undefined>(undefined);
-	const { deleteEntity, pending: deleteEntityPending } =
-		useDeleteEntityActions();
-	const { getAllEntities, pending: entityPending } = useGetEntitiesActions();
+	const { deleteEntity } = useDeleteEntityActions();
+	const { getAllEntities } = useGetEntitiesActions();
+	const deleteEntityPending = useDeleteLoadingSelector();
 
 	const onDelete = useCallback(
 		(onClose: () => void) => {
@@ -33,7 +32,6 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 				id,
 				onSuccess: () => {
 					onClose();
-					removeEntity(id);
 				}
 			});
 		},
@@ -69,15 +67,9 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 				applyButtonClassName=''
 				onApply={onDelete}
 			>
-				{Boolean(entityPending && !entities?.length) && (
-					<Placeholder animation='glow' className='w-100'>
-						<Placeholder className='my-1 w-100' style={{ height: '4rem' }} />
-					</Placeholder>
-				)}
-
 				{entities !== undefined && (
-					<OrdersProvider items={entities}>
-						<OrderTable isDetail isDeleteButton={false} />
+					<OrdersProvider>
+						<OrderTable isDetail isDeleteButton={false} items={entities} />
 					</OrdersProvider>
 				)}
 			</Popup>

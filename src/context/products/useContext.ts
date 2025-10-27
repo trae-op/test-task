@@ -9,7 +9,7 @@ export const useEntityContext = () => {
 	const entityContext = useContext(Context);
 
 	if (!entityContext)
-		throw new Error('Product useEntityContext must be used within a Provider');
+		throw new Error('Products useEntityContext must be used within a Provider');
 
 	return entityContext;
 };
@@ -19,6 +19,37 @@ export function useListSelector(): TEntity[] {
 	return useSyncExternalStore(subscribe, get, get);
 }
 
+export function useDeleteLoadingSelector(): boolean {
+	const { isDeleteLoading, subscribe } = useEntityContext();
+	return useSyncExternalStore(subscribe, isDeleteLoading, isDeleteLoading);
+}
+
+export function useListLoadingSelector(): boolean {
+	const { isLoading, subscribe } = useEntityContext();
+	return useSyncExternalStore(subscribe, isLoading, isLoading);
+}
+
+export const useSetListLoadingDispatch = () => {
+	return useEntityContext().setListLoading;
+};
+
+export const useSetAllEntitiesDispatch = () => {
+	return useEntityContext().setAll;
+};
+
+export const useSetDeleteLoadingDispatch = () => {
+	return useEntityContext().setDeleteLoading;
+};
+
+export function useAmountEntitiesSelector(): number {
+	const { amountEntities, subscribe } = useEntityContext();
+	return useSyncExternalStore(subscribe, amountEntities, amountEntities);
+}
+
 export const useRemoveDispatch = () => {
 	return useEntityContext().remove;
+};
+
+export const useSetAllDispatch = () => {
+	return useEntityContext().setAll;
 };

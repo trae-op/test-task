@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import { memo } from 'react';
 import Table from 'react-bootstrap/Table';
 
+import { EmptyData } from '@/components/EmptyData';
+
 import { OrderRow } from './Order';
 import styles from './Orders.module.scss';
 import type { TOrdersProps } from './types';
@@ -19,10 +21,11 @@ export const OrderTable = memo(
 		items: orders
 	}: TOrdersProps) => {
 		const itemsState = useListSelector();
+
 		const items = orders || itemsState;
 
 		if (!items || items.length === 0) {
-			return null;
+			<EmptyData text='Could not find any orders' />;
 		}
 
 		return (

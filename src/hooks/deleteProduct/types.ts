@@ -5,5 +5,4 @@ export type TDeleteEntityParams = {
 
 export type TActionsHook = {
 	deleteEntity: (params: TDeleteEntityParams) => Promise<void>;
-	pending: boolean;
 };

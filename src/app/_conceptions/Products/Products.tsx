@@ -4,6 +4,8 @@ import { clsx } from 'clsx';
 import { memo } from 'react';
 import Table from 'react-bootstrap/Table';
 
+import { EmptyData } from '@/components/EmptyData/EmptyData';
+
 import { ProductRow } from './Product';
 import styles from './Products.module.scss';
 import type { TProductsProps } from './types';
@@ -17,7 +19,7 @@ export const ProductsTable = memo(
 		const items = products || itemsState;
 
 		if (!items || items.length === 0) {
-			return null;
+			return <EmptyData text='Could not find any products' />;
 		}
 
 		return (

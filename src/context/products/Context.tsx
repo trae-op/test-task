@@ -11,12 +11,41 @@ import type {
 
 export const Context = createContext<TContext | null>(null);
 
-export function Provider({ children, items }: TProviderProps) {
-	const state = useRef<TEntity[]>(items);
+export function Provider({ children }: TProviderProps) {
+	const state = useRef<TEntity[]>([]);
+	const loading = useRef(true);
+	const deleteLoading = useRef(false);
 	const subscribers = useRef<Set<TSubscriberCallback>>(new Set());
 
 	const get = useCallback((): TEntity[] => {
 		return state.current;
+	}, []);
+
+	const isLoading = useCallback((): boolean => {
+		return loading.current;
+	}, []);
+
+	const isDeleteLoading = useCallback((): boolean => {
+		return deleteLoading.current;
+	}, []);
+
+	const setDeleteLoading = useCallback((loadingState: boolean): void => {
+		deleteLoading.current = loadingState;
+		subscribers.current.forEach(callback => callback());
+	}, []);
+
+	const setListLoading = useCallback((loadingState: boolean): void => {
+		loading.current = loadingState;
+		subscribers.current.forEach(callback => callback());
+	}, []);
+
+	const amountEntities = useCallback((): number => {
+		return state.current.length;
+	}, []);
+
+	const setAll = useCallback((items: TEntity[]): void => {
+		state.current = items;
+		subscribers.current.forEach(callback => callback());
 	}, []);
 
 	const subscribe = useCallback((callback: () => void) => {
@@ -35,7 +64,19 @@ export function Provider({ children, items }: TProviderProps) {
 	};
 
 	return (
-		<Context.Provider value={{ get, subscribe, remove }}>
+		<Context.Provider
+			value={{
+				get,
+				subscribe,
+				remove,
+				setDeleteLoading,
+				isDeleteLoading,
+				setAll,
+				amountEntities,
+				isLoading,
+				setListLoading
+			}}
+		>
 			{children}
 		</Context.Provider>
 	);

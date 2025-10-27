@@ -13,5 +13,4 @@ export type TGetEntitiesParams = {
 
 export type TActionsHook = {
 	getAllEntities: (params: TGetEntitiesParams) => Promise<void>;
-	pending: boolean;
 };

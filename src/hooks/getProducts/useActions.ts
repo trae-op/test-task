@@ -1,34 +1,36 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback } from 'react';
 
 import { useActions as useControlToaster } from '@/components/Toaster/useActions';
 
 import { getEntities } from '@/services/products';
 
 import type { TActionsHook, TGetEntitiesParams, TRestResults } from './types';
+import { useSetListLoadingDispatch } from '@/context/products/useContext';
 
 export const useActions = (): TActionsHook => {
-	const [pending, setPending] = useState(false);
 	const { setToast } = useControlToaster();
+	const listLoadingDispatch = useSetListLoadingDispatch();
 
 	const getAllEntities = useCallback(
 		async ({ onSuccess, params }: TGetEntitiesParams) => {
-			setPending(true);
 			try {
+				listLoadingDispatch(true);
+
 				const response = await getEntities<TRestResults>(params);
-				if (onSuccess) onSuccess(response);
+
+				if (onSuccess) {
+					onSuccess(response);
+				}
 			} catch (error) {
 				setToast('Error fetching entities', 'error');
 			} finally {
-				setPending(false);
+				listLoadingDispatch(false);
 			}
 		},
 		[setToast]
 	);
 
-	return useMemo(
-		() => ({ getAllEntities, pending }),
-		[getAllEntities, pending]
-	);
+	return { getAllEntities };
 };

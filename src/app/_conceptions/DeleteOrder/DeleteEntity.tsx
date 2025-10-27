@@ -1,7 +1,6 @@
 'use client';
 
 import { memo, useCallback, useState } from 'react';
-import { Placeholder } from 'react-bootstrap';
 import { Trash } from 'react-bootstrap-icons';
 
 import { DeleteEntityButton } from '@/components/DeleteEntityButton';
@@ -17,15 +16,14 @@ import { getCollectParams } from '@/utils/routing';
 
 import type { TDeleteEntityProps } from './types';
 import { ProductsTable } from '@/conceptions/Products';
-import { useRemoveDispatch } from '@/context/orders/useContext';
+import { useDeleteLoadingSelector } from '@/context/orders/useContext';
 import { Provider as ProductsProvider } from '@/context/products';
 
 export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
-	const removeEntity = useRemoveDispatch();
 	const [entities, setEntities] = useState<TProduct[] | undefined>(undefined);
-	const { deleteEntity, pending: deleteEntityPending } =
-		useDeleteEntityActions();
-	const { getAllEntities, pending: entityPending } = useGetEntitiesActions();
+	const { deleteEntity } = useDeleteEntityActions();
+	const { getAllEntities } = useGetEntitiesActions();
+	const isDeleteLoading = useDeleteLoadingSelector();
 
 	const onDelete = useCallback(
 		(onClose: () => void) => {
@@ -33,7 +31,6 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 				id,
 				onSuccess: () => {
 					onClose();
-					removeEntity(id);
 				}
 			});
 		},
@@ -62,21 +59,15 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 				onOpen={onOpen}
 				openButtonAriaLabel='Delete'
 				applyText='Delete'
-				applyDisabled={deleteEntityPending}
+				applyDisabled={isDeleteLoading}
 				openButtonClassName='w-100 h-100'
 				title='Delete this order?'
 				applyButtonClassName=''
 				onApply={onDelete}
 			>
-				{Boolean(entityPending && !entities?.length) && (
-					<Placeholder animation='glow' className='w-100'>
-						<Placeholder className='my-1 w-100' style={{ height: '4rem' }} />
-					</Placeholder>
-				)}
-
 				{entities !== undefined && (
-					<ProductsProvider items={entities}>
-						<ProductsTable isDetail isDeleteButton={false} />
+					<ProductsProvider>
+						<ProductsTable isDetail isDeleteButton={false} items={entities} />
 					</ProductsProvider>
 				)}
 			</Popup>
