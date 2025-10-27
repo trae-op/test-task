@@ -9,7 +9,7 @@ import { getEntities } from '@/services/orders';
 import type { TActionsHook, TGetEntitiesParams, TRestResults } from './types';
 
 export const useActions = (): TActionsHook => {
-	const [pending, setPending] = useState(false);
+	const [pending, setPending] = useState(true);
 	const { setToast } = useControlToaster();
 
 	const getAllEntities = useCallback(

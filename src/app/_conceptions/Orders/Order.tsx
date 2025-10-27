@@ -3,7 +3,7 @@
 import { clsx } from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
-import { CaretRight, ListUl, Trash } from 'react-bootstrap-icons';
+import { CaretRight, ListUl } from 'react-bootstrap-icons';
 
 import { NavigationLink } from '@/components/NavigationLink';
 import { Price } from '@/components/Price';

@@ -1,0 +1,11 @@
+.loading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 70vh;
+
+	&__spinner {
+		width: var(--size-60);
+		height: var(--size-60);
+	}
+}

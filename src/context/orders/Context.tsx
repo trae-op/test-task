@@ -11,12 +11,17 @@ import type {
 
 export const Context = createContext<TContext | null>(null);
 
-export function Provider({ children, items }: TProviderProps) {
-	const state = useRef<TEntity[]>(items);
+export function Provider({ children }: TProviderProps) {
+	const state = useRef<TEntity[]>([]);
 	const subscribers = useRef<Set<TSubscriberCallback>>(new Set());
 
 	const get = useCallback((): TEntity[] => {
 		return state.current;
+	}, []);
+
+	const setAll = useCallback((items: TEntity[]): void => {
+		state.current = items;
+		subscribers.current.forEach(callback => callback());
 	}, []);
 
 	const subscribe = useCallback((callback: () => void) => {
@@ -35,7 +40,7 @@ export function Provider({ children, items }: TProviderProps) {
 	};
 
 	return (
-		<Context.Provider value={{ get, subscribe, remove }}>
+		<Context.Provider value={{ get, subscribe, remove, setAll }}>
 			{children}
 		</Context.Provider>
 	);

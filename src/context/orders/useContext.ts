@@ -22,3 +22,7 @@ export function useListSelector(): TEntity[] {
 export const useRemoveDispatch = () => {
 	return useEntityContext().remove;
 };
+
+export const useSetAllDispatch = () => {
+	return useEntityContext().setAll;
+};

@@ -104,7 +104,10 @@ export const GET = async (req: NextRequest) => {
 
 		// Fetch orders
 		const entities = await prisma.order.findMany({
-			where,
+			where: {
+				userId: userSession.id,
+				...(fields !== undefined ? where : {})
+			},
 			include: { products: { include: { prices: true } } }
 		});
 
