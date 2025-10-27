@@ -7,23 +7,22 @@ import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 import { Popup } from '@/components/Popup/Popup';
 
 import { useActions as useDeleteEntityActions } from '@/hooks/deleteOrder';
-import { useActions as useGetEntitiesActions } from '@/hooks/getOrders';
 
-import { TOrder } from '@/types/orders';
 import { TProduct } from '@/types/products';
-
-import { getCollectParams } from '@/utils/routing';
 
 import type { TDeleteEntityProps } from './types';
 import { ProductsTable } from '@/conceptions/Products';
-import { useDeleteLoadingSelector } from '@/context/orders/useContext';
+import {
+	useDeleteLoadingSelector,
+	useListSelector
+} from '@/context/orders/useContext';
 import { Provider as ProductsProvider } from '@/context/products';
 
 export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 	const [entities, setEntities] = useState<TProduct[] | undefined>(undefined);
 	const { deleteEntity } = useDeleteEntityActions();
-	const { getAllEntities } = useGetEntitiesActions();
 	const isDeleteLoading = useDeleteLoadingSelector();
+	const listLoading = useListSelector();
 
 	const onDelete = useCallback(
 		(onClose: () => void) => {
@@ -38,17 +37,9 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 	);
 
 	const onOpen = useCallback(() => {
-		getAllEntities({
-			params: getCollectParams<string, TOrder>({
-				entityId: id,
-				fields: ['title', 'products']
-			}),
-
-			onSuccess: response => {
-				setEntities(response.results.items[0]?.products || []);
-			}
-		});
-	}, [id]);
+		const found = listLoading.find(item => item.id === id);
+		setEntities(found?.products || undefined);
+	}, [id, listLoading]);
 
 	return (
 		<div className='d-flex align-items-center justify-content-center w-100 h-100'>

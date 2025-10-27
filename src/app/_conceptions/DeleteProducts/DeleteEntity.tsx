@@ -1,30 +1,28 @@
 'use client';
 
 import { memo, useCallback, useState } from 'react';
-import { Placeholder } from 'react-bootstrap';
 import { Trash } from 'react-bootstrap-icons';
 
 import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 import { Popup } from '@/components/Popup/Popup';
 
 import { useActions as useDeleteEntityActions } from '@/hooks/deleteProduct';
-import { useActions as useGetEntitiesActions } from '@/hooks/getProducts';
 
 import { TOrder } from '@/types/orders';
-import { TProduct } from '@/types/products';
-
-import { getCollectParams } from '@/utils/routing';
 
 import type { TDeleteEntityProps } from './types';
 import { OrderTable } from '@/conceptions/Orders';
 import { Provider as OrdersProvider } from '@/context/orders';
-import { useDeleteLoadingSelector } from '@/context/products/useContext';
+import {
+	useDeleteLoadingSelector,
+	useListSelector
+} from '@/context/products/useContext';
 
 export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 	const [entities, setEntities] = useState<TOrder[] | undefined>(undefined);
 	const { deleteEntity } = useDeleteEntityActions();
-	const { getAllEntities } = useGetEntitiesActions();
 	const deleteEntityPending = useDeleteLoadingSelector();
+	const listLoading = useListSelector();
 
 	const onDelete = useCallback(
 		(onClose: () => void) => {
@@ -39,18 +37,9 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 	);
 
 	const onOpen = useCallback(() => {
-		getAllEntities({
-			params: getCollectParams<string, TProduct>({
-				entityId: id,
-				fields: ['order']
-			}),
-
-			onSuccess: response => {
-				const order = response.results.items[0]?.order;
-				setEntities(order ? [order] : []);
-			}
-		});
-	}, [id]);
+		const found = listLoading.find(item => item.id === id);
+		setEntities(found?.order ? [found.order] : undefined);
+	}, [id, listLoading]);
 
 	return (
 		<div className='d-flex align-items-center justify-content-center w-100 h-100'>
