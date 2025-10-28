@@ -58,7 +58,7 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 			>
 				{entities !== undefined && (
 					<ProductsProvider>
-						<ProductsTable isDetail isDeleteButton={false} items={entities} />
+						<ProductsTable isDeleteButton={false} items={entities} />
 					</ProductsProvider>
 				)}
 			</Popup>

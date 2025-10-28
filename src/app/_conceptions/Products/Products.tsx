@@ -10,11 +10,13 @@ import { ProductRow } from './Product';
 import styles from './Products.module.scss';
 import type { TProductsProps } from './types';
 import { useListSelector } from '@/context/products/useContext';
+import { useEntityIdSelector } from '@/context/products/useContext';
 
 const BLOCK = 'product-table';
 
 export const ProductsTable = memo(
-	({ isDetail = false, isDeleteButton, items: products }: TProductsProps) => {
+	({ isDeleteButton, items: products }: TProductsProps) => {
+		const entityId = useEntityIdSelector();
 		const itemsState = useListSelector();
 		const items = products || itemsState;
 
@@ -28,7 +30,7 @@ export const ProductsTable = memo(
 			>
 				<Table
 					className={clsx(styles[BLOCK], 'mb-0', {
-						[styles[`${BLOCK}--full-width`]]: !isDetail
+						[styles[`${BLOCK}--full-width`]]: !entityId
 					})}
 					borderless
 				>
@@ -37,7 +39,6 @@ export const ProductsTable = memo(
 							<ProductRow
 								key={product.id}
 								isDeleteButton={isDeleteButton}
-								isDetail={isDetail}
 								{...product}
 							/>
 						))}

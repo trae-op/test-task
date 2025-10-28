@@ -10,18 +10,14 @@ import { OrderRow } from './Order';
 import styles from './Orders.module.scss';
 import type { TOrdersProps } from './types';
 import { useListSelector } from '@/context/orders/useContext';
+import { useEntityIdSelector } from '@/context/orders/useContext';
 
 const BLOCK = 'order-table';
 
 export const OrderTable = memo(
-	({
-		isDetail = false,
-		activeId,
-		isDeleteButton,
-		items: orders
-	}: TOrdersProps) => {
+	({ isDeleteButton, items: orders }: TOrdersProps) => {
 		const itemsState = useListSelector();
-
+		const entityId = useEntityIdSelector();
 		const items = orders || itemsState;
 
 		if (!items || items.length === 0) {
@@ -32,7 +28,7 @@ export const OrderTable = memo(
 			<div className={styles['table-scroll-wrapper']}>
 				<Table
 					className={clsx(styles[BLOCK], 'mb-0', {
-						[styles[`${BLOCK}--full-width`]]: !isDetail
+						[styles[`${BLOCK}--full-width`]]: !entityId
 					})}
 					borderless
 				>
@@ -40,7 +36,6 @@ export const OrderTable = memo(
 						{items.map(item => (
 							<OrderRow
 								key={item.id}
-								isActive={activeId ? item.id === activeId : false}
 								isDeleteButton={isDeleteButton}
 								{...item}
 							/>

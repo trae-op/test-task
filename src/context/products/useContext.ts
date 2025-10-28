@@ -9,7 +9,7 @@ export const useEntityContext = () => {
 	const entityContext = useContext(Context);
 
 	if (!entityContext)
-		throw new Error('Products useEntityContext must be used within a Provider');
+		throw new Error('Product useEntityContext must be used within a Provider');
 
 	return entityContext;
 };
@@ -28,6 +28,15 @@ export function useListLoadingSelector(): boolean {
 	const { isLoading, subscribe } = useEntityContext();
 	return useSyncExternalStore(subscribe, isLoading, isLoading);
 }
+
+export function useEntityIdSelector(): string | undefined {
+	const { getEntityId, subscribe } = useEntityContext();
+	return useSyncExternalStore(subscribe, getEntityId, getEntityId);
+}
+
+export const useSetEntityIdDispatch = () => {
+	return useEntityContext().setEntityId;
+};
 
 export const useSetListLoadingDispatch = () => {
 	return useEntityContext().setListLoading;

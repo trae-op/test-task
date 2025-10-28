@@ -11,11 +11,17 @@ import type {
 
 export const Context = createContext<TContext | null>(null);
 
-export function Provider({ children }: TProviderProps) {
-	const state = useRef<TEntity[]>([]);
+export function Provider({ children, entityId, items }: TProviderProps) {
+	const state = useRef<TEntity[]>(items || []);
 	const loading = useRef(true);
 	const deleteLoading = useRef(false);
+	const id = useRef(entityId);
+	const entityTitle = useRef('');
 	const subscribers = useRef<Set<TSubscriberCallback>>(new Set());
+
+	const getEntityTitle = useCallback((): string => {
+		return entityTitle.current;
+	}, []);
 
 	const get = useCallback((): TEntity[] => {
 		return state.current;
@@ -25,12 +31,26 @@ export function Provider({ children }: TProviderProps) {
 		return loading.current;
 	}, []);
 
+	const getEntityId = useCallback((): string | undefined => {
+		return id.current;
+	}, []);
+
 	const isDeleteLoading = useCallback((): boolean => {
 		return deleteLoading.current;
 	}, []);
 
+	const setEntityTitle = useCallback((title: string): void => {
+		entityTitle.current = title;
+		subscribers.current.forEach(callback => callback());
+	}, []);
+
 	const setDeleteLoading = useCallback((loadingState: boolean): void => {
 		deleteLoading.current = loadingState;
+		subscribers.current.forEach(callback => callback());
+	}, []);
+
+	const setEntityId = useCallback((entityId: string): void => {
+		id.current = entityId;
 		subscribers.current.forEach(callback => callback());
 	}, []);
 
@@ -69,6 +89,10 @@ export function Provider({ children }: TProviderProps) {
 				get,
 				subscribe,
 				remove,
+				setEntityId,
+				getEntityId,
+				setEntityTitle,
+				getEntityTitle,
 				setDeleteLoading,
 				isDeleteLoading,
 				setAll,

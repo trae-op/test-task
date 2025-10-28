@@ -29,6 +29,24 @@ export function useListLoadingSelector(): boolean {
 	return useSyncExternalStore(subscribe, isLoading, isLoading);
 }
 
+export function useEntityIdSelector(): string | undefined {
+	const { getEntityId, subscribe } = useEntityContext();
+	return useSyncExternalStore(subscribe, getEntityId, getEntityId);
+}
+
+export function useEntityTitleSelector(): string | undefined {
+	const { getEntityTitle, subscribe } = useEntityContext();
+	return useSyncExternalStore(subscribe, getEntityTitle, getEntityTitle);
+}
+
+export const useSetEntityTitleDispatch = () => {
+	return useEntityContext().setEntityTitle;
+};
+
+export const useSetEntityIdDispatch = () => {
+	return useEntityContext().setEntityId;
+};
+
 export const useSetListLoadingDispatch = () => {
 	return useEntityContext().setListLoading;
 };

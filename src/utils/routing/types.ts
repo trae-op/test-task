@@ -1,7 +1,15 @@
-export type TEntityId = string | number;
-
-export type TCollectParams<T = string, F extends object = {}> = {
-	id?: string;
-	type?: T;
-	fields?: Array<keyof F>;
+// ...existing code...
+export type TCreateParamsInput = {
+	id?: string | number;
+	type?: string;
+	fields?: Array<string | Record<string, string[]>>;
 };
+
+export type TParseQueryParamsInput = {
+	[key: string]:
+		| boolean
+		| {
+				select?: TParseQueryParamsInput;
+		  };
+};
+// ...existing code...

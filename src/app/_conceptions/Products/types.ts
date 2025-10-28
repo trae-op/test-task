@@ -4,15 +4,9 @@ export type TEntity = TProduct;
 
 export type TProductProps = TEntity & {
 	isDeleteButton?: boolean;
-	isActive?: boolean;
-	isDetail?: boolean;
-	orderTitle?: string;
 };
 
-export type TProductsProps = Pick<
-	TProductProps,
-	'isDeleteButton' | 'isDetail'
-> & {
+export type TProductsProps = Pick<TProductProps, 'isDeleteButton'> & {
 	items?: TEntity[];
 };
 

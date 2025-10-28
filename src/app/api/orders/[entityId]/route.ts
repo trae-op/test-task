@@ -4,13 +4,15 @@ import { getUserSession } from '@/utils/session';
 
 import { prisma } from '@/prisma/prisma-client';
 
-type TParams = {
-	entityId: string;
-};
-
 export const GET = async (
 	req: NextRequest,
-	{ params }: { params: Promise<TParams> }
+	{
+		params
+	}: {
+		params: Promise<{
+			entityId: string;
+		}>;
+	}
 ) => {
 	try {
 		const { entityId: id } = await params;
@@ -31,15 +33,28 @@ export const GET = async (
 			where: { id, userId: userSession.id },
 			include: { products: true }
 		});
+		const orders = await prisma.order.findMany({
+			where: {
+				userId: userSession.id
+			}
+		});
 		if (!order?.products) {
 			return NextResponse.json(
 				{ message: 'PRODUCTS_NOT_FOUND', ok: false },
 				{ status: 404 }
 			);
 		}
+
 		return NextResponse.json(
 			{
-				items: order.products.map(
+				title: order.title,
+				orders: orders.map(({ title, amountOfProducts, date, id }) => ({
+					title,
+					id,
+					date,
+					amountOfProducts
+				})),
+				products: order.products.map(
 					({ title, photo, serialNumber, id, isNew }) => ({
 						title,
 						photo,
@@ -51,7 +66,7 @@ export const GET = async (
 			},
 			{ status: 200 }
 		);
-	} catch (error) {
+	} catch (_error) {
 		return NextResponse.json(
 			{ message: 'SERVER_ERROR', ok: false },
 			{ status: 500 }

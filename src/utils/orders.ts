@@ -26,8 +26,7 @@ export function calculateOrderTotals(orders: Partial<TOrder>[]) {
 
 		return {
 			...order,
-			prices: prices.length ? prices : undefined,
-			amountOfProducts: order.products?.length || 0
+			prices: prices.length ? prices : undefined
 		};
 	});
 }

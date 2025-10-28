@@ -48,12 +48,30 @@ export async function getOrderById(id: string) {
 			return { code: 'ORDER_NOT_FOUND', ok: false };
 		}
 
-		const products = (order.products ?? []).map(product => ({
-			...product,
-			photo: product.photo ?? 'https://placehold.co/600x400/000000/FFFFFF.png'
-		}));
+		const orders = await prisma.order.findMany({
+			where: {
+				userId: userSession.id
+			}
+		});
 
-		return { orderTitle: order.title, products };
+		return {
+			title: order.title,
+			orders: orders.map(({ title, amountOfProducts, date, id }) => ({
+				id,
+				title: title || undefined,
+				date: date || undefined,
+				amountOfProducts: amountOfProducts || undefined
+			})),
+			products: order.products.map(
+				({ title, photo, serialNumber, id, isNew }) => ({
+					title,
+					photo: photo ?? 'https://placehold.co/600x400/000000/FFFFFF.png',
+					serialNumber,
+					id,
+					isNew
+				})
+			)
+		};
 	} catch (_error) {
 		return { ok: false, code: 'SERVER_ERROR' };
 	}

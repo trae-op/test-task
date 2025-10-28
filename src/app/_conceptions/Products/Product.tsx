@@ -13,6 +13,7 @@ import styles from './Products.module.scss';
 import { ProductState } from './State';
 import type { TProductProps } from './types';
 import { DeleteEntity as DeleteProducts } from '@/conceptions/DeleteProducts';
+import { useEntityIdSelector } from '@/context/products/useContext';
 
 const BLOCK = 'product-item';
 
@@ -25,11 +26,11 @@ export const ProductRow = memo(
 		guaranteeEnd,
 		id,
 		prices,
-		orderTitle,
 		photo,
-		isDeleteButton = true,
-		isDetail = false
+		order,
+		isDeleteButton = true
 	}: TProductProps) => {
+		const entityId = useEntityIdSelector();
 		const i18nLocale = useLocale();
 		const t = useTranslations('App');
 
@@ -46,8 +47,8 @@ export const ProductRow = memo(
 			<tr className={styles[BLOCK]}>
 				<td
 					className={clsx({
-						[styles[`${BLOCK}__content`]]: !isDetail,
-						[styles[`${BLOCK}__detail`]]: isDetail
+						[styles[`${BLOCK}__content`]]: !entityId,
+						[styles[`${BLOCK}__detail`]]: entityId
 					})}
 				>
 					<div>
@@ -93,12 +94,6 @@ export const ProductRow = memo(
 					)}
 
 					<Price prices={prices} />
-
-					{orderTitle !== undefined && (
-						<div className={styles[`${BLOCK}__order`]} title={orderTitle}>
-							{orderTitle}
-						</div>
-					)}
 
 					{isDeleteButton && <DeleteProducts id={id} />}
 				</td>
