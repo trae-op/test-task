@@ -95,7 +95,9 @@ export const GET = async (req: NextRequest) => {
 		const fieldsParam = searchParams.get('fields');
 
 		// Parse fields as array of keys
-		const fields = fieldsParam ? fieldsParam.split(',') : undefined;
+		const fields = fieldsParam
+			? (fieldsParam.split(',') as Array<keyof TOrder>)
+			: undefined;
 
 		// Build Prisma query
 		const where: Record<string, any> = {};
@@ -115,10 +117,14 @@ export const GET = async (req: NextRequest) => {
 		let result: Partial<TOrder>[] = entities;
 		if (fields && fields.length) {
 			result = entities.map(entity => {
-				const filtered: Partial<TOrder> = {};
+				const filtered:
+					| TOrder
+					| {
+							[key: string]: TOrder[keyof TOrder];
+					  } = {};
+
 				fields.forEach(key => {
 					if (key in entity) {
-						// @ts-ignore
 						filtered[key] = entity[key];
 					}
 				});
