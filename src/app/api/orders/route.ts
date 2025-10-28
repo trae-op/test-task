@@ -90,7 +90,7 @@ export const GET = async (req: NextRequest) => {
 		}
 
 		const searchParams = req.nextUrl.searchParams;
-		const entityId = searchParams.get('entityId');
+		const id = searchParams.get('id');
 		const type = searchParams.get('type');
 		const fieldsParam = searchParams.get('fields');
 
@@ -99,7 +99,7 @@ export const GET = async (req: NextRequest) => {
 
 		// Build Prisma query
 		const where: Record<string, any> = {};
-		if (entityId) where.id = entityId;
+		if (id) where.id = id;
 		if (type) where.type = type;
 
 		// Fetch orders

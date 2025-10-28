@@ -38,6 +38,7 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 
 	const onOpen = useCallback(() => {
 		const found = listLoading.find(item => item.id === id);
+
 		setEntities(found?.order ? [found.order] : undefined);
 	}, [id, listLoading]);
 

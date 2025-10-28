@@ -5,7 +5,7 @@ export const getCollectParams = <T = string, F extends object = {}>(
 ): string => {
 	const query: string[] = [];
 	if (params?.entityId)
-		query.push(`entityId=${encodeURIComponent(String(params.entityId))}`);
+		query.push(`id=${encodeURIComponent(String(params.entityId))}`);
 	if (params?.type)
 		query.push(`type=${encodeURIComponent(String(params.type))}`);
 	if (params?.fields && params.fields.length)

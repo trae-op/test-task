@@ -35,7 +35,7 @@ model Product {
   orderId        String?   @db.Uuid
   userId         String    @db.Uuid
   prices         Price[]
-  order          Order?    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order          Order?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([serialNumber])
