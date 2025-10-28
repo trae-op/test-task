@@ -3,6 +3,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 import { type TOrder } from '@/types/orders';
 
+import { calculateOrderTotals } from '@/utils/orders';
 import { getUserSession } from '@/utils/session';
 
 import { prisma } from '@/prisma/prisma-client';
@@ -135,10 +136,12 @@ export const GET = async (req: NextRequest) => {
 		return NextResponse.json(
 			{
 				ok: true,
-				items: result.map(item => ({
-					...item,
-					amountOfProducts: item.products?.length ?? 0
-				}))
+				items: calculateOrderTotals(
+					result.map(item => ({
+						...item,
+						amountOfProducts: item.products?.length ?? 0
+					}))
+				)
 			},
 			{ status: 200 }
 		);

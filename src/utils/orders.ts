@@ -1,6 +1,6 @@
 import type { TOrder } from '@/types/orders';
 
-export function calculateOrderTotals(orders: TOrder[]) {
+export function calculateOrderTotals(orders: Partial<TOrder>[]) {
 	return orders.map(order => {
 		// Aggregate prices by currency across all products in the order
 		const totals = new Map<string, { value: number; isDefault: boolean }>();
