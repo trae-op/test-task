@@ -132,7 +132,16 @@ export const GET = async (req: NextRequest) => {
 			});
 		}
 
-		return NextResponse.json({ ok: true, items: result }, { status: 200 });
+		return NextResponse.json(
+			{
+				ok: true,
+				items: result.map(item => ({
+					...item,
+					amountOfProducts: item.products?.length ?? 0
+				}))
+			},
+			{ status: 200 }
+		);
 	} catch (error) {
 		return NextResponse.json(
 			{ ok: false, message: 'SERVER_ERROR' },
