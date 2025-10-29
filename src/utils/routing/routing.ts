@@ -62,8 +62,6 @@ export const parseQueryParams = (query: string): Record<string, any> => {
 	return result;
 };
 
-export const getOrderDetailHref = (id: string | number): string =>
-	`/orders/${id}`;
 export const getProfileHref = '/profile';
 export const getOrdersHref = '/orders';
 export const getProductsHref = '/products';
@@ -71,10 +69,10 @@ export const getSignInHref = '/sign-in';
 export const getSignUpHref = '/sign-up';
 export const getAddProductHref = `${getProductsHref}/new`;
 export const getAddOrderHref = `${getOrdersHref}/new`;
-
-// API paths
-export const API_PRODUCTS_PATH = '/api/products';
-export const API_ORDERS_PATH = '/api/orders';
+export const getOrderDetailHref = (id: string | number): string =>
+	`${getOrdersHref}/${id}`;
+export const getProductUpdateHref = (id: string | number): string =>
+	`${getProductsHref}/${id}/update`;
 
 // Resolve base URL from env in a simple, predictable way
 export const getBaseUrl = (): string => {

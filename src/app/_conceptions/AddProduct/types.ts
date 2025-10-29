@@ -16,7 +16,6 @@ export type TAddProductFormData = {
 
 export type TAddProductProps = {
 	typeOptions: SelectOption[];
-	orderOptions: SelectOption[];
 	currencyOptions: OptionType[];
 };
 

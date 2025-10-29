@@ -98,7 +98,7 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 					</Form.Group>
 
 					<Form.Group className='mb-4' controlId='products'>
-						<Form.Label>{t('Receipts')}</Form.Label>
+						<Form.Label>{t('Products')}</Form.Label>
 						<MultiSelectField
 							options={productOptions}
 							value={selectedProducts}

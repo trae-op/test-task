@@ -4,7 +4,8 @@ import { AddOrder } from '@/conceptions/AddOrder';
 export default async function AddOrderPage() {
 	const { items, ok } = await getProducts({
 		whereFilters: {
-			isNew: true
+			isNew: true,
+			order: null
 		}
 	});
 

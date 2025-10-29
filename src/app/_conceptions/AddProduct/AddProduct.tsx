@@ -28,7 +28,6 @@ const toSelectValue = (options: SelectOption[], value?: string | number) => {
 
 export const AddProduct = ({
 	typeOptions,
-	orderOptions,
 	currencyOptions
 }: TAddProductProps) => {
 	const t = useTranslations('App');
