@@ -1,17 +1,37 @@
 'use client';
 
-import { useActions } from '@/hooks/getProducts';
+import { useCallback, useEffect } from 'react';
+
+import { getAddProductHref } from '@/utils/routing';
 
 import { ProductsTable } from './Products';
 import {
-	useAmountEntitiesSelector,
-	useSetAllEntitiesDispatch
-} from '@/context/products/useContext';
+	useEntitiesTitleDispatch,
+	useSetEntitiesTotalDispatch,
+	useSetLinkAddEntityDispatch
+} from '@/context/global/useContext';
+import { useAmountEntitiesSelector } from '@/context/products/useContext';
 
 export const Container = () => {
+	const setEntitiesTitleDispatch = useEntitiesTitleDispatch();
+	const setEntitiesTotalDispatch = useSetEntitiesTotalDispatch();
+	const setLinkAddEntityDispatch = useSetLinkAddEntityDispatch();
 	const itemsCount = useAmountEntitiesSelector();
-	const { getAllEntities } = useActions();
-	const setAllEntitiesDispatch = useSetAllEntitiesDispatch();
+
+	const setEntitiesLayout = useCallback(() => {
+		setEntitiesTitleDispatch('Products');
+		setEntitiesTotalDispatch(itemsCount);
+		setLinkAddEntityDispatch(getAddProductHref);
+	}, [
+		setEntitiesTitleDispatch,
+		setEntitiesTotalDispatch,
+		itemsCount,
+		setLinkAddEntityDispatch
+	]);
+
+	useEffect(() => {
+		setEntitiesLayout();
+	}, []);
 
 	return (
 		<div className='mt-4'>

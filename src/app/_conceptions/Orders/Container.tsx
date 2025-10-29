@@ -1,17 +1,37 @@
 'use client';
 
-import { useActions } from '@/hooks/getOrders';
+import { useCallback, useEffect } from 'react';
+
+import { getAddOrderHref } from '@/utils/routing';
 
 import { OrderTable } from './Orders';
 import {
-	useAmountEntitiesSelector,
-	useSetAllEntitiesDispatch
-} from '@/context/orders/useContext';
+	useEntitiesTitleDispatch,
+	useSetEntitiesTotalDispatch,
+	useSetLinkAddEntityDispatch
+} from '@/context/global/useContext';
+import { useAmountEntitiesSelector } from '@/context/orders/useContext';
 
 export const Container = () => {
+	const setEntitiesTitleDispatch = useEntitiesTitleDispatch();
+	const setEntitiesTotalDispatch = useSetEntitiesTotalDispatch();
+	const setLinkAddEntityDispatch = useSetLinkAddEntityDispatch();
 	const itemsCount = useAmountEntitiesSelector();
-	const { getAllEntities } = useActions();
-	const setAllEntitiesDispatch = useSetAllEntitiesDispatch();
+
+	const setEntitiesLayout = useCallback(() => {
+		setEntitiesTitleDispatch('Receipts');
+		setEntitiesTotalDispatch(itemsCount);
+		setLinkAddEntityDispatch(getAddOrderHref);
+	}, [
+		setEntitiesTitleDispatch,
+		setEntitiesTotalDispatch,
+		itemsCount,
+		setLinkAddEntityDispatch
+	]);
+
+	useEffect(() => {
+		setEntitiesLayout();
+	}, []);
 
 	return (
 		<div className='mt-4'>
