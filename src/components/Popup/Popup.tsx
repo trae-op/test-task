@@ -98,7 +98,7 @@ export const Popup = memo(
 						<div className={styles[`${BLOCK}__footer`]}>
 							<button
 								type='button'
-								className='btn btn-outline-light'
+								className='btn-outline-light btn'
 								onClick={handleCancel}
 							>
 								{t(cancelText, { default: cancelText })}
@@ -115,11 +115,13 @@ export const Popup = memo(
 								<button
 									type='button'
 									disabled={applyDisabled}
-									className='btn btn-light text-danger d-flex align-items-center gap-2'
+									className='d-flex align-items-center gap-2 text-danger btn btn-light'
 									onClick={handlePopupApply}
 								>
 									{ApplyIcon ? <ApplyIcon size={16} /> : null}
-									{t(applyText ?? 'Apply', { default: applyText ?? 'Apply' })}
+									<span>
+										{t(applyText ?? 'Apply', { default: applyText ?? 'Apply' })}
+									</span>
 								</button>
 							)}
 						</div>

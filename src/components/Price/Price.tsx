@@ -2,13 +2,10 @@ import { memo } from 'react';
 
 import styles from './Price.module.scss';
 import type { TPriceProps } from './types';
-import { useAdaptiveTableSelector } from '@/context/orders/useContext';
 
 const BLOCK = 'price';
 
-export const Price = memo(({ prices }: TPriceProps) => {
-	const hasAdaptiveTable = useAdaptiveTableSelector();
-
+export const Price = memo(({ prices, hasAdaptiveTable }: TPriceProps) => {
 	if (!hasAdaptiveTable && (prices === undefined || prices.length === 0)) {
 		return (
 			<div className={styles[BLOCK]}>

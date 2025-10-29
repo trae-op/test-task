@@ -46,10 +46,13 @@ export const ProductRow = memo(
 		return (
 			<tr className={styles[BLOCK]}>
 				<td
-					className={clsx({
-						[styles[`${BLOCK}__content`]]: !hasAdaptiveTable,
-						[styles[`${BLOCK}__detail`]]: hasAdaptiveTable
-					})}
+					className={clsx(
+						{
+							[styles[`${BLOCK}__content`]]: !hasAdaptiveTable,
+							[styles[`${BLOCK}__detail`]]: hasAdaptiveTable
+						},
+						'px-4'
+					)}
 				>
 					<div>
 						<div
@@ -92,10 +95,22 @@ export const ProductRow = memo(
 						</div>
 					)}
 
-					<Price prices={prices} />
+					{!hasAdaptiveTable && (order === undefined || order === null) && (
+						<div className={clsx(styles[`${BLOCK}__guarantee`], 'w-75')}>
+							<span className='fs-1'>-</span>
+						</div>
+					)}
+
+					<Price hasAdaptiveTable={hasAdaptiveTable} prices={prices} />
 
 					{order !== undefined && order !== null && (
 						<div className={clsx(styles[`${BLOCK}__order`])}>{order.title}</div>
+					)}
+
+					{!hasAdaptiveTable && (order === undefined || order === null) && (
+						<div className={clsx(styles[`${BLOCK}__order`])}>
+							<span className='fs-1'>-</span>
+						</div>
 					)}
 
 					{isDeleteButton && <DeleteProducts id={id} />}

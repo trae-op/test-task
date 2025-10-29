@@ -116,10 +116,10 @@ export const OrderRow = memo(
 										</div>
 									</div>
 								)}
+								<Price prices={prices} hasAdaptiveTable={hasAdaptiveTable} />
 							</div>
 						</div>
 					</NavigationLink>
-					<Price prices={prices} />
 					{isDeleteButton && <DeleteEntity id={id} />}
 
 					{hasAdaptiveTable && entityId !== id && !isDeleteButton && (
