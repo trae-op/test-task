@@ -14,7 +14,10 @@ import { getOrderDetailHref } from '@/utils/routing';
 import styles from './Orders.module.scss';
 import { type TOrderProps } from './types';
 import { DeleteEntity } from '@/conceptions/DeleteOrder';
-import { useEntityIdSelector } from '@/context/orders/useContext';
+import {
+	useAdaptiveTableSelector,
+	useEntityIdSelector
+} from '@/context/orders/useContext';
 
 const BLOCK = 'order-item';
 
@@ -32,6 +35,7 @@ export const OrderRow = memo(
 		isDeleteButton = true
 	}: TOrderProps) => {
 		const entityId = useEntityIdSelector();
+		const hasAdaptiveTable = useAdaptiveTableSelector();
 		const i18nLocale = useLocale();
 		const tp = useTranslations('App');
 
@@ -95,10 +99,10 @@ export const OrderRow = memo(
 							<div className={styles[`${BLOCK}__detail-item`]}>
 								<div>
 									<div className={styles[`${BLOCK}__primary-text`]}>
-										{dateTime('dd / MM')}
+										{dateTime('dd/MM')}
 									</div>
 									<div className={styles[`${BLOCK}__secondary-text`]}>
-										{dateTime('dd / MM / yyyy')}
+										{dateTime('dd/MM/yyyy')}
 									</div>
 								</div>
 							</div>
@@ -107,7 +111,7 @@ export const OrderRow = memo(
 						<Price prices={prices} />
 						{isDeleteButton && <DeleteEntity id={id} />}
 
-						{!entityId && !isDeleteButton && (
+						{hasAdaptiveTable && !isDeleteButton && (
 							<div className='d-flex align-items-center justify-content-center px-3 h-100'></div>
 						)}
 

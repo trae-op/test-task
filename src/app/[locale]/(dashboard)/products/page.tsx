@@ -12,7 +12,9 @@ export default async function ProductsPage() {
 			guaranteeStart: true,
 			guaranteeEnd: true,
 			prices: true,
-			order: true,
+			order: true
+		},
+		whereFilters: {
 			isNew: true
 		}
 	});

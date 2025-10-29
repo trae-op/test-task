@@ -11,17 +11,18 @@ import type {
 
 export const Context = createContext<TContext | null>(null);
 
-export function Provider({ children, entityId, items }: TProviderProps) {
+export function Provider({
+	children,
+	isAdaptiveTable = false,
+	entityId,
+	items
+}: TProviderProps) {
 	const state = useRef<TEntity[]>(items || []);
 	const loading = useRef(true);
 	const deleteLoading = useRef(false);
+	const adaptiveTable = useRef(isAdaptiveTable);
 	const id = useRef(entityId);
-	const entityTitle = useRef('');
 	const subscribers = useRef<Set<TSubscriberCallback>>(new Set());
-
-	const getEntityTitle = useCallback((): string => {
-		return entityTitle.current;
-	}, []);
 
 	const get = useCallback((): TEntity[] => {
 		return state.current;
@@ -35,27 +36,26 @@ export function Provider({ children, entityId, items }: TProviderProps) {
 		return id.current;
 	}, []);
 
+	const hasAdaptiveTable = useCallback((): boolean => {
+		return adaptiveTable.current;
+	}, []);
+
 	const isDeleteLoading = useCallback((): boolean => {
 		return deleteLoading.current;
 	}, []);
 
-	const setEntityTitle = useCallback((title: string): void => {
-		entityTitle.current = title;
+	const setDeleteLoading = useCallback((value: boolean): void => {
+		deleteLoading.current = value;
 		subscribers.current.forEach(callback => callback());
 	}, []);
 
-	const setDeleteLoading = useCallback((loadingState: boolean): void => {
-		deleteLoading.current = loadingState;
+	const setAdaptiveTable = useCallback((value: boolean): void => {
+		adaptiveTable.current = value;
 		subscribers.current.forEach(callback => callback());
 	}, []);
 
-	const setEntityId = useCallback((entityId: string): void => {
-		id.current = entityId;
-		subscribers.current.forEach(callback => callback());
-	}, []);
-
-	const setListLoading = useCallback((loadingState: boolean): void => {
-		loading.current = loadingState;
+	const setListLoading = useCallback((value: boolean): void => {
+		loading.current = value;
 		subscribers.current.forEach(callback => callback());
 	}, []);
 
@@ -63,8 +63,8 @@ export function Provider({ children, entityId, items }: TProviderProps) {
 		return state.current.length;
 	}, []);
 
-	const setAll = useCallback((items: TEntity[]): void => {
-		state.current = items;
+	const setAll = useCallback((values: TEntity[]): void => {
+		state.current = values;
 		subscribers.current.forEach(callback => callback());
 	}, []);
 
@@ -89,10 +89,9 @@ export function Provider({ children, entityId, items }: TProviderProps) {
 				get,
 				subscribe,
 				remove,
-				setEntityId,
 				getEntityId,
-				setEntityTitle,
-				getEntityTitle,
+				hasAdaptiveTable,
+				setAdaptiveTable,
 				setDeleteLoading,
 				isDeleteLoading,
 				setAll,

@@ -29,13 +29,13 @@ export function useListLoadingSelector(): boolean {
 	return useSyncExternalStore(subscribe, isLoading, isLoading);
 }
 
-export function useEntityIdSelector(): string | undefined {
-	const { getEntityId, subscribe } = useEntityContext();
-	return useSyncExternalStore(subscribe, getEntityId, getEntityId);
+export function useAdaptiveTableSelector(): boolean | undefined {
+	const { hasAdaptiveTable, subscribe } = useEntityContext();
+	return useSyncExternalStore(subscribe, hasAdaptiveTable, hasAdaptiveTable);
 }
 
-export const useSetEntityIdDispatch = () => {
-	return useEntityContext().setEntityId;
+export const useSetAdaptiveTableDispatch = () => {
+	return useEntityContext().setAdaptiveTable;
 };
 
 export const useSetListLoadingDispatch = () => {

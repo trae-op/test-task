@@ -10,13 +10,13 @@ import { ProductRow } from './Product';
 import styles from './Products.module.scss';
 import type { TProductsProps } from './types';
 import { useListSelector } from '@/context/products/useContext';
-import { useEntityIdSelector } from '@/context/products/useContext';
+import { useAdaptiveTableSelector } from '@/context/products/useContext';
 
 const BLOCK = 'product-table';
 
 export const ProductsTable = memo(
 	({ isDeleteButton, items: products }: TProductsProps) => {
-		const entityId = useEntityIdSelector();
+		const hasAdaptiveTable = useAdaptiveTableSelector();
 		const itemsState = useListSelector();
 		const items = products || itemsState;
 
@@ -30,7 +30,7 @@ export const ProductsTable = memo(
 			>
 				<Table
 					className={clsx(styles[BLOCK], 'mb-0', {
-						[styles[`${BLOCK}--full-width`]]: !entityId
+						[styles[`${BLOCK}--full-width`]]: !hasAdaptiveTable
 					})}
 					borderless
 				>

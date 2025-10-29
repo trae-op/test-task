@@ -9,7 +9,7 @@ export const useEntityContext = () => {
 	const entityContext = useContext(Context);
 
 	if (!entityContext)
-		throw new Error('Order useEntityContext must be used within a Provider');
+		throw new Error('Orders useEntityContext must be used within a Provider');
 
 	return entityContext;
 };
@@ -24,27 +24,23 @@ export function useDeleteLoadingSelector(): boolean {
 	return useSyncExternalStore(subscribe, isDeleteLoading, isDeleteLoading);
 }
 
-export function useListLoadingSelector(): boolean {
-	const { isLoading, subscribe } = useEntityContext();
-	return useSyncExternalStore(subscribe, isLoading, isLoading);
-}
-
 export function useEntityIdSelector(): string | undefined {
 	const { getEntityId, subscribe } = useEntityContext();
 	return useSyncExternalStore(subscribe, getEntityId, getEntityId);
 }
 
-export function useEntityTitleSelector(): string | undefined {
-	const { getEntityTitle, subscribe } = useEntityContext();
-	return useSyncExternalStore(subscribe, getEntityTitle, getEntityTitle);
+export function useListLoadingSelector(): boolean {
+	const { isLoading, subscribe } = useEntityContext();
+	return useSyncExternalStore(subscribe, isLoading, isLoading);
 }
 
-export const useSetEntityTitleDispatch = () => {
-	return useEntityContext().setEntityTitle;
-};
+export function useAdaptiveTableSelector(): boolean | undefined {
+	const { hasAdaptiveTable, subscribe } = useEntityContext();
+	return useSyncExternalStore(subscribe, hasAdaptiveTable, hasAdaptiveTable);
+}
 
-export const useSetEntityIdDispatch = () => {
-	return useEntityContext().setEntityId;
+export const useSetAdaptiveTableDispatch = () => {
+	return useEntityContext().setAdaptiveTable;
 };
 
 export const useSetListLoadingDispatch = () => {

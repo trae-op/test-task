@@ -57,7 +57,7 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 				onApply={onDelete}
 			>
 				{Boolean(entities?.length) && (
-					<ProductsProvider>
+					<ProductsProvider isAdaptiveTable>
 						<ProductsTable isDeleteButton={false} items={entities} />
 					</ProductsProvider>
 				)}

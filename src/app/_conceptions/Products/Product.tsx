@@ -13,7 +13,7 @@ import styles from './Products.module.scss';
 import { ProductState } from './State';
 import type { TProductProps } from './types';
 import { DeleteEntity as DeleteProducts } from '@/conceptions/DeleteProducts';
-import { useEntityIdSelector } from '@/context/products/useContext';
+import { useAdaptiveTableSelector } from '@/context/products/useContext';
 
 const BLOCK = 'product-item';
 
@@ -30,7 +30,7 @@ export const ProductRow = memo(
 		order,
 		isDeleteButton = true
 	}: TProductProps) => {
-		const entityId = useEntityIdSelector();
+		const hasAdaptiveTable = useAdaptiveTableSelector();
 		const i18nLocale = useLocale();
 		const t = useTranslations('App');
 
@@ -47,8 +47,8 @@ export const ProductRow = memo(
 			<tr className={styles[BLOCK]}>
 				<td
 					className={clsx({
-						[styles[`${BLOCK}__content`]]: !entityId,
-						[styles[`${BLOCK}__detail`]]: entityId
+						[styles[`${BLOCK}__content`]]: !hasAdaptiveTable,
+						[styles[`${BLOCK}__detail`]]: hasAdaptiveTable
 					})}
 				>
 					<div>
@@ -80,14 +80,13 @@ export const ProductRow = memo(
 							{guaranteeStart && (
 								<span>
 									<span>{t('from')}</span>{' '}
-									{dateTime(guaranteeStart, 'dd / MM / yyyy')}
+									{dateTime(guaranteeStart, 'dd/MM/yyyy')}
 								</span>
 							)}
 
 							{guaranteeEnd && (
 								<span>
-									<span>{t('to')}</span>{' '}
-									{dateTime(guaranteeEnd, 'dd / MM / yyyy')}
+									<span>{t('to')}</span> {dateTime(guaranteeEnd, 'dd/MM/yyyy')}
 								</span>
 							)}
 						</div>

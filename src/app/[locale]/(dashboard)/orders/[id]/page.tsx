@@ -33,8 +33,8 @@ export default async function OrderPage({ params }: TDynamicPageProps) {
 	const productsByOrder = foundOrderById?.products || [];
 
 	return (
-		<ProductsProvider items={productsByOrder}>
-			<OrdersProvider entityId={id} items={ok ? items : []}>
+		<ProductsProvider isAdaptiveTable items={productsByOrder}>
+			<OrdersProvider entityId={id} isAdaptiveTable items={ok ? items : []}>
 				<div className='mt-4 row g-2'>
 					<div className='mt-0 col-12 col-lg-4 col-xl-3'>
 						<OrderTable isDeleteButton={false} />

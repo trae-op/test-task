@@ -10,14 +10,14 @@ import { OrderRow } from './Order';
 import styles from './Orders.module.scss';
 import type { TOrdersProps } from './types';
 import { useListSelector } from '@/context/orders/useContext';
-import { useEntityIdSelector } from '@/context/orders/useContext';
+import { useAdaptiveTableSelector } from '@/context/orders/useContext';
 
 const BLOCK = 'order-table';
 
 export const OrderTable = memo(
 	({ isDeleteButton, items: orders }: TOrdersProps) => {
 		const itemsState = useListSelector();
-		const entityId = useEntityIdSelector();
+		const hasAdaptiveTable = useAdaptiveTableSelector();
 		const items = orders || itemsState;
 
 		if (!items || items.length === 0) {
@@ -28,7 +28,7 @@ export const OrderTable = memo(
 			<div className={styles['table-scroll-wrapper']}>
 				<Table
 					className={clsx(styles[BLOCK], 'mb-0', {
-						[styles[`${BLOCK}--full-width`]]: !entityId
+						[styles[`${BLOCK}--full-width`]]: !hasAdaptiveTable
 					})}
 					borderless
 				>
