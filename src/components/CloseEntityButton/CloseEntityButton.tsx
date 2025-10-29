@@ -1,12 +1,17 @@
+'use client';
+
 import clsx from 'clsx';
-import Link from 'next/link';
 import { Button } from 'react-bootstrap';
 import { X } from 'react-bootstrap-icons';
+
+import { NavigationLink } from '../NavigationLink';
 
 import styles from './CloseEntityButton.module.scss';
 import { ActionButtonProps } from './types';
 
 const BLOCK = 'action-btn';
+
+const CloseIcon = () => <X size={20} />;
 
 export const CloseEntityButton = ({
 	className = '',
@@ -20,8 +25,6 @@ export const CloseEntityButton = ({
 		aria-label={ariaLabelText}
 		{...restProps}
 	>
-		<Link href={href} className='d-flex'>
-			<X size={20} />
-		</Link>
+		<NavigationLink href={href} component={CloseIcon} className='d-flex' />
 	</Button>
 );

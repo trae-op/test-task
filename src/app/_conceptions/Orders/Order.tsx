@@ -111,7 +111,7 @@ export const OrderRow = memo(
 						<Price prices={prices} />
 						{isDeleteButton && <DeleteEntity id={id} />}
 
-						{hasAdaptiveTable && !isDeleteButton && (
+						{hasAdaptiveTable && entityId !== id && !isDeleteButton && (
 							<div className='d-flex align-items-center justify-content-center px-3 h-100'></div>
 						)}
 

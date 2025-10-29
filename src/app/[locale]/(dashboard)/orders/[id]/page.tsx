@@ -36,10 +36,10 @@ export default async function OrderPage({ params }: TDynamicPageProps) {
 		<ProductsProvider isAdaptiveTable items={productsByOrder}>
 			<OrdersProvider entityId={id} isAdaptiveTable items={ok ? items : []}>
 				<div className='mt-4 row g-2'>
-					<div className='mt-0 col-12 col-lg-4 col-xl-3'>
+					<div className='mt-0 col-12 col-lg-5 col-xl-3'>
 						<OrderTable isDeleteButton={false} />
 					</div>
-					<div className='position-relative bg-white mt-1 border rounded-2 col-12 col-lg-8 col-xl-9'>
+					<div className='position-relative bg-white mt-1 border rounded-2 col-12 col-lg-7 col-xl-9'>
 						<CloseEntityButton
 							style={{ width: '2rem', height: '2rem' }}
 							aria-label='close'
