@@ -1,7 +1,11 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+
 import { AddEntityButton } from '@/components/AddEntityButton';
 import { NavigationLink } from '@/components/NavigationLink';
+
+import { getAddOrderHref, getAddProductHref } from '@/utils/routing';
 
 import styles from './AddEntity.module.scss';
 import { Title as AddEntityTitle } from './Title';
@@ -15,6 +19,16 @@ const BLOCK = 'add-entity';
 export const AddEntity = () => {
 	const totalFromContext = useEntitiesTotalSelector();
 	const linkAddEntityFromContext = useLinkAddEntitySelector();
+
+	const pathname = usePathname();
+
+	const normalizedPath = pathname.replace(/^\/[a-zA-Z]{2}\//, '/');
+	if (
+		normalizedPath === getAddOrderHref ||
+		normalizedPath === getAddProductHref
+	) {
+		return null;
+	}
 
 	return (
 		<div className={styles[BLOCK]}>
