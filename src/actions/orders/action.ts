@@ -1,27 +1,42 @@
+import { TOrder, TOrderActionResult } from '@/types/orders';
+
 import { calculateOrderTotals } from '@/utils/orders';
 import { getUserSession } from '@/utils/session';
 
+import type { TOptions } from './types';
 import { prisma } from '@/prisma/prisma-client';
 
-export async function getOrders() {
+export async function getOrders(
+	options?: TOptions
+): Promise<TOrderActionResult> {
 	try {
+		const { whereFilters, selectFields } = options || {};
 		const userSession = await getUserSession();
-
 		if (userSession === null) {
 			return { ok: false, code: 'UNAUTHORIZED' };
 		}
 
-		const orders = await prisma.order.findMany({
-			where: { userId: userSession.id },
-			orderBy: { date: 'desc' },
-			include: {
-				products: {
-					include: { prices: true }
-				}
+		const entities = await prisma.order.findMany({
+			...(whereFilters !== undefined
+				? {
+						select: selectFields
+					}
+				: {}),
+			where: {
+				...(whereFilters !== undefined ? whereFilters : {}),
+				userId: userSession.id
 			}
 		});
 
-		return calculateOrderTotals(orders);
+		return {
+			ok: true,
+			items: calculateOrderTotals(
+				entities.map((item: TOrder) => ({
+					...item,
+					amountOfProducts: item.products ? item.products.length : 0
+				}))
+			)
+		};
 	} catch (_error) {
 		return { ok: false, code: 'SERVER_ERROR' };
 	}

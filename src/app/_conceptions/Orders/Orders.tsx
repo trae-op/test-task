@@ -20,6 +20,8 @@ export const OrderTable = memo(
 		const entityId = useEntityIdSelector();
 		const items = orders || itemsState;
 
+		console.log('Orders render');
+
 		if (!items || items.length === 0) {
 			<EmptyData text='Could not find any orders' />;
 		}

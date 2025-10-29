@@ -35,6 +35,8 @@ export const OrderRow = memo(
 		const i18nLocale = useLocale();
 		const tp = useTranslations('App');
 
+		console.log('OrderRow', title);
+
 		const dateTime = useCallback(
 			(formatString: string) =>
 				date &&

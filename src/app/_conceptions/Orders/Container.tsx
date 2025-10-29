@@ -67,6 +67,8 @@ export const Container = () => {
 	// 	});
 	// }, []);
 
+	console.log('Container render');
+
 	return (
 		<>
 			<AddEntity
