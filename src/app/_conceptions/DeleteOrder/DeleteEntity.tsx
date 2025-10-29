@@ -22,7 +22,7 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 	const [entities, setEntities] = useState<TProduct[] | undefined>(undefined);
 	const { deleteEntity } = useDeleteEntityActions();
 	const isDeleteLoading = useDeleteLoadingSelector();
-	const listLoading = useListSelector();
+	const orders = useListSelector();
 
 	const onDelete = useCallback(
 		(onClose: () => void) => {
@@ -37,9 +37,9 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 	);
 
 	const onOpen = useCallback(() => {
-		const found = listLoading.find(item => item.id === id);
-		setEntities(found?.products || undefined);
-	}, [id, listLoading]);
+		const found = orders.find(item => item.id === id);
+		setEntities(found?.products || []);
+	}, [id, orders]);
 
 	return (
 		<div className='d-flex align-items-center justify-content-center w-100 h-100'>
@@ -56,7 +56,7 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 				applyButtonClassName=''
 				onApply={onDelete}
 			>
-				{entities !== undefined && (
+				{Boolean(entities?.length) && (
 					<ProductsProvider>
 						<ProductsTable isDeleteButton={false} items={entities} />
 					</ProductsProvider>

@@ -1,11 +1,11 @@
-import type { TProductData } from '@/types/product';
+import type { TProduct } from '@/types/products';
 
 export type TAddOrderFormData = {
 	title: string;
 	description?: string;
-	products: string[]; // product ids
+	products: string[];
 };
 
 export type TAddOrderProps = {
-	products: TProductData[];
+	products: TProduct[];
 };

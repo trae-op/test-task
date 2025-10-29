@@ -64,7 +64,7 @@ export const ProductRow = memo(
 						className={clsx(styles[`${BLOCK}__name`], 'd-flex gap-3 w-100')}
 						title={title}
 					>
-						{photo !== null && photo.length && (
+						{typeof photo === 'string' && (
 							<Picture src={photo} alt={title || ''} size='sm' loading='lazy' />
 						)}
 						<div className='d-flex flex-column align-items-start'>
@@ -94,6 +94,10 @@ export const ProductRow = memo(
 					)}
 
 					<Price prices={prices} />
+
+					{order !== undefined && order !== null && (
+						<div className={clsx(styles[`${BLOCK}__order`])}>{order.title}</div>
+					)}
 
 					{isDeleteButton && <DeleteProducts id={id} />}
 				</td>

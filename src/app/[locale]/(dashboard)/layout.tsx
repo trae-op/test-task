@@ -1,10 +1,11 @@
 import { getOrdersHref, getProductsHref } from '@/utils/routing/routing';
 
 import styles from './Layout.module.scss';
-import { LocalizationDropdown } from '@/app/_conceptions/LocalizationDropdown';
-import { Sidebar } from '@/app/_conceptions/Sidebar';
-import type { TSidebarNavItem } from '@/app/_conceptions/Sidebar/types';
-import { TopHeader } from '@/app/_conceptions/TopHeader.ts';
+import { AddEntity, Title as AddEntityTitle } from '@/conceptions/AddEntity';
+import { LocalizationDropdown } from '@/conceptions/LocalizationDropdown';
+import { Sidebar } from '@/conceptions/Sidebar';
+import type { TSidebarNavItem } from '@/conceptions/Sidebar/types';
+import { TopHeader } from '@/conceptions/TopHeader.ts';
 
 const navigationItems: TSidebarNavItem[] = [
 	{ href: getOrdersHref, label: 'Receipts' },
@@ -24,7 +25,14 @@ export default function AuthLayout({
 			/>
 			<div className={styles[`${BLOCK}__container`]}>
 				<Sidebar items={navigationItems} />
-				<div className={styles[`${BLOCK}__content`]}>{children}</div>
+				<div className={styles[`${BLOCK}__content`]}>
+					<AddEntity
+						addEntityHref={''}
+						titleComponent={<AddEntityTitle title='Receipts' />}
+						total={0}
+					/>
+					{children}
+				</div>
 			</div>
 		</div>
 	);

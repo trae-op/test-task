@@ -2,8 +2,7 @@ import { getProducts } from '@/actions/products';
 import { AddOrder } from '@/conceptions/AddOrder';
 
 export default async function AddOrderPage() {
-	const products = await getProducts();
-	const isProductsArray = Array.isArray(products);
+	const { items, ok } = await getProducts();
 
-	return <AddOrder products={isProductsArray ? products : []} />;
+	return <AddOrder products={ok && items !== undefined ? items : []} />;
 }

@@ -17,7 +17,7 @@ export async function getOrders(
 		}
 
 		const entities = await prisma.order.findMany({
-			...(whereFilters !== undefined
+			...(selectFields !== undefined
 				? {
 						select: selectFields
 					}

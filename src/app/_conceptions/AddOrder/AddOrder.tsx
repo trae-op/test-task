@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
@@ -9,13 +10,18 @@ import type { MultiValue } from 'react-select';
 
 import { Button } from '@/components/Button';
 import { MessagesServer } from '@/components/MessagesServer';
-import { MultiSelectField } from '@/components/MultiSelectField';
 import type { OptionType } from '@/components/MultiSelectField/types';
 import { TextField } from '@/components/TextField';
 
 import { useAddOrderActions } from '@/hooks/addOrder';
 
 import type { TAddOrderFormData, TAddOrderProps } from './types';
+
+const MultiSelectField = dynamic(
+	() =>
+		import('@/components/MultiSelectField').then(mod => mod.MultiSelectField),
+	{ ssr: false }
+);
 
 export const AddOrder = ({ products }: TAddOrderProps) => {
 	const t = useTranslations('App');
