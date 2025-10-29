@@ -40,32 +40,32 @@ export const Container = () => {
 	// value: number;
 	// isDefault: boolean;
 	// productId: string;
-	useEffect(() => {
-		getAllEntities({
-			params: createParams({
-				fields: [
-					'id',
-					'title',
-					'amountOfProducts',
-					'description',
-					{
-						products: [
-							'id',
-							'title',
-							'photo',
-							'serialNumber',
-							'isNew',
-							'prices'
-						]
-					},
-					'date'
-				]
-			}),
-			onSuccess: response => {
-				setAllEntitiesDispatch(response.results.items);
-			}
-		});
-	}, []);
+	// useEffect(() => {
+	// 	getAllEntities({
+	// 		params: createParams({
+	// 			fields: [
+	// 				'id',
+	// 				'title',
+	// 				'amountOfProducts',
+	// 				'description',
+	// 				{
+	// 					products: [
+	// 						'id',
+	// 						'title',
+	// 						'photo',
+	// 						'serialNumber',
+	// 						'isNew',
+	// 						'prices'
+	// 					]
+	// 				},
+	// 				'date'
+	// 			]
+	// 		}),
+	// 		onSuccess: response => {
+	// 			setAllEntitiesDispatch(response.results.items);
+	// 		}
+	// 	});
+	// }, []);
 
 	return (
 		<>
@@ -74,7 +74,9 @@ export const Container = () => {
 				titleComponent={<AddEntityTitle title='Receipts' />}
 				total={itemsCount}
 			/>
-			<Orders />
+			<div className='mt-4'>
+				<OrderTable />
+			</div>
 		</>
 	);
 };
