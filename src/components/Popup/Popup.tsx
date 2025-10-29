@@ -90,7 +90,7 @@ export const Popup = memo(
 				>
 					<div className={clsx('position-relative')}>
 						<div className={styles[`${BLOCK}__header`]}>
-							<h5 className={styles[`${BLOCK}__title`]}>{title}</h5>
+							<h5 className={styles[`${BLOCK}__title`]}>{t(title)}</h5>
 						</div>
 
 						<div className={styles[`${BLOCK}__body`]}>{children}</div>

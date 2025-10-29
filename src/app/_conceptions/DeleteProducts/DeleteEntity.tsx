@@ -37,7 +37,7 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 				applyText='Delete'
 				applyDisabled={deleteEntityPending}
 				openButtonClassName='w-100 h-100'
-				title='Delete this order?'
+				title='Delete this product?'
 				applyButtonClassName=''
 				onApply={onDelete}
 			/>

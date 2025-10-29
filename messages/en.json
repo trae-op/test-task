@@ -14,6 +14,8 @@
 		"Error deleting entity": "Error deleting entity",
 		"Error fetching entities": "Error fetching entities",
 		"Orders": "Orders",
+		"Delete this order?": "Delete this order?",
+		"Delete this product?": "Delete this product?",
 		"Add product": "Add product",
 		"Add receipt": "Add receipt",
 		"Receipts": "Receipts",
