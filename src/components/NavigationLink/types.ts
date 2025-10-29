@@ -7,10 +7,7 @@ export type NavigationItemProps = {
 	text?: string;
 };
 
-export type NavigationLinkProps = Omit<
-	ComponentProps<typeof Link>,
-	'children'
-> &
+export type NavigationLinkProps = ComponentProps<typeof Link> &
 	Pick<NavigationItemProps, 'text'> & {
 		component?: ComponentType<NavigationItemProps>;
 	};

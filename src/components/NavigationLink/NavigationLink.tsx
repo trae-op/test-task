@@ -6,13 +6,27 @@ import type { NavigationLinkProps } from './types';
 import { Link, usePathname } from '@/i18n/navigation';
 
 export const NavigationLink = memo(
-	({ href, component: Component, text, ...rest }: NavigationLinkProps) => {
+	({
+		href,
+		component: Component,
+		text,
+		children,
+		...rest
+	}: NavigationLinkProps) => {
 		const pathname = usePathname();
 
 		const isActive = useMemo(() => {
 			if (!pathname) return false;
 			return pathname === href || pathname.startsWith(`${href}/`);
 		}, [pathname, href]);
+
+		if (children && !Component && !text) {
+			return (
+				<Link href={href} {...rest}>
+					{children}
+				</Link>
+			);
+		}
 
 		if (!Component) {
 			return (

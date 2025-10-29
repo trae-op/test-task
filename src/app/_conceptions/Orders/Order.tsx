@@ -52,80 +52,90 @@ export const OrderRow = memo(
 
 		return (
 			<tr className={styles[BLOCK]}>
-				<td className={clsx(styles[`${BLOCK}__content`], 'overflow-hidden')}>
-					{title !== undefined && (
-						<div className={styles[`${BLOCK}__name`]}>
-							<NavigationLink
-								title={title}
-								className={styles[`${BLOCK}__name-link`]}
-								href={getOrderDetailHref(id)}
-								text={title}
-							/>
-						</div>
-					)}
+				<td
+					className={clsx('d-flex align-items-center justify-content-center', {
+						'px-4': !hasAdaptiveTable
+					})}
+				>
+					<NavigationLink
+						className={clsx(
+							styles[`${BLOCK}__link`],
+							'd-flex align-items-center justify-content-center w-100 h-100 text-decoration-none'
+						)}
+						title={title}
+						href={getOrderDetailHref(id)}
+					>
+						<div
+							className={clsx(
+								styles[`${BLOCK}__content`],
+								'overflow-hidden w-100'
+							)}
+						>
+							{title !== undefined && (
+								<div className={styles[`${BLOCK}__name`]}>
+									<span className={styles[`${BLOCK}__name-title`]}>
+										{title}
+									</span>
+								</div>
+							)}
 
-					<div className={styles[`${BLOCK}__detail`]}>
-						<div className={styles[`${BLOCK}__detail-item`]}>
-							<div
-								className={clsx(
-									styles[`${BLOCK}__container-icon`],
-									'd-flex align-items-center justify-content-center'
-								)}
-							>
-								<NavigationLink
-									title={title}
-									className='d-flex align-items-center justify-content-center'
-									href={getOrderDetailHref(id)}
-									text={title}
-									component={ListUlIcon}
-								/>
-							</div>
-							<div
-								className={clsx(
-									styles[`${BLOCK}__container-count`],
-									'd-flex flex-column'
-								)}
-							>
-								<span className={styles[`${BLOCK}__count`]}>
-									{amountOfProducts}
-								</span>
-								<span className={styles[`${BLOCK}__primary-text`]}>
-									{tp('Products')}
-								</span>
-							</div>
-						</div>
-
-						{date !== undefined && (
-							<div className={styles[`${BLOCK}__detail-item`]}>
-								<div>
-									<div className={styles[`${BLOCK}__primary-text`]}>
-										{dateTime('dd/MM')}
+							<div className={styles[`${BLOCK}__detail`]}>
+								<div className={styles[`${BLOCK}__detail-item`]}>
+									<div
+										className={clsx(
+											styles[`${BLOCK}__container-icon`],
+											'd-flex align-items-center justify-content-center'
+										)}
+									>
+										<ListUlIcon />
 									</div>
-									<div className={styles[`${BLOCK}__secondary-text`]}>
-										{dateTime('dd/MM/yyyy')}
+									<div
+										className={clsx(
+											styles[`${BLOCK}__container-count`],
+											'd-flex flex-column'
+										)}
+									>
+										<span className={styles[`${BLOCK}__count`]}>
+											{amountOfProducts}
+										</span>
+										<span className={styles[`${BLOCK}__primary-text`]}>
+											{tp('Products')}
+										</span>
 									</div>
 								</div>
-							</div>
-						)}
 
-						<Price prices={prices} />
-						{isDeleteButton && <DeleteEntity id={id} />}
-
-						{hasAdaptiveTable && entityId !== id && !isDeleteButton && (
-							<div className='d-flex align-items-center justify-content-center px-3 h-100'></div>
-						)}
-
-						{entityId === id && (
-							<div
-								className={clsx(
-									styles[`${BLOCK}__arrow`],
-									'd-flex align-items-center justify-content-center h-100 px-2'
+								{date !== undefined && (
+									<div className={styles[`${BLOCK}__detail-item`]}>
+										<div>
+											<div className={styles[`${BLOCK}__primary-text`]}>
+												{dateTime('dd/MM')}
+											</div>
+											<div className={styles[`${BLOCK}__secondary-text`]}>
+												{dateTime('dd/MM/yyyy')}
+											</div>
+										</div>
+									</div>
 								)}
-							>
-								<CaretRight size={18} />
 							</div>
-						)}
-					</div>
+						</div>
+					</NavigationLink>
+					<Price prices={prices} />
+					{isDeleteButton && <DeleteEntity id={id} />}
+
+					{hasAdaptiveTable && entityId !== id && !isDeleteButton && (
+						<div className='d-flex align-items-center justify-content-center px-3 h-100'></div>
+					)}
+
+					{hasAdaptiveTable && entityId === id && (
+						<div
+							className={clsx(
+								styles[`${BLOCK}__arrow`],
+								'd-flex align-items-center justify-content-center h-100 px-2'
+							)}
+						>
+							<CaretRight size={18} />
+						</div>
+					)}
 				</td>
 			</tr>
 		);

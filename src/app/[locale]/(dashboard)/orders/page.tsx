@@ -12,6 +12,7 @@ export default async function OrdersPage() {
 					id: true,
 					title: true,
 					photo: true,
+					prices: true,
 					serialNumber: true
 				}
 			},

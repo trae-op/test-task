@@ -42,7 +42,7 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 	}, [id, orders]);
 
 	return (
-		<div className='d-flex align-items-center justify-content-center w-100 h-100'>
+		<div className='d-flex align-items-center justify-content-center h-100'>
 			<Popup
 				componentButton={DeleteEntityButton}
 				applyIconButton={Trash}
