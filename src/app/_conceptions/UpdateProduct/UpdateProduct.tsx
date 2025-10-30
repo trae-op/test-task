@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import { Card, Col, Form, Row } from 'react-bootstrap';
+import { Card, Form } from 'react-bootstrap';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { MultiValue } from 'react-select';
 
@@ -24,21 +24,6 @@ const toSelectValue = (options: SelectOption[], value?: string | number) => {
 	if (value === undefined || value === '') return '';
 	const match = options.find(o => String(o.value) === String(value));
 	return match ? match.value : '';
-};
-
-const convertISODateToInputDate = (isoString: string): string => {
-	// Якщо рядок порожній або не існує, повертаємо порожній рядок
-	if (!isoString) return '';
-
-	// Обрізаємо рядок до перших 10 символів (YYYY-MM-DD)
-	// Наприклад: "2025-02-02T00:00:00.000Z" -> "2025-02-02"
-	return isoString.substring(0, 10);
-};
-
-const formatDateToInput = (dateString?: string) => {
-	if (!dateString) return '';
-	const date = new Date(dateString);
-	return date.toISOString().split('T')[0];
 };
 
 export const UpdateProduct = ({
@@ -66,7 +51,6 @@ export const UpdateProduct = ({
 
 	const watchType = useWatch({ control, name: 'type' });
 	const watchGuaranteeStart = useWatch({ control, name: 'guaranteeStart' });
-	const watchGuaranteeEnd = useWatch({ control, name: 'guaranteeEnd' });
 
 	const isLoading = isSubmitting || isPending;
 
@@ -124,53 +108,48 @@ export const UpdateProduct = ({
 						/>
 					</Form.Group>
 
-					<Row>
-						<Col>
-							<Form.Group className='mb-3' controlId='guaranteeStart'>
-								<Form.Label>{t('Guarantee start')}</Form.Label>
-								<Controller
-									name='guaranteeStart'
-									control={control}
-									defaultValue={defaultValues?.guaranteeStart}
-									render={({ field }) => (
-										<TextField
-											{...field}
-											type='date'
-											isInvalid={!!errors.guaranteeStart}
-											errorMessage={errors.guaranteeStart?.message}
-										/>
-									)}
+					<Form.Group className='mb-3' controlId='guaranteeStart'>
+						<Form.Label>{t('Guarantee start')}</Form.Label>
+						<Controller
+							name='guaranteeStart'
+							control={control}
+							defaultValue={defaultValues?.guaranteeStart}
+							render={({ field }) => (
+								<TextField
+									{...field}
+									type='date'
+									isInvalid={!!errors.guaranteeStart}
+									errorMessage={errors.guaranteeStart?.message}
 								/>
-							</Form.Group>
-						</Col>
-						<Col>
-							<Form.Group className='mb-3' controlId='guaranteeEnd'>
-								<Form.Label>{t('Guarantee end')}</Form.Label>
-								<Controller
-									name='guaranteeEnd'
-									control={control}
-									defaultValue={defaultValues?.guaranteeEnd}
-									rules={{
-										validate: value => {
-											if (!value || !watchGuaranteeStart) return true;
-											return (
-												new Date(value) >= new Date(watchGuaranteeStart) ||
-												'End date must be after start date'
-											);
-										}
-									}}
-									render={({ field }) => (
-										<TextField
-											{...field}
-											type='date'
-											isInvalid={!!errors.guaranteeEnd}
-											errorMessage={errors.guaranteeEnd?.message}
-										/>
-									)}
+							)}
+						/>
+					</Form.Group>
+
+					<Form.Group className='mb-3' controlId='guaranteeEnd'>
+						<Form.Label>{t('Guarantee end')}</Form.Label>
+						<Controller
+							name='guaranteeEnd'
+							control={control}
+							defaultValue={defaultValues?.guaranteeEnd}
+							rules={{
+								validate: value => {
+									if (!value || !watchGuaranteeStart) return true;
+									return (
+										new Date(value) >= new Date(watchGuaranteeStart) ||
+										'End date must be after start date'
+									);
+								}
+							}}
+							render={({ field }) => (
+								<TextField
+									{...field}
+									type='date'
+									isInvalid={!!errors.guaranteeEnd}
+									errorMessage={errors.guaranteeEnd?.message}
 								/>
-							</Form.Group>
-						</Col>
-					</Row>
+							)}
+						/>
+					</Form.Group>
 
 					{/* Price builder (encapsulated) */}
 					<Price
