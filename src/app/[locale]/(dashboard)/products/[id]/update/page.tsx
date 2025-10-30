@@ -1,62 +1,80 @@
-import { CloseEntityButton } from '@/components/CloseEntityButton';
+import type { SelectOption } from '@/components/SelectField/types';
 
 import type { TDynamicPageProps } from '@/types/dynamicPage';
 
-import { getOrders } from '@/actions/orders';
-import { AddProductButton } from '@/conceptions/AddProductButton';
-import { OrderTable } from '@/conceptions/Orders';
-import { ProductsTable } from '@/conceptions/Products';
-import { Provider as OrdersProvider } from '@/context/orders';
-import { Provider as ProductsProvider } from '@/context/products';
+import { getProducts } from '@/actions/products/action';
+import { UpdateProduct } from '@/app/_conceptions/UpdateProduct';
 
-export default async function ProductUpdatePage({ params }: TDynamicPageProps) {
-	const { id } = await params;
+const TYPE_OPTIONS: SelectOption[] = [
+	{ value: 'phone', label: 'Phone' },
+	{ value: 'laptop', label: 'Laptop' },
+	{ value: 'monitor', label: 'Monitor' }
+];
 
-	const { items, ok } = await getOrders({
+const convertISODateToInputDate = (isoString: string): string => {
+	// Якщо рядок порожній або не існує, повертаємо порожній рядок
+	if (!isoString) return '';
+
+	// Обрізаємо рядок до перших 10 символів (YYYY-MM-DD)
+	// Наприклад: "2025-02-02T00:00:00.000Z" -> "2025-02-02"
+	return isoString.substring(0, 10);
+};
+
+export default async function UpdateProductPage({ params }: TDynamicPageProps) {
+	const { id, locale } = await params;
+	const currencyOptions = [
+		{ value: 'USD', label: 'USD' },
+		{ value: 'UAH', label: 'UAH' }
+	];
+
+	const { items, ok } = await getProducts({
 		selectFields: {
 			id: true,
-			products: {
-				select: {
-					id: true,
-					title: true,
-					photo: true,
-					serialNumber: true,
-					isNew: true
-				}
-			},
-			date: true,
-			amountOfProducts: true
-		}
+			title: true,
+			photo: true,
+			serialNumber: true,
+			guaranteeStart: true,
+			guaranteeEnd: true,
+			specification: true,
+			prices: true,
+			order: true,
+			isNew: true,
+			type: true
+		},
+		whereFilters: { id }
 	});
+	const product = ok && items?.length ? items[0] : undefined;
 
-	const foundOrderById = items?.find(order => order.id === id);
-	const productsByOrder = foundOrderById?.products || [];
+	// console.log('>>> product for update:', product);
 
 	return (
-		<ProductsProvider isAdaptiveTable items={productsByOrder}>
-			<OrdersProvider entityId={id} isAdaptiveTable items={ok ? items : []}>
-				<div className='mt-4 row g-2'>
-					<div className='mt-0 col-12 col-lg-5 col-xl-3'>
-						<OrderTable isDeleteButton={false} />
-					</div>
-					<div className='position-relative bg-white mt-1 border rounded-2 col-12 col-lg-7 col-xl-9'>
-						<CloseEntityButton
-							style={{ width: '2rem', height: '2rem' }}
-							aria-label='close'
-							className='negative-top-rem1 z-3 position-absolute d-flex align-items-center justify-content-center border-0 negative-end-rem1'
-							href='/orders'
-						/>
-
-						<div className='p-3'>
-							<h2 className='fs-5'>{foundOrderById?.title}</h2>
-
-							<AddProductButton />
-						</div>
-
-						<ProductsTable />
-					</div>
-				</div>
-			</OrdersProvider>
-		</ProductsProvider>
+		<UpdateProduct
+			typeOptions={TYPE_OPTIONS}
+			currencyOptions={currencyOptions}
+			defaultValues={{
+				title: product?.title || '',
+				serialNumber: product?.serialNumber || '',
+				type: product?.type || '',
+				specification: product?.specification || '',
+				guaranteeStart: convertISODateToInputDate(
+					product?.guaranteeStart?.toISOString() || ''
+				),
+				guaranteeEnd: convertISODateToInputDate(
+					product?.guaranteeEnd?.toISOString() || ''
+				),
+				orderId: product?.orderId || '',
+				isNew: product?.isNew || false,
+				prices: product?.prices
+					? product.prices.map(price => ({
+							value: price.symbol + '',
+							label: `${price.isDefault ? 'Default' : ''} ${price.value} ${price.symbol}`,
+							valueAmount: Number(price.value),
+							id: price.id,
+							userId: price.userId,
+							isDefault: price.isDefault
+						}))
+					: []
+			}}
+		/>
 	);
 }

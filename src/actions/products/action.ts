@@ -34,4 +34,5 @@ export async function getProducts(
 	} catch (_error) {
 		return { ok: false, code: 'SERVER_ERROR' };
 	}
+	// end getProducts
 }

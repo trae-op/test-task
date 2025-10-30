@@ -57,26 +57,23 @@ export const addProduct = async (
 				guaranteeEnd,
 				isNew: true,
 				date: new Date(),
-				userId: userSession.id,
-				prices: {
-					createMany: {
-						data: prices.map(p => ({
-							symbol: p.symbol,
-							userId: userSession.id,
-							value: p.value || 0,
-							isDefault: Boolean(p.isDefault)
-						}))
-					}
-				},
-				...(orderId
-					? {
-							orders: {
-								connect: { id: orderId }
-							}
-						}
-					: {})
+				userId: userSession.id
 			}
 		});
+
+		if (prices.length) {
+			const pricesToCreate = prices.map(price => ({
+				symbol: price.symbol,
+				userId: userSession.id,
+				value: price.value || 0,
+				isDefault: Boolean(price.isDefault),
+				productId: created.id
+			}));
+
+			await prisma.price.createMany({
+				data: pricesToCreate
+			});
+		}
 
 		revalidateTag('products');
 

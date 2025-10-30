@@ -14,9 +14,6 @@ export default async function ProductsPage() {
 			prices: true,
 			order: true,
 			isNew: true
-		},
-		whereFilters: {
-			isNew: true
 		}
 	});
 

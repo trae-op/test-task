@@ -9,7 +9,8 @@ export const SelectField = ({
 	value,
 	onChange,
 	placeholder,
-	className
+	className,
+	disabledOptions
 }: SelectProps) => (
 	<Form.Select
 		value={value}
@@ -22,7 +23,19 @@ export const SelectField = ({
 			</option>
 		)}
 		{options.map(option => (
-			<option key={option.value} value={option.value}>
+			<option
+				key={option.value}
+				disabled={
+					disabledOptions
+						? disabledOptions.some(
+								disabled =>
+									(typeof disabled === 'object' ? disabled.value : disabled) ===
+									option.value
+							)
+						: undefined
+				}
+				value={option.value}
+			>
 				{option.label}
 			</option>
 		))}

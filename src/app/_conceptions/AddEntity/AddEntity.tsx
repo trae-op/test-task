@@ -1,11 +1,15 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 
 import { AddEntityButton } from '@/components/AddEntityButton';
 import { NavigationLink } from '@/components/NavigationLink';
 
-import { getAddOrderHref, getAddProductHref } from '@/utils/routing';
+import {
+	getAddOrderHref,
+	getAddProductHref,
+	getProductUpdateHref
+} from '@/utils/routing';
 
 import styles from './AddEntity.module.scss';
 import { Title as AddEntityTitle } from './Title';
@@ -21,11 +25,14 @@ export const AddEntity = () => {
 	const linkAddEntityFromContext = useLinkAddEntitySelector();
 
 	const pathname = usePathname();
+	const params = useParams();
 
 	const normalizedPath = pathname.replace(/^\/[a-zA-Z]{2}\//, '/');
+
 	if (
 		normalizedPath === getAddOrderHref ||
-		normalizedPath === getAddProductHref
+		normalizedPath === getAddProductHref ||
+		normalizedPath === getProductUpdateHref(params?.id as string)
 	) {
 		return null;
 	}

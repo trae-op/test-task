@@ -1,6 +1,6 @@
 import type { SelectOption } from '@/components/SelectField/types';
 
-import { AddProduct } from '@/app/_conceptions/AddProduct';
+import { AddProduct } from '@/conceptions/AddProduct';
 
 const TYPE_OPTIONS: SelectOption[] = [
 	{ value: 'phone', label: 'Phone' },
