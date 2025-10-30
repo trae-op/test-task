@@ -32,8 +32,8 @@ export const updateProductSubmit = async (
 		(formData.get('guaranteeStart') as string) || undefined;
 	const guaranteeEnd = (formData.get('guaranteeEnd') as string) || undefined;
 	const orderId = (formData.get('orderId') as string) || undefined;
-	const isNewRaw = (formData.get('isNew') as string) || undefined;
 	const pricesJson = String(formData.get('prices') || '[]');
+	const isNew = String(formData.get('isNew') || 'false');
 	const locale = String(formData.get('locale') || '');
 	const id = String(formData.get('id') || '');
 
@@ -51,7 +51,7 @@ export const updateProductSubmit = async (
 			: null,
 		guaranteeEnd: guaranteeEnd ? convertToISOStringUTC(guaranteeEnd) : null,
 		//orderId: orderId ?? null,
-		isNew: isNewRaw === 'true',
+		isNew: isNew === 'true',
 		prices
 	});
 

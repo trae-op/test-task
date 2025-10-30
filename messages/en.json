@@ -10,6 +10,8 @@
 		"Cancel": "Cancel",
 		"Add": "Add",
 		"Delete": "Delete",
+		"Available": "Available",
+		"In Repair": "In Repair",
 		"Products": "Products",
 		"Update product": "Update product",
 		"Error deleting entity": "Error deleting entity",

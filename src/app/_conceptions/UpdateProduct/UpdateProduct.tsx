@@ -1,5 +1,6 @@
 'use client';
 
+import { is } from 'date-fns/locale';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
@@ -36,6 +37,8 @@ export const UpdateProduct = ({
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
 
+	console.log('>>> defaultValues:', defaultValues);
+
 	const {
 		register,
 		handleSubmit,
@@ -46,6 +49,7 @@ export const UpdateProduct = ({
 
 	// Selected prices accumulated via Price component
 	const [prices, setPrices] = useState<MultiValue<OptionType>>([]);
+	// isNew now managed by react-hook-form Controller
 
 	const { onUpdateProductSubmit, state, isPending } = useUpdateProductActions();
 
@@ -146,6 +150,25 @@ export const UpdateProduct = ({
 									type='date'
 									isInvalid={!!errors.guaranteeEnd}
 									errorMessage={errors.guaranteeEnd?.message}
+								/>
+							)}
+						/>
+					</Form.Group>
+
+					<Form.Group className='mb-3' controlId='isNew'>
+						<Controller
+							name='isNew'
+							control={control}
+							defaultValue={
+								defaultValues?.isNew !== undefined ? defaultValues.isNew : true
+							}
+							render={({ field }) => (
+								<Form.Check
+									type='checkbox'
+									label={t('Available')}
+									checked={field.value}
+									onChange={e => field.onChange(e.target.checked)}
+									ref={field.ref}
 								/>
 							)}
 						/>

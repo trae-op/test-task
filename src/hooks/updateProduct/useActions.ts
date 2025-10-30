@@ -36,6 +36,7 @@ export const useUpdateProductActions = (): TUpdateProductActions => {
 			const fd = new FormData();
 			fd.append('id', params.id);
 			fd.append('title', data.title);
+			fd.append('isNew', data.isNew ? 'true' : 'false');
 			fd.append('serialNumber', data.serialNumber);
 			if (data.type) fd.append('type', data.type);
 			if (data.specification) fd.append('specification', data.specification);
