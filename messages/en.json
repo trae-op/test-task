@@ -11,6 +11,7 @@
 		"Add": "Add",
 		"Delete": "Delete",
 		"Products": "Products",
+		"Update product": "Update product",
 		"Error deleting entity": "Error deleting entity",
 		"Error fetching entities": "Error fetching entities",
 		"Orders": "Orders",

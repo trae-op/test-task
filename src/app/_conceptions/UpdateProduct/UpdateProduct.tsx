@@ -84,7 +84,7 @@ export const UpdateProduct = ({
 	return (
 		<Card>
 			<Card.Header as='h4' className='text-center'>
-				{t('Add product')}
+				{t('Update product')}
 			</Card.Header>
 			<Card.Body>
 				<MessagesServer message={state.message} type='error' />
