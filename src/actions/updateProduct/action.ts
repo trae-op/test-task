@@ -1,5 +1,3 @@
-'use server';
-
 import { TPrice } from '@/types/price';
 import { TProduct, TProductActionResult } from '@/types/products';
 
@@ -8,9 +6,10 @@ import { getUserSession } from '@/utils/session';
 import type { TUpdateProductInput, TUpdateProductResult } from './types';
 import { prisma } from '@/prisma/prisma-client';
 
-const findExtraPrices = (
-	existingPrices: TPrice[],
-	sourcePrices: {
+// Returns prices that user changed (value, symbol, isDefault)
+const findChangedPrices = (
+	foundDefaultPrices: TPrice[],
+	transformNewPrices: {
 		symbol: 'USD' | 'UAH';
 		userId: string;
 		value: number;
@@ -24,13 +23,31 @@ const findExtraPrices = (
 	isDefault: boolean;
 	productId: string;
 }[] => {
-	const existingIds = new Set(existingPrices.map(price => price.value));
+	// If lengths differ, prices have changed
+	if (foundDefaultPrices.length !== transformNewPrices.length) {
+		return transformNewPrices;
+	}
 
-	const extraPrices = sourcePrices.filter(
-		price => !existingIds.has(price.value)
-	);
+	// Compare each price by symbol, value, isDefault, userId, productId
+	const allMatch = transformNewPrices.every(newPrice => {
+		const found = foundDefaultPrices.find(
+			p =>
+				p.symbol === newPrice.symbol &&
+				p.userId === newPrice.userId &&
+				p.productId === newPrice.productId
+		);
+		return (
+			found &&
+			found.value === newPrice.value &&
+			found.isDefault === newPrice.isDefault
+		);
+	});
 
-	return extraPrices;
+	if (allMatch) {
+		return [];
+	}
+	// Return all new prices if any difference
+	return transformNewPrices;
 };
 
 export async function updateProduct(
@@ -43,16 +60,16 @@ export async function updateProduct(
 			return { ok: false, code: 'UNAUTHORIZED' };
 		}
 
-		const foundPrices = await prisma.price.findMany({
+		const newPrices = data.prices || [];
+
+		const foundDefaultPrices = await prisma.price.findMany({
 			where: {
 				productId: id,
 				userId: userSession.id
 			}
 		});
 
-		const defaultPrices = data.prices || [];
-
-		const pricesToCreate = defaultPrices.map(price => ({
+		const transformNewPrices = newPrices.map(price => ({
 			symbol: price.symbol,
 			userId: userSession.id,
 			value: price.value || 0,
@@ -60,9 +77,16 @@ export async function updateProduct(
 			productId: id
 		}));
 
-		const newPrices = findExtraPrices(foundPrices, pricesToCreate);
+		const changedPrices = findChangedPrices(
+			foundDefaultPrices,
+			transformNewPrices
+		);
 
-		if (newPrices.length) {
+		console.log('>>> foundDefaultPrices:', foundDefaultPrices);
+		console.log('>>> transformNewPrices:', transformNewPrices);
+		// console.log('>>> changedPrices:', changedPrices);
+
+		if (changedPrices.length) {
 			await prisma.$transaction([
 				prisma.price.deleteMany({
 					where: {
@@ -70,9 +94,8 @@ export async function updateProduct(
 						userId: userSession.id
 					}
 				}),
-
 				prisma.price.createMany({
-					data: [...newPrices, ...pricesToCreate]
+					data: changedPrices
 				})
 			]);
 		}
