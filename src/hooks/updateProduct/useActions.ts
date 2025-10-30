@@ -2,6 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { startTransition, useActionState, useCallback } from 'react';
+import { useFormContext } from 'react-hook-form';
 import type { MultiValue } from 'react-select';
 
 import type { OptionType } from '@/components/MultiSelectField/types';
@@ -14,16 +15,18 @@ import type { TUpdateProductSubmitState } from '../../actions/updateProduct/type
 import type { TUpdateProductActions, TUpdateProductFormData } from './types';
 
 export const useUpdateProductActions = (): TUpdateProductActions => {
+	const { watch } = useFormContext();
 	const [state, formAction, isPending] = useActionState<
 		TUpdateProductSubmitState,
 		FormData
 	>(updateProductSubmit, { ok: false });
 	const params = useParams<TDynamicPageParams>();
+	const prices = watch('prices') || [];
 
 	const onUpdateProductSubmit = useCallback(
 		(
 			data: TUpdateProductFormData,
-			prices: MultiValue<OptionType>,
+			_prices: MultiValue<OptionType>,
 			locale: string
 		) => {
 			const anyPrices = prices as unknown as Array<any>;
@@ -50,7 +53,7 @@ export const useUpdateProductActions = (): TUpdateProductActions => {
 				formAction(fd);
 			});
 		},
-		[formAction]
+		[formAction, prices]
 	);
 
 	return { onUpdateProductSubmit, state, isPending } as const;

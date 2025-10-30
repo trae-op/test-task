@@ -5,7 +5,13 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
-import { Controller, useForm, useWatch } from 'react-hook-form';
+import {
+	Controller,
+	FormProvider,
+	useForm,
+	useFormContext,
+	useWatch
+} from 'react-hook-form';
 import { MultiValue } from 'react-select';
 
 import { Button } from '@/components/Button';
@@ -18,7 +24,14 @@ import { TextField } from '@/components/TextField';
 import type { TUpdateProductFormData } from '@/hooks/updateProduct/types';
 import { useUpdateProductActions } from '@/hooks/updateProduct/useActions';
 
-import { Price } from './Price';
+import { GuaranteeEndField } from './fields/GuaranteeEndField';
+import { GuaranteeStartField } from './fields/GuaranteeStartField';
+import { IsNewField } from './fields/IsNewField';
+import { PriceField } from './fields/PriceField';
+import { SpecificationField } from './fields/SpecificationField';
+// import independent field components (to be created)
+import { TitleField } from './fields/TitleField';
+import { TypeField } from './fields/TypeField';
 import type { TUpdateProductProps } from './types';
 
 const toSelectValue = (options: SelectOption[], value?: string | number) => {
@@ -37,15 +50,13 @@ export const UpdateProduct = ({
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
 
-	console.log('>>> defaultValues:', defaultValues);
+	//console.log('>>> defaultValues:', defaultValues);
 
 	const {
-		register,
 		handleSubmit,
-		formState: { errors, isSubmitting },
-		setValue,
+		formState: { isSubmitting },
 		control
-	} = useForm<TUpdateProductFormData>({ mode: 'onBlur', defaultValues });
+	} = useFormContext<TUpdateProductFormData>();
 
 	// Selected prices accumulated via Price component
 	const [prices, setPrices] = useState<MultiValue<OptionType>>([]);
@@ -53,14 +64,11 @@ export const UpdateProduct = ({
 
 	const { onUpdateProductSubmit, state, isPending } = useUpdateProductActions();
 
-	const watchType = useWatch({ control, name: 'type' });
-	const watchGuaranteeStart = useWatch({ control, name: 'guaranteeStart' });
-
 	const isLoading = isSubmitting || isPending;
 
 	const onFormSubmit = (data: TUpdateProductFormData) => {
 		const defaultPrices = defaultValues?.prices || [];
-		console.log('>>> onFormSubmit defaultPrices:', defaultPrices);
+		//console.log('>>> onFormSubmit defaultPrices:', defaultPrices);
 		onUpdateProductSubmit(data, prices.length ? prices : defaultPrices, locale);
 	};
 
@@ -77,110 +85,14 @@ export const UpdateProduct = ({
 			<Card.Body>
 				<MessagesServer message={state.message} type='error' />
 				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
-					<Form.Group className='mb-3' controlId='title'>
-						<Form.Label>{t('Title')}</Form.Label>
-						<TextField
-							{...register('title', {
-								required: te('required')
-							})}
-							type='text'
-							placeholder={t('Enter title')}
-							isInvalid={!!errors.title}
-							errorMessage={errors.title?.message}
-						/>
-					</Form.Group>
-
-					<Form.Group className='mb-3' controlId='type'>
-						<Form.Label>{t('Type')}</Form.Label>
-						<SelectField
-							options={typeOptions}
-							value={toSelectValue(typeOptions, watchType)}
-							onChange={e => {
-								setValue('type', e.target.value);
-							}}
-							placeholder={t('Select type')}
-						/>
-						<input type='hidden' {...register('type')} />
-					</Form.Group>
-
-					<Form.Group className='mb-3' controlId='specification'>
-						<Form.Label>{t('Specification')}</Form.Label>
-						<TextField
-							{...register('specification')}
-							as='textarea'
-							placeholder={t('Enter specification')}
-						/>
-					</Form.Group>
-
-					<Form.Group className='mb-3' controlId='guaranteeStart'>
-						<Form.Label>{t('Guarantee start')}</Form.Label>
-						<Controller
-							name='guaranteeStart'
-							control={control}
-							defaultValue={defaultValues?.guaranteeStart}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									type='date'
-									isInvalid={!!errors.guaranteeStart}
-									errorMessage={errors.guaranteeStart?.message}
-								/>
-							)}
-						/>
-					</Form.Group>
-
-					<Form.Group className='mb-3' controlId='guaranteeEnd'>
-						<Form.Label>{t('Guarantee end')}</Form.Label>
-						<Controller
-							name='guaranteeEnd'
-							control={control}
-							defaultValue={defaultValues?.guaranteeEnd}
-							rules={{
-								validate: value => {
-									if (!value || !watchGuaranteeStart) return true;
-									return (
-										new Date(value) >= new Date(watchGuaranteeStart) ||
-										'End date must be after start date'
-									);
-								}
-							}}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									type='date'
-									isInvalid={!!errors.guaranteeEnd}
-									errorMessage={errors.guaranteeEnd?.message}
-								/>
-							)}
-						/>
-					</Form.Group>
-
-					<Form.Group className='mb-3' controlId='isNew'>
-						<Controller
-							name='isNew'
-							control={control}
-							defaultValue={
-								defaultValues?.isNew !== undefined ? defaultValues.isNew : true
-							}
-							render={({ field }) => (
-								<Form.Check
-									type='checkbox'
-									label={t('Available')}
-									checked={field.value}
-									onChange={e => field.onChange(e.target.checked)}
-									ref={field.ref}
-								/>
-							)}
-						/>
-					</Form.Group>
-
-					{/* Price builder (encapsulated) */}
-					<Price
-						currencyOptions={currencySelectOptions}
-						prices={defaultValues?.prices || []}
-						onChange={setPrices}
-					/>
-
+					{/* Replace with independent field components */}
+					<TitleField />
+					<TypeField typeOptions={typeOptions} />
+					<SpecificationField />
+					<GuaranteeStartField />
+					<GuaranteeEndField />
+					<IsNewField />
+					<PriceField currencyOptions={currencySelectOptions} />
 					<div className='d-flex align-items-center justify-content-center'>
 						<Button
 							text={t('Submit')}

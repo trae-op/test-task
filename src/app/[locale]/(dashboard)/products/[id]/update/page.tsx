@@ -3,7 +3,7 @@ import type { SelectOption } from '@/components/SelectField/types';
 import type { TDynamicPageProps } from '@/types/dynamicPage';
 
 import { getProducts } from '@/actions/products/action';
-import { UpdateProduct } from '@/app/_conceptions/UpdateProduct';
+import { Container } from '@/conceptions/UpdateProduct/Container';
 
 const TYPE_OPTIONS: SelectOption[] = [
 	{ value: 'phone', label: 'Phone' },
@@ -48,7 +48,7 @@ export default async function UpdateProductPage({ params }: TDynamicPageProps) {
 	// console.log('>>> product for update:', product);
 
 	return (
-		<UpdateProduct
+		<Container
 			typeOptions={TYPE_OPTIONS}
 			currencyOptions={currencyOptions}
 			defaultValues={{
