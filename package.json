@@ -11,7 +11,11 @@
 		"test:watch": "jest --watch",
 		"prisma:push": "prisma db push",
 		"prisma:studio": "prisma studio",
-		"postinstall": "prisma generate"
+		"postinstall": "prisma generate",
+		"prisma:migrate": "prisma migrate dev",
+		"prisma:migrate:reset": "prisma migrate reset",
+		"baseline:migrate": "prisma migrate dev --create-only --name init",
+		"baseline:resolve": "prisma migrate resolve --applied init"
 	},
 	"dependencies": {
 		"@prisma/client": "^6.17.1",

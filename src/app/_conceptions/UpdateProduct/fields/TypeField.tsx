@@ -5,7 +5,13 @@ import { useFormContext } from 'react-hook-form';
 import { SelectField } from '@/components/SelectField';
 import type { SelectOption } from '@/components/SelectField/types';
 
-export const TypeField = ({ typeOptions }: { typeOptions: SelectOption[] }) => {
+const TYPE_OPTIONS: SelectOption[] = [
+	{ value: 'phone', label: 'Phone' },
+	{ value: 'laptop', label: 'Laptop' },
+	{ value: 'monitor', label: 'Monitor' }
+];
+
+export const TypeField = () => {
 	const { register, setValue, watch } = useFormContext();
 	const t = useTranslations('App');
 	const value = watch('type');
@@ -20,8 +26,8 @@ export const TypeField = ({ typeOptions }: { typeOptions: SelectOption[] }) => {
 		<Form.Group className='mb-3' controlId='type'>
 			<Form.Label>{t('Type')}</Form.Label>
 			<SelectField
-				options={typeOptions}
-				value={toSelectValue(typeOptions, value)}
+				options={TYPE_OPTIONS}
+				value={toSelectValue(TYPE_OPTIONS, value)}
 				onChange={e => setValue('type', e.target.value)}
 				placeholder={t('Select type')}
 			/>

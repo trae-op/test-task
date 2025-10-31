@@ -14,3 +14,31 @@ export type TProductActionResult = {
 	code?: TErrorCodes;
 	items?: TProduct[];
 };
+
+export type TUpdateData = {
+	title: string;
+	serialNumber: string;
+	type: string;
+	specification: string;
+	guaranteeStart: string;
+	guaranteeEnd: string;
+	orderId: string;
+	isNew: boolean;
+	prices: {
+		value: string;
+		label: string;
+		valueAmount: number;
+		id: string;
+		userId: string;
+		isDefault: boolean;
+	}[];
+};
+
+//   { symbol: 'USD', value: 2332, isDefault: false },
+//   { symbol: 'UAH', value: 3232323, isDefault: true }
+
+// value: number;
+// 	symbol: 'USD' | 'UAH';
+// 	isDefault: boolean;
+// 	productId: string;
+// 	userId: string;

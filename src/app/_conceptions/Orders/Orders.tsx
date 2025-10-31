@@ -21,7 +21,7 @@ export const OrderTable = memo(
 		const items = orders || itemsState;
 
 		if (!items || items.length === 0) {
-			<EmptyData text='Could not find any orders' />;
+			return <EmptyData text='No orders available' />;
 		}
 
 		return (

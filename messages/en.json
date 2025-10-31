@@ -10,6 +10,7 @@
 		"Cancel": "Cancel",
 		"Add": "Add",
 		"Delete": "Delete",
+		"No orders available": "No orders available",
 		"Available": "Available",
 		"In Repair": "In Repair",
 		"Products": "Products",
@@ -52,6 +53,7 @@
 		"Prices": "Prices",
 		"Select currencies": "Select currencies",
 		"Is new product?": "Is new product?",
+
 		"sidebar": {
 			"Receipts": "Receipts",
 			"Products": "Products"
@@ -147,6 +149,7 @@
 			"name": "Name must be between 2 and 30 characters and contain only letters",
 			"passwordMatch": "Passwords must match",
 			"invalidInput": "Invalid input",
+			"INT4_OVERFLOW": "The price value is too large",
 			"invalidCredentials": "Invalid email or password",
 			"default": "Failed to sign in",
 			"User already exists": "User already exists",

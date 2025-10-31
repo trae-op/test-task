@@ -1,3 +1,5 @@
+import { TErrorCodes } from '@/types/errorCodes';
+
 export type TAddProductInput = {
 	title: string;
 	type?: string | null;
@@ -13,11 +15,7 @@ export type TAddProductResult =
 	| { ok: true; id: string }
 	| {
 			ok: false;
-			code:
-				| 'INVALID_INPUT'
-				| 'UNAUTHORIZED'
-				| 'SERVER_ERROR'
-				| 'ORDER_NOT_FOUND';
+			code: TErrorCodes;
 	  };
 
 export type TAddProductSubmitState = { ok: boolean; message?: string };

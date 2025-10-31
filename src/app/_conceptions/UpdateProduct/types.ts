@@ -3,28 +3,27 @@ import type { MultiValue } from 'react-select';
 import type { OptionType } from '@/components/MultiSelectField/types';
 import type { SelectOption } from '@/components/SelectField/types';
 
-import { TProduct } from '@/types/products';
+import { TProduct, TUpdateData } from '@/types/products';
+
+export type TEntity = TUpdateData;
 
 export type TPriceOption = OptionType & {
 	isDefault?: boolean;
+	valueAmount?: number;
+	userId?: string;
+	id?: string;
 };
 
-export type TUpdateProductFormData = {
-	title?: string | undefined;
-	serialNumber?: string | undefined;
-	type?: string | undefined;
-	specification?: string | undefined;
-	guaranteeStart?: string | undefined;
-	guaranteeEnd?: string | undefined;
-	orderId?: string | undefined;
-	isNew?: boolean | undefined;
-	prices?: MultiValue<TPriceOption>;
-};
+export type TUpdateFormData = TEntity;
 
-export type TUpdateProductProps = {
+export type TUpdateFormProps = {
 	typeOptions: SelectOption[];
 	currencyOptions: TPriceOption[];
-	defaultValues?: TUpdateProductFormData;
+	defaultValues?: TEntity;
+};
+
+export type TUpdateContainerProps = {
+	values?: TProduct;
 };
 
 export type TPriceProps = {

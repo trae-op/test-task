@@ -29,3 +29,13 @@ export const formatDateTime = (params: TFormatDateParams): string => {
 
 	return format(dateToFormat, finalFormat, { locale: effectiveLocale });
 };
+
+export const convertToISOStringUTC = (dateString: string): string => {
+	const utcString = `${dateString}T00:00:00.000Z`;
+	return new Date(utcString).toISOString();
+};
+
+export const convertISODateToInputDate = (isoString: string): string => {
+	if (!isoString) return '';
+	return isoString.substring(0, 10);
+};

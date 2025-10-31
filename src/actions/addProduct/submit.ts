@@ -15,7 +15,6 @@ export const addProductSubmit = async (
 	const guaranteeStart =
 		(formData.get('guaranteeStart') as string) || undefined;
 	const guaranteeEnd = (formData.get('guaranteeEnd') as string) || undefined;
-	const orderId = (formData.get('orderId') as string) || undefined;
 	const isNewRaw = (formData.get('isNew') as string) || undefined;
 	const pricesJson = String(formData.get('prices') || '[]');
 	const locale = String(formData.get('locale') || '');
@@ -35,7 +34,6 @@ export const addProductSubmit = async (
 		specification: specification ?? null,
 		guaranteeStart: guaranteeStart ?? null,
 		guaranteeEnd: guaranteeEnd ?? null,
-		orderId: orderId ?? null,
 		isNew: isNewRaw === 'true',
 		prices
 	});
@@ -48,7 +46,9 @@ export const addProductSubmit = async (
 		UNAUTHORIZED: 'default',
 		INVALID_INPUT: 'invalidInput',
 		ORDER_NOT_FOUND: 'default',
-		SERVER_ERROR: 'default'
+		SERVER_ERROR: 'default',
+		INT4_OVERFLOW: 'INT4_OVERFLOW'
 	};
+
 	return { ok: false, message: codeToKey[res.code] ?? 'default' };
 };

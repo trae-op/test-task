@@ -1,59 +1,15 @@
 import { TPrice } from '@/types/price';
-import { TProduct, TProductActionResult } from '@/types/products';
 
+import { findChangedPrices } from '@/utils/prices';
 import { getUserSession } from '@/utils/session';
 
-import type { TUpdateProductInput, TUpdateProductResult } from './types';
+import type { TPriceOption, TUpdateInput, TUpdateResult } from './types';
 import { prisma } from '@/prisma/prisma-client';
-
-// Returns prices that user changed (value, symbol, isDefault)
-const findChangedPrices = (
-	foundDefaultPrices: TPrice[],
-	transformNewPrices: {
-		symbol: 'USD' | 'UAH';
-		userId: string;
-		value: number;
-		isDefault: boolean;
-		productId: string;
-	}[]
-): {
-	symbol: 'USD' | 'UAH';
-	userId: string;
-	value: number;
-	isDefault: boolean;
-	productId: string;
-}[] => {
-	// If lengths differ, prices have changed
-	if (foundDefaultPrices.length !== transformNewPrices.length) {
-		return transformNewPrices;
-	}
-
-	// Compare each price by symbol, value, isDefault, userId, productId
-	const allMatch = transformNewPrices.every(newPrice => {
-		const found = foundDefaultPrices.find(
-			p =>
-				p.symbol === newPrice.symbol &&
-				p.userId === newPrice.userId &&
-				p.productId === newPrice.productId
-		);
-		return (
-			found &&
-			found.value === newPrice.value &&
-			found.isDefault === newPrice.isDefault
-		);
-	});
-
-	if (allMatch) {
-		return [];
-	}
-	// Return all new prices if any difference
-	return transformNewPrices;
-};
 
 export async function updateProduct(
 	id: string,
-	data: TUpdateProductInput
-): Promise<TUpdateProductResult> {
+	data: TUpdateInput
+): Promise<TUpdateResult> {
 	try {
 		const userSession = await getUserSession();
 		if (userSession === null) {
@@ -69,22 +25,20 @@ export async function updateProduct(
 			}
 		});
 
-		const transformNewPrices = newPrices.map(price => ({
+		const transformNewPrices: TPriceOption[] = newPrices.map(price => ({
 			symbol: price.symbol,
 			userId: userSession.id,
-			value: price.value || 0,
-			isDefault: Boolean(price.isDefault),
-			productId: id
+			productId: id,
+			value: Number(price.value) || 0,
+			isDefault: price.isDefault
 		}));
 
-		const changedPrices = findChangedPrices(
+		const changedPrices = findChangedPrices<TPrice, TPriceOption>({
 			foundDefaultPrices,
-			transformNewPrices
-		);
-
-		console.log('>>> foundDefaultPrices:', foundDefaultPrices);
-		console.log('>>> transformNewPrices:', transformNewPrices);
-		// console.log('>>> changedPrices:', changedPrices);
+			transformNewPrices,
+			userId: userSession.id,
+			productId: id
+		});
 
 		if (changedPrices.length) {
 			await prisma.$transaction([
@@ -95,19 +49,32 @@ export async function updateProduct(
 					}
 				}),
 				prisma.price.createMany({
-					data: changedPrices
+					data: changedPrices.map(price => ({
+						...price,
+						productId: id,
+						userId: userSession.id
+					}))
 				})
 			]);
 		}
 
 		const { prices, ...dataWithoutPrices } = data;
+		const { guaranteeStart, guaranteeEnd, title, type, specification, isNew } =
+			dataWithoutPrices;
 
 		const updated = await prisma.product.updateMany({
 			where: {
 				id,
 				userId: userSession.id
 			},
-			data: dataWithoutPrices
+			data: {
+				title,
+				type,
+				specification,
+				guaranteeStart,
+				guaranteeEnd,
+				isNew
+			}
 		});
 
 		if (updated.count === 0) {

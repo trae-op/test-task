@@ -3,30 +3,28 @@ import type { MultiValue } from 'react-select';
 
 import type { OptionType } from '@/components/MultiSelectField/types';
 
-export type TUpdateProductFormData = {
-	title: string;
-	serialNumber: string;
-	type?: string;
-	specification?: string;
-	guaranteeStart?: string;
-	guaranteeEnd?: string;
-	orderId?: string;
-	isNew?: boolean;
+import { TUpdateData } from '@/types/products';
+
+export type TUpdateFormData = TUpdateData;
+
+export type TPriceOption = OptionType & {
+	isDefault?: boolean;
+	valueAmount?: number;
+	userId?: string;
+	label?: string;
+	value?: string;
+	id?: string;
 };
 
-export type TOnUpdateProductSubmit = (
-	data: TUpdateProductFormData,
-	prices: MultiValue<OptionType>,
-	locale: string
-) => void;
+export type TOnUpdateSubmit = (data: TUpdateFormData) => void;
 
-export type TUpdateProductActions = {
-	onUpdateProductSubmit: TOnUpdateProductSubmit;
+export type TUpdateActionsHook = {
+	onUpdateSubmit: TOnUpdateSubmit;
 	state: { ok: boolean; message?: string };
 	isPending: boolean;
 };
 
-export type TUsePriceActionsArgs = {
-	onChange?: (val: MultiValue<OptionType>) => void;
-	setPrices?: Dispatch<SetStateAction<MultiValue<OptionType>>>;
+export type TPriceActionsParams = {
+	onChange?: (val: MultiValue<TPriceOption>) => void;
+	setPrices?: Dispatch<SetStateAction<MultiValue<TPriceOption>>>;
 };

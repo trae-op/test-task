@@ -1,23 +1,50 @@
 'use client';
 
+import { useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import type { TUpdateProductFormData } from '@/hooks/updateProduct/types';
+import type { TUpdateFormData } from '@/hooks/updateProduct/types';
 
-import { UpdateProduct } from './UpdateProduct';
-import type { TUpdateProductProps } from './types';
+import { convertISODateToInputDate } from '@/utils/dateTime';
 
-export const Container = (props: TUpdateProductProps) => {
-	const { defaultValues } = props;
+import { UpdateForm } from './UpdateForm';
+import type { TUpdateContainerProps } from './types';
 
-	const methods = useForm<TUpdateProductFormData>({
+export const Container = ({ values }: TUpdateContainerProps) => {
+	const defaultValues = useMemo(() => {
+		return {
+			title: values?.title || '',
+			serialNumber: values?.serialNumber || '',
+			type: values?.type || '',
+			specification: values?.specification || '',
+			guaranteeStart: convertISODateToInputDate(
+				values?.guaranteeStart?.toISOString() || ''
+			),
+			guaranteeEnd: convertISODateToInputDate(
+				values?.guaranteeEnd?.toISOString() || ''
+			),
+			orderId: values?.orderId || '',
+			isNew: values?.isNew || false,
+			prices: values?.prices
+				? values.prices.map(price => ({
+						value: price.symbol + '',
+						label: `${price.isDefault ? 'Default' : ''} ${price.value} ${price.symbol}`,
+						valueAmount: Number(price.value),
+						id: price.id,
+						userId: price.userId,
+						isDefault: price.isDefault
+					}))
+				: []
+		};
+	}, [values]);
+	const methods = useForm<TUpdateFormData>({
 		mode: 'onBlur',
 		defaultValues
 	});
 
 	return (
 		<FormProvider {...methods}>
-			<UpdateProduct {...props} />
+			<UpdateForm />
 		</FormProvider>
 	);
 };

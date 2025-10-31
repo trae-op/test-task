@@ -3,7 +3,7 @@
 import { revalidateTag } from 'next/cache';
 
 import { generateSerialNumber } from '@/utils/generateSerialNumber';
-import { isValidUuid } from '@/utils/regExp';
+import { isInt4 } from '@/utils/isInt4';
 import { getUserSession } from '@/utils/session';
 
 import type { TAddProductInput, TAddProductResult } from './types';
@@ -28,13 +28,11 @@ export const addProduct = async (
 		const guaranteeEnd = input.guaranteeEnd
 			? new Date(input.guaranteeEnd)
 			: null;
-		const orderId = input.orderId ? String(input.orderId) : null;
+
 		const prices = Array.isArray(input.prices) ? input.prices : [];
 
 		if (!title) return { ok: false, code: 'INVALID_INPUT' };
 
-		if (orderId && !isValidUuid(orderId))
-			return { ok: false, code: 'INVALID_INPUT' };
 		if (guaranteeStart && Number.isNaN(guaranteeStart.getTime()))
 			return { ok: false, code: 'INVALID_INPUT' };
 		if (guaranteeEnd && Number.isNaN(guaranteeEnd.getTime()))
@@ -42,9 +40,12 @@ export const addProduct = async (
 		if (guaranteeStart && guaranteeEnd && guaranteeStart > guaranteeEnd)
 			return { ok: false, code: 'INVALID_INPUT' };
 
-		if (orderId) {
-			const order = await prisma.order.findUnique({ where: { id: orderId } });
-			if (!order) return { ok: false, code: 'ORDER_NOT_FOUND' };
+		if (prices.length) {
+			for (const price of prices) {
+				if (!isInt4(price.value)) {
+					return { ok: false, code: 'INT4_OVERFLOW' };
+				}
+			}
 		}
 
 		const created = await prisma.product.create({

@@ -1,13 +1,14 @@
 import { useFormContext } from 'react-hook-form';
 
 import { Price } from '../Price';
-import type { TPriceOption } from '../types';
+import { TPriceOption } from '../types';
 
-export const PriceField = ({
-	currencyOptions
-}: {
-	currencyOptions: TPriceOption[];
-}) => {
+const currencyOptions: TPriceOption[] = [
+	{ value: 'USD', label: 'USD' },
+	{ value: 'UAH', label: 'UAH' }
+];
+
+export const PriceField = () => {
 	const { setValue, watch } = useFormContext();
 	const prices = watch('prices') || [];
 

@@ -1,11 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { MultiValue } from 'react-select';
 
 import type { OptionType } from '@/components/MultiSelectField/types';
 
-import type { TUsePriceActionsArgs } from './types';
+import type { TPriceActionsParams } from './types';
 
-export const usePriceActions = ({ onChange }: TUsePriceActionsArgs = {}) => {
+export const usePriceActions = ({ onChange }: TPriceActionsParams = {}) => {
 	const [amount, setAmount] = useState<string>('');
 	const [currency, setCurrency] = useState<string>('');
 	const [isDefault, setIsDefault] = useState<boolean>(false);
@@ -48,7 +48,6 @@ export const usePriceActions = ({ onChange }: TUsePriceActionsArgs = {}) => {
 
 	const handlePricesChange = useCallback(
 		(val: MultiValue<OptionType>) => {
-			// ensure at most one default remains if user removes/selects
 			const defaultItems = (val as any[]).filter(v => v.isDefault);
 			let normalized = val as any[];
 			if (defaultItems.length > 1) {
@@ -63,16 +62,32 @@ export const usePriceActions = ({ onChange }: TUsePriceActionsArgs = {}) => {
 		[pushChange]
 	);
 
-	return {
-		amount,
-		currency,
-		isDefault,
-		prices,
-		setPrices,
-		setAmount,
-		setCurrency,
-		setIsDefault,
-		handleAddPrice,
-		handlePricesChange
-	};
+	const result = useMemo(
+		() => ({
+			amount,
+			currency,
+			isDefault,
+			prices,
+			setPrices,
+			setAmount,
+			setCurrency,
+			setIsDefault,
+			handleAddPrice,
+			handlePricesChange
+		}),
+		[
+			amount,
+			currency,
+			isDefault,
+			prices,
+			setPrices,
+			setAmount,
+			setCurrency,
+			setIsDefault,
+			handleAddPrice,
+			handlePricesChange
+		]
+	);
+
+	return result;
 };

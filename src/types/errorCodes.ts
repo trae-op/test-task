@@ -2,4 +2,6 @@ export type TErrorCodes =
 	| 'UNAUTHORIZED'
 	| 'SERVER_ERROR'
 	| 'MISSING_ID'
+	| 'INVALID_INPUT'
+	| 'INT4_OVERFLOW'
 	| 'ORDER_NOT_FOUND';

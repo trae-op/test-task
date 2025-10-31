@@ -50,7 +50,6 @@ export const authOptions: NextAuthOptions = {
 	],
 	callbacks: {
 		async jwt({ token, user, trigger, session }) {
-			// Allow client-side session.update(...) to push fresh values into the JWT
 			if (trigger === 'update' && session) {
 				const nextName = (session as any).name ?? (session as any).user?.name;
 				const nextEmail =
@@ -68,12 +67,24 @@ export const authOptions: NextAuthOptions = {
 				const dbUser = await prisma.user.findUnique({
 					where: { email: token.email }
 				});
-				if (dbUser) {
+				if (dbUser !== null) {
 					token.id = dbUser.id;
 					token.name = dbUser.name ?? token.name;
 					token.picture = dbUser.ava ?? token.picture;
 					token.provider = dbUser.provider ?? 'credentials';
+				} else {
+					delete token.id;
+					delete token.email;
+					delete token.name;
+					delete token.picture;
+					delete token.provider;
 				}
+			} else {
+				delete token.id;
+				delete token.email;
+				delete token.name;
+				delete token.picture;
+				delete token.provider;
 			}
 			return token;
 		},

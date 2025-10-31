@@ -13,9 +13,7 @@ import { SelectField } from '@/components/SelectField';
 import type { SelectOption } from '@/components/SelectField/types';
 import { TextField } from '@/components/TextField';
 
-import { usePriceActions } from '@/hooks/updateProduct/usePriceActions';
-
-import type { TPriceOption, TPriceProps } from './types';
+import type { TPriceProps } from './types';
 
 export const Price = memo(({ currencyOptions }: TPriceProps) => {
 	const { setValue, watch } = useFormContext();

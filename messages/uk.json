@@ -22,6 +22,7 @@
 		"Add receipt": "Додати надходження",
 		"Receipts": "Надходження",
 		"No data": "Немає даних",
+		"No orders available": "Немає доступних замовлень",
 		"Could not find the requested page": "Не вдалося знайти запитувану сторінку",
 		"Title": "Назва",
 		"Amount": "Сума",
@@ -48,6 +49,7 @@
 		"Guarantee start": "Початок гарантії",
 		"Guarantee end": "Кінець гарантії",
 		"Order": "Замовлення",
+
 		"Select order": "Оберіть замовлення",
 		"Prices": "Ціни",
 		"Select currencies": "Оберіть валюти",
@@ -156,6 +158,7 @@
 			"name": "Ім'я повинно містити від 2 до 30 символів і тільки літери",
 			"passwordMatch": "Паролі повинні співпадати",
 			"invalidInput": "Некоректні дані",
+			"INT4_OVERFLOW": "Значення ціни занадто велике",
 			"invalidCredentials": "Невірна електронна пошта або пароль",
 			"default": "Не вдалося увійти",
 			"User already exists": "Користувач вже існує",

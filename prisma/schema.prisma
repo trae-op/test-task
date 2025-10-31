@@ -58,7 +58,7 @@ model Order {
 model Price {
   id        String   @id @default(uuid()) @db.Uuid
   value     Int
-  symbol    Currency
+  symbol    String
   isDefault Boolean  @default(false)
   productId String   @db.Uuid
   userId    String   @db.Uuid
@@ -67,9 +67,4 @@ model Price {
 
   @@index([productId])
   @@index([userId])
-}
-
-enum Currency {
-  USD
-  UAH
 }

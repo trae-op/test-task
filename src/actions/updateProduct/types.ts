@@ -1,19 +1,21 @@
-import type { TPrice } from '@/types/price';
+import { TErrorCodes } from '@/types/errorCodes';
+import type { TUpdateData } from '@/types/products';
 
-export type TUpdateProductInput = {
-	title: string;
-	type?: string | null;
-	specification?: string | null;
-	guaranteeStart?: string | null; // ISO date string yyyy-mm-dd
-	guaranteeEnd?: string | null;
-	orderId?: string | null;
-	isNew?: boolean;
-	prices: Array<{ symbol: 'USD' | 'UAH'; value: number; isDefault?: boolean }>;
+export type TEntity = TUpdateData;
+
+export type TPriceOption = {
+	value: number;
+	symbol: string;
+	isDefault: boolean;
 };
 
-export type TUpdateProductResult = {
+export type TUpdateInput = Omit<TEntity, 'prices'> & {
+	prices?: TPriceOption[];
+};
+
+export type TUpdateResult = {
 	ok: boolean;
-	code?: 'INVALID_INPUT' | 'UNAUTHORIZED' | 'SERVER_ERROR' | 'ORDER_NOT_FOUND';
+	code?: TErrorCodes;
 };
 
-export type TUpdateProductSubmitState = { ok: boolean; message?: string };
+export type TUpdateSubmitState = { ok: boolean; message?: string };
