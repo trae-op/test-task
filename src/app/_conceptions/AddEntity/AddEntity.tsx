@@ -5,10 +5,14 @@ import { useParams, usePathname } from 'next/navigation';
 import { AddEntityButton } from '@/components/AddEntityButton';
 import { NavigationLink } from '@/components/NavigationLink';
 
+import { TDynamicPageParams } from '@/types/dynamicPage';
+
 import {
 	getAddOrderHref,
 	getAddProductHref,
-	getProductUpdateHref
+	getProductUpdateHref,
+	getProfileHref,
+	getWithoutLocalePath
 } from '@/utils/routing';
 
 import styles from './AddEntity.module.scss';
@@ -25,14 +29,15 @@ export const AddEntity = () => {
 	const linkAddEntityFromContext = useLinkAddEntitySelector();
 
 	const pathname = usePathname();
-	const params = useParams();
+	const params = useParams<TDynamicPageParams>();
 
-	const normalizedPath = pathname.replace(/^\/[a-zA-Z]{2}\//, '/');
+	const withoutLocalePath = getWithoutLocalePath(pathname);
 
 	if (
-		normalizedPath === getAddOrderHref ||
-		normalizedPath === getAddProductHref ||
-		normalizedPath === getProductUpdateHref(params?.id as string)
+		withoutLocalePath === getAddOrderHref ||
+		withoutLocalePath === getAddProductHref ||
+		withoutLocalePath === getProfileHref ||
+		withoutLocalePath === getProductUpdateHref(params.id)
 	) {
 		return null;
 	}

@@ -88,3 +88,6 @@ export const getApiUrl = (path: string): string => {
 	const p = path.startsWith('/') ? path : `/${path}`;
 	return `${base}${p}`;
 };
+
+export const getWithoutLocalePath = (pathname: string): string =>
+	pathname.replace(/^\/[a-zA-Z]{2}\//, '/');
