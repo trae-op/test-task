@@ -30,15 +30,17 @@ export const AddEntity = () => {
 
 	const pathname = usePathname();
 	const params = useParams<TDynamicPageParams>();
+	const pathes = [
+		getAddOrderHref,
+		getAddProductHref,
+		getProfileHref,
+		...(params.id ? [getProductUpdateHref(params.id)] : [])
+	];
 
 	const withoutLocalePath = getWithoutLocalePath(pathname);
 
-	if (
-		withoutLocalePath === getAddOrderHref ||
-		withoutLocalePath === getAddProductHref ||
-		withoutLocalePath === getProfileHref ||
-		withoutLocalePath === getProductUpdateHref(params.id)
-	) {
+	const shouldHide = pathes.some(path => withoutLocalePath === path);
+	if (shouldHide) {
 		return null;
 	}
 
