@@ -6,17 +6,22 @@ import { useFormContext } from 'react-hook-form';
 
 import { Button } from '@/components/Button';
 import { MessagesServer } from '@/components/MessagesServer';
+import { PricesForm } from '@/components/PricesForm';
 
 import { useUpdateActions } from '@/hooks/updateProduct/useActions';
 
 import { GuaranteeEndField } from './fields/GuaranteeEndField';
 import { GuaranteeStartField } from './fields/GuaranteeStartField';
 import { IsNewField } from './fields/IsNewField';
-import { PriceField } from './fields/PriceField';
 import { SpecificationField } from './fields/SpecificationField';
 import { TitleField } from './fields/TitleField';
 import { TypeField } from './fields/TypeField';
-import type { TUpdateFormData } from './types';
+import type { TPriceOption, TUpdateFormData } from './types';
+
+const currencyOptions: TPriceOption[] = [
+	{ value: 'USD', label: 'USD' },
+	{ value: 'UAH', label: 'UAH' }
+];
 
 export const UpdateForm = () => {
 	const t = useTranslations('App');
@@ -42,14 +47,13 @@ export const UpdateForm = () => {
 			<Card.Body>
 				<MessagesServer message={state.message} type='error' />
 				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
-					{/* Replace with independent field components */}
 					<TitleField />
 					<TypeField />
 					<SpecificationField />
 					<GuaranteeStartField />
 					<GuaranteeEndField />
 					<IsNewField />
-					<PriceField />
+					<PricesForm currencyOptions={currencyOptions} />
 					<div className='d-flex align-items-center justify-content-center'>
 						<Button
 							text={t('Submit')}

@@ -120,6 +120,7 @@ export const OrderRow = memo(
 							</div>
 						</div>
 					</NavigationLink>
+
 					{isDeleteButton && <DeleteEntity id={id} />}
 
 					{hasAdaptiveTable && entityId !== id && !isDeleteButton && (

@@ -71,6 +71,15 @@
 		}
 	}
 
+	&__state {
+		&-new {
+			color: var(--color-state-odd);
+		}
+		&-used {
+			color: var(--color-state-even);
+		}
+	}
+
 	&__guarantee {
 		display: flex;
 		flex-direction: column;

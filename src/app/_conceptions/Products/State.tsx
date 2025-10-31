@@ -9,6 +9,11 @@ const BLOCK = 'product-item';
 
 export const ProductState = memo(({ isNew }: TProductStateProps) => {
 	const t = useTranslations('App.products.state');
+
+	if (isNew === undefined) {
+		return null;
+	}
+
 	return (
 		<div className={clsx(styles[`${BLOCK}__state`], 'w-50')}>
 			{isNew ? (

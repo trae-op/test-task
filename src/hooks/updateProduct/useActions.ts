@@ -6,14 +6,13 @@ import { useFormContext } from 'react-hook-form';
 
 import { TDynamicPageParams } from '@/types/dynamicPage';
 
-import { updateProductSubmit } from '../../actions/updateProduct/submit';
-import type { TUpdateSubmitState } from '../../actions/updateProduct/types';
-
 import type {
 	TPriceOption,
 	TUpdateActionsHook,
 	TUpdateFormData
 } from './types';
+import { updateProductSubmit } from '@/actions/updateProduct/submit';
+import type { TUpdateSubmitState } from '@/actions/updateProduct/types';
 
 export const useUpdateActions = (): TUpdateActionsHook => {
 	const { watch } = useFormContext();

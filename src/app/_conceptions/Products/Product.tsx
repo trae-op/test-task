@@ -3,11 +3,14 @@
 import clsx from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
+import { Pencil } from 'react-bootstrap-icons';
 
+import { NavigationLink } from '@/components/NavigationLink/NavigationLink';
 import { Picture } from '@/components/Picture';
 import { Price } from '@/components/Price';
 
 import { formatDateTime } from '@/utils/dateTime';
+import { getProductUpdateHref } from '@/utils/routing/routing';
 
 import styles from './Products.module.scss';
 import { ProductState } from './State';
@@ -16,6 +19,10 @@ import { DeleteEntity as DeleteProducts } from '@/conceptions/DeleteProducts';
 import { useAdaptiveTableSelector } from '@/context/products/useContext';
 
 const BLOCK = 'product-item';
+
+function UpdateIcon() {
+	return <Pencil className={styles[`${BLOCK}__icon`]} size={15} />;
+}
 
 export const ProductRow = memo(
 	({
@@ -76,7 +83,7 @@ export const ProductRow = memo(
 						</div>
 					</div>
 
-					{isNew !== undefined && <ProductState isNew={isNew} />}
+					<ProductState isNew={isNew} />
 
 					{Boolean(guaranteeStart || guaranteeEnd) && (
 						<div className={clsx(styles[`${BLOCK}__guarantee`], 'w-75')}>
@@ -113,6 +120,14 @@ export const ProductRow = memo(
 							<span className='fs-1'>-</span>
 						</div>
 					)}
+
+					<div className='d-flex align-items-center justify-content-center h-100'>
+						<NavigationLink
+							className='d-flex align-items-center justify-content-center px-3 h-100'
+							component={UpdateIcon}
+							href={getProductUpdateHref(id)}
+						/>
+					</div>
 
 					{isDeleteButton && <DeleteProducts id={id} />}
 				</td>
