@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { memo, useEffect, useState } from 'react';
+import { memo } from 'react';
 import { GearFill } from 'react-bootstrap-icons';
 
 import { CircleActionButton } from '@/components/CircleActionButton';
@@ -34,38 +34,25 @@ export const Sidebar = memo(({ items }: TSidebarProps) => {
 	const tReceipts = useTranslations('App.sidebar');
 	const avatarProfile = useAvatarProfileSelector();
 
-	const [imageKey, setImageKey] = useState(0);
-	useEffect(() => {
-		const timer = setInterval(() => {
-			setImageKey(prev => prev + 1);
-		}, 5000);
-
-		return () => clearInterval(timer);
-	}, []);
-
 	if (!session) {
 		return null;
 	}
-
-	console.log('Sidebar avatarProfile', `${avatarProfile}&v=${Date.now()}`);
 
 	return (
 		<div className={styles[BLOCK]}>
 			<div className={styles[`${BLOCK}__profile`]}>
 				<Picture
 					src={
-						avatarProfile
-							? `${avatarProfile}&v=${imageKey}`
-							: getFullPathUploadPicture({
-									id: session.user.id,
-									name: session.user.image || ''
-								})
+						avatarProfile ||
+						getFullPathUploadPicture({
+							id: session.user.id,
+							name: session.user.image || ''
+						})
 					}
 					alt='Ava'
 					size='full'
 					sizes='150px'
 					priority
-					unoptimized
 					className={styles[`${BLOCK}__avatar`]}
 				/>
 

@@ -31,8 +31,6 @@ export const POST = async (req: NextRequest) => {
 			}
 		});
 
-		// revalidatePath('profile');
-
 		return NextResponse.json(
 			{
 				ava: response.ava || '',
@@ -43,7 +41,6 @@ export const POST = async (req: NextRequest) => {
 			}
 		);
 	} catch (error) {
-		console.error('Profile avatar error:', error);
 		return NextResponse.json(
 			{
 				message: 'Something wrong!',

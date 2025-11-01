@@ -55,8 +55,6 @@ export const POST = async (req: NextRequest) => {
 		// 	await imageKit.deleteFile(deleteId);
 		// }
 
-		console.log('fileName, folder', fileName, folder);
-
 		const response = await imageKit.upload({
 			file: base64String,
 			fileName,

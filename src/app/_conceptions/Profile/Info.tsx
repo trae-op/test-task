@@ -3,7 +3,6 @@
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
 import { memo, useCallback, useState } from 'react';
 import { Card, Col, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
@@ -30,7 +29,7 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 	const t = useTranslations('App');
 	const te = useTranslations('App.errors');
 	const { data: session } = useSession();
-	const router = useRouter();
+
 	const setAvatarProfile = useSetAvatarProfileDispatch();
 
 	const params = useParams();
@@ -52,12 +51,12 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 					}>('profile-avatar', formData);
 					if (response.results.ok) {
 						setPending(false);
-						// router.refresh();
+
 						if (session) {
 							setAvatarProfile(
 								getFullPathUploadPicture({
 									id: session.user.id,
-									name: session.user.image || ''
+									name: ava || ''
 								})
 							);
 						}
