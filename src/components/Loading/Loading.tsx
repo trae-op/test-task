@@ -1,10 +1,10 @@
 import { Spinner } from 'react-bootstrap';
 
-import styles from './LoadingPage.module.scss';
+import styles from './Loading.module.scss';
 
 const BLOCK = 'loading';
 
-export const LoadingPage = () => {
+export const Loading = () => {
 	return (
 		<div className={styles[BLOCK]}>
 			<Spinner

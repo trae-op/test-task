@@ -8,7 +8,9 @@ export type TProviderProps = PropsWithChildren & {};
 
 export type TContext = {
 	getEntitiesTitle: () => string | undefined;
+	getAvatarProfile: () => string | undefined;
 	getEntitiesTotal: () => number | undefined;
+	setAvatarProfile: (picture: string) => void;
 	setEntitiesTitle: (title: string) => void;
 	setEntitiesTotal: (total: number) => void;
 	getLinkAddEntity: () => string | undefined;

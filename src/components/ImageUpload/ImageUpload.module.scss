@@ -1,0 +1,15 @@
+.upload {
+	position: relative;
+	&__container {
+		border: 2px dashed var(--color-slate);
+		cursor: pointer;
+		height: 300px;
+	}
+
+	&__cropper {
+		background-color: var(--color-surface);
+		height: 300px;
+		position: relative;
+		margin-top: -300px;
+	}
+}

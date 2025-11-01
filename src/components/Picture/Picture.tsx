@@ -23,6 +23,7 @@ export const Picture = memo(
 		aspectRatio,
 		fit = 'cover',
 		alt = '',
+		src,
 		...rest
 	}: TPictureProps & { alt?: string }) => {
 		const [isLoading, setIsLoading] = useState(true);
@@ -79,6 +80,7 @@ export const Picture = memo(
 					className={imageClassName}
 					onLoad={handleLoad}
 					onError={handleError}
+					src={src || ''}
 					style={{ objectFit: fit }}
 					alt={alt}
 					{...(isFull

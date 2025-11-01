@@ -9,11 +9,16 @@ export const Context = createContext<TContext | null>(null);
 export function Provider({ children }: TProviderProps) {
 	const title = useRef('');
 	const total = useRef(0);
+	const avatarProfile = useRef('');
 	const linkAddEntity = useRef('');
 	const subscribers = useRef<Set<TSubscriberCallback>>(new Set());
 
 	const getEntitiesTitle = useCallback((): string | undefined => {
 		return title.current;
+	}, []);
+
+	const getAvatarProfile = useCallback((): string | undefined => {
+		return avatarProfile.current;
 	}, []);
 
 	const getLinkAddEntity = useCallback((): string | undefined => {
@@ -22,6 +27,11 @@ export function Provider({ children }: TProviderProps) {
 
 	const getEntitiesTotal = useCallback((): number | undefined => {
 		return total.current;
+	}, []);
+
+	const setAvatarProfile = useCallback((value: string): void => {
+		avatarProfile.current = value;
+		subscribers.current.forEach(callback => callback());
 	}, []);
 
 	const setEntitiesTitle = useCallback((value: string): void => {
@@ -53,7 +63,9 @@ export function Provider({ children }: TProviderProps) {
 				getLinkAddEntity,
 				setLinkAddEntity,
 				setEntitiesTitle,
+				setAvatarProfile,
 				setEntitiesTotal,
+				getAvatarProfile,
 				getEntitiesTitle,
 				getEntitiesTotal,
 				subscribe

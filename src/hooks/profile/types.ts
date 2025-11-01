@@ -1,6 +1,7 @@
 export type TProfileFormData = {
 	name?: string;
 	email: string;
+	id: string;
 };
 
 export type TPasswordFormData = {

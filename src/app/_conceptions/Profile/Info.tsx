@@ -3,24 +3,84 @@
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
-import { memo } from 'react';
-import { Card, Form } from 'react-bootstrap';
+import { useRouter } from 'next/navigation';
+import { memo, useCallback, useState } from 'react';
+import { Card, Col, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/Button/Button';
+import { ImageUpload } from '@/components/ImageUpload';
+import { TResultUploadPicture } from '@/components/ImageUpload/types';
 import { MessagesServer } from '@/components/MessagesServer/MessagesServer';
 import { TextField } from '@/components/TextField/TextField';
+import { useActions } from '@/components/Toaster/useActions';
 
 import type { TProfileFormData } from '@/hooks/profile/types';
 import { useProfileActions } from '@/hooks/profile/useProfileActions';
 
+import { profileAvatar } from '@/services/profile';
+
 import { EMAIL_PATTERN, isValidName } from '@/utils/regExp';
+import { getFullPathUploadPicture } from '@/utils/upload-files';
+import { uploadsPictures } from '@/utils/upload-files';
+
+import { useSetAvatarProfileDispatch } from '@/context/global/useContext';
 
 export const Info = memo((defaultValues: TProfileFormData) => {
 	const t = useTranslations('App');
 	const te = useTranslations('App.errors');
+	const { data: session } = useSession();
+	const router = useRouter();
+	const setAvatarProfile = useSetAvatarProfileDispatch();
+
 	const params = useParams();
+	const { setToast } = useActions();
+	const [pending, setPending] = useState(false);
 	const locale = (params?.locale as string) || '';
+
+	const handleSuccess = useCallback(
+		async ({ data }: TResultUploadPicture) => {
+			const ava = data.name;
+			if (typeof ava === 'string' && ava.length) {
+				const formData = new FormData();
+				formData.append('ava', ava);
+
+				try {
+					const response = await profileAvatar<{
+						ok: boolean;
+						ava: string;
+					}>('profile-avatar', formData);
+					if (response.results.ok) {
+						setPending(false);
+						// router.refresh();
+						if (session) {
+							setAvatarProfile(
+								getFullPathUploadPicture({
+									id: session.user.id,
+									name: session.user.image || ''
+								})
+							);
+						}
+					}
+				} catch (error) {
+					if (error instanceof Response) {
+						const { message } = await error.json();
+						setToast(message, 'error');
+						setPending(false);
+					}
+				}
+			}
+		},
+		[setPending, setToast]
+	);
+
+	const handleBeforeSuccess = () => {
+		setPending(true);
+	};
+
+	const handleFail = () => {
+		setPending(false);
+	};
 
 	const {
 		register,
@@ -43,48 +103,68 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 					message={state.message}
 					type={state.ok ? 'success' : 'error'}
 				/>
-				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
-					<Form.Group className='mb-3' controlId='name'>
-						<Form.Label>{t('Profile.info.fields.name')}</Form.Label>
-						<TextField
-							{...register('name', {
-								validate: value => {
-									if (!value) return true;
-									return isValidName(value) || te('name');
-								}
-							})}
-							type='text'
-							placeholder={t('Profile.info.placeholders.name')}
-							isInvalid={!!errors.name}
-							errorMessage={errors.name?.message}
+				<Row>
+					<Col xs={12} lg={6} className='d-flex justify-content-center'>
+						<ImageUpload
+							imageOptions={{
+								fileName: uploadsPictures(`${defaultValues.id}`).fileName,
+								folder: uploadsPictures(`${defaultValues.id}`).folder
+							}}
+							pendingUpload={pending}
+							handleBeforeSuccess={handleBeforeSuccess}
+							handleSuccess={handleSuccess}
+							handleFail={handleFail}
 						/>
-					</Form.Group>
+					</Col>
+					<Col xs={12} lg={6}>
+						<Form
+							className='w-100'
+							noValidate
+							onSubmit={handleSubmit(onFormSubmit)}
+						>
+							<Form.Group className='mb-3' controlId='name'>
+								<Form.Label>{t('Profile.info.fields.name')}</Form.Label>
+								<TextField
+									{...register('name', {
+										validate: value => {
+											if (!value) return true;
+											return isValidName(value) || te('name');
+										}
+									})}
+									type='text'
+									placeholder={t('Profile.info.placeholders.name')}
+									isInvalid={!!errors.name}
+									errorMessage={errors.name?.message}
+								/>
+							</Form.Group>
 
-					<Form.Group className='mb-3' controlId='email'>
-						<Form.Label>{t('Profile.info.fields.email')}</Form.Label>
-						<TextField
-							{...register('email', {
-								required: te('required'),
-								validate: value => EMAIL_PATTERN.test(value) || te('email')
-							})}
-							type='email'
-							placeholder={t('Profile.info.placeholders.email')}
-							isInvalid={!!errors.email}
-							errorMessage={errors.email?.message}
-						/>
-					</Form.Group>
+							<Form.Group className='mb-3' controlId='email'>
+								<Form.Label>{t('Profile.info.fields.email')}</Form.Label>
+								<TextField
+									{...register('email', {
+										required: te('required'),
+										validate: value => EMAIL_PATTERN.test(value) || te('email')
+									})}
+									type='email'
+									placeholder={t('Profile.info.placeholders.email')}
+									isInvalid={!!errors.email}
+									errorMessage={errors.email?.message}
+								/>
+							</Form.Group>
 
-					<div className='d-flex align-items-center justify-content-center'>
-						<Button
-							text={t('Apply')}
-							type='submit'
-							variant='success'
-							isLoading={isLoading}
-							disabled={isLoading}
-							className='ps-3 pe-3'
-						/>
-					</div>
-				</Form>
+							<div className='d-flex align-items-center justify-content-center'>
+								<Button
+									text={t('Apply')}
+									type='submit'
+									variant='success'
+									isLoading={isLoading}
+									disabled={isLoading}
+									className='ps-3 pe-3'
+								/>
+							</div>
+						</Form>
+					</Col>
+				</Row>
 			</Card.Body>
 		</Card>
 	);
