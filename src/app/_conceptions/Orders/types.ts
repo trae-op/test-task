@@ -7,9 +7,13 @@ export type TEntity = TOrder;
 
 export type TOrderProps = TEntity & {
 	isDeleteButton?: boolean;
+	isUpdateButton?: boolean;
 	prices?: TPrice[];
 };
 
-export type TOrdersProps = Pick<TOrderProps, 'isDeleteButton'> & {
+export type TOrdersProps = Pick<
+	TOrderProps,
+	'isDeleteButton' | 'isUpdateButton'
+> & {
 	items?: TEntity[];
 };

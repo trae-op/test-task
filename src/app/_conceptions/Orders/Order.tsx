@@ -36,6 +36,7 @@ export const OrderRow = memo(
 		prices,
 		amountOfProducts = 0,
 		id,
+		isUpdateButton = true,
 		isDeleteButton = true
 	}: TOrderProps) => {
 		const entityId = useEntityIdSelector();
@@ -125,13 +126,15 @@ export const OrderRow = memo(
 						</div>
 					</NavigationLink>
 
-					<div className='d-flex align-items-center justify-content-center h-100'>
-						<NavigationLink
-							className='d-flex align-items-center justify-content-center px-3 h-100'
-							component={UpdateIcon}
-							href={getOrderUpdateHref(id)}
-						/>
-					</div>
+					{isUpdateButton && (
+						<div className='d-flex align-items-center justify-content-center h-100'>
+							<NavigationLink
+								className='d-flex align-items-center justify-content-center px-3 h-100'
+								component={UpdateIcon}
+								href={getOrderUpdateHref(id)}
+							/>
+						</div>
+					)}
 
 					{isDeleteButton && <DeleteEntity id={id} />}
 

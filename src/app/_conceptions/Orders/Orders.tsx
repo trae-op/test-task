@@ -15,7 +15,7 @@ import { useAdaptiveTableSelector } from '@/context/orders/useContext';
 const BLOCK = 'order-table';
 
 export const OrderTable = memo(
-	({ isDeleteButton, items: orders }: TOrdersProps) => {
+	({ isDeleteButton, isUpdateButton, items: orders }: TOrdersProps) => {
 		const itemsState = useListSelector();
 		const hasAdaptiveTable = useAdaptiveTableSelector();
 		const items = orders || itemsState;
@@ -37,6 +37,7 @@ export const OrderTable = memo(
 							<OrderRow
 								key={item.id}
 								isDeleteButton={isDeleteButton}
+								isUpdateButton={isUpdateButton}
 								{...item}
 							/>
 						))}

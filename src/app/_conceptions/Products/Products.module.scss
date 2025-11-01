@@ -124,8 +124,8 @@
 		border-radius: 50%;
 	}
 
-	&__icon {
-		color: var(--color-gray);
+	& a:hover &__icon {
+		color: var(--color-brand-green-dark);
 	}
 
 	&__count {
