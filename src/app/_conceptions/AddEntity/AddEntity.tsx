@@ -10,6 +10,7 @@ import { TDynamicPageParams } from '@/types/dynamicPage';
 import {
 	getAddOrderHref,
 	getAddProductHref,
+	getOrderUpdateHref,
 	getProductUpdateHref,
 	getProfileHref,
 	getWithoutLocalePath
@@ -34,7 +35,8 @@ export const AddEntity = () => {
 		getAddOrderHref,
 		getAddProductHref,
 		getProfileHref,
-		...(params.id ? [getProductUpdateHref(params.id)] : [])
+		...(params.id ? [getProductUpdateHref(params.id)] : []),
+		...(params.id ? [getOrderUpdateHref(params.id)] : [])
 	];
 
 	const withoutLocalePath = getWithoutLocalePath(pathname);

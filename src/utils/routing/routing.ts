@@ -73,6 +73,8 @@ export const getOrderDetailHref = (id: string | number): string =>
 	`${getOrdersHref}/${id}`;
 export const getProductUpdateHref = (id: string | number): string =>
 	`${getProductsHref}/${id}/update`;
+export const getOrderUpdateHref = (id: string | number): string =>
+	`${getOrdersHref}/${id}/update`;
 
 // Resolve base URL from env in a simple, predictable way
 export const getBaseUrl = (): string => {

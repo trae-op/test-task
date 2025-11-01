@@ -3,13 +3,13 @@
 import { clsx } from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
 import { memo, useCallback } from 'react';
-import { CaretRight, ListUl } from 'react-bootstrap-icons';
+import { CaretRight, ListUl, Pencil } from 'react-bootstrap-icons';
 
 import { NavigationLink } from '@/components/NavigationLink';
 import { Price } from '@/components/Price';
 
 import { formatDateTime } from '@/utils/dateTime';
-import { getOrderDetailHref } from '@/utils/routing';
+import { getOrderDetailHref, getOrderUpdateHref } from '@/utils/routing';
 
 import styles from './Orders.module.scss';
 import { type TOrderProps } from './types';
@@ -20,6 +20,10 @@ import {
 } from '@/context/orders/useContext';
 
 const BLOCK = 'order-item';
+
+function UpdateIcon() {
+	return <Pencil className={styles[`${BLOCK}__icon`]} size={15} />;
+}
 
 function ListUlIcon() {
 	return <ListUl className={styles[`${BLOCK}__icon`]} size={15} />;
@@ -120,6 +124,14 @@ export const OrderRow = memo(
 							</div>
 						</div>
 					</NavigationLink>
+
+					<div className='d-flex align-items-center justify-content-center h-100'>
+						<NavigationLink
+							className='d-flex align-items-center justify-content-center px-3 h-100'
+							component={UpdateIcon}
+							href={getOrderUpdateHref(id)}
+						/>
+					</div>
 
 					{isDeleteButton && <DeleteEntity id={id} />}
 

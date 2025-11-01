@@ -5,7 +5,7 @@ import { MultiValue } from 'react-select';
 import { MultiSelectField } from '@/components/MultiSelectField';
 import { OptionType } from '@/components/MultiSelectField/types';
 
-import type { TPriceOption } from '../types';
+import { TPriceOption } from '@/hooks/pricesForm/types';
 
 type TListFieldProps = {
 	prices: TPriceOption[];
