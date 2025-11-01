@@ -10,8 +10,8 @@ import type { OptionType } from '@/components/MultiSelectField/types';
 import type { TDynamicPageParams } from '@/types/dynamicPage';
 
 import type { TUpdateOrderFormData, TUpdateOrderHookReturn } from './types';
+import { updateOrder } from '@/actions/updateOrder/action';
 import type { TUpdateOrderSubmitState } from '@/actions/updateOrder/types';
-import { updateOrder } from '@/actions/updateOrder/updateOrder';
 
 export const useUpdateOrderForm = (): TUpdateOrderHookReturn => {
 	const params = useParams<TDynamicPageParams>();

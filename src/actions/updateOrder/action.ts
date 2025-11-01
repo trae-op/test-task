@@ -12,6 +12,11 @@ export const updateOrder = async (
 	_prevState: TUpdateOrderSubmitState,
 	formData: FormData
 ): Promise<TUpdateOrderSubmitState> => {
+	const userSession = await getUserSession();
+	if (userSession === null) {
+		return { ok: false, message: 'default' };
+	}
+
 	const id = String(formData.get('orderId') || '').trim();
 	const title = String(formData.get('title') || '').trim();
 	const description = (formData.get('description') as string) || '';
@@ -29,8 +34,6 @@ export const updateOrder = async (
 
 	const res: TUpdateOrderResult = await (async () => {
 		try {
-			const userSession = await getUserSession();
-			if (userSession === null) return { ok: false, code: 'UNAUTHORIZED' };
 			const updated = await prisma.order.updateMany({
 				where: { id, userId: userSession.id },
 				data: {
@@ -54,13 +57,13 @@ export const updateOrder = async (
 
 			if (hasChanges) {
 				const updateOperations: Array<
-					ReturnType<typeof prisma.product.updateMany>
+					| ReturnType<typeof prisma.product.deleteMany>
+					| ReturnType<typeof prisma.product.updateMany>
 				> = [];
 				if (toDisconnect.length) {
 					updateOperations.push(
-						prisma.product.updateMany({
-							where: { id: { in: toDisconnect }, userId: userSession.id },
-							data: { orderId: null }
+						prisma.product.deleteMany({
+							where: { id: { in: toDisconnect }, userId: userSession.id }
 						})
 					);
 				}

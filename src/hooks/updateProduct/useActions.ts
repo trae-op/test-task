@@ -11,7 +11,7 @@ import type {
 	TUpdateActionsHook,
 	TUpdateFormData
 } from './types';
-import { updateProductSubmit } from '@/actions/updateProduct/submit';
+import { updateProduct } from '@/actions/updateProduct';
 import type { TUpdateSubmitState } from '@/actions/updateProduct/types';
 
 export const useUpdateActions = (): TUpdateActionsHook => {
@@ -19,7 +19,7 @@ export const useUpdateActions = (): TUpdateActionsHook => {
 	const [state, formAction, isPending] = useActionState<
 		TUpdateSubmitState,
 		FormData
-	>(updateProductSubmit, { ok: false });
+	>(updateProduct, { ok: false });
 	const params = useParams<TDynamicPageParams>();
 	const prices: TPriceOption[] = watch('prices');
 
