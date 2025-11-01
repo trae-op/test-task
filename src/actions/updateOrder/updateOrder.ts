@@ -8,8 +8,6 @@ import { getUserSession } from '@/utils/session';
 import type { TUpdateOrderResult, TUpdateOrderSubmitState } from './types';
 import { prisma } from '@/prisma/prisma-client';
 
-const isValidUuid = (v?: string | null) => !!v && /^[0-9a-fA-F-]{36}$/.test(v);
-
 export const updateOrder = async (
 	_prevState: TUpdateOrderSubmitState,
 	formData: FormData
@@ -23,17 +21,11 @@ export const updateOrder = async (
 		return { ok: false, message: 'invalidInput' };
 	}
 
-	if (!isValidUuid(id)) return { ok: false, message: 'invalidInput' };
-
 	let products: string[] = [];
 	try {
 		const parsed = JSON.parse(productsJson);
 		if (Array.isArray(parsed)) products = parsed.map(String);
 	} catch {}
-
-	for (const pid of products) {
-		if (!isValidUuid(pid)) return { ok: false, message: 'invalidInput' };
-	}
 
 	const res: TUpdateOrderResult = await (async () => {
 		try {
@@ -61,9 +53,11 @@ export const updateOrder = async (
 			});
 
 			if (hasChanges) {
-				const tx: Array<ReturnType<typeof prisma.product.updateMany>> = [];
+				const updateOperations: Array<
+					ReturnType<typeof prisma.product.updateMany>
+				> = [];
 				if (toDisconnect.length) {
-					tx.push(
+					updateOperations.push(
 						prisma.product.updateMany({
 							where: { id: { in: toDisconnect }, userId: userSession.id },
 							data: { orderId: null }
@@ -71,14 +65,15 @@ export const updateOrder = async (
 					);
 				}
 				if (toConnect.length) {
-					tx.push(
+					updateOperations.push(
 						prisma.product.updateMany({
 							where: { id: { in: toConnect }, userId: userSession.id },
 							data: { orderId: id }
 						})
 					);
 				}
-				if (tx.length) await prisma.$transaction(tx);
+				if (updateOperations.length)
+					await prisma.$transaction(updateOperations);
 			}
 
 			revalidateTag('orders');
