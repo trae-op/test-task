@@ -1,6 +1,7 @@
 'use client';
 
 import { useParams, usePathname } from 'next/navigation';
+import type { PropsWithChildren } from 'react';
 
 import { AddEntityButton } from '@/components/AddEntityButton';
 import { NavigationLink } from '@/components/NavigationLink';
@@ -25,7 +26,7 @@ import {
 
 const BLOCK = 'add-entity';
 
-export const AddEntity = () => {
+export const AddEntity = ({ children }: PropsWithChildren) => {
 	const totalFromContext = useEntitiesTotalSelector();
 	const linkAddEntityFromContext = useLinkAddEntitySelector();
 
@@ -60,6 +61,8 @@ export const AddEntity = () => {
 				<span className={styles[`${BLOCK}__separator`]}>/</span>
 				<span>{totalFromContext || 0}</span>
 			</div>
+
+			{children}
 		</div>
 	);
 };
