@@ -35,13 +35,3 @@ export async function getProducts(
 		return { ok: false, code: 'SERVER_ERROR' };
 	}
 }
-
-export async function filterProductsByType(
-	type: string,
-	options?: Omit<TOptions, 'whereFilters'>
-): Promise<TProductActionResult> {
-	return getProducts({
-		...(options || {}),
-		whereFilters: { type }
-	});
-}

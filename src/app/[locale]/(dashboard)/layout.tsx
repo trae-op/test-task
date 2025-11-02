@@ -5,7 +5,7 @@ import { getFullPathUploadPicture } from '@/utils/upload-files';
 import styles from './Layout.module.scss';
 import { getPictureByEntityId } from '@/actions/pictures/profile';
 import { AddEntity } from '@/conceptions/AddEntity';
-import { FilterProducts } from '@/conceptions/FilterProducts';
+import { FilterProductsWrapper } from '@/conceptions/FilterProducts';
 import { LocalizationDropdown } from '@/conceptions/LocalizationDropdown';
 import { Sidebar } from '@/conceptions/Sidebar';
 import type { TSidebarNavItem } from '@/conceptions/Sidebar/types';
@@ -49,7 +49,7 @@ export default async function AuthLayout({
 					<Sidebar items={navigationItems} />
 					<div className={styles[`${BLOCK}__content`]}>
 						<AddEntity>
-							<FilterProducts />
+							<FilterProductsWrapper />
 						</AddEntity>
 
 						{children}

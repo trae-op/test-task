@@ -1,4 +1,6 @@
 .base-button {
+	min-width: var(--size-150);
+	height: 40px;
 	&--rounded {
 		border-radius: 50rem !important;
 	}

@@ -35,9 +35,7 @@ export const Button = ({
 		{...rest}
 	>
 		{isLoading ? (
-			<Spinner animation='border' role='status'>
-				<span className='visually-hidden'>Loading...</span>
-			</Spinner>
+			<Spinner animation='border' size='sm' />
 		) : (
 			<>
 				<Icon

@@ -135,7 +135,6 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 									variant='success'
 									isLoading={isLoading}
 									disabled={isLoading}
-									className='ps-3 pe-3'
 								/>
 							</div>
 						</Form>

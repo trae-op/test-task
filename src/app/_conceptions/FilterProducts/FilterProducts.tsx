@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import { SelectField } from '@/components/SelectField';
@@ -17,13 +17,12 @@ const OPTIONS: TOption[] = [
 	{ value: 'monitor', label: 'monitor' }
 ];
 
-export const FilterProducts = () => {
+export const FilterProducts = memo(() => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 	const [loading, setLoading] = useState(false);
 
-	// Render only on products listing route
 	const withoutLocalePath = useMemo(
 		() => (pathname ? getWithoutLocalePath(pathname) : ''),
 		[pathname]
@@ -32,21 +31,33 @@ export const FilterProducts = () => {
 
 	const currentType = searchParams.get('type') ?? '';
 
-	const handleChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
-		const value = e.target.value;
-		if (value === currentType) return;
-		const params = new URLSearchParams(searchParams.toString());
-		if (!value) params.delete('type');
-		else params.set('type', value);
-		const queryString = params.toString();
-		const url = queryString ? `${pathname}?${queryString}` : pathname;
-		setLoading(true);
-		router.push(url);
-		router.refresh();
-	};
+	const handleChange: React.ChangeEventHandler<HTMLSelectElement> = useCallback(
+		event => {
+			const value = event.target.value;
+
+			if (value === currentType) {
+				return;
+			}
+
+			const params = new URLSearchParams(searchParams.toString());
+
+			if (!value) {
+				params.delete('type');
+			} else {
+				params.set('type', value);
+			}
+
+			const queryString = params.toString();
+			const url = queryString ? `${pathname}?${queryString}` : pathname;
+			setLoading(true);
+			router.push(url);
+			router.refresh();
+		},
+		[currentType, pathname, router, searchParams]
+	);
 
 	return (
-		<div className='d-flex align-items-center justify-content-center gap-2'>
+		<div className='d-flex align-items-center justify-content-center gap-1'>
 			<SelectField
 				options={OPTIONS}
 				value={currentType}
@@ -62,4 +73,4 @@ export const FilterProducts = () => {
 			)}
 		</div>
 	);
-};
+});

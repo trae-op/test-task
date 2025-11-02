@@ -1,4 +1,4 @@
-import { filterProductsByType, getProducts } from '@/actions/products';
+import { getProducts } from '@/actions/products';
 import { Container } from '@/conceptions/Products';
 import { Provider } from '@/context/products';
 
@@ -7,8 +7,8 @@ export default async function ProductsPage({
 }: {
 	searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-	const sp = await searchParams;
-	const typeParamRaw = sp?.type;
+	const params = await searchParams;
+	const typeParamRaw = params?.type;
 	const typeParam = Array.isArray(typeParamRaw)
 		? typeParamRaw[0]
 		: typeof typeParamRaw === 'string'
@@ -28,9 +28,10 @@ export default async function ProductsPage({
 		type: true
 	} as const;
 
-	const { items, ok } = typeParam
-		? await filterProductsByType(typeParam, { selectFields })
-		: await getProducts({ selectFields });
+	const { items, ok } = await getProducts({
+		selectFields,
+		...(typeParam ? { whereFilters: { type: typeParam } } : {})
+	});
 
 	return (
 		<Provider items={ok ? items : []}>
