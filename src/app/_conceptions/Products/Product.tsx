@@ -35,6 +35,7 @@ export const ProductRow = memo(
 		prices,
 		photo,
 		order,
+		type,
 		isDeleteButton = true
 	}: TProductProps) => {
 		const hasAdaptiveTable = useAdaptiveTableSelector();
@@ -84,6 +85,18 @@ export const ProductRow = memo(
 					</div>
 
 					<ProductState isNew={isNew} />
+
+					{type !== undefined && type !== null && (
+						<div className='w-75 text-center'>
+							<span>{type}</span>
+						</div>
+					)}
+
+					{!hasAdaptiveTable && (type === undefined || type === null) && (
+						<div className='w-75 text-center'>
+							<span className='fs-1'>-</span>
+						</div>
+					)}
 
 					{Boolean(guaranteeStart || guaranteeEnd) && (
 						<div className={clsx(styles[`${BLOCK}__guarantee`], 'w-75')}>

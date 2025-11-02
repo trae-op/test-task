@@ -13,7 +13,8 @@ export default async function ProductsPage() {
 			guaranteeEnd: true,
 			prices: true,
 			order: true,
-			isNew: true
+			isNew: true,
+			type: true
 		}
 	});
 
