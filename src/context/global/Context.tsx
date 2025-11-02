@@ -6,10 +6,10 @@ import type { TContext, TProviderProps, TSubscriberCallback } from './types';
 
 export const Context = createContext<TContext | null>(null);
 
-export function Provider({ children }: TProviderProps) {
+export function Provider({ children, avatarProfile: avatar }: TProviderProps) {
 	const title = useRef('');
 	const total = useRef(0);
-	const avatarProfile = useRef('');
+	const avatarProfile = useRef(avatar);
 	const linkAddEntity = useRef('');
 	const subscribers = useRef<Set<TSubscriberCallback>>(new Set());
 

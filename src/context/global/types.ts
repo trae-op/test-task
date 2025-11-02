@@ -4,7 +4,9 @@ import { TOrder } from '@/types/orders';
 
 export type TEntity = TOrder;
 
-export type TProviderProps = PropsWithChildren & {};
+export type TProviderProps = PropsWithChildren & {
+	avatarProfile?: string;
+};
 
 export type TContext = {
 	getEntitiesTitle: () => string | undefined;

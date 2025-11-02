@@ -5,6 +5,8 @@ import { TImageOptions } from '@/types/imageUpload';
 
 import { getUserSession } from '@/utils/session';
 
+import { prisma } from '@/prismaprisma-client';
+
 const imageKit = new ImageKit({
 	publicKey: process.env.IMAGEKIT_PUBLIC_KEY || '',
 	privateKey: process.env.IMAGEKIT_PRIVATE_KEY || '',
@@ -34,10 +36,10 @@ export const POST = async (req: NextRequest) => {
 		}
 
 		const formData = await req.formData();
-		const file = formData.get('file') as Blob;
-		const imageOptions = formData.get('imageOptions') as string;
+		const file = formData.get('file') as Blob | null;
+		const imageOptions = formData.get('imageOptions') as string | null;
 
-		if (!file && !imageOptions.length) {
+		if (file === null) {
 			return NextResponse.json(
 				{ message: 'No file uploaded', ok: false },
 				{ status: 400 }
@@ -48,17 +50,43 @@ export const POST = async (req: NextRequest) => {
 		const buffer = Buffer.from(arrayBuffer);
 		const base64String = buffer.toString('base64');
 
-		const { fileName, folder } = JSON.parse(imageOptions) as TImageOptions;
+		if (imageOptions === null) {
+			return NextResponse.json(
+				{ message: 'No image options provided', ok: false },
+				{ status: 400 }
+			);
+		}
 
-		// const deleteId = (deleteFileIdField || deleteFileId || '').toString();
-		// if (deleteId && deleteId.length > 0) {
-		// 	await imageKit.deleteFile(deleteId);
-		// }
+		const { fileName, folder, entityId } = JSON.parse(
+			imageOptions
+		) as TImageOptions;
+
+		if (entityId) {
+			const foundPicture = await prisma.profilePicture.findFirst({
+				where: { userId: entityId }
+			});
+
+			if (foundPicture !== null) {
+				await prisma.profilePicture.delete({
+					where: { id: foundPicture.id, userId: entityId }
+				});
+
+				await imageKit.deleteFile(foundPicture.pictureId);
+			}
+		}
 
 		const response = await imageKit.upload({
 			file: base64String,
 			fileName,
 			folder
+		});
+
+		await prisma.profilePicture.create({
+			data: {
+				userId: userSession.id,
+				pictureId: response.fileId,
+				url: response.url
+			}
 		});
 
 		return NextResponse.json(
@@ -72,6 +100,7 @@ export const POST = async (req: NextRequest) => {
 			}
 		);
 	} catch (error) {
+		console.error('Upload profile picture error:', error);
 		return NextResponse.json(
 			{
 				message: 'Something wrong with server!',

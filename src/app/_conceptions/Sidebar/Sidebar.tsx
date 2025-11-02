@@ -1,7 +1,6 @@
 'use client';
 
 import clsx from 'clsx';
-import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { memo } from 'react';
 import { GearFill } from 'react-bootstrap-icons';
@@ -11,7 +10,6 @@ import { NavigationLink } from '@/components/NavigationLink';
 import { Picture } from '@/components/Picture';
 
 import { getProfileHref } from '@/utils/routing';
-import { getFullPathUploadPicture } from '@/utils/upload-files';
 
 import styles from './Sidebar.module.scss';
 import { NavItem } from './SidebarNavItem';
@@ -30,25 +28,14 @@ const ProfileSettingsButton = () => (
 );
 
 export const Sidebar = memo(({ items }: TSidebarProps) => {
-	const { data: session } = useSession();
 	const tReceipts = useTranslations('App.sidebar');
 	const avatarProfile = useAvatarProfileSelector();
-
-	if (!session) {
-		return null;
-	}
 
 	return (
 		<div className={styles[BLOCK]}>
 			<div className={styles[`${BLOCK}__profile`]}>
 				<Picture
-					src={
-						avatarProfile ||
-						getFullPathUploadPicture({
-							id: session.user.id,
-							name: session.user.image || ''
-						})
-					}
+					src={avatarProfile || ''}
 					alt='Ava'
 					size='full'
 					sizes='150px'

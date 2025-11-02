@@ -23,6 +23,7 @@ export const ImageUpload = ({
 	handleFail,
 	handleSuccess,
 	imageOptions,
+	entity,
 	handleBeforeSuccess
 }: ImageUploadTProps) => {
 	const t = useTranslations('App');
@@ -66,7 +67,7 @@ export const ImageUpload = ({
 			const response = await uploadPicture<{
 				message: string;
 				ok: boolean;
-			}>('upload', formData);
+			}>(`upload/${entity}`, formData);
 			if (response.results.ok) {
 				if (handleSuccess !== undefined) {
 					handleSuccess(response.results);

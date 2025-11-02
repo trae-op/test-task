@@ -1,4 +1,4 @@
-import { TImageOptions } from '@/types/imageUpload';
+import { TEntities, TImageOptions } from '@/types/imageUpload';
 
 export type TResultUploadPicture = {
 	message: string;
@@ -9,6 +9,7 @@ export type TResultUploadPicture = {
 export type ImageUploadTProps = {
 	imageOptions: TImageOptions;
 	pendingUpload?: boolean;
+	entity?: TEntities;
 	handleSuccess?: (data: TResultUploadPicture) => void;
 	handleBeforeSuccess?: () => void;
 	handleFail?: () => void;

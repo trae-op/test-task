@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { getUserSession } from '@/utils/session';
 
-import { prisma } from '@/prismaprisma-client';
+import { prisma } from '@/prisma/prisma-client';
 
 export const POST = async (req: NextRequest) => {
 	try {

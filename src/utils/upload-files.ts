@@ -4,8 +4,7 @@ type TAssociatedImages = {
 };
 
 type TFullPathAssociatedImage = {
-	id: string;
-	name: string;
+	url: string;
 	type?: 'mini' | 'standard' | 'big';
 };
 
@@ -17,19 +16,18 @@ export const uploadsPictures = (id: string): TAssociatedImages => {
 };
 
 export const getFullPathUploadPicture = ({
-	id,
 	type = 'standard',
-	name
+	url
 }: TFullPathAssociatedImage): string => {
 	const mainUrl = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_URL;
 
 	if (type === 'mini') {
-		return `${mainUrl}/${uploadsPictures(id).folder}/${name}?tr=q-100,w-80,h-80`;
+		return `${url}?tr=q-100,w-80,h-80`;
 	}
 
 	if (type === 'big') {
-		return `${mainUrl}/${uploadsPictures(id).folder}/${name}?tr=q-70,w-400,h-400`;
+		return `${url}}?tr=q-70,w-400,h-400`;
 	}
 
-	return `${mainUrl}/${uploadsPictures(id).folder}/${name}?tr=q-70,w-300,h-300`;
+	return `${url}?tr=q-70,w-300,h-300`;
 };

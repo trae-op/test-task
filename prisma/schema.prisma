@@ -19,6 +19,9 @@ model User {
   products  Product[]
   orders    Order[]
   prices    Price[]
+  profilePictures ProfilePicture[]
+  orderPictures OrderPicture[]
+  productPictures ProductPicture[]
 }
 
 model Product {
@@ -67,4 +70,44 @@ model Price {
 
   @@index([productId])
   @@index([userId])
+}
+
+
+model ProfilePicture {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  url String
+  pictureId      String
+  createdAt DateTime @default(now())
+  
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("ProfilePicture")
+}
+
+model OrderPicture {
+  id             String    @id @default(uuid()) @db.Uuid
+  orderId       String    @db.Uuid
+  userId         String    @db.Uuid
+  url     String
+  pictureId      String
+  createdAt DateTime @default(now())
+  
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("OrderPicture")
+}
+
+
+model ProductPicture {
+  id             String    @id @default(uuid()) @db.Uuid
+  productId     String    @db.Uuid
+  userId         String    @db.Uuid
+  url     String
+  pictureId      String
+  createdAt DateTime @default(now())
+  
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("ProductPicture")
 }

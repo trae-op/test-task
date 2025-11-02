@@ -1,14 +1,9 @@
-import { TDynamicPageProps } from '@/types/dynamicPage';
-
-import {
-	getAddOrderHref,
-	getAddProductHref,
-	getProductUpdateHref,
-	getProfileHref
-} from '@/utils/routing';
 import { getOrdersHref, getProductsHref } from '@/utils/routing/routing';
+import { getUserSession } from '@/utils/session';
+import { getFullPathUploadPicture } from '@/utils/upload-files';
 
 import styles from './Layout.module.scss';
+import { getPictureByEntityId } from '@/actions/pictures/profile';
 import { AddEntity } from '@/conceptions/AddEntity';
 import { LocalizationDropdown } from '@/conceptions/LocalizationDropdown';
 import { Sidebar } from '@/conceptions/Sidebar';
@@ -27,9 +22,25 @@ export default async function AuthLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const userSession = await getUserSession();
+
+	if (userSession === null) {
+		return null;
+	}
+
+	const { ok, item } = await getPictureByEntityId(userSession.id);
+
 	return (
 		<div className={styles[BLOCK]}>
-			<GlobalProvider>
+			<GlobalProvider
+				avatarProfile={
+					ok && item?.url
+						? getFullPathUploadPicture({
+								url: item.url
+							})
+						: ''
+				}
+			>
 				<TopHeader
 					endContentComponent={<LocalizationDropdown className='me-2' />}
 				/>

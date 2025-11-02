@@ -12,12 +12,9 @@ import { ImageUpload } from '@/components/ImageUpload';
 import { TResultUploadPicture } from '@/components/ImageUpload/types';
 import { MessagesServer } from '@/components/MessagesServer/MessagesServer';
 import { TextField } from '@/components/TextField/TextField';
-import { useActions } from '@/components/Toaster/useActions';
 
 import type { TProfileFormData } from '@/hooks/profile/types';
 import { useProfileActions } from '@/hooks/profile/useProfileActions';
-
-import { profileAvatar } from '@/services/profile';
 
 import { EMAIL_PATTERN, isValidName } from '@/utils/regExp';
 import { getFullPathUploadPicture } from '@/utils/upload-files';
@@ -33,44 +30,22 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 	const setAvatarProfile = useSetAvatarProfileDispatch();
 
 	const params = useParams();
-	const { setToast } = useActions();
 	const [pending, setPending] = useState(false);
 	const locale = (params?.locale as string) || '';
 
 	const handleSuccess = useCallback(
-		async ({ data }: TResultUploadPicture) => {
-			const ava = data.name;
-			if (typeof ava === 'string' && ava.length) {
-				const formData = new FormData();
-				formData.append('ava', ava);
+		({ data }: TResultUploadPicture) => {
+			setPending(false);
 
-				try {
-					const response = await profileAvatar<{
-						ok: boolean;
-						ava: string;
-					}>('profile-avatar', formData);
-					if (response.results.ok) {
-						setPending(false);
-
-						if (session) {
-							setAvatarProfile(
-								getFullPathUploadPicture({
-									id: session.user.id,
-									name: ava || ''
-								})
-							);
-						}
-					}
-				} catch (error) {
-					if (error instanceof Response) {
-						const { message } = await error.json();
-						setToast(message, 'error');
-						setPending(false);
-					}
-				}
+			if (session) {
+				setAvatarProfile(
+					getFullPathUploadPicture({
+						url: data.url
+					})
+				);
 			}
 		},
-		[setPending, setToast]
+		[session]
 	);
 
 	const handleBeforeSuccess = () => {
@@ -107,8 +82,10 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 						<ImageUpload
 							imageOptions={{
 								fileName: uploadsPictures(`${defaultValues.id}`).fileName,
-								folder: uploadsPictures(`${defaultValues.id}`).folder
+								folder: uploadsPictures(`${defaultValues.id}`).folder,
+								entityId: session?.user.id || ''
 							}}
+							entity='profile'
 							pendingUpload={pending}
 							handleBeforeSuccess={handleBeforeSuccess}
 							handleSuccess={handleSuccess}
