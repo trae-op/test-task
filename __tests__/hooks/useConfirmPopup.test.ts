@@ -1,10 +1,10 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { useConfirmPopup } from '@/hooks/popup/usePopup';
+import { usePopup } from '@/hooks/popup';
 
-describe('useConfirmPopup', () => {
+describe('usePopup', () => {
 	it('returns initial state: closed with no entityId', () => {
-		const { result } = renderHook(() => useConfirmPopup());
+		const { result } = renderHook(() => usePopup());
 
 		expect(result.current.isOpen).toBe(false);
 		expect(result.current.entityId).toBeUndefined();
@@ -13,7 +13,7 @@ describe('useConfirmPopup', () => {
 	});
 
 	it('opens with provided entity id', () => {
-		const { result } = renderHook(() => useConfirmPopup());
+		const { result } = renderHook(() => usePopup());
 
 		act(() => {
 			result.current.handleOpen('abc-123');
@@ -24,7 +24,7 @@ describe('useConfirmPopup', () => {
 	});
 
 	it('opens without entity id (optional) and sets id to undefined', () => {
-		const { result } = renderHook(() => useConfirmPopup());
+		const { result } = renderHook(() => usePopup());
 
 		act(() => {
 			result.current.handleOpen();
@@ -35,7 +35,7 @@ describe('useConfirmPopup', () => {
 	});
 
 	it('closes and clears entity id', () => {
-		const { result } = renderHook(() => useConfirmPopup());
+		const { result } = renderHook(() => usePopup());
 
 		act(() => {
 			result.current.handleOpen('to-close');
@@ -50,7 +50,7 @@ describe('useConfirmPopup', () => {
 	});
 
 	it('keeps stable action references across state changes', () => {
-		const { result } = renderHook(() => useConfirmPopup());
+		const { result } = renderHook(() => usePopup());
 
 		const openRef = result.current.handleOpen;
 		const closeRef = result.current.handleClose;
@@ -68,7 +68,7 @@ describe('useConfirmPopup', () => {
 	});
 
 	it('does not throw when closing while already closed', () => {
-		const { result } = renderHook(() => useConfirmPopup());
+		const { result } = renderHook(() => usePopup());
 
 		expect(() => {
 			act(() => {
@@ -81,7 +81,7 @@ describe('useConfirmPopup', () => {
 	});
 
 	it('allows reopening and changing entityId without errors', () => {
-		const { result } = renderHook(() => useConfirmPopup());
+		const { result } = renderHook(() => usePopup());
 
 		act(() => {
 			result.current.handleOpen('first');

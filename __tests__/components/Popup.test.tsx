@@ -19,9 +19,7 @@ describe('components/Popup', () => {
 		fireEvent.click(screen.getAllByRole('button', { name: /Delete/i })[0]);
 		// click popup button inside the modal footer
 		const footer = screen.getByText('Cancel').closest('div') as HTMLElement;
-		const btn = within(footer).getByRole('button', {
-			name: /^Delete$/i
-		});
+		const btn = within(footer).getByRole('button', { name: /^Apply$/i });
 		fireEvent.click(btn);
 		expect(onApply).toHaveBeenCalled();
 	});
