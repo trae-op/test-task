@@ -1,4 +1,29 @@
 {
 	"cSpell.words": ["pathes", "Привет", "Привіт"],
-	"task.allowAutomaticTasks": "on"
+	"task.allowAutomaticTasks": "on",
+	"github.copilot.chat.codeGeneration.instructions": [
+		{ "file": ".github/copilot-instructions.md" },
+		{ "file": "docs/typescript.md" },
+		{ "file": "docs/components.md" },
+		{ "file": "docs/hooks.md" },
+		{ "file": "docs/styles.md" },
+		{ "file": "docs/context.md" },
+		{ "file": "docs/utils.md" },
+		{ "file": "docs/services.md" },
+		{ "file": "docs/architecture.md" },
+		{ "file": "docs/performance.md" },
+		{ "file": "docs/scaffolding.md" }
+	],
+
+	"github.copilot.chat.reviewSelection.instructions": [
+		{ "file": "docs/typescript.md" },
+		{ "file": "docs/components.md" },
+		{ "file": "docs/hooks.md" },
+		{ "file": "docs/styles.md" },
+		{ "file": "docs/context.md" }
+	],
+	"github.copilot.chat.commitMessageGeneration.instructions": [
+		{ "file": "docs/commit-style.md" },
+		{ "file": "docs/architecture.md" }
+	]
 }
