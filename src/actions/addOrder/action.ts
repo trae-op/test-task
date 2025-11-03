@@ -57,7 +57,7 @@ export const addOrder = async (
 		revalidateTag('orders');
 
 		return { ok: true, id: created.id };
-	} catch (e) {
+	} catch {
 		return { ok: false, code: 'SERVER_ERROR' };
 	}
 };

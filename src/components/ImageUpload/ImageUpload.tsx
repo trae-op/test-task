@@ -30,7 +30,7 @@ export const ImageUpload = ({
 	const { setToast } = useActions();
 	const [crop, setCrop] = useState({ x: 0, y: 0 });
 	const [imageSrc, setImageSrc] = useState<string | null>(null);
-	const [croppedArea, setCroppedArea] = useState<any>(null);
+	const [croppedArea, setCroppedArea] = useState<Area | null>(null);
 	const [zoom, setZoom] = useState(1);
 
 	const onDrop = (acceptedFiles: File[]) => {
@@ -67,6 +67,7 @@ export const ImageUpload = ({
 			const response = await uploadPicture<{
 				message: string;
 				ok: boolean;
+				data: { url: string };
 			}>(`upload/${entity}`, formData);
 			if (response.results.ok) {
 				if (handleSuccess !== undefined) {
@@ -146,11 +147,7 @@ export const ImageUpload = ({
 				/>
 
 				{imageSrc && (
-					<Button
-						variant='secondary'
-						text={t('Clear the picture')}
-						onClick={handleClear}
-					/>
+					<Button variant='secondary' text={t('Clear')} onClick={handleClear} />
 				)}
 			</div>
 		</div>

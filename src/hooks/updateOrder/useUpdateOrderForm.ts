@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { startTransition, useActionState, useMemo } from 'react';
+import { startTransition, useActionState, useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import type { MultiValue } from 'react-select';
 
@@ -27,18 +27,21 @@ export const useUpdateOrderForm = (): TUpdateOrderHookReturn => {
 
 	const isLoading = formState.isSubmitting || isPending;
 
-	const onSubmit = (data: TUpdateOrderFormData) => {
-		const fd = new FormData();
-		fd.append('orderId', (data.orderId || params.id) as string);
-		fd.append('title', data.title || '');
-		if (data.description) fd.append('description', data.description);
-		const products = (selectedProducts || []).map(p => String(p.value));
-		fd.append('products', JSON.stringify(products));
+	const onSubmit = useCallback(
+		(data: TUpdateOrderFormData) => {
+			const fd = new FormData();
+			fd.append('orderId', (data.orderId || params.id) as string);
+			fd.append('title', data.title || '');
+			if (data.description) fd.append('description', data.description);
+			const products = (selectedProducts || []).map(p => String(p.value));
+			fd.append('products', JSON.stringify(products));
 
-		startTransition(() => {
-			formAction(fd);
-		});
-	};
+			startTransition(() => {
+				formAction(fd);
+			});
+		},
+		[params.id, selectedProducts, formAction]
+	);
 
 	return useMemo(
 		() => ({
@@ -47,6 +50,6 @@ export const useUpdateOrderForm = (): TUpdateOrderHookReturn => {
 			error: state.message,
 			errors: formState.errors
 		}),
-		[formState.errors, isLoading, state.message]
+		[formState.errors, isLoading, state.message, onSubmit]
 	);
 };

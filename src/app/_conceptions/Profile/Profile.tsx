@@ -31,7 +31,7 @@ export const Profile = () => {
 			id,
 			email
 		};
-	}, [session?.user?.name, session?.user?.email]);
+	}, [session?.user?.name, session?.user?.email, session?.user?.id]);
 
 	if (!defaultValues) {
 		return <Loading />;

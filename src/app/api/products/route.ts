@@ -100,7 +100,7 @@ export const GET = async (req: NextRequest) => {
 			: undefined;
 
 		// Build Prisma query
-		const where: Record<string, any> = {};
+		const where: { id?: string; type?: string } = {};
 		if (id) where.id = id;
 		if (type) where.type = type;
 

@@ -2,8 +2,11 @@ import { TEntities, TImageOptions } from '@/types/imageUpload';
 
 export type TResultUploadPicture = {
 	message: string;
-	data?: any;
 	ok: boolean;
+	data: {
+		url: string;
+		[key: string]: unknown;
+	};
 };
 
 export type ImageUploadTProps = {

@@ -94,7 +94,7 @@ export const GET = async (req: NextRequest) => {
 		const searchParams = req.nextUrl.searchParams;
 		const id = searchParams.get('id');
 		const type = searchParams.get('type');
-		const where: Record<string, any> = {};
+		const where: { id?: string; type?: string } = {};
 		if (id) where.id = id;
 		if (type) where.type = type;
 

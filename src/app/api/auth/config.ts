@@ -44,58 +44,76 @@ export const authOptions: NextAuthOptions = {
 					name: user.name ?? undefined,
 					image: user.ava ?? undefined,
 					provider: user.provider ?? 'credentials'
-				} as any;
+				} as unknown as import('next-auth').User & { provider: string };
 			}
 		})
 	],
 	callbacks: {
 		async jwt({ token, user, trigger, session }) {
+			const t = token as { [key: string]: unknown } & {
+				id?: string;
+				picture?: string;
+				provider?: string;
+			};
+
 			if (trigger === 'update' && session) {
-				const nextName = (session as any).name ?? (session as any).user?.name;
-				const nextEmail =
-					(session as any).email ?? (session as any).user?.email;
-				if (typeof nextName !== 'undefined') token.name = nextName as any;
-				if (typeof nextEmail !== 'undefined') token.email = nextEmail as any;
+				const s = session as Partial<{
+					name?: string;
+					email?: string;
+					user?: { name?: string; email?: string };
+				}>;
+				const nextName = s.name ?? s.user?.name;
+				const nextEmail = s.email ?? s.user?.email;
+				if (typeof nextName !== 'undefined') token.name = nextName ?? null;
+				if (typeof nextEmail !== 'undefined') token.email = nextEmail ?? null;
 			}
 			if (user) {
-				token.id = (user as any).id;
+				const u = user as Partial<{
+					id: string;
+					image?: string;
+					provider?: string;
+				}>;
+				t.id = u.id;
 				token.name = user.name ?? token.name;
 				token.email = user.email ?? token.email;
-				token.picture = (user as any).image ?? token.picture;
-				token.provider = (user as any).provider ?? 'credentials';
+				t.picture = u.image ?? (token as { picture?: string }).picture;
+				t.provider = u.provider ?? 'credentials';
 			} else if (token.email) {
 				const dbUser = await prisma.user.findUnique({
 					where: { email: token.email }
 				});
 				if (dbUser !== null) {
-					token.id = dbUser.id;
+					t.id = dbUser.id;
 					token.name = dbUser.name ?? token.name;
-					token.picture = dbUser.ava ?? token.picture;
-					token.provider = dbUser.provider ?? 'credentials';
+					t.picture = dbUser.ava ?? (token as { picture?: string }).picture;
+					t.provider = dbUser.provider ?? 'credentials';
 				} else {
-					delete token.id;
+					delete t.id;
 					delete token.email;
 					delete token.name;
-					delete token.picture;
-					delete token.provider;
+					delete t.picture;
+					delete t.provider;
 				}
 			} else {
-				delete token.id;
+				delete t.id;
 				delete token.email;
 				delete token.name;
-				delete token.picture;
-				delete token.provider;
+				delete t.picture;
+				delete t.provider;
 			}
 			return token;
 		},
 		async session({ session, token }) {
 			if (session.user) {
-				(session.user as any).id = (token as any).id;
+				(session.user as { id?: string }).id = (token as { id?: string }).id;
 				session.user.name = token.name ?? session.user.name ?? undefined;
 				session.user.email = token.email ?? session.user.email ?? undefined;
 				session.user.image =
-					(token as any).picture ?? session.user.image ?? undefined;
-				(session as any).provider = (token as any).provider ?? 'credentials';
+					(token as { picture?: string }).picture ??
+					session.user.image ??
+					undefined;
+				(session as { provider?: string }).provider =
+					(token as { provider?: string }).provider ?? 'credentials';
 			}
 			return session;
 		}

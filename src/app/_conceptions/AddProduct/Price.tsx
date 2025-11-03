@@ -77,7 +77,9 @@ export const Price = memo(({ currencyOptions, onChange }: TPriceProps) => {
 				<Form.Label>{t('Prices')}</Form.Label>
 				<MultiSelectField
 					instanceId='product-prices'
-					options={prices as any}
+					options={
+						prices as import('@/components/MultiSelectField/types').OptionType[]
+					}
 					value={prices}
 					onChange={handlePricesChange}
 					placeholder={t('Select prices')}

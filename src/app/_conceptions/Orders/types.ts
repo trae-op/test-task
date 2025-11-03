@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 import type { TOrder } from '@/types/orders';
 import type { TPrice } from '@/types/price';
 

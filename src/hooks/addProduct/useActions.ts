@@ -22,8 +22,7 @@ export const useAddProductActions = (): TAddProductActions => {
 			prices: MultiValue<OptionType>,
 			locale: string
 		) => {
-			const anyPrices = prices as unknown as Array<any>;
-			const pricesPayload = anyPrices.map((p, idx) => ({
+			const pricesPayload = (prices as OptionType[]).map((p, idx) => ({
 				symbol: p.value,
 				value: Number(p.valueAmount ?? 0),
 				isDefault: typeof p.isDefault === 'boolean' ? p.isDefault : idx === 0

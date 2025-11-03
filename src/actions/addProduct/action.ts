@@ -79,7 +79,7 @@ export const addProduct = async (
 		revalidateTag('products');
 
 		return { ok: true, id: created.id };
-	} catch (e) {
+	} catch {
 		return { ok: false, code: 'SERVER_ERROR' };
 	}
 };

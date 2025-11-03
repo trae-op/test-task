@@ -38,7 +38,7 @@ export const updatePassword = async (
 		});
 
 		return { ok: true };
-	} catch (e) {
+	} catch {
 		return { ok: false, code: 'SERVER_ERROR' };
 	}
 };

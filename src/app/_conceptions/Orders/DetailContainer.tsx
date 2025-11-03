@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client';
 
 import { ReactElement, useCallback, useEffect } from 'react';
@@ -10,6 +11,8 @@ import {
 	useSetLinkAddEntityDispatch
 } from '@/context/global/useContext';
 import { useAmountEntitiesSelector } from '@/context/orders/useContext';
+
+/* eslint-disable prettier/prettier */
 
 export const DetailContainer = ({ children }: { children?: ReactElement }) => {
 	const setEntitiesTitleDispatch = useEntitiesTitleDispatch();
@@ -30,7 +33,7 @@ export const DetailContainer = ({ children }: { children?: ReactElement }) => {
 
 	useEffect(() => {
 		setEntitiesLayout();
-	}, []);
+	}, [setEntitiesLayout]);
 
 	return <div className='mt-4'>{children}</div>;
 };

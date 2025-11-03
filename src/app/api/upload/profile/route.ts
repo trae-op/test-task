@@ -5,7 +5,7 @@ import { TImageOptions } from '@/types/imageUpload';
 
 import { getUserSession } from '@/utils/session';
 
-import { prisma } from '@/prismaprisma-client';
+import { prisma } from '@/prisma/prisma-client';
 
 const imageKit = new ImageKit({
 	publicKey: process.env.IMAGEKIT_PUBLIC_KEY || '',

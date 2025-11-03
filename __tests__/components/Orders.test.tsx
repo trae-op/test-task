@@ -20,7 +20,7 @@ const items = [
 		description: null,
 		userId: 'u1'
 	}
-] as const;
+];
 
 describe('components/Orders', () => {
 	it('shows empty state for empty items', () => {
@@ -35,7 +35,7 @@ describe('components/Orders', () => {
 	it('renders table rows for items', () => {
 		render(
 			<OrdersProvider>
-				<OrderTable items={items as any} />
+				<OrderTable items={items} />
 			</OrdersProvider>
 		);
 		expect(screen.getAllByRole('row')).toHaveLength(2);

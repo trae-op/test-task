@@ -18,7 +18,7 @@ describe('components/Orders/OrderRow', () => {
 			<OrdersProvider entityId={baseProps.id}>
 				<table>
 					<tbody>
-						<OrderRow {...(baseProps as any)} isDeleteButton={true} />
+						<OrderRow {...baseProps} isDeleteButton={true} />
 					</tbody>
 				</table>
 			</OrdersProvider>
@@ -60,7 +60,7 @@ describe('components/Orders/OrderRow', () => {
 			<OrdersProvider isAdaptiveTable={true} entityId={baseProps.id}>
 				<table>
 					<tbody>
-						<OrderRow {...(baseProps as any)} isDeleteButton={false} />
+						<OrderRow {...baseProps} isDeleteButton={false} />
 					</tbody>
 				</table>
 			</OrdersProvider>

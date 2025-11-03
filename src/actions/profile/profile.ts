@@ -49,7 +49,7 @@ export const updateProfile = async (
 
 		// Note: with JWT sessions, claims may not reflect changes until next token refresh.
 		return { ok: true, code: 'SUCCESS' };
-	} catch (e) {
+	} catch {
 		return { ok: false, code: 'SERVER_ERROR' };
 	}
 };

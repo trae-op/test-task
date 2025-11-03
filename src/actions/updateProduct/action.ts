@@ -36,10 +36,10 @@ export const updateProduct = async (
 	try {
 		const parsed = JSON.parse(pricesJson);
 		if (Array.isArray(parsed)) {
-			prices = parsed.map((p: any) => ({
+			prices = parsed.map((p: Record<string, unknown>) => ({
 				symbol: String(p.symbol),
-				value: Number(p.value) || 0,
-				isDefault: Boolean(p.isDefault)
+				value: Number((p as Record<string, unknown>).value) || 0,
+				isDefault: Boolean((p as Record<string, unknown>).isDefault)
 			}));
 		}
 	} catch {}

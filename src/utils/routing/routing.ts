@@ -1,4 +1,4 @@
-import { type TCreateParamsInput, type TParseQueryParamsInput } from './types';
+import { type TCreateParamsInput } from './types';
 
 // --- Deep collect params serialization ---
 export const createParams = (input: TCreateParamsInput): string => {
@@ -34,12 +34,17 @@ function capitalize(str: string): string {
 
 // --- Deep query params parsing ---
 // --- Query string to nested object ---
-export const parseQueryParams = (query: string): Record<string, any> => {
+type TParsedQuery = Record<
+	string,
+	boolean | { select: Record<string, boolean> }
+>;
+
+export const parseQueryParams = (query: string): TParsedQuery => {
 	if (!query) return {};
 	// Remove leading ? if present
 	const clean = query.startsWith('?') ? query.slice(1) : query;
 	const params = new URLSearchParams(clean);
-	const result: Record<string, any> = {};
+	const result: TParsedQuery = {};
 	// First, parse top-level fields
 	const fields = params.get('fields');
 	if (fields) {

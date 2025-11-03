@@ -24,7 +24,7 @@ export const usePriceActions = ({ onChange }: TPriceActionsParams = {}) => {
 		if (!currency) return;
 		if (Number.isNaN(amountNum) || amountNum <= 0) return;
 
-		const newOption: any = {
+		const newOption: OptionType = {
 			value: currency,
 			label: `${amountNum} ${currency}`,
 			valueAmount: amountNum,
@@ -32,10 +32,10 @@ export const usePriceActions = ({ onChange }: TPriceActionsParams = {}) => {
 		};
 
 		const next = (prev => {
-			let n = prev.filter((p: any) => p.value !== currency);
+			let n = prev.filter(p => p.value !== currency);
 			n = [...n, newOption];
 			if (isDefault) {
-				n = n.map((p: any) => ({ ...p, isDefault: p.value === currency }));
+				n = n.map(p => ({ ...p, isDefault: p.value === currency }));
 			}
 			return n as MultiValue<OptionType>;
 		})(prices);
@@ -48,11 +48,11 @@ export const usePriceActions = ({ onChange }: TPriceActionsParams = {}) => {
 
 	const handlePricesChange = useCallback(
 		(val: MultiValue<OptionType>) => {
-			const defaultItems = (val as any[]).filter(v => v.isDefault);
-			let normalized = val as any[];
+			const defaultItems = (val as OptionType[]).filter(v => v.isDefault);
+			let normalized = val as OptionType[];
 			if (defaultItems.length > 1) {
 				const keep = defaultItems[0]?.value;
-				normalized = (val as any[]).map(v => ({
+				normalized = (val as OptionType[]).map(v => ({
 					...v,
 					isDefault: v.value === keep
 				}));

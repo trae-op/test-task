@@ -11,8 +11,8 @@ export const usePriceFormActions = () => {
 	const [amount, setAmount] = useState<string>('');
 	const [currency, setCurrency] = useState<string>('');
 	const [isDefault, setIsDefault] = useState<boolean>(false);
-
-	const prices = watch('prices') || [];
+	const watchedPrices = watch('prices');
+	const prices = useMemo(() => watchedPrices || [], [watchedPrices]);
 
 	const updatePrices = useCallback(
 		(val: MultiValue<OptionType>) => {

@@ -66,7 +66,7 @@ export const signUp = async (input: TSignUpInput): Promise<TSignUpResult> => {
 		});
 
 		return { ok: true, userId: user.id };
-	} catch (e) {
+	} catch {
 		return { ok: false, code: 'SERVER_ERROR' };
 	}
 };

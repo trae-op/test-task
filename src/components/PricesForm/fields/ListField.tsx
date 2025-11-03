@@ -20,7 +20,7 @@ export const ListField = memo(
 			<Form.Label>{label}</Form.Label>
 			<MultiSelectField
 				instanceId='product-prices'
-				options={prices as any}
+				options={prices as OptionType[]}
 				value={prices}
 				onChange={onChange}
 				placeholder={placeholder}

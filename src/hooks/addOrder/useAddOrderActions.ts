@@ -22,8 +22,7 @@ export const useAddOrderActions = (): TAddOrderActions => {
 			products: MultiValue<OptionType>,
 			locale: string
 		) => {
-			const anyProducts = products as unknown as Array<any>;
-			const productIds = anyProducts.map(p => String(p.value));
+			const productIds = (products as OptionType[]).map(p => String(p.value));
 
 			const fd = new FormData();
 			fd.append('title', data.title);

@@ -8,6 +8,8 @@ import {
 export interface OptionType {
 	value: string;
 	label: string;
+	valueAmount?: number;
+	isDefault?: boolean;
 }
 
 export interface SelectFieldProps extends SelectProps<OptionType, true> {

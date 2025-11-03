@@ -27,7 +27,7 @@ export const FilterProducts = memo(() => {
 		() => (pathname ? getWithoutLocalePath(pathname) : ''),
 		[pathname]
 	);
-	if (withoutLocalePath !== getProductsHref) return null;
+	const show = withoutLocalePath === getProductsHref;
 
 	const currentType = searchParams.get('type') ?? '';
 
@@ -56,6 +56,7 @@ export const FilterProducts = memo(() => {
 		[currentType, pathname, router, searchParams]
 	);
 
+	if (!show) return null;
 	return (
 		<div className='d-flex align-items-center justify-content-center gap-1'>
 			<SelectField

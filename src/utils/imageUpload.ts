@@ -1,6 +1,8 @@
+import type { Area } from 'react-easy-crop';
+
 export const getCroppedImg = async (
 	imageSrc: string,
-	crop: any
+	crop: Area
 ): Promise<Blob> => {
 	const image = new Image();
 	image.src = imageSrc;

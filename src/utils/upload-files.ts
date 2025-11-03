@@ -19,14 +19,12 @@ export const getFullPathUploadPicture = ({
 	type = 'standard',
 	url
 }: TFullPathAssociatedImage): string => {
-	const mainUrl = process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_URL;
-
 	if (type === 'mini') {
 		return `${url}?tr=q-100,w-80,h-80`;
 	}
 
 	if (type === 'big') {
-		return `${url}}?tr=q-70,w-400,h-400`;
+		return `${url}?tr=q-70,w-400,h-400`;
 	}
 
 	return `${url}?tr=q-70,w-300,h-300`;
