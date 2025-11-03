@@ -16,6 +16,7 @@ const config: Config = {
 		'^next-intl/routing$': '<rootDir>/__mocks__/next-intl-routing.ts',
 		'^next-intl/navigation$': '<rootDir>/__mocks__/next-intl-navigation.ts',
 		'^next/navigation$': '<rootDir>/__mocks__/next-navigation.ts',
+		'^@/conceptions/(.*)$': '<rootDir>/src/app/_conceptions/$1',
 		'^@/(.*)$': '<rootDir>/src/$1'
 	}
 };
