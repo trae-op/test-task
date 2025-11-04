@@ -1,11 +1,20 @@
+import dynamic from 'next/dynamic';
 import { memo } from 'react';
 import { Form } from 'react-bootstrap';
 import { MultiValue } from 'react-select';
 
-import { MultiSelectField } from '@/components/MultiSelectField';
+import { Loading } from '@/components/Loading';
 import { OptionType } from '@/components/MultiSelectField/types';
 
 import { TPriceOption } from '@/hooks/pricesForm/types';
+
+const MultiSelectField = dynamic(
+	() => import('@/components/MultiSelectField').then(m => m.MultiSelectField),
+	{
+		ssr: false,
+		loading: () => <Loading />
+	}
+);
 
 type TListFieldProps = {
 	prices: TPriceOption[];

@@ -1,7 +1,7 @@
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 
-import { InitToaster } from '@/components/Toaster';
+import { DeferredToaster } from '@/components/Toaster';
 
 import type { TLocaleLayoutProps } from './types';
 import { AuthProvider } from '@/app/_conceptions/Auth';
@@ -21,7 +21,7 @@ export default async function LocaleLayout({
 	return (
 		<NextIntlClientProvider locale={locale} messages={messages}>
 			<AuthProvider>{children}</AuthProvider>
-			<InitToaster />
+			<DeferredToaster />
 		</NextIntlClientProvider>
 	);
 }

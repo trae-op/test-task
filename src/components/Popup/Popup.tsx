@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
 import { type MouseEvent, memo, useCallback } from 'react';
-import { Modal } from 'react-bootstrap';
 
 import { CloseEntityButton } from '@/components/CloseEntityButton';
 
@@ -11,6 +11,12 @@ import styles from './Popup.module.scss';
 import type { TConfirmPopupProps } from './types';
 
 const BLOCK = 'popup';
+
+// Lazy-load react-bootstrap Modal only when needed (client-side only)
+const RBModal = dynamic(() => import('react-bootstrap/Modal'), {
+	ssr: false,
+	loading: () => null
+});
 
 export const Popup = memo(
 	({
@@ -79,63 +85,67 @@ export const Popup = memo(
 				>
 					{Icon ? <Icon /> : null}
 				</ComponentButton>
-				<Modal
-					show={isModalOpen}
-					onHide={handleModalHide}
-					className={clsx(styles[BLOCK], className)}
-					dialogClassName={styles[`${BLOCK}__dialog`]}
-					contentClassName={styles[`${BLOCK}__content`]}
-					centered
-					{...rest}
-				>
-					<div className={clsx('position-relative')}>
-						<div className={styles[`${BLOCK}__header`]}>
-							<h5 className={styles[`${BLOCK}__title`]}>{t(title)}</h5>
-						</div>
+				{isModalOpen ? (
+					<RBModal
+						show={isModalOpen}
+						onHide={handleModalHide}
+						className={clsx(styles[BLOCK], className)}
+						dialogClassName={styles[`${BLOCK}__dialog`]}
+						contentClassName={styles[`${BLOCK}__content`]}
+						centered
+						{...rest}
+					>
+						<div className={clsx('position-relative')}>
+							<div className={styles[`${BLOCK}__header`]}>
+								<h5 className={styles[`${BLOCK}__title`]}>{t(title)}</h5>
+							</div>
 
-						<div className={styles[`${BLOCK}__body`]}>{children}</div>
+							<div className={styles[`${BLOCK}__body`]}>{children}</div>
 
-						<div className={styles[`${BLOCK}__footer`]}>
-							<button
-								type='button'
-								className='btn-outline-light btn'
-								onClick={handleCancel}
-							>
-								{t(cancelText, { default: cancelText })}
-							</button>
-
-							{ComponentApplyButton !== undefined ? (
-								<ComponentApplyButton
-									className={applyButtonClassName}
-									onClick={handlePopupApply}
-								>
-									{ApplyIcon ? <ApplyIcon /> : null}
-								</ComponentApplyButton>
-							) : (
+							<div className={styles[`${BLOCK}__footer`]}>
 								<button
 									type='button'
-									disabled={applyDisabled}
-									className='d-flex align-items-center gap-2 text-danger btn btn-light'
-									onClick={handlePopupApply}
+									className='btn-outline-light btn'
+									onClick={handleCancel}
 								>
-									{ApplyIcon ? <ApplyIcon size={16} /> : null}
-									<span>
-										{t(applyText ?? 'Apply', { default: applyText ?? 'Apply' })}
-									</span>
+									{t(cancelText, { default: cancelText })}
 								</button>
-							)}
-						</div>
 
-						<div className={styles[`${BLOCK}__close`]}>
-							<CloseEntityButton
-								style={{ width: '2rem', height: '2rem' }}
-								aria-label='close'
-								href='#'
-								onClick={handleCancel}
-							/>
+								{ComponentApplyButton !== undefined ? (
+									<ComponentApplyButton
+										className={applyButtonClassName}
+										onClick={handlePopupApply}
+									>
+										{ApplyIcon ? <ApplyIcon /> : null}
+									</ComponentApplyButton>
+								) : (
+									<button
+										type='button'
+										disabled={applyDisabled}
+										className='d-flex align-items-center gap-2 text-danger btn btn-light'
+										onClick={handlePopupApply}
+									>
+										{ApplyIcon ? <ApplyIcon size={16} /> : null}
+										<span>
+											{t(applyText ?? 'Apply', {
+												default: applyText ?? 'Apply'
+											})}
+										</span>
+									</button>
+								)}
+							</div>
+
+							<div className={styles[`${BLOCK}__close`]}>
+								<CloseEntityButton
+									style={{ width: '2rem', height: '2rem' }}
+									aria-label='close'
+									href='#'
+									onClick={handleCancel}
+								/>
+							</div>
 						</div>
-					</div>
-				</Modal>
+					</RBModal>
+				) : null}
 			</>
 		);
 	}

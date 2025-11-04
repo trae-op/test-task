@@ -2,14 +2,15 @@
 
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
+import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { memo, useCallback, useState } from 'react';
 import { Card, Col, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/Button/Button';
-import { ImageUpload } from '@/components/ImageUpload';
 import { TResultUploadPicture } from '@/components/ImageUpload/types';
+import { Loading } from '@/components/Loading';
 import { MessagesServer } from '@/components/MessagesServer/MessagesServer';
 import { TextField } from '@/components/TextField/TextField';
 
@@ -21,6 +22,11 @@ import { getFullPathUploadPicture } from '@/utils/upload-files';
 import { uploadsPictures } from '@/utils/upload-files';
 
 import { useSetAvatarProfileDispatch } from '@/context/global/useContext';
+
+const ImageUpload = dynamic(
+	() => import('@/components/ImageUpload').then(m => m.ImageUpload),
+	{ ssr: false, loading: () => <Loading /> }
+);
 
 export const Info = memo((defaultValues: TProfileFormData) => {
 	const t = useTranslations('App');

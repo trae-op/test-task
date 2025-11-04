@@ -1,13 +1,14 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
+import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { memo, useCallback, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 
-import { ImageUpload } from '@/components/ImageUpload';
 import { TResultUploadPicture } from '@/components/ImageUpload/types';
+import { Loading } from '@/components/Loading';
 import { Picture } from '@/components/Picture';
 
 import { TDynamicPageParams } from '@/types/dynamicPage';
@@ -16,6 +17,11 @@ import { getFullPathUploadPicture } from '@/utils/upload-files';
 import { uploadsPictures } from '@/utils/upload-files';
 
 import { TUpdateFormData } from './types';
+
+const ImageUpload = dynamic(
+	() => import('@/components/ImageUpload').then(m => m.ImageUpload),
+	{ ssr: false, loading: () => <Loading /> }
+);
 
 export const PictureProduct = memo(() => {
 	const { data: session } = useSession();
