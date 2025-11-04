@@ -75,9 +75,12 @@ export const ProductRow = memo(
 						className={clsx(styles[`${BLOCK}__name`], 'd-flex gap-3 w-100')}
 						title={title}
 					>
-						{typeof photo === 'string' && (
-							<Picture src={photo} alt={title || ''} size='sm' loading='lazy' />
-						)}
+						<Picture
+							src={photo || ''}
+							alt={title || ''}
+							size='sm'
+							loading='lazy'
+						/>
 						<div className='d-flex flex-column align-items-start'>
 							<span>{title}</span>
 							<span>{serialNumber}</span>
@@ -87,19 +90,19 @@ export const ProductRow = memo(
 					<ProductState isNew={isNew} />
 
 					{type !== undefined && type !== null && (
-						<div className='w-75 text-center'>
+						<div className='w-50 text-center'>
 							<span>{type}</span>
 						</div>
 					)}
 
 					{!hasAdaptiveTable && (type === undefined || type === null) && (
-						<div className='w-75 text-center'>
+						<div className='w-50 text-center'>
 							<span className='fs-1'>-</span>
 						</div>
 					)}
 
 					{Boolean(guaranteeStart || guaranteeEnd) && (
-						<div className={clsx(styles[`${BLOCK}__guarantee`], 'w-75')}>
+						<div className={clsx(styles[`${BLOCK}__guarantee`], 'w-50')}>
 							{guaranteeStart && (
 								<span>
 									<span>{t('from')}</span>{' '}
@@ -117,7 +120,7 @@ export const ProductRow = memo(
 
 					{!hasAdaptiveTable &&
 						(guaranteeStart === undefined || guaranteeStart === null) && (
-							<div className={clsx(styles[`${BLOCK}__guarantee`], 'w-75')}>
+							<div className={clsx(styles[`${BLOCK}__guarantee`], 'w-50')}>
 								<span className='fs-1'>-</span>
 							</div>
 						)}
@@ -125,11 +128,13 @@ export const ProductRow = memo(
 					<Price hasAdaptiveTable={hasAdaptiveTable} prices={prices} />
 
 					{order !== undefined && order !== null && (
-						<div className={clsx(styles[`${BLOCK}__order`])}>{order.title}</div>
+						<div className={clsx(styles[`${BLOCK}__order`], 'w-50')}>
+							{order.title}
+						</div>
 					)}
 
 					{!hasAdaptiveTable && (order === undefined || order === null) && (
-						<div className={clsx(styles[`${BLOCK}__order`])}>
+						<div className={clsx(styles[`${BLOCK}__order`], 'w-50')}>
 							<span className='fs-1'>-</span>
 						</div>
 					)}

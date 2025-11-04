@@ -15,7 +15,7 @@ export const ProductState = memo(({ isNew }: TProductStateProps) => {
 	}
 
 	return (
-		<div className={clsx(styles[`${BLOCK}__state`], 'w-50')}>
+		<div className={clsx(styles[`${BLOCK}__state`], 'w-50 text-center')}>
 			{isNew ? (
 				<span className={styles[`${BLOCK}__state-new`]}>{t('available')}</span>
 			) : (

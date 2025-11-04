@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { memo } from 'react';
 
 import styles from './Price.module.scss';
@@ -8,7 +9,7 @@ const BLOCK = 'price';
 export const Price = memo(({ prices, hasAdaptiveTable }: TPriceProps) => {
 	if (!hasAdaptiveTable && (prices === undefined || prices.length === 0)) {
 		return (
-			<div className={styles[BLOCK]}>
+			<div className={clsx(styles[BLOCK], 'w-50')}>
 				<span className='fs-1'>-</span>
 			</div>
 		);
@@ -19,7 +20,7 @@ export const Price = memo(({ prices, hasAdaptiveTable }: TPriceProps) => {
 	}
 
 	return (
-		<div className={styles[BLOCK]}>
+		<div className={clsx(styles[BLOCK], 'w-50')}>
 			{prices.map(({ symbol, isDefault, value }) => {
 				if (!isDefault) {
 					return (

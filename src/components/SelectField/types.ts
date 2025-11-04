@@ -11,5 +11,6 @@ export interface SelectProps {
 	onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 	placeholder?: string;
 	className?: string;
+	defaultOption?: SelectOption;
 	disabledOptions?: Array<SelectOption>;
 }

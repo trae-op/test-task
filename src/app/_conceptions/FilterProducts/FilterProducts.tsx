@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { memo, useCallback, useMemo, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
@@ -11,13 +12,13 @@ import { getProductsHref, getWithoutLocalePath } from '@/utils/routing';
 type TOption = { value: string; label: string };
 
 const OPTIONS: TOption[] = [
-	{ value: '', label: 'All types' },
 	{ value: 'phone', label: 'phone' },
 	{ value: 'laptop', label: 'laptop' },
 	{ value: 'monitor', label: 'monitor' }
 ];
 
 export const FilterProducts = memo(() => {
+	const t = useTranslations('App');
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
@@ -60,6 +61,10 @@ export const FilterProducts = memo(() => {
 	return (
 		<div className='d-flex align-items-center justify-content-center gap-1'>
 			<SelectField
+				defaultOption={{
+					value: '',
+					label: t('All types')
+				}}
 				options={OPTIONS}
 				value={currentType}
 				onChange={handleChange}

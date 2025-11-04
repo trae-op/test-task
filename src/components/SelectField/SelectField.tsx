@@ -12,7 +12,8 @@ export const SelectField = memo(
 		onChange,
 		placeholder,
 		className,
-		disabledOptions
+		disabledOptions,
+		defaultOption
 	}: SelectProps) => {
 		return (
 			<Form.Select
@@ -24,6 +25,9 @@ export const SelectField = memo(
 					<option value='' disabled hidden>
 						{placeholder}
 					</option>
+				)}
+				{defaultOption && (
+					<option value={defaultOption.value}>{defaultOption.label}</option>
 				)}
 				{options.map(option => (
 					<option

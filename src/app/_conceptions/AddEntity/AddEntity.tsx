@@ -32,7 +32,7 @@ export const AddEntity = ({ children }: PropsWithChildren) => {
 
 	const pathname = usePathname();
 	const params = useParams<TDynamicPageParams>();
-	const pathes = [
+	const paths = [
 		getAddOrderHref,
 		getAddProductHref,
 		getProfileHref,
@@ -42,7 +42,7 @@ export const AddEntity = ({ children }: PropsWithChildren) => {
 
 	const withoutLocalePath = getWithoutLocalePath(pathname);
 
-	const shouldHide = pathes.some(path => withoutLocalePath === path);
+	const shouldHide = paths.some(path => withoutLocalePath === path);
 	if (shouldHide) {
 		return null;
 	}

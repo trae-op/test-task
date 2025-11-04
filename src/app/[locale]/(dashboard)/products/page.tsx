@@ -1,3 +1,6 @@
+import { getFullPathUploadPicture } from '@/utils/upload-files';
+
+import { getPicturesByEntities } from '@/actions/pictures/products';
 import { getProducts } from '@/actions/products';
 import { Container } from '@/conceptions/Products';
 import { Provider } from '@/context/products';
@@ -32,9 +35,35 @@ export default async function ProductsPage({
 		selectFields,
 		...(typeParam ? { whereFilters: { type: typeParam } } : {})
 	});
+	const products = ok && items !== undefined ? items : [];
+	const picturesByProducts = await getPicturesByEntities(
+		products.length ? products.map(product => product.id) : []
+	);
+
+	const picturesByProductId =
+		picturesByProducts.ok && picturesByProducts.items !== undefined
+			? Object.fromEntries(
+					Object.entries(picturesByProducts.items).map(
+						([_, pictureProduct]) => [
+							pictureProduct.productId,
+							pictureProduct.url
+						]
+					)
+				)
+			: {};
 
 	return (
-		<Provider items={ok ? items : []}>
+		<Provider
+			items={products.map(product => ({
+				...product,
+				photo: picturesByProductId[product.id]
+					? getFullPathUploadPicture({
+							url: picturesByProductId[product.id] || '',
+							type: 'mini'
+						})
+					: null
+			}))}
+		>
 			<Container />
 		</Provider>
 	);

@@ -83,18 +83,28 @@ export const Picture = memo(
 						[`${styles[BLOCK]}__error-active`]: true
 					})}
 				/>
-				<Image
-					className={imageClassName}
-					onLoad={handleLoad}
-					onError={handleError}
-					src={src || ''}
-					style={{ objectFit: fit }}
-					alt={alt}
-					{...(isFull
-						? { fill: true, sizes: rest.sizes ?? '100vw' }
-						: (imageSize as { width: number; height: number }))}
-					{...rest}
-				/>
+				{src ? (
+					<Image
+						className={imageClassName}
+						onLoad={handleLoad}
+						onError={handleError}
+						src={src}
+						style={{ objectFit: fit }}
+						alt={alt}
+						{...(isFull
+							? { fill: true, sizes: rest.sizes ?? '100vw' }
+							: (imageSize as { width: number; height: number }))}
+						{...rest}
+					/>
+				) : (
+					<PictureError
+						hasError
+						size={iconSize}
+						className={clsx({
+							[`${styles[BLOCK]}__error-active`]: true
+						})}
+					/>
+				)}
 			</div>
 		);
 	}

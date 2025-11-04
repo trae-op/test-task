@@ -1,6 +1,6 @@
 import type { TDynamicPageProps } from '@/types/dynamicPage';
 
-import { getPictureByEntityId } from '@/actions/pictures/product';
+import { getPictureByEntityId } from '@/actions/pictures/products';
 import { getProducts } from '@/actions/products/action';
 import { Container } from '@/conceptions/UpdateProduct/Container';
 
