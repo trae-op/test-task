@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 // Import after mocks below in tests where needed
@@ -35,16 +36,18 @@ jest.mock('@/components/MessagesServer', () => ({
 }));
 
 describe('Profile forms', () => {
-	it('UpdatePassword negative: shows validation errors on empty submit', () => {
+	it('UpdatePassword negative: shows validation errors on empty submit', async () => {
 		const {
 			UpdatePassword
 		} = require('@/app/_conceptions/Profile/UpdatePassword');
 		render(<UpdatePassword />);
 		// Submit without filling any input
 		const submitBtn = screen.getByRole('button');
-		fireEvent.click(submitBtn);
-		// Button becomes disabled due to submitting state from react-hook-form
-		expect(screen.getByRole('button')).toBeDisabled();
+		const user = userEvent.setup();
+		await user.click(submitBtn);
+		// Shows validation errors for all three required fields
+		const errors = await screen.findAllByText('required');
+		expect(errors).toHaveLength(3);
 	});
 
 	it('Info positive: renders with provided defaults', () => {
