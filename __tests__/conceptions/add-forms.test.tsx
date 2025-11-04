@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 jest.mock('@/hooks/addProduct', () => ({
@@ -28,7 +29,7 @@ jest.mock('@/hooks/addOrder', () => ({
 jest.mock('next/navigation', () => ({ useParams: () => ({ locale: 'en' }) }));
 
 describe('Add forms', () => {
-	it('AddProduct negative: shows validation error on empty submit', () => {
+	it('AddProduct negative: shows validation error on empty submit', async () => {
 		const { AddProduct } = require('@/app/_conceptions/AddProduct/AddProduct');
 		render(
 			<AddProduct
@@ -40,16 +41,22 @@ describe('Add forms', () => {
 			/>
 		);
 		// Click submit button
-		fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
+		const user = userEvent.setup();
+		await user.click(screen.getByRole('button', { name: /Submit/i }));
 		// Assert that submit handler wasn't called instead of specific text
 		// since validation messages are translated
-		expect(screen.queryAllByText('required').length).toBeGreaterThanOrEqual(0);
+		expect(
+			(await screen.findAllByText('required')).length
+		).toBeGreaterThanOrEqual(0);
 	});
 
-	it('AddOrder negative: shows validation error on empty submit', () => {
+	it('AddOrder negative: shows validation error on empty submit', async () => {
 		const { AddOrder } = require('@/app/_conceptions/AddOrder/AddOrder');
 		render(<AddOrder products={[]} />);
-		fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
-		expect(screen.queryAllByText('required').length).toBeGreaterThanOrEqual(0);
+		const user = userEvent.setup();
+		await user.click(screen.getByRole('button', { name: /Submit/i }));
+		expect(
+			(await screen.findAllByText('required')).length
+		).toBeGreaterThanOrEqual(0);
 	});
 });

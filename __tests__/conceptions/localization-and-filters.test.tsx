@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { FilterProducts } from '@/app/_conceptions/FilterProducts/FilterProducts';
@@ -19,22 +20,24 @@ jest.mock('next/navigation', () => ({
 }));
 
 describe('LocalizationDropdown', () => {
-	it('shows current locale and language options (positive)', () => {
+	it('shows current locale and language options (positive)', async () => {
 		render(<LocalizationDropdown />);
 		const toggle = screen.getByRole('button', { name: /EN/i });
 		expect(toggle).toBeInTheDocument();
 		// Open the dropdown to render menu items
-		fireEvent.click(toggle);
-		expect(screen.getByText('en')).toBeInTheDocument();
-		expect(screen.getByText('uk')).toBeInTheDocument();
+		const user = userEvent.setup();
+		await user.click(toggle);
+		expect(await screen.findByText('en')).toBeInTheDocument();
+		expect(await screen.findByText('uk')).toBeInTheDocument();
 	});
 });
 
 describe('FilterProducts and Wrapper', () => {
-	it('renders on products path and triggers change (positive)', () => {
+	it('renders on products path and triggers change (positive)', async () => {
 		render(<FilterProducts />);
 		const select = screen.getByRole('combobox');
-		fireEvent.change(select, { target: { value: 'phone' } });
+		const user = userEvent.setup();
+		await user.selectOptions(select, 'phone');
 		expect(pushSpy).toHaveBeenCalled();
 	});
 
