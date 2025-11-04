@@ -49,8 +49,6 @@ export const PictureProduct = memo(() => {
 		setPending(false);
 	};
 
-	console.log('PictureProduct render', picture);
-
 	return (
 		<Row>
 			<Col xs={12} lg={4}>
