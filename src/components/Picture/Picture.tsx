@@ -24,6 +24,7 @@ export const Picture = memo(
 		fit = 'cover',
 		alt = '',
 		src,
+		containerErrorClassName,
 		...rest
 	}: TPictureProps & { alt?: string }) => {
 		const [isLoading, setIsLoading] = useState(true);
@@ -75,7 +76,13 @@ export const Picture = memo(
 				style={aspectRatio ? { aspectRatio } : undefined}
 			>
 				<PicturePlaceholder isLoading={isLoading} />
-				<PictureError hasError={hasError} size={iconSize} />
+				<PictureError
+					hasError={hasError}
+					size={iconSize}
+					className={clsx({
+						[`${styles[BLOCK]}__error-active`]: true
+					})}
+				/>
 				<Image
 					className={imageClassName}
 					onLoad={handleLoad}

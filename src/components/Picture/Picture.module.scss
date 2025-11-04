@@ -70,5 +70,10 @@
 		&-icon {
 			color: red;
 		}
+
+		&-active {
+			position: relative;
+			z-index: 1;
+		}
 	}
 }

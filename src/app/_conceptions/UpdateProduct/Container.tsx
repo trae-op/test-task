@@ -16,6 +16,7 @@ export const Container = ({ values }: TUpdateContainerProps) => {
 			title: values?.title || '',
 			serialNumber: values?.serialNumber || '',
 			type: values?.type || '',
+			photo: values?.photo || '',
 			specification: values?.specification || '',
 			guaranteeStart: convertISODateToInputDate(
 				values?.guaranteeStart?.toISOString() || ''

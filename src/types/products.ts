@@ -18,6 +18,7 @@ export type TProductActionResult = {
 export type TUpdateData = {
 	title: string;
 	serialNumber: string;
+	photo: string;
 	type: string;
 	specification: string;
 	guaranteeStart: string;

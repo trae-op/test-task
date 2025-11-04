@@ -1,6 +1,5 @@
 'use client';
 
-import { Price } from '.';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
@@ -18,6 +17,7 @@ import { TextField } from '@/components/TextField';
 import type { TAddProductFormData } from '@/hooks/addProduct/types';
 import { useAddProductActions } from '@/hooks/addProduct/useActions';
 
+import { Price } from './Price';
 import type { TAddProductProps } from './types';
 
 const toSelectValue = (options: SelectOption[], value?: string | number) => {

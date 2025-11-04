@@ -10,6 +10,7 @@ import { PricesForm } from '@/components/PricesForm';
 
 import { useUpdateActions } from '@/hooks/updateProduct/useActions';
 
+import { PictureProduct } from './Picture';
 import { GuaranteeEndField } from './fields/GuaranteeEndField';
 import { GuaranteeStartField } from './fields/GuaranteeStartField';
 import { IsNewField } from './fields/IsNewField';
@@ -45,6 +46,7 @@ export const UpdateForm = () => {
 				{t('Update product')}
 			</Card.Header>
 			<Card.Body>
+				<PictureProduct />
 				<MessagesServer message={state.message} type='error' />
 				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
 					<TitleField />

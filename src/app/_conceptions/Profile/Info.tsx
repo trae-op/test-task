@@ -81,8 +81,8 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 					<Col xs={12} lg={6} className='d-flex justify-content-center'>
 						<ImageUpload
 							imageOptions={{
-								fileName: uploadsPictures(`${defaultValues.id}`).fileName,
-								folder: uploadsPictures(`${defaultValues.id}`).folder,
+								fileName: uploadsPictures(defaultValues.id).fileName,
+								folder: uploadsPictures(defaultValues.id).folder,
 								entityId: session?.user.id || ''
 							}}
 							entity='profile'
