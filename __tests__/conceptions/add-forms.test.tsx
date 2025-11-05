@@ -30,16 +30,8 @@ jest.mock('next/navigation', () => ({ useParams: () => ({ locale: 'en' }) }));
 
 describe('Add forms', () => {
 	it('AddProduct negative: shows validation error on empty submit', async () => {
-		const { AddProduct } = require('@/app/_conceptions/AddProduct/AddProduct');
-		render(
-			<AddProduct
-				typeOptions={[
-					{ value: 'phone', label: 'phone' },
-					{ value: 'laptop', label: 'laptop' }
-				]}
-				currencyOptions={[{ value: 'USD', label: 'USD' }]}
-			/>
-		);
+		const { Container } = require('@/app/_conceptions/AddProduct/Container');
+		render(<Container />);
 		// Click submit button
 		const user = userEvent.setup();
 		await user.click(screen.getByRole('button', { name: /Submit/i }));
