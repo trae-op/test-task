@@ -14,11 +14,6 @@ export type TAddProductFormData = {
 	isNew?: boolean;
 };
 
-export type TAddProductProps = {
-	typeOptions: SelectOption[];
-	currencyOptions: OptionType[];
-};
-
 export type TPriceProps = {
 	currencyOptions: OptionType[];
 	onChange: (val: MultiValue<OptionType>) => void;

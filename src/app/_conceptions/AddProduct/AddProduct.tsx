@@ -1,66 +1,51 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
-import { useMemo, useState } from 'react';
-import { Card, Col, Form, Row } from 'react-bootstrap';
-import { useForm, useWatch } from 'react-hook-form';
-import { MultiValue } from 'react-select';
+import { Card, Form } from 'react-bootstrap';
+import { useFormContext } from 'react-hook-form';
 
 import { Button } from '@/components/Button';
 import { MessagesServer } from '@/components/MessagesServer';
-import type { OptionType } from '@/components/MultiSelectField/types';
-import { SelectField } from '@/components/SelectField';
+import { PricesForm } from '@/components/PricesForm';
 import type { SelectOption } from '@/components/SelectField/types';
-import { TextField } from '@/components/TextField';
 
 import type { TAddProductFormData } from '@/hooks/addProduct/types';
 import { useAddProductActions } from '@/hooks/addProduct/useActions';
 
-import { Price } from './Price';
-import type { TAddProductProps } from './types';
+import {
+	GuaranteeEndField,
+	GuaranteeStartField,
+	SpecificationField,
+	TitleField,
+	TypeField
+} from './fields';
 
-const toSelectValue = (options: SelectOption[], value?: string | number) => {
-	if (value === undefined || value === '') return '';
-	const match = options.find(o => String(o.value) === String(value));
-	return match ? match.value : '';
-};
+const TYPE_OPTIONS: SelectOption[] = [
+	{ value: 'phone', label: 'Phone' },
+	{ value: 'laptop', label: 'Laptop' },
+	{ value: 'monitor', label: 'Monitor' }
+];
 
-export const AddProduct = ({
-	typeOptions,
-	currencyOptions
-}: TAddProductProps) => {
+const currencyOptions = [
+	{ value: 'USD', label: 'USD' },
+	{ value: 'UAH', label: 'UAH' }
+];
+
+export const AddProduct = () => {
 	const t = useTranslations('App');
-	const te = useTranslations('App.errors');
-	const params = useParams();
-	const locale = (params?.locale as string) || '';
 
 	const {
-		register,
 		handleSubmit,
-		formState: { errors, isSubmitting },
-		setValue,
-		control
-	} = useForm<TAddProductFormData>({ mode: 'onBlur' });
-
-	// Selected prices accumulated via Price component
-	const [prices, setPrices] = useState<MultiValue<OptionType>>([]);
+		formState: { isSubmitting }
+	} = useFormContext<TAddProductFormData>();
 
 	const { onAddProductSubmit, state, isPending } = useAddProductActions();
-
-	const watchType = useWatch({ control, name: 'type' });
-	const watchGuaranteeStart = useWatch({ control, name: 'guaranteeStart' });
 
 	const isLoading = isSubmitting || isPending;
 
 	const onFormSubmit = (data: TAddProductFormData) => {
-		onAddProductSubmit(data, prices, locale);
+		onAddProductSubmit(data);
 	};
-
-	const currencySelectOptions = useMemo(
-		() => currencyOptions,
-		[currencyOptions]
-	);
 
 	return (
 		<Card>
@@ -70,71 +55,13 @@ export const AddProduct = ({
 			<Card.Body>
 				<MessagesServer message={state.message} type='error' />
 				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
-					<Form.Group className='mb-3' controlId='title'>
-						<Form.Label>{t('Title')}</Form.Label>
-						<TextField
-							{...register('title', {
-								required: te('required')
-							})}
-							type='text'
-							placeholder={t('Enter title')}
-							isInvalid={!!errors.title}
-							errorMessage={errors.title?.message}
-						/>
-					</Form.Group>
+					<TitleField />
+					<TypeField typeOptions={TYPE_OPTIONS} />
+					<SpecificationField />
+					<GuaranteeStartField />
+					<GuaranteeEndField />
 
-					<Form.Group className='mb-3' controlId='type'>
-						<Form.Label>{t('Type')}</Form.Label>
-						<SelectField
-							options={typeOptions}
-							value={toSelectValue(typeOptions, watchType)}
-							onChange={e => {
-								setValue('type', e.target.value);
-							}}
-							placeholder={t('Select type')}
-						/>
-						<input type='hidden' {...register('type')} />
-					</Form.Group>
-
-					<Form.Group className='mb-3' controlId='specification'>
-						<Form.Label>{t('Specification')}</Form.Label>
-						<TextField
-							{...register('specification')}
-							as='textarea'
-							placeholder={t('Enter specification')}
-						/>
-					</Form.Group>
-
-					<Row>
-						<Col>
-							<Form.Group className='mb-3' controlId='guaranteeStart'>
-								<Form.Label>{t('Guarantee start')}</Form.Label>
-								<TextField {...register('guaranteeStart')} type='date' />
-							</Form.Group>
-						</Col>
-						<Col>
-							<Form.Group className='mb-3' controlId='guaranteeEnd'>
-								<Form.Label>{t('Guarantee end')}</Form.Label>
-								<TextField
-									{...register('guaranteeEnd', {
-										validate: value => {
-											if (!value || !watchGuaranteeStart) return true;
-											return (
-												new Date(value) >= new Date(watchGuaranteeStart) ||
-												'End date must be after start date'
-											);
-										}
-									})}
-									type='date'
-									isInvalid={!!errors.guaranteeEnd}
-									errorMessage={errors.guaranteeEnd?.message}
-								/>
-							</Form.Group>
-						</Col>
-					</Row>
-
-					{/* Price builder (encapsulated) */}
-					<Price currencyOptions={currencySelectOptions} onChange={setPrices} />
+					<PricesForm currencyOptions={currencyOptions} />
 
 					<div className='d-flex align-items-center justify-content-center'>
 						<Button
