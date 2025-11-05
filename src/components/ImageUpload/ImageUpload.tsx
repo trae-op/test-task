@@ -128,16 +128,18 @@ export const ImageUpload = ({
 				)}
 			</div>
 
-			<input
-				type='range'
-				value={zoom}
-				min={1}
-				max={3}
-				step={0.1}
-				aria-labelledby='Zoom'
-				onChange={handleChangeRange}
-				className='w-100'
-			/>
+			{imageSrc && (
+				<input
+					type='range'
+					value={zoom}
+					min={1}
+					max={3}
+					step={0.1}
+					aria-labelledby='Zoom'
+					onChange={handleChangeRange}
+					className='w-100'
+				/>
+			)}
 
 			<div className='d-flex items-center justify-content-center gap-2'>
 				<Button
