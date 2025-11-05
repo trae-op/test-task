@@ -22,6 +22,22 @@ const eslintConfig = [
 			'next-env.d.ts'
 		]
 	},
+	// Relax some strict rules for test files to reduce noise and allow testing patterns
+	{
+		files: [
+			'**/__tests__/**/*.{ts,tsx}',
+			'**/*.test.{ts,tsx}',
+			'jest.setup.ts'
+		],
+		rules: {
+			'@typescript-eslint/no-explicit-any': 'off',
+			'@typescript-eslint/no-require-imports': 'off',
+			'@typescript-eslint/ban-ts-comment': 'off',
+			'react-hooks/rules-of-hooks': 'off',
+			'react-hooks/exhaustive-deps': 'off',
+			'@next/next/no-img-element': 'off'
+		}
+	},
 	{
 		rules: {
 			'react/display-name': 'off'
