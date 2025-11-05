@@ -64,7 +64,7 @@ export const PictureProduct = memo(() => {
 				alt='Product Picture'
 				size='full'
 				sizes='100px'
-				className={`${styles[BLOCK]}__picture`}
+				className={styles[`${BLOCK}__picture`]}
 			/>
 			<ImageUpload
 				imageOptions={{

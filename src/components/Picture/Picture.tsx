@@ -80,7 +80,7 @@ export const Picture = memo(
 					hasError={hasError}
 					size={iconSize}
 					className={clsx({
-						[`${styles[BLOCK]}__error-active`]: true
+						[styles[`${BLOCK}__error-active`]]: true
 					})}
 				/>
 				{src ? (
@@ -101,7 +101,7 @@ export const Picture = memo(
 						hasError
 						size={iconSize}
 						className={clsx({
-							[`${styles[BLOCK]}__error-active`]: true
+							[styles[`${BLOCK}__error-active`]]: true
 						})}
 					/>
 				)}

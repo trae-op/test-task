@@ -8,7 +8,7 @@ export const Loading = () => {
 	return (
 		<div className={styles[BLOCK]}>
 			<Spinner
-				className={`${styles[BLOCK]}__spinner`}
+				className={styles[`${BLOCK}__spinner`]}
 				animation='grow'
 				variant='secondary'
 			/>

@@ -10,6 +10,6 @@
 		background-color: var(--color-surface);
 		height: var(--size-188);
 		position: relative;
-		margin-top: -var(--size-188);
+		margin-top: calc(-1 * var(--size-188));
 	}
 }

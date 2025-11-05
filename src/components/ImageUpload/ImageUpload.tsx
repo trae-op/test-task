@@ -100,7 +100,7 @@ export const ImageUpload = ({
 			<div className={clsx(styles[BLOCK], 'w-100')}>
 				<div
 					className={clsx(
-						`${styles[BLOCK]}__container`,
+						styles[`${BLOCK}__container`],
 						'px-2 py-5 text-center d-flex flex-column justify-content-center align-items-center'
 					)}
 				>
@@ -113,7 +113,7 @@ export const ImageUpload = ({
 				</div>
 				{imageSrc && (
 					<>
-						<div className={clsx(`${styles[BLOCK]}__cropper`, 'w-100')}>
+						<div className={clsx(styles[`${BLOCK}__cropper`], 'w-100')}>
 							<Cropper
 								image={imageSrc}
 								crop={crop}
