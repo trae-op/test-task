@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { memo, useCallback, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 
 import { TResultUploadPicture } from '@/components/ImageUpload/types';
@@ -16,7 +15,10 @@ import { TDynamicPageParams } from '@/types/dynamicPage';
 import { getFullPathUploadPicture } from '@/utils/upload-files';
 import { uploadsPictures } from '@/utils/upload-files';
 
+import styles from './UpdateProduct.module.scss';
 import { TUpdateFormData } from './types';
+
+const BLOCK = 'update-product';
 
 const ImageUpload = dynamic(
 	() => import('@/components/ImageUpload').then(m => m.ImageUpload),
@@ -56,30 +58,26 @@ export const PictureProduct = memo(() => {
 	};
 
 	return (
-		<Row>
-			<Col xs={12} lg={4}>
-				<Picture
-					src={picture || ''}
-					alt='Product Picture'
-					size='full'
-					sizes='100px'
-					className='h-50'
-				/>
-			</Col>
-			<Col xs={12} lg={8}>
-				<ImageUpload
-					imageOptions={{
-						fileName: uploadsPictures(params.id).fileName,
-						folder: uploadsPictures(params.id).folder,
-						entityId: params.id || ''
-					}}
-					entity='product'
-					pendingUpload={pending}
-					handleBeforeSuccess={handleBeforeSuccess}
-					handleSuccess={handleSuccess}
-					handleFail={handleFail}
-				/>
-			</Col>
-		</Row>
+		<div className='d-flex gap-3'>
+			<Picture
+				src={picture || ''}
+				alt='Product Picture'
+				size='full'
+				sizes='100px'
+				className={`${styles[BLOCK]}__picture`}
+			/>
+			<ImageUpload
+				imageOptions={{
+					fileName: uploadsPictures(params.id).fileName,
+					folder: uploadsPictures(params.id).folder,
+					entityId: params.id || ''
+				}}
+				entity='product'
+				pendingUpload={pending}
+				handleBeforeSuccess={handleBeforeSuccess}
+				handleSuccess={handleSuccess}
+				handleFail={handleFail}
+			/>
+		</div>
 	);
 });
