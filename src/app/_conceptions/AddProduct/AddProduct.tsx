@@ -47,6 +47,8 @@ export const AddProduct = () => {
 		onAddProductSubmit(data);
 	};
 
+	console.log('RERENDER AddProduct', isLoading);
+
 	return (
 		<Card>
 			<Card.Header as='h4' className='text-center'>

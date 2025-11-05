@@ -2,14 +2,12 @@
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import type { TUpdateFormData } from '@/hooks/updateProduct/types';
+import type { TAddProductFormData } from '@/hooks/addProduct/types';
 
 import { AddProduct } from './AddProduct';
 
 export const Container = () => {
-	const methods = useForm<TUpdateFormData>({
-		mode: 'onBlur'
-	});
+	const methods = useForm<TAddProductFormData>({ mode: 'onBlur' });
 
 	return (
 		<FormProvider {...methods}>

@@ -2,9 +2,6 @@
 
 import { startTransition, useActionState, useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
-import type { MultiValue } from 'react-select';
-
-import type { OptionType } from '@/components/MultiSelectField/types';
 
 import { addProductSubmit } from '../../actions/addProduct/submit';
 import type { TAddProductSubmitState } from '../../actions/addProduct/types';
@@ -25,7 +22,7 @@ export const useAddProductActions = (): TAddProductActions => {
 
 	const onAddProductSubmit = useCallback(
 		(data: TAddProductFormData) => {
-			const pricesPayload = (prices as OptionType[]).map((p, idx) => ({
+			const pricesPayload = prices?.map((p, idx) => ({
 				symbol: p.value,
 				value: Number(p.valueAmount ?? 0),
 				isDefault: typeof p.isDefault === 'boolean' ? p.isDefault : idx === 0
@@ -45,7 +42,7 @@ export const useAddProductActions = (): TAddProductActions => {
 				formAction(fd);
 			});
 		},
-		[formAction]
+		[formAction, prices]
 	);
 
 	return { onAddProductSubmit, state, isPending } as const;
