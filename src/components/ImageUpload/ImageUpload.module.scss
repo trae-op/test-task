@@ -1,9 +1,17 @@
 .upload {
 	position: relative;
+	overflow: hidden;
+
 	&__container {
 		border: 2px dashed var(--color-slate);
 		cursor: pointer;
 		height: var(--size-188);
+
+		& > div {
+			height: 100%;
+			display: flex;
+			align-items: center;
+		}
 	}
 
 	&__cropper {
