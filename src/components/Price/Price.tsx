@@ -31,7 +31,7 @@ export const Price = memo(({ prices, hasAdaptiveTable }: TPriceProps) => {
 				}
 
 				return (
-					<span key={symbol}>
+					<span key={symbol} className={styles[`${BLOCK}__default`]}>
 						{String(value)} {symbol}
 					</span>
 				);

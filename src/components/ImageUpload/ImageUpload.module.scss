@@ -3,13 +3,13 @@
 	&__container {
 		border: 2px dashed var(--color-slate);
 		cursor: pointer;
-		height: 300px;
+		height: var(--size-188);
 	}
 
 	&__cropper {
 		background-color: var(--color-surface);
-		height: 300px;
+		height: var(--size-188);
 		position: relative;
-		margin-top: -300px;
+		margin-top: -var(--size-188);
 	}
 }

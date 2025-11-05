@@ -96,48 +96,50 @@ export const ImageUpload = ({
 	};
 
 	return (
-		<div className={clsx(styles[BLOCK], 'w-100')}>
-			<div
-				{...getRootProps()}
-				className={clsx(
-					`${styles[BLOCK]}__container`,
-					'px-2 py-5 text-center d-flex flex-column justify-content-center align-items-center'
+		<div className='d-flex flex-column align-items-center gap-2'>
+			<div className={clsx(styles[BLOCK], 'w-100')}>
+				<div
+					className={clsx(
+						`${styles[BLOCK]}__container`,
+						'px-2 py-5 text-center d-flex flex-column justify-content-center align-items-center'
+					)}
+				>
+					<div {...getRootProps()}>
+						<input {...getInputProps()} />
+						<span className='text-sm'>
+							{t('Drag and drop an image, or click to select one')}
+						</span>
+					</div>
+				</div>
+				{imageSrc && (
+					<>
+						<div className={clsx(`${styles[BLOCK]}__cropper`, 'w-100')}>
+							<Cropper
+								image={imageSrc}
+								crop={crop}
+								zoom={zoom}
+								aspect={1}
+								onCropChange={setCrop}
+								onCropComplete={onCropComplete}
+								onZoomChange={setZoom}
+							/>
+						</div>
+					</>
 				)}
-			>
-				<input {...getInputProps()} />
-				<span className='text-sm'>
-					{t('Drag and drop an image, or click to select one')}
-				</span>
 			</div>
-			{imageSrc && (
-				<>
-					<div className={clsx(`${styles[BLOCK]}__cropper`, 'w-100')}>
-						<Cropper
-							image={imageSrc}
-							crop={crop}
-							zoom={zoom}
-							aspect={1}
-							onCropChange={setCrop}
-							onCropComplete={onCropComplete}
-							onZoomChange={setZoom}
-						/>
-					</div>
 
-					<div>
-						<input
-							type='range'
-							value={zoom}
-							min={1}
-							max={3}
-							step={0.1}
-							aria-labelledby='Zoom'
-							onChange={handleChangeRange}
-							className='w-100'
-						/>
-					</div>
-				</>
-			)}
-			<div className='d-flex items-center justify-content-center gap-2 my-3'>
+			<input
+				type='range'
+				value={zoom}
+				min={1}
+				max={3}
+				step={0.1}
+				aria-labelledby='Zoom'
+				onChange={handleChangeRange}
+				className='w-100'
+			/>
+
+			<div className='d-flex items-center justify-content-center gap-2'>
 				<Button
 					disabled={pendingUpload || imageSrc === null}
 					isLoading={pendingUpload}
