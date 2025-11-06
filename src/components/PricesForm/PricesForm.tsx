@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { memo, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import { TPriceOption } from '@/hooks/pricesForm/types';
 import { usePriceFormActions } from '@/hooks/pricesForm/usePriceFormActions';
@@ -12,14 +13,7 @@ import { CurrencyField } from './fields/CurrencyField';
 import { DefaultCheckbox } from './fields/DefaultCheckbox';
 import { ListField } from './fields/ListField';
 
-const currencyOptions = [
-	{ value: 'USD', label: 'USD' },
-	{ value: 'UAH', label: 'UAH' }
-];
-
 export const PricesForm = memo(() => {
-	const t = useTranslations('App');
-
 	const {
 		amount,
 		currency,
@@ -31,15 +25,7 @@ export const PricesForm = memo(() => {
 		handleAddPrice,
 		handlePricesChange
 	} = usePriceFormActions();
-
-	const selectOptions = useMemo(
-		() =>
-			currencyOptions.map(o => ({
-				value: o.value,
-				label: o.label
-			})),
-		[currencyOptions]
-	);
+	const t = useTranslations('App');
 
 	const disabledOptions = useMemo(
 		() =>
@@ -81,7 +67,6 @@ export const PricesForm = memo(() => {
 				<CurrencyField
 					value={currency}
 					onChange={handleCurrencyChange}
-					options={selectOptions}
 					disabledOptions={disabledOptions}
 					label={t('Currency')}
 					placeholder={t('Select currency')}

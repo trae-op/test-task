@@ -1,5 +1,11 @@
-import { Container as AddProduct } from '@/conceptions/AddProduct';
+import { Container } from '@/conceptions/AddProduct';
+import { prisma } from '@/prisma/prisma-client';
 
 export default async function AppProductPage() {
-	return <AddProduct />;
+	const [productType, currency] = await Promise.all([
+		prisma.productType.findMany({ orderBy: { title: 'asc' } }),
+		prisma.currency.findMany({ orderBy: { title: 'asc' } })
+	]);
+
+	return <Container productType={productType} currency={currency} />;
 }

@@ -7,7 +7,6 @@ import { useFormContext } from 'react-hook-form';
 import { MessagesServer } from '@/components/MessagesServer';
 import { PricesForm } from '@/components/PricesForm';
 
-import type { TAddProductFormData } from '@/hooks/addProduct/types';
 import { useAddProductActions } from '@/hooks/addProduct/useActions';
 
 import { SubmitButton } from './SubmitButton';
@@ -18,12 +17,12 @@ import {
 	TitleField,
 	TypeField
 } from './fields';
-
-// server action state handling is encapsulated in the hook
+import { TAddProductFormExtended } from './types';
 
 export const AddProduct = () => {
 	const t = useTranslations('App');
-	const form = useFormContext<TAddProductFormData>();
+
+	const form = useFormContext<TAddProductFormExtended>();
 	const { onAddProductSubmit, state } = useAddProductActions();
 
 	const handleActionForm = () => {

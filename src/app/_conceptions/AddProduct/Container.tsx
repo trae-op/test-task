@@ -2,12 +2,14 @@
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import type { TAddProductFormData } from '@/hooks/addProduct/types';
-
 import { AddProduct } from './AddProduct';
+import { TAddProductFormExtended, TContainerProps } from './types';
 
-export const Container = () => {
-	const methods = useForm<TAddProductFormData>({ mode: 'onBlur' });
+export const Container = ({ productType, currency }: TContainerProps) => {
+	const methods = useForm<TAddProductFormExtended>({
+		mode: 'onBlur',
+		defaultValues: { productType, currency }
+	});
 
 	return (
 		<FormProvider {...methods}>

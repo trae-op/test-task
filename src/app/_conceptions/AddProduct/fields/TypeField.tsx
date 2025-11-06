@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useMemo } from 'react';
 import { Form } from 'react-bootstrap';
 import { useFormContext, useWatch } from 'react-hook-form';
 
@@ -9,11 +10,10 @@ import type { SelectOption } from '@/components/SelectField/types';
 
 import type { TAddProductFormData } from '@/hooks/addProduct/types';
 
-const typeOptions: SelectOption[] = [
-	{ value: 'phone', label: 'Phone' },
-	{ value: 'laptop', label: 'Laptop' },
-	{ value: 'monitor', label: 'Monitor' }
-];
+type TOptionItem = { id: string; value: string; title: string };
+type TAddProductFormExtended = TAddProductFormData & {
+	productType?: TOptionItem[];
+};
 
 const toSelectValue = (options: SelectOption[], value?: string | number) => {
 	if (value === undefined || value === '') return '';
@@ -23,8 +23,15 @@ const toSelectValue = (options: SelectOption[], value?: string | number) => {
 
 export const TypeField = () => {
 	const t = useTranslations('App');
-	const { register, setValue, control } = useFormContext<TAddProductFormData>();
+	const { register, setValue, control, watch } =
+		useFormContext<TAddProductFormExtended>();
 	const watchType = useWatch({ control, name: 'type' });
+	const productType = watch('productType');
+
+	const typeOptions: SelectOption[] = useMemo(
+		() => (productType ?? []).map(pt => ({ value: pt.value, label: pt.title })),
+		[productType]
+	);
 
 	return (
 		<Form.Group className='mb-3' controlId='type'>
