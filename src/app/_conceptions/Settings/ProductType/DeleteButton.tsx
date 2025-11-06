@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useCallback, useState } from 'react';
+import { useCallback, useRef } from 'react';
 
 import { Button } from '@/components/Button';
 
@@ -11,15 +11,15 @@ import {
 	useListSelector
 } from '@/context/productType/useContext';
 
-export const DeleteButton = memo(({ entityId }: { entityId: string }) => {
-	const [id, setId] = useState('');
+export const DeleteButton = ({ entityId }: { entityId: string }) => {
+	const idRef = useRef('');
 	const items = useListSelector();
 	const { deleteEntity } = useActions();
 	const deletePending = useDeleteLoadingSelector();
 
 	const handleDelete = useCallback((id: string) => {
 		deleteEntity({ id });
-		setId(id);
+		idRef.current = id;
 	}, []);
 
 	const onClick = useCallback(() => handleDelete(entityId), [entityId]);
@@ -33,9 +33,9 @@ export const DeleteButton = memo(({ entityId }: { entityId: string }) => {
 			text='Delete'
 			variant='danger'
 			size='sm'
-			isLoading={entityId === id && deletePending}
-			disabled={entityId === id && deletePending}
+			isLoading={entityId === idRef.current && deletePending}
+			disabled={entityId === idRef.current && deletePending}
 			onClick={onClick}
 		/>
 	);
-});
+};

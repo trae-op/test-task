@@ -24,20 +24,22 @@ const Wrapper: React.FC<{ children: React.ReactNode; defaultValues?: any }> = ({
 	children,
 	defaultValues
 }) => {
-	const methods = useForm({ defaultValues: defaultValues ?? { prices: [] } });
+	const methods = useForm({
+		defaultValues: defaultValues ?? { prices: [], currency: [] }
+	});
 	return <FormProvider {...methods}>{children}</FormProvider>;
 };
 
 describe('components/PricesForm', () => {
 	const currencyOptions = [
-		{ value: 'USD', label: 'USD' },
-		{ value: 'EUR', label: 'EUR' }
+		{ value: 'USD', title: 'USD' },
+		{ value: 'EUR', title: 'EUR' }
 	];
 
 	it('adds a default price and reflects it in the list', () => {
 		render(
-			<Wrapper>
-				<PricesForm currencyOptions={currencyOptions} />
+			<Wrapper defaultValues={{ prices: [], currency: currencyOptions }}>
+				<PricesForm />
 			</Wrapper>
 		);
 
@@ -71,8 +73,8 @@ describe('components/PricesForm', () => {
 
 	it('replaces price for the same currency and resets default when new is not default', () => {
 		render(
-			<Wrapper>
-				<PricesForm currencyOptions={currencyOptions} />
+			<Wrapper defaultValues={{ prices: [], currency: currencyOptions }}>
+				<PricesForm />
 			</Wrapper>
 		);
 
