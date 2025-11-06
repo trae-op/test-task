@@ -1,6 +1,6 @@
 'use client';
 
-import { startTransition, useCallback } from 'react';
+import { startTransition, useActionState, useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import type {
@@ -8,14 +8,18 @@ import type {
 	TAddProductFormData,
 	TPriceOption
 } from './types';
+import { addProductSubmit } from '@/actions/addProduct/submit';
 
 export const useAddProductActions = (): TAddProductActions => {
 	const { watch } = useFormContext();
-
 	const prices: TPriceOption[] = watch('prices');
 
+	const [state, formAction, isPending] = useActionState(addProductSubmit, {
+		ok: false
+	});
+
 	const onAddProductSubmit = useCallback(
-		(data: TAddProductFormData, actionsCallback: (data: FormData) => void) => {
+		(data: TAddProductFormData) => {
 			const pricesPayload = prices?.map((p, idx) => ({
 				symbol: p.value,
 				value: Number(p.valueAmount ?? 0),
@@ -33,11 +37,11 @@ export const useAddProductActions = (): TAddProductActions => {
 			fd.append('prices', JSON.stringify(pricesPayload));
 
 			startTransition(() => {
-				actionsCallback(fd);
+				formAction(fd);
 			});
 		},
-		[prices]
+		[prices, formAction]
 	);
 
-	return { onAddProductSubmit } as const;
+	return { onAddProductSubmit, state, isPending } as const;
 };

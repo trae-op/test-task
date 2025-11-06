@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useActionState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 
@@ -19,24 +18,17 @@ import { SpecificationField } from './fields/SpecificationField';
 import { TitleField } from './fields/TitleField';
 import { TypeField } from './fields/TypeField';
 import type { TUpdateFormData } from './types';
-import { updateProduct } from '@/actions/updateProduct';
-import type { TUpdateSubmitState } from '@/actions/updateProduct/types';
+
+// server action state handling is encapsulated in the hook
 
 export const UpdateForm = () => {
 	const t = useTranslations('App');
 	const form = useFormContext<TUpdateFormData>();
-	const { onUpdateSubmit } = useUpdateActions();
-
-	const [state, formAction] = useActionState<TUpdateSubmitState, FormData>(
-		updateProduct,
-		{ ok: false }
-	);
+	const { onUpdateSubmit, state } = useUpdateActions();
 
 	const handleActionForm = () => {
 		const values = form.getValues();
-		onUpdateSubmit(values, (fd: FormData) => {
-			formAction(fd);
-		});
+		onUpdateSubmit(values);
 	};
 
 	const onSubmitCapture = async (event: React.FormEvent<HTMLFormElement>) => {

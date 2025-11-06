@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import { useActionState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { FormProvider, useForm } from 'react-hook-form';
 import type { MultiValue } from 'react-select';
@@ -17,8 +16,8 @@ import { useAddOrderActions } from '@/hooks/addOrder';
 
 import { SubmitButton } from './SubmitButton';
 import type { TAddOrderFormData, TAddOrderProps } from './types';
-import { addOrderSubmit } from '@/actions/addOrder/submit';
-import type { TAddOrderSubmitState } from '@/actions/addOrder/types';
+
+// server action state handling is encapsulated in the hook
 
 const MultiSelectField = dynamic(
 	() =>
@@ -53,11 +52,7 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 		MultiValue<OptionType>
 	>([]);
 
-	const { onAddOrderSubmit } = useAddOrderActions();
-	const [state, formAction] = useActionState<TAddOrderSubmitState, FormData>(
-		addOrderSubmit,
-		{ ok: false }
-	);
+	const { onAddOrderSubmit, state } = useAddOrderActions();
 
 	const onChange = (value: MultiValue<OptionType>) => {
 		setSelectedProducts(value);
@@ -71,10 +66,7 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 				description: values.description
 			},
 			selectedProducts,
-			locale,
-			(fd: FormData) => {
-				formAction(fd);
-			}
+			locale
 		);
 	};
 

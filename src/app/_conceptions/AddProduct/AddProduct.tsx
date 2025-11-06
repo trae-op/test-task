@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useActionState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 
@@ -19,24 +18,17 @@ import {
 	TitleField,
 	TypeField
 } from './fields';
-import { addProductSubmit } from '@/actions/addProduct/submit';
-import type { TAddProductSubmitState } from '@/actions/addProduct/types';
+
+// server action state handling is encapsulated in the hook
 
 export const AddProduct = () => {
 	const t = useTranslations('App');
 	const form = useFormContext<TAddProductFormData>();
-	const { onAddProductSubmit } = useAddProductActions();
-
-	const [state, formAction] = useActionState<TAddProductSubmitState, FormData>(
-		addProductSubmit,
-		{ ok: false }
-	);
+	const { onAddProductSubmit, state } = useAddProductActions();
 
 	const handleActionForm = () => {
 		const values = form.getValues();
-		onAddProductSubmit(values, (fd: FormData) => {
-			formAction(fd);
-		});
+		onAddProductSubmit(values);
 	};
 
 	const onSubmitCapture = async (event: React.FormEvent<HTMLFormElement>) => {
