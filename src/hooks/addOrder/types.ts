@@ -10,11 +10,10 @@ export type TAddOrderFormData = {
 export type TOnAddOrderSubmit = (
 	data: TAddOrderFormData,
 	products: MultiValue<OptionType>,
-	locale: string
+	locale: string,
+	actionsCallback: (data: FormData) => void
 ) => void;
 
 export type TAddOrderActions = {
 	onAddOrderSubmit: TOnAddOrderSubmit;
-	state: { ok: boolean; message?: string };
-	isPending: boolean;
 };

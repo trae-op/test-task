@@ -4,18 +4,21 @@ import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
+import { useActionState } from 'react';
 import { Card, Form } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import type { MultiValue } from 'react-select';
 
-import { Button } from '@/components/Button';
 import { MessagesServer } from '@/components/MessagesServer';
 import type { OptionType } from '@/components/MultiSelectField/types';
 import { TextField } from '@/components/TextField';
 
 import { useAddOrderActions } from '@/hooks/addOrder';
 
+import { SubmitButton } from './SubmitButton';
 import type { TAddOrderFormData, TAddOrderProps } from './types';
+import { addOrderSubmit } from '@/actions/addOrder/submit';
+import type { TAddOrderSubmitState } from '@/actions/addOrder/types';
 
 const MultiSelectField = dynamic(
 	() =>
@@ -37,36 +40,50 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 		[products]
 	);
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors, isSubmitting }
-	} = useForm<TAddOrderFormData>({
+	const form = useForm<TAddOrderFormData>({
 		mode: 'onBlur',
 		defaultValues: { products: [] }
 	});
+	const {
+		register,
+		formState: { errors }
+	} = form;
 
 	const [selectedProducts, setSelectedProducts] = useState<
 		MultiValue<OptionType>
 	>([]);
 
-	const { onAddOrderSubmit, state, isPending } = useAddOrderActions();
-
-	const isLoading = isSubmitting || isPending;
+	const { onAddOrderSubmit } = useAddOrderActions();
+	const [state, formAction] = useActionState<TAddOrderSubmitState, FormData>(
+		addOrderSubmit,
+		{ ok: false }
+	);
 
 	const onChange = (value: MultiValue<OptionType>) => {
 		setSelectedProducts(value);
 	};
 
-	const onFormSubmit = (data: TAddOrderFormData) => {
+	const handleActionForm = () => {
+		const values = form.getValues();
 		onAddOrderSubmit(
 			{
-				title: data.title,
-				description: data.description
+				title: values.title,
+				description: values.description
 			},
 			selectedProducts,
-			locale
+			locale,
+			(fd: FormData) => {
+				formAction(fd);
+			}
 		);
+	};
+
+	const onSubmitCapture = async (event: React.FormEvent<HTMLFormElement>) => {
+		const isValid = await form.trigger();
+		if (!isValid) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
 	};
 
 	return (
@@ -76,49 +93,46 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 			</Card.Header>
 			<Card.Body>
 				<MessagesServer message={state.message} type='error' />
-				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
-					<Form.Group className='mb-3' controlId='title'>
-						<Form.Label>{t('Title')}</Form.Label>
-						<TextField
-							{...register('title', { required: te('required') })}
-							type='text'
-							placeholder={t('Enter title')}
-							isInvalid={!!errors.title}
-							errorMessage={errors.title?.message}
-						/>
-					</Form.Group>
+				<FormProvider {...form}>
+					<Form
+						noValidate
+						action={handleActionForm}
+						onSubmitCapture={onSubmitCapture}
+					>
+						<Form.Group className='mb-3' controlId='title'>
+							<Form.Label>{t('Title')}</Form.Label>
+							<TextField
+								{...register('title', { required: te('required') })}
+								type='text'
+								placeholder={t('Enter title')}
+								isInvalid={!!errors.title}
+								errorMessage={errors.title?.message}
+							/>
+						</Form.Group>
 
-					<Form.Group className='mb-3' controlId='description'>
-						<Form.Label>{t('Description')}</Form.Label>
-						<TextField
-							{...register('description')}
-							as='textarea'
-							placeholder={t('Enter description')}
-						/>
-					</Form.Group>
+						<Form.Group className='mb-3' controlId='description'>
+							<Form.Label>{t('Description')}</Form.Label>
+							<TextField
+								{...register('description')}
+								as='textarea'
+								placeholder={t('Enter description')}
+							/>
+						</Form.Group>
 
-					<Form.Group className='mb-4' controlId='products'>
-						<Form.Label>{t('Products')}</Form.Label>
-						<MultiSelectField
-							options={productOptions}
-							value={selectedProducts}
-							onChange={onChange}
-							closeMenuOnSelect={false}
-							placeholder={t('Select')}
-						/>
-					</Form.Group>
+						<Form.Group className='mb-4' controlId='products'>
+							<Form.Label>{t('Products')}</Form.Label>
+							<MultiSelectField
+								options={productOptions}
+								value={selectedProducts}
+								onChange={onChange}
+								closeMenuOnSelect={false}
+								placeholder={t('Select')}
+							/>
+						</Form.Group>
 
-					<div className='d-flex align-items-center justify-content-center'>
-						<Button
-							text={t('Submit')}
-							type='submit'
-							variant='success'
-							isLoading={isLoading}
-							disabled={isLoading}
-							className='ps-3 pe-3'
-						/>
-					</div>
-				</Form>
+						<SubmitButton />
+					</Form>
+				</FormProvider>
 			</Card.Body>
 		</Card>
 	);

@@ -1,30 +1,47 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useActionState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 
-import { Button } from '@/components/Button';
 import { MessagesServer } from '@/components/MessagesServer';
 
 import type { TUpdateOrderFormData } from '@/hooks/updateOrder/types';
 import { useUpdateOrderForm } from '@/hooks/updateOrder/useUpdateOrderForm';
 
+import { SubmitButton } from './SubmitButton';
 import { DescriptionField } from './fields/DescriptionField';
 import { ProductsField } from './fields/ProductsField';
 import { TitleField } from './fields/TitleField';
+import { updateOrder } from '@/actions/updateOrder/action';
+import type { TUpdateOrderSubmitState } from '@/actions/updateOrder/types';
 
 export const UpdateForm = () => {
 	const t = useTranslations('App');
+	const form = useFormContext<TUpdateOrderFormData>();
 
-	const {
-		formState: { isSubmitting },
-		handleSubmit
-	} = useFormContext<TUpdateOrderFormData>();
+	const { onSubmit } = useUpdateOrderForm();
 
-	const { onSubmit, isLoading, error } = useUpdateOrderForm();
+	const [state, formAction] = useActionState<TUpdateOrderSubmitState, FormData>(
+		updateOrder,
+		{ ok: false }
+	);
 
-	const loading = isSubmitting || isLoading;
+	const handleActionForm = () => {
+		const values = form.getValues();
+		onSubmit(values, (fd: FormData) => {
+			formAction(fd);
+		});
+	};
+
+	const onSubmitCapture = async (event: React.FormEvent<HTMLFormElement>) => {
+		const isValid = await form.trigger();
+		if (!isValid) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+	};
 
 	return (
 		<Card>
@@ -32,22 +49,17 @@ export const UpdateForm = () => {
 				{t('Update receipt')}
 			</Card.Header>
 			<Card.Body>
-				<MessagesServer message={error} type='error' />
-				<Form noValidate onSubmit={handleSubmit(onSubmit)}>
+				<MessagesServer message={state.message} type='error' />
+				<Form
+					noValidate
+					action={handleActionForm}
+					onSubmitCapture={onSubmitCapture}
+				>
 					<TitleField />
 					<DescriptionField />
 					<ProductsField />
 
-					<div className='d-flex align-items-center justify-content-center'>
-						<Button
-							text={t('Submit')}
-							type='submit'
-							variant='success'
-							isLoading={loading}
-							disabled={loading}
-							className='ps-3 pe-3'
-						/>
-					</div>
+					<SubmitButton />
 				</Form>
 			</Card.Body>
 		</Card>

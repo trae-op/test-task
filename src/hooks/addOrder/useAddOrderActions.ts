@@ -1,26 +1,19 @@
 'use client';
 
-import { startTransition, useActionState, useCallback } from 'react';
+import { startTransition, useCallback } from 'react';
 import type { MultiValue } from 'react-select';
 
 import type { OptionType } from '@/components/MultiSelectField/types';
 
-import { addOrderSubmit } from '../../actions/addOrder/submit';
-import type { TAddOrderSubmitState } from '../../actions/addOrder/types';
-
 import type { TAddOrderActions, TAddOrderFormData } from './types';
 
 export const useAddOrderActions = (): TAddOrderActions => {
-	const [state, formAction, isPending] = useActionState<
-		TAddOrderSubmitState,
-		FormData
-	>(addOrderSubmit, { ok: false });
-
 	const onAddOrderSubmit = useCallback(
 		(
 			data: TAddOrderFormData,
 			products: MultiValue<OptionType>,
-			locale: string
+			locale: string,
+			actionsCallback: (data: FormData) => void
 		) => {
 			const productIds = (products as OptionType[]).map(p => String(p.value));
 
@@ -31,11 +24,11 @@ export const useAddOrderActions = (): TAddOrderActions => {
 			fd.append('locale', locale);
 
 			startTransition(() => {
-				formAction(fd);
+				actionsCallback(fd);
 			});
 		},
-		[formAction]
+		[]
 	);
 
-	return { onAddOrderSubmit, state, isPending } as const;
+	return { onAddOrderSubmit } as const;
 };
