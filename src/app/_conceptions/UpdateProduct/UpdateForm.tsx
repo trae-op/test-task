@@ -17,13 +17,11 @@ import { IsNewField } from './fields/IsNewField';
 import { SpecificationField } from './fields/SpecificationField';
 import { TitleField } from './fields/TitleField';
 import { TypeField } from './fields/TypeField';
-import type { TUpdateFormData } from './types';
-
-// server action state handling is encapsulated in the hook
+import type { TUpdateFormExtended } from './types';
 
 export const UpdateForm = () => {
 	const t = useTranslations('App');
-	const form = useFormContext<TUpdateFormData>();
+	const form = useFormContext<TUpdateFormExtended>();
 	const { onUpdateSubmit, state } = useUpdateActions();
 
 	const handleActionForm = () => {

@@ -8,9 +8,13 @@ import type { TUpdateFormData } from '@/hooks/updateProduct/types';
 import { convertISODateToInputDate } from '@/utils/dateTime';
 
 import { UpdateForm } from './UpdateForm';
-import type { TUpdateContainerProps } from './types';
+import type { TUpdateContainerProps, TUpdateFormExtended } from './types';
 
-export const Container = ({ values }: TUpdateContainerProps) => {
+export const Container = ({
+	values,
+	productType,
+	currency
+}: TUpdateContainerProps) => {
 	const defaultValues = useMemo(() => {
 		return {
 			title: values?.title || '',
@@ -35,10 +39,12 @@ export const Container = ({ values }: TUpdateContainerProps) => {
 						userId: price.userId,
 						isDefault: price.isDefault
 					}))
-				: []
+				: [],
+			productType,
+			currency
 		};
-	}, [values]);
-	const methods = useForm<TUpdateFormData>({
+	}, [values, productType, currency]);
+	const methods = useForm<TUpdateFormExtended>({
 		mode: 'onBlur',
 		defaultValues
 	});

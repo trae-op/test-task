@@ -22,8 +22,16 @@ export type TUpdateFormProps = {
 	defaultValues?: TEntity;
 };
 
+export type TOptionItem = { id: string; value: string; title: string };
+export type TUpdateFormExtended = TUpdateFormData & {
+	productType?: TOptionItem[];
+	currency?: TOptionItem[];
+};
+
 export type TUpdateContainerProps = {
 	values?: TProduct;
+	productType?: TOptionItem[];
+	currency?: TOptionItem[];
 };
 
 export type TPriceProps = {
