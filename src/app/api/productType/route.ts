@@ -1,3 +1,4 @@
+import { getLocale } from 'next-intl/server';
 import { revalidatePath } from 'next/cache';
 import { type NextRequest, NextResponse } from 'next/server';
 
@@ -35,7 +36,8 @@ export const DELETE = async (req: NextRequest) => {
 
 		await prisma.productType.delete({ where: { id } });
 
-		revalidatePath('/[locale]/settings');
+		const locale = await getLocale();
+		revalidatePath(`/${locale}/settings`);
 
 		return NextResponse.json(
 			{ message: 'SUCCESS_DELETE', ok: true },
