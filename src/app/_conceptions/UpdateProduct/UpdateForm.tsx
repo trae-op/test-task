@@ -1,43 +1,50 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useActionState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 
-import { Button } from '@/components/Button';
 import { MessagesServer } from '@/components/MessagesServer';
 import { PricesForm } from '@/components/PricesForm';
 
 import { useUpdateActions } from '@/hooks/updateProduct/useActions';
 
 import { PictureProduct } from './Picture';
+import { SubmitButton } from './SubmitButton';
 import { GuaranteeEndField } from './fields/GuaranteeEndField';
 import { GuaranteeStartField } from './fields/GuaranteeStartField';
 import { IsNewField } from './fields/IsNewField';
 import { SpecificationField } from './fields/SpecificationField';
 import { TitleField } from './fields/TitleField';
 import { TypeField } from './fields/TypeField';
-import type { TPriceOption, TUpdateFormData } from './types';
-
-const currencyOptions: TPriceOption[] = [
-	{ value: 'USD', label: 'USD' },
-	{ value: 'UAH', label: 'UAH' }
-];
+import type { TUpdateFormData } from './types';
+import { updateProduct } from '@/actions/updateProduct';
+import type { TUpdateSubmitState } from '@/actions/updateProduct/types';
 
 export const UpdateForm = () => {
 	const t = useTranslations('App');
+	const form = useFormContext<TUpdateFormData>();
+	const { onUpdateSubmit } = useUpdateActions();
 
-	const {
-		handleSubmit,
-		formState: { isSubmitting }
-	} = useFormContext<TUpdateFormData>();
+	const [state, formAction] = useActionState<TUpdateSubmitState, FormData>(
+		updateProduct,
+		{ ok: false }
+	);
 
-	const { onUpdateSubmit, state, isPending } = useUpdateActions();
+	const handleActionForm = () => {
+		const values = form.getValues();
+		onUpdateSubmit(values, (fd: FormData) => {
+			formAction(fd);
+		});
+	};
 
-	const isLoading = isSubmitting || isPending;
-
-	const onFormSubmit = (data: TUpdateFormData) => {
-		onUpdateSubmit(data);
+	const onSubmitCapture = async (event: React.FormEvent<HTMLFormElement>) => {
+		const isValid = await form.trigger();
+		if (!isValid) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
 	};
 
 	return (
@@ -48,24 +55,19 @@ export const UpdateForm = () => {
 			<Card.Body>
 				<PictureProduct />
 				<MessagesServer message={state.message} type='error' />
-				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
+				<Form
+					noValidate
+					action={handleActionForm}
+					onSubmitCapture={onSubmitCapture}
+				>
 					<TitleField />
 					<TypeField />
 					<SpecificationField />
 					<GuaranteeStartField />
 					<GuaranteeEndField />
 					<IsNewField />
-					<PricesForm currencyOptions={currencyOptions} />
-					<div className='d-flex align-items-center justify-content-center'>
-						<Button
-							text={t('Submit')}
-							type='submit'
-							variant='success'
-							isLoading={isLoading}
-							disabled={isLoading}
-							className='ps-3 pe-3'
-						/>
-					</div>
+					<PricesForm />
+					<SubmitButton />
 				</Form>
 			</Card.Body>
 		</Card>

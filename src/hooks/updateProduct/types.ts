@@ -16,12 +16,13 @@ export type TPriceOption = OptionType & {
 	id?: string;
 };
 
-export type TOnUpdateSubmit = (data: TUpdateFormData) => void;
+export type TOnUpdateSubmit = (
+	data: TUpdateFormData,
+	actionsCallback: (data: FormData) => void
+) => void;
 
 export type TUpdateActionsHook = {
 	onUpdateSubmit: TOnUpdateSubmit;
-	state: { ok: boolean; message?: string };
-	isPending: boolean;
 };
 
 export type TPriceActionsParams = {
