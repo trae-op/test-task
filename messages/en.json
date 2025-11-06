@@ -18,6 +18,8 @@
 		"Enter value": "Enter value",
 		"Add product type": "Add product type",
 		"Delete": "Delete",
+		"Value must contain only uppercase Latin letters": "Value must contain only uppercase Latin letters",
+		"Value must contain only lowercase Latin letters": "Value must contain only lowercase Latin letters",
 		"Drag and drop an image, or click to select one": "Drag and drop an image, or click to select one",
 		"No orders available": "No orders available",
 		"Available": "Available",

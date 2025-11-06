@@ -17,5 +17,13 @@ export const validationMessages = {
 	passwordMatch: 'Passwords must match'
 };
 
+export const LOWERCASE_VALUE_PATTERN = /^[a-z]+$/;
+export const UPPERCASE_VALUE_PATTERN = /^[A-Z]+$/;
+
+export const validationMessagesExtended = {
+	valueLowercase: 'Value must contain only lowercase Latin letters',
+	valueUppercase: 'Value must contain only uppercase Latin letters'
+};
+
 export const isValidUuid = (v?: string | null) =>
 	!v || /^[0-9a-fA-F-]{36}$/.test(v);

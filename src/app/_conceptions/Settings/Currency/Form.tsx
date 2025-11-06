@@ -2,13 +2,17 @@
 
 import { useTranslations } from 'next-intl';
 import { Card, Form } from 'react-bootstrap';
-import { useFormStatus } from 'react-dom';
 import { useFormContext } from 'react-hook-form';
 
 import { MessagesServer } from '@/components/MessagesServer';
 
 import { useActions } from '@/hooks/settings/currency';
 import type { TSettingsCurrencyFormData } from '@/hooks/settings/currency/types';
+
+import {
+	UPPERCASE_VALUE_PATTERN,
+	validationMessagesExtended
+} from '@/utils/regExp';
 
 import { SubmitButton } from './SubmitButton';
 
@@ -17,7 +21,6 @@ export const FormCurrency = () => {
 	const te = useTranslations('App.errors');
 	const form = useFormContext<TSettingsCurrencyFormData>();
 	const { onSubmit, state } = useActions();
-	const { pending } = useFormStatus();
 
 	const handleActionForm = () => {
 		const values = form.getValues();
@@ -34,10 +37,8 @@ export const FormCurrency = () => {
 
 	const {
 		register,
-		formState: { errors, isSubmitting }
+		formState: { errors }
 	} = form;
-
-	const isLoading = isSubmitting || pending;
 
 	return (
 		<Card>
@@ -67,7 +68,13 @@ export const FormCurrency = () => {
 					<Form.Group className='mb-3' controlId='cr-value'>
 						<Form.Label>{t('Value')}</Form.Label>
 						<Form.Control
-							{...register('value', { required: te('required') })}
+							{...register('value', {
+								required: te('required'),
+								pattern: {
+									value: UPPERCASE_VALUE_PATTERN,
+									message: t(validationMessagesExtended.valueUppercase)
+								}
+							})}
 							type='text'
 							placeholder={t('Enter value')}
 							isInvalid={!!errors.value}

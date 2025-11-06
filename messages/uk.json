@@ -24,6 +24,8 @@
 		"Add product type": "Додати тип продукту",
 		"Orders": "Замовлення",
 		"Description": "Опис",
+		"Value must contain only uppercase Latin letters": "Значення повинно містити лише великі латинські літери",
+		"Value must contain only lowercase Latin letters": "Значення повинно містити лише малі латинські літери",
 		"Sign Out": "Вийти",
 		"All types": "Всі типи",
 		"No data available": "Немає доступних даних",
