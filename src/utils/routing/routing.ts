@@ -70,6 +70,7 @@ export const parseQueryParams = (query: string): TParsedQuery => {
 export const getProfileHref = '/profile';
 export const getOrdersHref = '/orders';
 export const getProductsHref = '/products';
+export const getSettingsHref = '/settings';
 export const getSignInHref = '/sign-in';
 export const getSignUpHref = '/sign-up';
 export const getAddProductHref = `${getProductsHref}/new`;

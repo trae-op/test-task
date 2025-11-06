@@ -8,8 +8,15 @@
 		"to": "to",
 		"Apply": "Apply",
 		"Cancel": "Cancel",
+		"Settings": "Settings",
+		"Add currency": "Add currency",
+		"Receipts": "Receipts",
+		"Products": "Products",
 		"Clear": "Clear",
 		"Add": "Add",
+		"Value": "Value",
+		"Enter value": "Enter value",
+		"Add product type": "Add product type",
 		"Delete": "Delete",
 		"Drag and drop an image, or click to select one": "Drag and drop an image, or click to select one",
 		"No orders available": "No orders available",
@@ -62,10 +69,6 @@
 		"Select currencies": "Select currencies",
 		"Is new product?": "Is new product?",
 
-		"sidebar": {
-			"Receipts": "Receipts",
-			"Products": "Products"
-		},
 		"auth": {
 			"signIn": {
 				"title": "Sign In",

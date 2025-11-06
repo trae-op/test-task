@@ -8,13 +8,20 @@
 		"to": "до",
 		"Apply": "Застосувати",
 		"Cancel": "Скасувати",
+		"Settings": "Налаштування",
+		"Receipts": "Надходження",
+		"Products": "Продукти",
 		"Delete this order?": "Видалити це замовлення?",
 		"Delete this product?": "Видалити цей продукт?",
 		"Error deleting entity": "Помилка видалення сутності",
 		"Error fetching entities": "Помилка отримання сутностей",
 		"Add": "Додати",
+		"Add currency": "Додати валюту",
 		"Delete": "Видалити",
 		"Products": "Продукти",
+		"Value": "Значення",
+		"Enter value": "Введіть значення",
+		"Add product type": "Додати тип продукту",
 		"Orders": "Замовлення",
 		"Description": "Опис",
 		"Sign Out": "Вийти",
@@ -62,10 +69,7 @@
 		"Prices": "Ціни",
 		"Select currencies": "Оберіть валюти",
 		"Is new product?": "Новий продукт?",
-		"sidebar": {
-			"Receipts": "Надходження",
-			"Products": "Продукти"
-		},
+
 		"auth": {
 			"signIn": {
 				"title": "Вхід",

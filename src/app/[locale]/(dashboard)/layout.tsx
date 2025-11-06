@@ -1,4 +1,8 @@
-import { getOrdersHref, getProductsHref } from '@/utils/routing/routing';
+import {
+	getOrdersHref,
+	getProductsHref,
+	getSettingsHref
+} from '@/utils/routing/routing';
 import { getUserSession } from '@/utils/session';
 import { getFullPathUploadPicture } from '@/utils/upload-files';
 
@@ -14,7 +18,8 @@ import { Provider as GlobalProvider } from '@/context/global';
 
 const navigationItems: TSidebarNavItem[] = [
 	{ href: getOrdersHref, label: 'Receipts' },
-	{ href: getProductsHref, label: 'Products' }
+	{ href: getProductsHref, label: 'Products' },
+	{ href: getSettingsHref, label: 'Settings' }
 ];
 const BLOCK = 'dashboard';
 

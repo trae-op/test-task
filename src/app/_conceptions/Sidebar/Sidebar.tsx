@@ -28,7 +28,7 @@ const ProfileSettingsButton = () => (
 );
 
 export const Sidebar = memo(({ items }: TSidebarProps) => {
-	const tReceipts = useTranslations('App.sidebar');
+	const tReceipts = useTranslations('App');
 	const avatarProfile = useAvatarProfileSelector();
 
 	return (
