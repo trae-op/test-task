@@ -14,7 +14,7 @@ export const useAddProductActions = (): TAddProductActions => {
 	const { watch } = useFormContext();
 	const prices: TPriceOption[] = watch('prices');
 
-	const [state, formAction, isPending] = useActionState(addProductSubmit, {
+	const [state, formAction] = useActionState(addProductSubmit, {
 		ok: false
 	});
 
@@ -43,5 +43,5 @@ export const useAddProductActions = (): TAddProductActions => {
 		[prices, formAction]
 	);
 
-	return { onAddProductSubmit, state, isPending } as const;
+	return { onAddProductSubmit, state } as const;
 };

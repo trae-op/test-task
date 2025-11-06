@@ -71,6 +71,17 @@ model Price {
   @@index([userId])
 }
 
+model ProductType {
+  id        String   @id @default(uuid()) @db.Uuid
+  value     String
+  title     String
+}
+
+model Currency {
+  id        String   @id @default(uuid()) @db.Uuid
+  value     String
+  title     String
+}
 
 model ProfilePicture {
   id        String   @id @default(uuid()) @db.Uuid

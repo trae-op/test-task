@@ -9,7 +9,7 @@ import type { TAddOrderActions, TAddOrderFormData } from './types';
 import { addOrderSubmit } from '@/actions/addOrder/submit';
 
 export const useAddOrderActions = (): TAddOrderActions => {
-	const [state, formAction, isPending] = useActionState(addOrderSubmit, {
+	const [state, formAction] = useActionState(addOrderSubmit, {
 		ok: false
 	});
 
@@ -34,5 +34,5 @@ export const useAddOrderActions = (): TAddOrderActions => {
 		[formAction]
 	);
 
-	return { onAddOrderSubmit, state, isPending } as const;
+	return { onAddOrderSubmit, state } as const;
 };
