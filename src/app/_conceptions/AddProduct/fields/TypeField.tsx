@@ -9,7 +9,11 @@ import type { SelectOption } from '@/components/SelectField/types';
 
 import type { TAddProductFormData } from '@/hooks/addProduct/types';
 
-import type { TTypeFieldProps } from './types';
+const typeOptions: SelectOption[] = [
+	{ value: 'phone', label: 'Phone' },
+	{ value: 'laptop', label: 'Laptop' },
+	{ value: 'monitor', label: 'Monitor' }
+];
 
 const toSelectValue = (options: SelectOption[], value?: string | number) => {
 	if (value === undefined || value === '') return '';
@@ -17,7 +21,7 @@ const toSelectValue = (options: SelectOption[], value?: string | number) => {
 	return match ? match.value : '';
 };
 
-export const TypeField = ({ typeOptions }: TTypeFieldProps) => {
+export const TypeField = () => {
 	const t = useTranslations('App');
 	const { register, setValue, control } = useFormContext<TAddProductFormData>();
 	const watchType = useWatch({ control, name: 'type' });

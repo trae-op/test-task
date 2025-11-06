@@ -11,9 +11,13 @@ import { AmountField } from './fields/AmountField';
 import { CurrencyField } from './fields/CurrencyField';
 import { DefaultCheckbox } from './fields/DefaultCheckbox';
 import { ListField } from './fields/ListField';
-import type { TPriceProps } from './types';
 
-export const PricesForm = memo(({ currencyOptions }: TPriceProps) => {
+const currencyOptions = [
+	{ value: 'USD', label: 'USD' },
+	{ value: 'UAH', label: 'UAH' }
+];
+
+export const PricesForm = memo(() => {
 	const t = useTranslations('App');
 
 	const {

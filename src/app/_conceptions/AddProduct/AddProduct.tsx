@@ -1,17 +1,17 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useActionState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 
-import { Button } from '@/components/Button';
 import { MessagesServer } from '@/components/MessagesServer';
 import { PricesForm } from '@/components/PricesForm';
-import type { SelectOption } from '@/components/SelectField/types';
 
 import type { TAddProductFormData } from '@/hooks/addProduct/types';
 import { useAddProductActions } from '@/hooks/addProduct/useActions';
 
+import { SubmitButton } from './SubmitButton';
 import {
 	GuaranteeEndField,
 	GuaranteeStartField,
@@ -19,32 +19,32 @@ import {
 	TitleField,
 	TypeField
 } from './fields';
-
-const TYPE_OPTIONS: SelectOption[] = [
-	{ value: 'phone', label: 'Phone' },
-	{ value: 'laptop', label: 'Laptop' },
-	{ value: 'monitor', label: 'Monitor' }
-];
-
-const currencyOptions = [
-	{ value: 'USD', label: 'USD' },
-	{ value: 'UAH', label: 'UAH' }
-];
+import { addProductSubmit } from '@/actions/addProduct/submit';
+import type { TAddProductSubmitState } from '@/actions/addProduct/types';
 
 export const AddProduct = () => {
 	const t = useTranslations('App');
+	const form = useFormContext<TAddProductFormData>();
+	const { onAddProductSubmit } = useAddProductActions();
 
-	const {
-		handleSubmit,
-		formState: { isSubmitting }
-	} = useFormContext<TAddProductFormData>();
+	const [state, formAction] = useActionState<TAddProductSubmitState, FormData>(
+		addProductSubmit,
+		{ ok: false }
+	);
 
-	const { onAddProductSubmit, state, isPending } = useAddProductActions();
+	const handleActionForm = () => {
+		const values = form.getValues();
+		onAddProductSubmit(values, (fd: FormData) => {
+			formAction(fd);
+		});
+	};
 
-	const isLoading = isSubmitting || isPending;
-
-	const onFormSubmit = (data: TAddProductFormData) => {
-		onAddProductSubmit(data);
+	const onSubmitCapture = async (event: React.FormEvent<HTMLFormElement>) => {
+		const isValid = await form.trigger();
+		if (!isValid) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
 	};
 
 	return (
@@ -54,25 +54,20 @@ export const AddProduct = () => {
 			</Card.Header>
 			<Card.Body>
 				<MessagesServer message={state.message} type='error' />
-				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
+				<Form
+					noValidate
+					action={handleActionForm}
+					onSubmitCapture={onSubmitCapture}
+				>
 					<TitleField />
-					<TypeField typeOptions={TYPE_OPTIONS} />
+					<TypeField />
 					<SpecificationField />
 					<GuaranteeStartField />
 					<GuaranteeEndField />
 
-					<PricesForm currencyOptions={currencyOptions} />
+					<PricesForm />
 
-					<div className='d-flex align-items-center justify-content-center'>
-						<Button
-							text={t('Submit')}
-							type='submit'
-							variant='success'
-							isLoading={isLoading}
-							disabled={isLoading}
-							className='ps-3 pe-3'
-						/>
-					</div>
+					<SubmitButton />
 				</Form>
 			</Card.Body>
 		</Card>

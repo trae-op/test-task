@@ -22,12 +22,13 @@ export type TAddProductFormData = {
 	isNew?: boolean;
 };
 
-export type TOnAddProductSubmit = (data: TAddProductFormData) => void;
+export type TOnAddProductSubmit = (
+	data: TAddProductFormData,
+	actionsCallback: (data: FormData) => void
+) => void;
 
 export type TAddProductActions = {
 	onAddProductSubmit: TOnAddProductSubmit;
-	state: { ok: boolean; message?: string };
-	isPending: boolean;
 };
 
 export type TUsePriceActionsArgs = {
