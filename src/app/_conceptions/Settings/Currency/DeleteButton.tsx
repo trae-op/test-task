@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useCallback, useRef } from 'react';
 
 import { Button } from '@/components/Button';
@@ -12,6 +13,7 @@ import {
 } from '@/context/currency/useContext';
 
 export const DeleteButton = ({ entityId }: { entityId: string }) => {
+	const t = useTranslations('App');
 	const idRef = useRef('');
 	const items = useListSelector();
 	const { deleteEntity } = useActions();
@@ -30,7 +32,7 @@ export const DeleteButton = ({ entityId }: { entityId: string }) => {
 
 	return (
 		<Button
-			text='Delete'
+			text={t('Delete')}
 			variant='danger'
 			size='sm'
 			isLoading={entityId === idRef.current && deletePending}
