@@ -73,6 +73,7 @@ export const getProductsHref = '/products';
 export const getSettingsHref = '/settings';
 export const getSignInHref = '/sign-in';
 export const getSignUpHref = '/sign-up';
+export const getOrderDynamicsHref = '/order-dynamics';
 export const getAddProductHref = `${getProductsHref}/new`;
 export const getAddOrderHref = `${getOrdersHref}/new`;
 export const getOrderDetailHref = (id: string | number): string =>

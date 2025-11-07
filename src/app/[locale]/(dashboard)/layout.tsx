@@ -1,4 +1,5 @@
 import {
+	getOrderDynamicsHref,
 	getOrdersHref,
 	getProductsHref,
 	getSettingsHref
@@ -20,6 +21,7 @@ import { Provider as GlobalProvider } from '@/context/global';
 const navigationItems: TSidebarNavItem[] = [
 	{ href: getOrdersHref, label: 'Orders' },
 	{ href: getProductsHref, label: 'Products' },
+	{ href: getOrderDynamicsHref, label: 'Order Dynamics' },
 	{ href: getSettingsHref, label: 'Settings' }
 ];
 const BLOCK = 'dashboard';

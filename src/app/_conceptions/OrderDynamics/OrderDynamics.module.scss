@@ -1,0 +1,25 @@
+.order-dynamics {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xl);
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border-neutral);
+	border-radius: var(--radius-lg);
+	padding: var(--space-3xl);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+
+	&__chart {
+		position: relative;
+		height: 22rem;
+	}
+
+	&__loading,
+	&__empty {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 12rem;
+		color: var(--color-muted);
+		font-size: var(--font-size-base);
+	}
+}
