@@ -14,6 +14,7 @@ import {
 	getOrderUpdateHref,
 	getProductUpdateHref,
 	getProfileHref,
+	getSettingsHref,
 	getWithoutLocalePath
 } from '@/utils/routing';
 
@@ -36,6 +37,7 @@ export const AddEntity = ({ children }: PropsWithChildren) => {
 		getAddOrderHref,
 		getAddProductHref,
 		getProfileHref,
+		getSettingsHref,
 		...(params.id ? [getProductUpdateHref(params.id)] : []),
 		...(params.id ? [getOrderUpdateHref(params.id)] : [])
 	];

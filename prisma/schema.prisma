@@ -21,6 +21,8 @@ model User {
   prices    Price[]
   profilePictures ProfilePicture[]
   productPictures ProductPicture[]
+  productTypes ProductType[]
+  currencies Currency[]
 }
 
 model Product {
@@ -73,14 +75,20 @@ model Price {
 
 model ProductType {
   id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
   value     String
   title     String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("ProductType")
 }
 
 model Currency {
   id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
   value     String
   title     String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("Currency")
 }
 
 model ProfilePicture {

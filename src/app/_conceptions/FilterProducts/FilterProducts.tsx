@@ -9,15 +9,10 @@ import { SelectField } from '@/components/SelectField';
 
 import { getProductsHref, getWithoutLocalePath } from '@/utils/routing';
 
-type TOption = { value: string; label: string };
-
-const OPTIONS: TOption[] = [
-	{ value: 'phone', label: 'phone' },
-	{ value: 'laptop', label: 'laptop' },
-	{ value: 'monitor', label: 'monitor' }
-];
+import { useProductTypesSelector } from '@/context/global/useContext';
 
 export const FilterProducts = memo(() => {
+	const productTypes = useProductTypesSelector();
 	const t = useTranslations('App');
 	const router = useRouter();
 	const pathname = usePathname();
@@ -28,6 +23,14 @@ export const FilterProducts = memo(() => {
 		() => (pathname ? getWithoutLocalePath(pathname) : ''),
 		[pathname]
 	);
+
+	const options = useMemo(() => {
+		return productTypes?.map(({ value, title }) => ({
+			value,
+			label: title
+		}));
+	}, [productTypes]);
+
 	const show = withoutLocalePath === getProductsHref;
 
 	const currentType = searchParams.get('type') ?? '';
@@ -65,7 +68,7 @@ export const FilterProducts = memo(() => {
 					value: '',
 					label: t('All types')
 				}}
-				options={OPTIONS}
+				options={options || []}
 				value={currentType}
 				onChange={handleChange}
 			/>

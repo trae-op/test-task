@@ -2,6 +2,8 @@
 
 import { useContext, useSyncExternalStore } from 'react';
 
+import { TProductType } from '@/types/productType';
+
 import { Context } from './Context';
 import { TEntity } from './types';
 
@@ -13,6 +15,11 @@ export const useEntityContext = () => {
 
 	return entityContext;
 };
+
+export function useProductTypesSelector(): TProductType[] | undefined {
+	const { getProductTypes, subscribe } = useEntityContext();
+	return useSyncExternalStore(subscribe, getProductTypes, getProductTypes);
+}
 
 export function useEntitiesTotalSelector(): number | undefined {
 	const { getEntitiesTotal, subscribe } = useEntityContext();

@@ -2,19 +2,30 @@
 
 import { createContext, useCallback, useRef } from 'react';
 
+import { TProductType } from '@/types/productType';
+
 import type { TContext, TProviderProps, TSubscriberCallback } from './types';
 
 export const Context = createContext<TContext | null>(null);
 
-export function Provider({ children, avatarProfile: avatar }: TProviderProps) {
+export function Provider({
+	children,
+	avatarProfile: avatar,
+	productTypes
+}: TProviderProps) {
 	const title = useRef('');
 	const total = useRef(0);
 	const avatarProfile = useRef(avatar);
+	const types = useRef(productTypes);
 	const linkAddEntity = useRef('');
 	const subscribers = useRef<Set<TSubscriberCallback>>(new Set());
 
 	const getEntitiesTitle = useCallback((): string | undefined => {
 		return title.current;
+	}, []);
+
+	const getProductTypes = useCallback((): TProductType[] | undefined => {
+		return types.current;
 	}, []);
 
 	const getAvatarProfile = useCallback((): string | undefined => {
@@ -60,6 +71,7 @@ export function Provider({ children, avatarProfile: avatar }: TProviderProps) {
 	return (
 		<Context.Provider
 			value={{
+				getProductTypes,
 				getLinkAddEntity,
 				setLinkAddEntity,
 				setEntitiesTitle,

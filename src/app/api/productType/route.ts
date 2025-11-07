@@ -1,5 +1,5 @@
 import { getLocale } from 'next-intl/server';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { getUserSession } from '@/utils/session';
@@ -38,6 +38,7 @@ export const DELETE = async (req: NextRequest) => {
 
 		const locale = await getLocale();
 		revalidatePath(`/${locale}/settings`);
+		revalidateTag('products');
 
 		return NextResponse.json(
 			{ message: 'SUCCESS_DELETE', ok: true },

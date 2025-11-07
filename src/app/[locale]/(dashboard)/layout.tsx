@@ -8,6 +8,7 @@ import { getFullPathUploadPicture } from '@/utils/upload-files';
 
 import styles from './Layout.module.scss';
 import { getPictureByEntityId } from '@/actions/pictures/profile';
+import { getProductTypes } from '@/actions/settings/productType/action';
 import { AddEntity } from '@/conceptions/AddEntity';
 import { FilterProductsWrapper } from '@/conceptions/FilterProducts';
 import { LocalizationDropdown } from '@/conceptions/LocalizationDropdown';
@@ -35,10 +36,13 @@ export default async function AuthLayout({
 	}
 
 	const { ok, item } = await getPictureByEntityId(userSession.id);
+	const { ok: productTypesOk, items: productTypesItems } =
+		await getProductTypes();
 
 	return (
 		<div className={styles[BLOCK]}>
 			<GlobalProvider
+				productTypes={productTypesOk ? productTypesItems : []}
 				avatarProfile={
 					ok && item?.url
 						? getFullPathUploadPicture({
