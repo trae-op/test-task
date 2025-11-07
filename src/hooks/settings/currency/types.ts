@@ -14,5 +14,5 @@ export type TDeleteEntityParams = { id: string; onSuccess?: () => void };
 export type TActions = {
 	onSubmit: (data: TSettingsCurrencyFormData) => void;
 	state: TSubmitState;
-	deleteEntity: (params: TDeleteEntityParams) => Promise<void>;
+	deleteEntity: (id: string) => void;
 };

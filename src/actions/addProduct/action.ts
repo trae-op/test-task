@@ -1,6 +1,7 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
+import { getLocale } from 'next-intl/server';
+import { revalidatePath } from 'next/cache';
 
 import { generateSerialNumber } from '@/utils/generateSerialNumber';
 import { isInt4 } from '@/utils/isInt4';
@@ -76,7 +77,8 @@ export const addProduct = async (
 			});
 		}
 
-		revalidateTag('products');
+		const locale = await getLocale();
+		revalidatePath(`/${locale}/products`);
 
 		return { ok: true, id: created.id };
 	} catch {

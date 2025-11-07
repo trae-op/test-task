@@ -3,29 +3,26 @@
 import { startTransition, useActionState, useCallback, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { useActions as useControlToaster } from '@/components/Toaster/useActions';
-
-import { deleteEntityById } from '@/services/settings/productType';
-
 import type { TActions, TSettingsProductTypeFormData } from './types';
-import { addProductTypeSubmit } from '@/actions/settings/productType';
+import {
+	addProductTypeSubmit,
+	deleteProductType
+} from '@/actions/settings/productType';
 import {
 	useListSelector,
-	useRemoveDispatch,
-	useSetAllDispatch,
-	useSetDeleteLoadingDispatch
+	useSetAllDispatch
 } from '@/context/productType/useContext';
 
 export const useActions = (): TActions => {
-	const { setToast } = useControlToaster();
 	const list = useListSelector();
 	const setAll = useSetAllDispatch();
-	const removeEntityDispatch = useRemoveDispatch();
-	const setDeleteLoadingDispatch = useSetDeleteLoadingDispatch();
 
 	const form = useFormContext<TSettingsProductTypeFormData>();
 
 	const [state, formAction] = useActionState(addProductTypeSubmit, {
+		ok: false
+	});
+	const [_, deleteFormAction] = useActionState(deleteProductType, {
 		ok: false
 	});
 
@@ -49,21 +46,14 @@ export const useActions = (): TActions => {
 		[formAction]
 	);
 
-	const deleteEntity = useCallback(
-		async ({ id, onSuccess }: { id: string; onSuccess?: () => void }) => {
-			try {
-				setDeleteLoadingDispatch(true);
-				await deleteEntityById(id);
-				removeEntityDispatch(id);
-				if (onSuccess) onSuccess();
-			} catch (error) {
-				setToast('Error deleting entity', 'error');
-			} finally {
-				setDeleteLoadingDispatch(false);
-			}
-		},
-		[]
-	);
+	const deleteEntity = useCallback((id: string) => {
+		const fd = new FormData();
+		fd.append('id', id);
+
+		startTransition(() => {
+			deleteFormAction(fd);
+		});
+	}, []);
 
 	return { onSubmit, state, deleteEntity };
 };

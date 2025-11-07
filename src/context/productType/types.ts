@@ -15,8 +15,6 @@ export type TContext = {
 	subscribe: (callback: () => void) => () => void;
 	isLoading: () => boolean;
 	setListLoading: (loadingState: boolean) => void;
-	setDeleteLoading: (loadingState: boolean) => void;
-	isDeleteLoading: () => boolean;
 };
 
 export type TSubscriberCallback = () => void;

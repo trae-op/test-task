@@ -24,14 +24,8 @@ export function useListLoadingSelector(): boolean {
 	return useSyncExternalStore(subscribe, isLoading, isLoading);
 }
 
-export function useDeleteLoadingSelector(): boolean {
-	const { isDeleteLoading, subscribe } = useEntityContext();
-	return useSyncExternalStore(subscribe, isDeleteLoading, isDeleteLoading);
-}
-
 export const useSetAllDispatch = () => useEntityContext().setAll;
 export const useSetListLoadingDispatch = () =>
 	useEntityContext().setListLoading;
-export const useSetDeleteLoadingDispatch = () =>
-	useEntityContext().setDeleteLoading;
+
 export const useRemoveDispatch = () => useEntityContext().remove;

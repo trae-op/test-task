@@ -1,6 +1,7 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
+import { getLocale } from 'next-intl/server';
+import { revalidatePath } from 'next/cache';
 
 import { convertToISOStringUTC } from '@/utils/dateTime';
 import { findChangedPrices } from '@/utils/prices';
@@ -105,7 +106,8 @@ export const updateProduct = async (
 					await prisma.$transaction(updateOperations);
 			}
 
-			revalidateTag('products');
+			const locale = await getLocale();
+			revalidatePath(`/${locale}/products`);
 			return { ok: true } as const;
 		} catch (_e) {
 			return { ok: false, code: 'SERVER_ERROR' as const };

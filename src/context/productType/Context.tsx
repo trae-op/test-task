@@ -14,19 +14,11 @@ export const Context = createContext<TContext | null>(null);
 export function Provider({ children, items }: TProviderProps) {
 	const state = useRef<TEntity[]>(items || []);
 	const loading = useRef(true);
-	const deleteLoading = useRef(false);
 	const subscribers = useRef<Set<TSubscriberCallback>>(new Set());
 
 	const get = useCallback((): TEntity[] => state.current, []);
 
 	const isLoading = useCallback((): boolean => loading.current, []);
-
-	const isDeleteLoading = useCallback((): boolean => deleteLoading.current, []);
-
-	const setDeleteLoading = useCallback((value: boolean): void => {
-		deleteLoading.current = value;
-		subscribers.current.forEach(cb => cb());
-	}, []);
 
 	const setListLoading = useCallback((value: boolean): void => {
 		loading.current = value;
@@ -56,8 +48,6 @@ export function Provider({ children, items }: TProviderProps) {
 				get,
 				subscribe,
 				remove,
-				setDeleteLoading,
-				isDeleteLoading,
 				setAll,
 				isLoading,
 				setListLoading
