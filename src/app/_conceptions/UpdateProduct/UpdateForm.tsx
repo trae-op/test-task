@@ -22,7 +22,7 @@ import type { TUpdateFormExtended } from './types';
 export const UpdateForm = () => {
 	const t = useTranslations('App');
 	const form = useFormContext<TUpdateFormExtended>();
-	const { onUpdateSubmit, state } = useUpdateActions();
+	const { onUpdateSubmit, error } = useUpdateActions();
 
 	const handleActionForm = () => {
 		const values = form.getValues();
@@ -44,7 +44,7 @@ export const UpdateForm = () => {
 			</Card.Header>
 			<Card.Body>
 				<PictureProduct />
-				<MessagesServer message={state.message} type='error' />
+				<MessagesServer message={error} type='error' />
 				<Form
 					noValidate
 					action={handleActionForm}

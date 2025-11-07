@@ -17,7 +17,7 @@ import { TopHeader } from '@/conceptions/TopHeader.ts';
 import { Provider as GlobalProvider } from '@/context/global';
 
 const navigationItems: TSidebarNavItem[] = [
-	{ href: getOrdersHref, label: 'Receipts' },
+	{ href: getOrdersHref, label: 'Orders' },
 	{ href: getProductsHref, label: 'Products' },
 	{ href: getSettingsHref, label: 'Settings' }
 ];

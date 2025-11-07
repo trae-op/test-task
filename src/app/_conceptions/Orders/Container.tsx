@@ -19,7 +19,7 @@ export const Container = () => {
 	const itemsCount = useAmountEntitiesSelector();
 
 	const setEntitiesLayout = useCallback(() => {
-		setEntitiesTitleDispatch('Receipts');
+		setEntitiesTitleDispatch('Orders');
 		setEntitiesTotalDispatch(itemsCount);
 		setLinkAddEntityDispatch(getAddOrderHref);
 	}, [

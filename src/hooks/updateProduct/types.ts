@@ -20,8 +20,7 @@ export type TOnUpdateSubmit = (data: TUpdateFormData) => void;
 
 export type TUpdateActionsHook = {
 	onUpdateSubmit: TOnUpdateSubmit;
-	state: { ok: boolean; message?: string };
-	isPending: boolean;
+	error?: string;
 };
 
 export type TPriceActionsParams = {

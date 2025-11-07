@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import { type MouseEvent, memo, useCallback } from 'react';
+import { Spinner } from 'react-bootstrap';
 
 import { CloseEntityButton } from '@/components/CloseEntityButton';
 
@@ -38,6 +39,7 @@ export const Popup = memo(
 		openButtonClassName,
 		openButtonAriaLabel,
 		applyButtonClassName,
+		isLoading,
 		...rest
 	}: TConfirmPopupProps) => {
 		const t = useTranslations('App');
@@ -121,16 +123,26 @@ export const Popup = memo(
 								) : (
 									<button
 										type='button'
-										disabled={applyDisabled}
-										className='d-flex align-items-center gap-2 text-danger btn btn-light'
+										disabled={isLoading || applyDisabled}
+										className={clsx(
+											'd-flex align-items-center justify-content-center gap-2 text-danger btn btn-light',
+											styles[`${BLOCK}__button-apply`],
+											applyButtonClassName
+										)}
 										onClick={handlePopupApply}
 									>
-										{ApplyIcon ? <ApplyIcon size={16} /> : null}
-										<span>
-											{t(applyText ?? 'Apply', {
-												default: applyText ?? 'Apply'
-											})}
-										</span>
+										{isLoading ? (
+											<Spinner animation='border' size='sm' />
+										) : (
+											<>
+												{ApplyIcon ? <ApplyIcon size={16} /> : null}
+												<span>
+													{t(applyText ?? 'Apply', {
+														default: applyText ?? 'Apply'
+													})}
+												</span>
+											</>
+										)}
 									</button>
 								)}
 							</div>

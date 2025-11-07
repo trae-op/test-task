@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { startTransition, useActionState, useCallback } from 'react';
+import { startTransition, useActionState, useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import type { MultiValue } from 'react-select';
 
@@ -12,9 +12,9 @@ import type { TDynamicPageParams } from '@/types/dynamicPage';
 import type { TUpdateOrderFormData, TUpdateOrderHookReturn } from './types';
 import { updateOrder } from '@/actions/updateOrder/action';
 
-export const useUpdateOrderForm = (): TUpdateOrderHookReturn => {
+export const useUpdateActions = (): TUpdateOrderHookReturn => {
 	const params = useParams<TDynamicPageParams>();
-	const { watch, formState } = useFormContext();
+	const { watch } = useFormContext();
 
 	const selectedProducts: MultiValue<OptionType> = watch('productsSelected');
 	const [state, formAction] = useActionState(updateOrder, { ok: false });
@@ -35,10 +35,11 @@ export const useUpdateOrderForm = (): TUpdateOrderHookReturn => {
 		[params.id, selectedProducts, formAction]
 	);
 
-	return {
-		onSubmit,
-		isLoading: !!formState?.isSubmitting,
-		error: state?.message,
-		errors: formState?.errors ?? {}
-	} as const;
+	return useMemo(
+		() => ({
+			onSubmit,
+			error: state?.message
+		}),
+		[onSubmit, state?.message]
+	);
 };

@@ -14,6 +14,10 @@ import { useAmountEntitiesSelector } from '@/context/orders/useContext';
 
 /* eslint-disable prettier/prettier */
 
+/* eslint-disable prettier/prettier */
+
+/* eslint-disable prettier/prettier */
+
 export const DetailContainer = ({ children }: { children?: ReactElement }) => {
 	const setEntitiesTitleDispatch = useEntitiesTitleDispatch();
 	const setEntitiesTotalDispatch = useSetEntitiesTotalDispatch();
@@ -21,7 +25,7 @@ export const DetailContainer = ({ children }: { children?: ReactElement }) => {
 	const itemsCount = useAmountEntitiesSelector();
 
 	const setEntitiesLayout = useCallback(() => {
-		setEntitiesTitleDispatch('Receipts');
+		setEntitiesTitleDispatch('Orders');
 		setEntitiesTotalDispatch(itemsCount);
 		setLinkAddEntityDispatch(getAddOrderHref);
 	}, [

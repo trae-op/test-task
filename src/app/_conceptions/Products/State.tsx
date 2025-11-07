@@ -8,7 +8,7 @@ import type { TProductStateProps } from './types';
 const BLOCK = 'product-item';
 
 export const ProductState = memo(({ isNew }: TProductStateProps) => {
-	const t = useTranslations('App.products.state');
+	const t = useTranslations('App');
 
 	if (isNew === undefined) {
 		return null;
@@ -17,9 +17,11 @@ export const ProductState = memo(({ isNew }: TProductStateProps) => {
 	return (
 		<div className={clsx(styles[`${BLOCK}__state`], 'w-50 text-center')}>
 			{isNew ? (
-				<span className={styles[`${BLOCK}__state-new`]}>{t('available')}</span>
+				<span className={styles[`${BLOCK}__state-new`]}>{t('Available')}</span>
 			) : (
-				<span className={styles[`${BLOCK}__state-used`]}>{t('inRepair')}</span>
+				<span className={styles[`${BLOCK}__state-used`]}>
+					{t('Not available')}
+				</span>
 			)}
 		</div>
 	);

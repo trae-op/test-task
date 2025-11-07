@@ -13,7 +13,5 @@ export type TUpdateOrderFormData = {
 
 export type TUpdateOrderHookReturn = {
 	onSubmit: (data: TUpdateOrderFormData) => void;
-	isLoading: boolean;
 	error?: string;
-	errors: FieldErrors;
 };

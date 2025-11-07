@@ -7,7 +7,7 @@ import { useFormContext } from 'react-hook-form';
 import { MessagesServer } from '@/components/MessagesServer';
 import { PricesForm } from '@/components/PricesForm';
 
-import { useAddProductActions } from '@/hooks/addProduct/useActions';
+import { useActions } from '@/hooks/addProduct/useActions';
 
 import { SubmitButton } from './SubmitButton';
 import {
@@ -17,13 +17,14 @@ import {
 	TitleField,
 	TypeField
 } from './fields';
+import { IsNewField } from './fields/IsNewField';
 import { TAddProductFormExtended } from './types';
 
 export const AddProduct = () => {
 	const t = useTranslations('App');
 
 	const form = useFormContext<TAddProductFormExtended>();
-	const { onAddProductSubmit, state } = useAddProductActions();
+	const { onAddProductSubmit, error } = useActions();
 
 	const handleActionForm = () => {
 		const values = form.getValues();
@@ -44,7 +45,7 @@ export const AddProduct = () => {
 				{t('Add product')}
 			</Card.Header>
 			<Card.Body>
-				<MessagesServer message={state.message} type='error' />
+				<MessagesServer message={error} type='error' />
 				<Form
 					noValidate
 					action={handleActionForm}
@@ -55,7 +56,7 @@ export const AddProduct = () => {
 					<SpecificationField />
 					<GuaranteeStartField />
 					<GuaranteeEndField />
-
+					<IsNewField />
 					<PricesForm />
 
 					<SubmitButton />

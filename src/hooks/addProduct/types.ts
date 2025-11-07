@@ -28,7 +28,7 @@ export type TOnAddProductSubmit = (data: TAddProductFormData) => void;
 
 export type TAddProductActions = {
 	onAddProductSubmit: TOnAddProductSubmit;
-	state: TSubmitState;
+	error?: string;
 };
 
 export type TUsePriceActionsArgs = {

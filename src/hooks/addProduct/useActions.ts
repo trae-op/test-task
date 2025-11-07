@@ -1,6 +1,6 @@
 'use client';
 
-import { startTransition, useActionState, useCallback } from 'react';
+import { startTransition, useActionState, useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import type {
@@ -10,7 +10,7 @@ import type {
 } from './types';
 import { addProductSubmit } from '@/actions/addProduct/submit';
 
-export const useAddProductActions = (): TAddProductActions => {
+export const useActions = (): TAddProductActions => {
 	const { watch } = useFormContext();
 	const prices: TPriceOption[] = watch('prices');
 
@@ -29,6 +29,7 @@ export const useAddProductActions = (): TAddProductActions => {
 			const fd = new FormData();
 			fd.append('title', data.title);
 			fd.append('serialNumber', data.serialNumber);
+			fd.append('isNew', data.isNew ? 'true' : 'false');
 			if (data.type) fd.append('type', data.type);
 			if (data.specification) fd.append('specification', data.specification);
 			if (data.guaranteeStart) fd.append('guaranteeStart', data.guaranteeStart);
@@ -43,5 +44,8 @@ export const useAddProductActions = (): TAddProductActions => {
 		[prices, formAction]
 	);
 
-	return { onAddProductSubmit, state } as const;
+	return useMemo(
+		() => ({ onAddProductSubmit, error: state?.message }),
+		[onAddProductSubmit, state?.message]
+	);
 };

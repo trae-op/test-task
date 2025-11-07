@@ -15,5 +15,5 @@ export type TOnAddOrderSubmit = (
 
 export type TAddOrderActions = {
 	onAddOrderSubmit: TOnAddOrderSubmit;
-	state: { ok: boolean; message?: string };
+	error?: string;
 };

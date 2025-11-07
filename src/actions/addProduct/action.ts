@@ -56,7 +56,7 @@ export const addProduct = async (
 				specification,
 				guaranteeStart,
 				guaranteeEnd,
-				isNew: true,
+				isNew: Boolean(input.isNew),
 				date: new Date(),
 				userId: userSession.id
 			}

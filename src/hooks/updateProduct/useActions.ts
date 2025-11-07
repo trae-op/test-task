@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { startTransition, useActionState, useCallback } from 'react';
+import { startTransition, useActionState, useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { TDynamicPageParams } from '@/types/dynamicPage';
@@ -17,7 +17,7 @@ export const useUpdateActions = (): TUpdateActionsHook => {
 	const { watch } = useFormContext();
 	const params = useParams<TDynamicPageParams>();
 	const prices: TPriceOption[] = watch('prices');
-	const [state, formAction, isPending] = useActionState(updateProduct, {
+	const [state, formAction] = useActionState(updateProduct, {
 		ok: false
 	});
 
@@ -49,5 +49,8 @@ export const useUpdateActions = (): TUpdateActionsHook => {
 		[prices, params.id, formAction]
 	);
 
-	return { onUpdateSubmit, state, isPending } as const;
+	return useMemo(
+		() => ({ onUpdateSubmit, error: state?.message }),
+		[onUpdateSubmit, state?.message]
+	);
 };

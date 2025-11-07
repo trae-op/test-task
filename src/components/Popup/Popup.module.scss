@@ -43,4 +43,8 @@
 		right: -0.5rem;
 		z-index: 2;
 	}
+
+	&__button-apply {
+		min-width: var(--size-100);
+	}
 }

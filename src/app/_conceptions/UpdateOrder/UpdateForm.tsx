@@ -1,38 +1,28 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useActionState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 
 import { MessagesServer } from '@/components/MessagesServer';
 
 import type { TUpdateOrderFormData } from '@/hooks/updateOrder/types';
-import { useUpdateOrderForm } from '@/hooks/updateOrder/useUpdateOrderForm';
+import { useUpdateActions } from '@/hooks/updateOrder/useUpdateActions';
 
 import { SubmitButton } from './SubmitButton';
 import { DescriptionField } from './fields/DescriptionField';
 import { ProductsField } from './fields/ProductsField';
 import { TitleField } from './fields/TitleField';
-import { updateOrder } from '@/actions/updateOrder/action';
-import type { TUpdateOrderSubmitState } from '@/actions/updateOrder/types';
 
 export const UpdateForm = () => {
 	const t = useTranslations('App');
 	const form = useFormContext<TUpdateOrderFormData>();
 
-	const { onSubmit } = useUpdateOrderForm();
-
-	const [state, formAction] = useActionState<TUpdateOrderSubmitState, FormData>(
-		updateOrder,
-		{ ok: false }
-	);
+	const { onSubmit, error } = useUpdateActions();
 
 	const handleActionForm = () => {
 		const values = form.getValues();
-		onSubmit(values, (fd: FormData) => {
-			formAction(fd);
-		});
+		onSubmit(values);
 	};
 
 	const onSubmitCapture = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -46,10 +36,10 @@ export const UpdateForm = () => {
 	return (
 		<Card>
 			<Card.Header as='h4' className='text-center'>
-				{t('Update receipt')}
+				{t('Update order')}
 			</Card.Header>
 			<Card.Body>
-				<MessagesServer message={state.message} type='error' />
+				<MessagesServer message={error} type='error' />
 				<Form
 					noValidate
 					action={handleActionForm}

@@ -16,6 +16,7 @@ export type TConfirmPopupProps = Omit<ModalProps, 'children'> & {
 	openButtonClassName?: string;
 	applyButtonClassName?: string;
 	openButtonAriaLabel?: string;
+	isLoading?: boolean;
 	children?: ReactNode;
 };
 

@@ -29,6 +29,8 @@ export const addProductSubmit = async (
 		prices = JSON.parse(pricesJson) ?? [];
 	} catch {}
 
+	console.log('isNewRaw:::', isNewRaw);
+
 	const res = await addProduct({
 		title,
 		type: type ?? null,

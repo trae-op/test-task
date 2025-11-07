@@ -12,12 +12,10 @@ import { MessagesServer } from '@/components/MessagesServer';
 import type { OptionType } from '@/components/MultiSelectField/types';
 import { TextField } from '@/components/TextField';
 
-import { useAddOrderActions } from '@/hooks/addOrder';
+import { useAddActions } from '@/hooks/addOrder';
 
 import { SubmitButton } from './SubmitButton';
 import type { TAddOrderFormData, TAddOrderProps } from './types';
-
-// server action state handling is encapsulated in the hook
 
 const MultiSelectField = dynamic(
 	() =>
@@ -52,7 +50,7 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 		MultiValue<OptionType>
 	>([]);
 
-	const { onAddOrderSubmit, state } = useAddOrderActions();
+	const { onAddOrderSubmit, error } = useAddActions();
 
 	const onChange = (value: MultiValue<OptionType>) => {
 		setSelectedProducts(value);
@@ -81,10 +79,10 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 	return (
 		<Card>
 			<Card.Header as='h4' className='text-center'>
-				{t('Add receipt')}
+				{t('Add order')}
 			</Card.Header>
 			<Card.Body>
-				<MessagesServer message={state.message} type='error' />
+				<MessagesServer message={error} type='error' />
 				<FormProvider {...form}>
 					<Form
 						noValidate

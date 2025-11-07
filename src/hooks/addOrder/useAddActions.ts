@@ -1,6 +1,6 @@
 'use client';
 
-import { startTransition, useActionState, useCallback } from 'react';
+import { startTransition, useActionState, useCallback, useMemo } from 'react';
 import type { MultiValue } from 'react-select';
 
 import type { OptionType } from '@/components/MultiSelectField/types';
@@ -8,7 +8,7 @@ import type { OptionType } from '@/components/MultiSelectField/types';
 import type { TAddOrderActions, TAddOrderFormData } from './types';
 import { addOrderSubmit } from '@/actions/addOrder/submit';
 
-export const useAddOrderActions = (): TAddOrderActions => {
+export const useAddActions = (): TAddOrderActions => {
 	const [state, formAction] = useActionState(addOrderSubmit, {
 		ok: false
 	});
@@ -34,5 +34,8 @@ export const useAddOrderActions = (): TAddOrderActions => {
 		[formAction]
 	);
 
-	return { onAddOrderSubmit, state } as const;
+	return useMemo(
+		() => ({ onAddOrderSubmit, error: state?.message }),
+		[onAddOrderSubmit, state?.message]
+	);
 };

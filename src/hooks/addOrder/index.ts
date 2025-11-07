@@ -1,2 +1,2 @@
-export * from './useAddOrderActions';
+export * from './useAddActions';
 export * from './types';
