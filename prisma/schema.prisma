@@ -23,6 +23,7 @@ model User {
   productPictures ProductPicture[]
   productTypes ProductType[]
   currencies Currency[]
+  orderLocations OrderLocation[]
 }
 
 model Product {
@@ -97,9 +98,7 @@ model ProfilePicture {
   url String
   pictureId      String
   createdAt DateTime @default(now())
-  
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@map("ProfilePicture")
 }
 
@@ -110,8 +109,18 @@ model ProductPicture {
   url     String
   pictureId      String
   createdAt DateTime @default(now())
-  
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@map("ProductPicture")
+}
+
+model OrderLocation {
+  id        String  @id @default(uuid())
+  latitude  Float
+  longitude Float
+  orderId   String
+  userId         String    @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("OrderLocation")
 }
