@@ -19,7 +19,7 @@ const TriggerButton = ({ children, ...props }: ButtonProps) => {
 	const t = useTranslations('App');
 
 	return (
-		<Button variant='success' {...props} text={t('Select location')}>
+		<Button {...props} text={t('Select location')}>
 			{children}
 		</Button>
 	);

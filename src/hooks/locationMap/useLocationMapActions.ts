@@ -49,10 +49,10 @@ export const useLocationMapActions = ({
 	);
 
 	const focusOnLocation = useCallback(
-		(coords: TLatLng) => {
+		(coords: TLatLng, zoom?: number) => {
 			setMarkerPosition(coords);
 			setMapCenter(coords);
-			setMapZoom(FOCUSED_MAP_ZOOM);
+			setMapZoom(zoom ?? FOCUSED_MAP_ZOOM);
 		},
 		[setMapCenter, setMapZoom, setMarkerPosition]
 	);
@@ -86,8 +86,8 @@ export const useLocationMapActions = ({
 	}, [emitLocation, focusOnLocation, searchQuery, setError, setIsSearching]);
 
 	const handleMapClick = useCallback<TLocationMapActions['handleMapClick']>(
-		async coords => {
-			focusOnLocation(coords);
+		async ({ coords, zoom }) => {
+			focusOnLocation(coords, zoom);
 
 			try {
 				const location = await reverseGeocode(coords);

@@ -60,18 +60,38 @@ const MapViewUpdater = ({
 const MapClickHandler = ({
 	onClick
 }: {
-	onClick: (coords: { lat: number; lng: number }) => void;
+	onClick: (params: {
+		coords: { lat: number; lng: number };
+		zoom: number;
+	}) => void | Promise<void>;
 }) => {
-	useMapEvents({
+	const map = useMapEvents({
 		click: event => {
-			onClick({ lat: event.latlng.lat, lng: event.latlng.lng });
+			void onClick({
+				coords: { lat: event.latlng.lat, lng: event.latlng.lng },
+				zoom: map.getZoom()
+			});
 		}
 	});
 
 	return null;
 };
 
-export const LocationMapClient = ({
+const ErrorMessage = ({ error }: { error?: string }) => {
+	const t = useTranslations('App');
+
+	if (!error) {
+		return null;
+	}
+
+	return (
+		<span className={styles['location-map__error']}>
+			{t(error, { default: error })}
+		</span>
+	);
+};
+
+export const LocationMapComponent = ({
 	onSuccessfulLocation,
 	className,
 	inputClassName,
@@ -123,11 +143,7 @@ export const LocationMapClient = ({
 					disabled={isSearching}
 				/>
 			</form>
-			{error ? (
-				<span className={styles['location-map__error']}>
-					{t(error, { default: error })}
-				</span>
-			) : null}
+			<ErrorMessage error={error} />
 			<MapContainer
 				center={toLatLngExpression(mapCenter)}
 				zoom={mapZoom}

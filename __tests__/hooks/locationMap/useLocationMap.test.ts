@@ -78,11 +78,15 @@ describe('useLocationMap', () => {
 		);
 
 		await act(async () => {
-			await result.current.handleMapClick({ lat: 49.83, lng: 24.03 });
+			await result.current.handleMapClick({
+				coords: { lat: 49.83, lng: 24.03 },
+				zoom: 11
+			});
 		});
 
 		expect(mockReverseGeocode).toHaveBeenCalledWith({ lat: 49.83, lng: 24.03 });
 		expect(onSuccess).toHaveBeenCalledWith(reverseLocation);
 		expect(result.current.markerPosition).toEqual({ lat: 49.83, lng: 24.03 });
+		expect(result.current.mapZoom).toBe(11);
 	});
 });

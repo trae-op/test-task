@@ -2,14 +2,14 @@ import dynamic from 'next/dynamic';
 
 import type { TLocationMapProps } from './types';
 
-const LocationMapClient = dynamic<TLocationMapProps>(
+const DynamicLocationMap = dynamic<TLocationMapProps>(
 	async () => {
-		const module = await import('./LocationMapClient');
-		return module.LocationMapClient;
+		const module = await import('./LocationMapComponent');
+		return module.LocationMapComponent;
 	},
 	{ ssr: false }
 );
 
 export const LocationMap = (props: TLocationMapProps) => (
-	<LocationMapClient {...props} />
+	<DynamicLocationMap {...props} />
 );

@@ -20,10 +20,15 @@ export type TLocationMapStateHandlers = {
 	setError: (value?: string) => void;
 };
 
+export type TLocationMapClickParams = {
+	coords: TLatLng;
+	zoom: number;
+};
+
 export type TLocationMapActions = {
 	handleSearchInput: (event: ChangeEvent<HTMLInputElement>) => void;
 	handleSearchSubmit: () => Promise<void>;
-	handleMapClick: (coords: TLatLng) => Promise<void>;
+	handleMapClick: (params: TLocationMapClickParams) => Promise<void>;
 };
 
 export type TLocationMapStateReturn = {
