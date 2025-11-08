@@ -1,10 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-// Child stubs
-jest.mock('@/app/_conceptions/Profile/Info', () => ({ Info: () => <div /> }));
+const infoRenderSpy = jest.fn();
+
+const MockInfoComponent = (props: any) => {
+	infoRenderSpy(props);
+	return <div data-testid='profile-info' />;
+};
+
+jest.mock('@/app/_conceptions/Profile/Info', () => ({
+	Info: MockInfoComponent
+}));
 jest.mock('@/app/_conceptions/Profile/UpdatePassword', () => ({
-	UpdatePassword: () => <div />
+	UpdatePassword: () => <div data-testid='profile-update-password' />
 }));
 
 // Session mock is mutable per test to avoid module resets (prevents React duplication)
@@ -25,12 +33,14 @@ jest.mock('@/hooks/auth', () => ({
 describe('Profile container', () => {
 	beforeEach(() => {
 		sessionMock.data = null;
+		infoRenderSpy.mockClear();
 	});
 
-	it('shows loader when session incomplete (negative)', () => {
+	it('hides info when session incomplete (negative)', () => {
 		const { Profile } = require('@/app/_conceptions/Profile/Profile');
 		render(<Profile />);
-		expect(screen.getByText(/Loading/)).toBeInTheDocument();
+		expect(screen.queryByTestId('profile-info')).not.toBeInTheDocument();
+		expect(infoRenderSpy).not.toHaveBeenCalled();
 	});
 
 	it('renders forms when session available (positive)', () => {
@@ -42,5 +52,11 @@ describe('Profile container', () => {
 		expect(
 			screen.getByRole('button', { name: /Sign Out/i })
 		).toBeInTheDocument();
+		expect(screen.getByTestId('profile-info')).toBeInTheDocument();
+		expect(infoRenderSpy).toHaveBeenCalledWith({
+			name: 'John',
+			id: 'u1',
+			email: 'john@example.com'
+		});
 	});
 });
