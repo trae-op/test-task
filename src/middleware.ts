@@ -19,9 +19,6 @@ export default async function middleware(req: NextRequest) {
 	const to = (path: string) => new URL(path, req.url);
 	const isProtected = hasLocaleInPath && firstAfterLocale !== '' && !isAuthPage;
 
-	// Use secure cookies only when the request is over HTTPS.
-	// In production builds running locally via http://localhost, forcing secure cookies
-	// will prevent the browser from sending auth cookies, breaking auth checks.
 	const isHttps =
 		req.headers.get('x-forwarded-proto') === 'https' ||
 		req.nextUrl.protocol === 'https:';
@@ -31,7 +28,7 @@ export default async function middleware(req: NextRequest) {
 		secureCookie: isHttps
 	});
 
-	const isAuthenticated = Boolean(token);
+	const isAuthenticated = Boolean(token?.email && token?.id);
 
 	if (isAuthenticated && isAuthPage) {
 		return NextResponse.redirect(to(`/${locale}/orders`));

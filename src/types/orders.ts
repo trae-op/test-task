@@ -1,4 +1,4 @@
-import type { Order } from '@prisma/client';
+import type { Order, OrderLocation } from '@prisma/client';
 
 import type { TErrorCodes } from './errorCodes';
 import type { TProduct } from './products';
@@ -13,6 +13,7 @@ export type TOrder = Order & {
 	amountOfProducts?: number | null;
 	products?: TProduct[];
 	prices?: TOrderPriceSummary[];
+	location?: OrderLocation | null;
 };
 
 export type TOrderActionResult = {

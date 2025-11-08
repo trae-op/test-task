@@ -8,15 +8,18 @@ import type { MultiValue } from 'react-select';
 import type { OptionType } from '@/components/MultiSelectField/types';
 
 import type { TDynamicPageParams } from '@/types/dynamicPage';
+import type { TLocationFormValue } from '@/types/location';
 
 import type { TUpdateOrderFormData, TUpdateOrderHookReturn } from './types';
 import { updateOrder } from '@/actions/updateOrder/action';
 
 export const useUpdateActions = (): TUpdateOrderHookReturn => {
 	const params = useParams<TDynamicPageParams>();
-	const { watch } = useFormContext();
+	const { watch } = useFormContext<TUpdateOrderFormData>();
 
-	const selectedProducts: MultiValue<OptionType> = watch('productsSelected');
+	const selectedProducts: MultiValue<OptionType> =
+		watch('productsSelected') ?? [];
+	const location: TLocationFormValue | undefined = watch('location');
 	const [state, formAction] = useActionState(updateOrder, { ok: false });
 
 	const onSubmit = useCallback(
@@ -27,12 +30,16 @@ export const useUpdateActions = (): TUpdateOrderHookReturn => {
 			if (data.description) fd.append('description', data.description);
 			const products = (selectedProducts || []).map(p => String(p.value));
 			fd.append('products', JSON.stringify(products));
+			console.log('Selected location:', location);
+			if (location) {
+				fd.append('location', JSON.stringify(location));
+			}
 
 			startTransition(() => {
 				formAction(fd);
 			});
 		},
-		[params.id, selectedProducts, formAction]
+		[params.id, selectedProducts, formAction, location]
 	);
 
 	return useMemo(

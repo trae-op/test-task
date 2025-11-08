@@ -56,6 +56,7 @@ model Order {
   userId           String    @db.Uuid
   products         Product[]
   user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  location         OrderLocation?
 
   @@index([userId])
 }
@@ -118,8 +119,16 @@ model OrderLocation {
   id        String  @id @default(uuid())
   latitude  Float
   longitude Float
-  orderId   String
-  userId         String    @db.Uuid
+  country   String?
+  state     String?
+  city      String?
+  district  String?
+  street    String?
+  postcode  String?
+  displayName String?
+  orderId   String   @db.Uuid @unique
+  userId    String   @db.Uuid
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("OrderLocation")

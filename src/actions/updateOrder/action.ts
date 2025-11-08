@@ -2,11 +2,47 @@
 
 import { revalidateTag } from 'next/cache';
 
+import type { TLocationFormValue } from '@/types/location';
+
 import { findChangedProducts } from '@/utils/products';
 import { getUserSession } from '@/utils/session';
 
 import type { TUpdateOrderResult, TUpdateOrderSubmitState } from './types';
 import { prisma } from '@/prisma/prisma-client';
+
+const parseLocation = (
+	value: FormDataEntryValue | null
+): TLocationFormValue | null => {
+	if (typeof value !== 'string' || value.trim() === '') {
+		return null;
+	}
+
+	try {
+		const parsed = JSON.parse(value) as Record<string, unknown>;
+		const lat = Number(parsed.lat);
+		const lng = Number(parsed.lng);
+		if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+			return null;
+		}
+
+		const normalize = (input: unknown) =>
+			typeof input === 'string' && input.trim() !== '' ? input : undefined;
+
+		return {
+			lat,
+			lng,
+			country: normalize(parsed.country),
+			state: normalize(parsed.state),
+			city: normalize(parsed.city),
+			district: normalize(parsed.district),
+			street: normalize(parsed.street),
+			postcode: normalize(parsed.postcode),
+			displayName: normalize(parsed.displayName)
+		};
+	} catch (_error) {
+		return null;
+	}
+};
 
 export const updateOrder = async (
 	_prevState: TUpdateOrderSubmitState,
@@ -21,6 +57,7 @@ export const updateOrder = async (
 	const title = String(formData.get('title') || '').trim();
 	const description = (formData.get('description') as string) || '';
 	const productsJson = String(formData.get('products') || '[]');
+	const locationPayload = parseLocation(formData.get('location'));
 
 	if (!id || !title) {
 		return { ok: false, message: 'invalidInput' };
@@ -77,6 +114,38 @@ export const updateOrder = async (
 				}
 				if (updateOperations.length)
 					await prisma.$transaction(updateOperations);
+			}
+
+			console.log('Location payload:', locationPayload);
+
+			if (locationPayload) {
+				await prisma.orderLocation.upsert({
+					where: { orderId: id },
+					update: {
+						latitude: locationPayload.lat,
+						longitude: locationPayload.lng,
+						country: locationPayload.country ?? null,
+						state: locationPayload.state ?? null,
+						city: locationPayload.city ?? null,
+						district: locationPayload.district ?? null,
+						street: locationPayload.street ?? null,
+						postcode: locationPayload.postcode ?? null,
+						displayName: locationPayload.displayName ?? null
+					},
+					create: {
+						orderId: id,
+						userId: userSession.id,
+						latitude: locationPayload.lat,
+						longitude: locationPayload.lng,
+						country: locationPayload.country ?? null,
+						state: locationPayload.state ?? null,
+						city: locationPayload.city ?? null,
+						district: locationPayload.district ?? null,
+						street: locationPayload.street ?? null,
+						postcode: locationPayload.postcode ?? null,
+						displayName: locationPayload.displayName ?? null
+					}
+				});
 			}
 
 			revalidateTag('orders');

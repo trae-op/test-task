@@ -54,11 +54,11 @@ export const Popup = memo(
 			onHide?.();
 		};
 
-		const popupClose = () => {
+		const popupClose = useCallback(() => {
 			handleClose();
 			onCancel?.();
 			onHide?.();
-		};
+		}, [handleClose, onCancel, onHide]);
 
 		const handleCancel = (e?: MouseEvent<HTMLButtonElement>) => {
 			e?.preventDefault();
@@ -71,7 +71,7 @@ export const Popup = memo(
 			if (!isControlled) {
 				onApply?.(popupClose);
 			}
-		}, [isControlled, handleOpen]);
+		}, [isControlled, onApply, popupClose]);
 
 		const handleModalHide = useCallback(() => {
 			if (!isControlled) handleClose();

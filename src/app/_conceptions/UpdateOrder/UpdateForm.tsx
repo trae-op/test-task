@@ -11,6 +11,7 @@ import { useUpdateActions } from '@/hooks/updateOrder/useUpdateActions';
 
 import { SubmitButton } from './SubmitButton';
 import { DescriptionField } from './fields/DescriptionField';
+import { LocationMapPopup } from './fields/LocationMapPopup';
 import { ProductsField } from './fields/ProductsField';
 import { TitleField } from './fields/TitleField';
 
@@ -48,6 +49,7 @@ export const UpdateForm = () => {
 					<TitleField />
 					<DescriptionField />
 					<ProductsField />
+					<LocationMapPopup />
 
 					<SubmitButton />
 				</Form>

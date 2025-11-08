@@ -45,7 +45,8 @@ export const AddEntity = ({ children }: PropsWithChildren) => {
 	const withoutLocalePath = getWithoutLocalePath(pathname);
 
 	const shouldHide = paths.some(path => withoutLocalePath === path);
-	if (shouldHide || totalFromContext === undefined || totalFromContext === 0) {
+
+	if (shouldHide) {
 		return null;
 	}
 

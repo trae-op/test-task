@@ -12,7 +12,20 @@ export default async function UpdateOrderPage({ params }: TDynamicPageProps) {
 			id: true,
 			title: true,
 			description: true,
-			products: { select: { id: true, title: true } }
+			products: { select: { id: true, title: true } },
+			location: {
+				select: {
+					latitude: true,
+					longitude: true,
+					country: true,
+					state: true,
+					city: true,
+					district: true,
+					street: true,
+					postcode: true,
+					displayName: true
+				}
+			}
 		},
 		whereFilters: { id }
 	});

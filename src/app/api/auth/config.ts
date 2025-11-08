@@ -50,12 +50,6 @@ export const authOptions: NextAuthOptions = {
 	],
 	callbacks: {
 		async jwt({ token, user, trigger, session }) {
-			const t = token as { [key: string]: unknown } & {
-				id?: string;
-				picture?: string;
-				provider?: string;
-			};
-
 			if (trigger === 'update' && session) {
 				const s = session as Partial<{
 					name?: string;
@@ -67,39 +61,35 @@ export const authOptions: NextAuthOptions = {
 				if (typeof nextName !== 'undefined') token.name = nextName ?? null;
 				if (typeof nextEmail !== 'undefined') token.email = nextEmail ?? null;
 			}
+
 			if (user) {
 				const u = user as Partial<{
 					id: string;
 					image?: string;
 					provider?: string;
 				}>;
-				t.id = u.id;
+				token.id = u.id;
 				token.name = user.name ?? token.name;
 				token.email = user.email ?? token.email;
-				t.picture = u.image ?? (token as { picture?: string }).picture;
-				t.provider = u.provider ?? 'credentials';
+				token.picture = u.image ?? (token as { picture?: string }).picture;
+				token.provider = u.provider ?? 'credentials';
 			} else if (token.email) {
 				const dbUser = await prisma.user.findUnique({
 					where: { email: token.email }
 				});
+
 				if (dbUser !== null) {
-					t.id = dbUser.id;
+					token.id = dbUser.id;
 					token.name = dbUser.name ?? token.name;
-					t.picture = dbUser.ava ?? (token as { picture?: string }).picture;
-					t.provider = dbUser.provider ?? 'credentials';
+					token.picture = dbUser.ava ?? (token as { picture?: string }).picture;
+					token.provider = dbUser.provider ?? 'credentials';
 				} else {
-					delete t.id;
+					delete token.id;
 					delete token.email;
-					delete token.name;
-					delete t.picture;
-					delete t.provider;
 				}
 			} else {
-				delete t.id;
+				delete token.id;
 				delete token.email;
-				delete token.name;
-				delete t.picture;
-				delete t.provider;
 			}
 			return token;
 		},
