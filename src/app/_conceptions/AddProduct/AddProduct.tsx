@@ -7,7 +7,7 @@ import { useFormContext } from 'react-hook-form';
 import { MessagesServer } from '@/components/MessagesServer';
 import { PricesForm } from '@/components/PricesForm';
 
-import { useActions } from '@/hooks/addProduct/useActions';
+import { useAddProductActions } from '@/hooks/addProduct';
 
 import { SubmitButton } from './SubmitButton';
 import {
@@ -24,7 +24,7 @@ export const AddProduct = () => {
 	const t = useTranslations('App');
 
 	const form = useFormContext<TAddProductFormExtended>();
-	const { onAddProductSubmit, error } = useActions();
+	const { onAddProductSubmit, error } = useAddProductActions();
 
 	const handleActionForm = () => {
 		const values = form.getValues();

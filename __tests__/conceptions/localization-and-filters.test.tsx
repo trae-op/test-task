@@ -6,6 +6,13 @@ import { FilterProducts } from '@/app/_conceptions/FilterProducts/FilterProducts
 import { FilterProductsWrapper } from '@/app/_conceptions/FilterProducts/FilterProductsWrapper';
 import { LocalizationDropdown } from '@/app/_conceptions/LocalizationDropdown/LocalizationDropdown';
 
+jest.mock('@/context/global/useContext', () => ({
+	useProductTypesSelector: () => [
+		{ value: 'phone', title: 'phone' },
+		{ value: 'laptop', title: 'laptop' }
+	]
+}));
+
 jest.mock('next-intl', () => ({
 	useLocale: () => 'en',
 	useTranslations: () => (k: string) => k

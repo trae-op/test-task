@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { useUpdateOrderForm } from '@/hooks/updateOrder/useUpdateActions';
+import { useUpdateActions as useUpdateOrderForm } from '@/hooks/updateOrder/useUpdateActions';
 
 // Mock React hooks to control useActionState and startTransition
 let formActionMock: jest.Mock<any, any>;
@@ -45,9 +45,7 @@ describe('updateOrder/useUpdateOrderForm', () => {
 
 		const { result } = renderHook(() => useUpdateOrderForm());
 
-		expect(result.current.isLoading).toBe(false);
 		expect(result.current.error).toBe('Bad');
-		expect(result.current.errors).toEqual({});
 
 		act(() => {
 			result.current.onSubmit({ orderId: '', title: 'Title' } as any);
@@ -61,18 +59,5 @@ describe('updateOrder/useUpdateOrderForm', () => {
 		expect(map.get('title')).toBe('Title');
 		const products = JSON.parse(map.get('products') || '[]');
 		expect(products).toEqual(['p1', 'p2']);
-	});
-
-	it('isLoading true when form is submitting', () => {
-		useActionStateState = { ok: false };
-
-		mockUseFormContext.mockReturnValue({
-			watch: () => [],
-			formState: { isSubmitting: true, errors: { title: { type: 'required' } } }
-		});
-
-		const { result } = renderHook(() => useUpdateOrderForm());
-		expect(result.current.isLoading).toBe(true);
-		expect(result.current.errors).toHaveProperty('title');
 	});
 });

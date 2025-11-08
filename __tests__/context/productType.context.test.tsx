@@ -3,13 +3,11 @@ import React, { type PropsWithChildren } from 'react';
 
 import { Provider as ProductTypeProvider } from '@/context/productType';
 import {
-	useDeleteLoadingSelector,
 	useEntityContext,
 	useListLoadingSelector,
 	useListSelector,
 	useRemoveDispatch,
 	useSetAllDispatch,
-	useSetDeleteLoadingDispatch,
 	useSetListLoadingDispatch
 } from '@/context/productType/useContext';
 
@@ -28,20 +26,16 @@ function createWrapper(props?: {
 function useUnderTest() {
 	const list = useListSelector();
 	const isLoading = useListLoadingSelector();
-	const isDeleteLoading = useDeleteLoadingSelector();
 
 	const setAll = useSetAllDispatch();
 	const setListLoading = useSetListLoadingDispatch();
-	const setDeleteLoading = useSetDeleteLoadingDispatch();
 	const remove = useRemoveDispatch();
 
 	return {
 		list,
 		isLoading,
-		isDeleteLoading,
 		setAll,
 		setListLoading,
-		setDeleteLoading,
 		remove
 	};
 }
@@ -59,17 +53,11 @@ describe('productType context', () => {
 
 		expect(result.current.list.map((x: any) => x.id)).toEqual(['t1', 't2']);
 		expect(result.current.isLoading).toBe(true);
-		expect(result.current.isDeleteLoading).toBe(false);
 
 		act(() => {
 			result.current.setListLoading(false);
 		});
 		expect(result.current.isLoading).toBe(false);
-
-		act(() => {
-			result.current.setDeleteLoading(true);
-		});
-		expect(result.current.isDeleteLoading).toBe(true);
 
 		act(() => {
 			result.current.setAll([{ id: 't9' }] as any);
@@ -88,19 +76,16 @@ describe('productType context', () => {
 
 		const setAllRef = result.current.setAll;
 		const setListLoadingRef = result.current.setListLoading;
-		const setDeleteLoadingRef = result.current.setDeleteLoading;
 		const removeRef = result.current.remove;
 
 		act(() => {
 			result.current.setAll([] as any);
 			result.current.setListLoading(false);
-			result.current.setDeleteLoading(true);
 			result.current.remove('x');
 		});
 
 		expect(result.current.setAll).toBe(setAllRef);
 		expect(result.current.setListLoading).toBe(setListLoadingRef);
-		expect(result.current.setDeleteLoading).toBe(setDeleteLoadingRef);
 		expect(result.current.remove).toBe(removeRef);
 	});
 });

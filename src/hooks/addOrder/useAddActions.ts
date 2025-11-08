@@ -39,3 +39,5 @@ export const useAddActions = (): TAddOrderActions => {
 		[onAddOrderSubmit, state?.message]
 	);
 };
+
+export const useAddOrderActions = useAddActions;

@@ -12,7 +12,7 @@ import { MessagesServer } from '@/components/MessagesServer';
 import type { OptionType } from '@/components/MultiSelectField/types';
 import { TextField } from '@/components/TextField';
 
-import { useAddActions } from '@/hooks/addOrder';
+import { useAddOrderActions } from '@/hooks/addOrder';
 
 import { SubmitButton } from './SubmitButton';
 import type { TAddOrderFormData, TAddOrderProps } from './types';
@@ -50,7 +50,7 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 		MultiValue<OptionType>
 	>([]);
 
-	const { onAddOrderSubmit, error } = useAddActions();
+	const { onAddOrderSubmit, error } = useAddOrderActions();
 
 	const onChange = (value: MultiValue<OptionType>) => {
 		setSelectedProducts(value);

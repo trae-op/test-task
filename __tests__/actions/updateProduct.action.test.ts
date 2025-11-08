@@ -1,6 +1,7 @@
 import { updateProduct } from '@/actions/updateProduct/action';
 
-jest.mock('next/cache', () => ({ revalidateTag: jest.fn() }));
+jest.mock('next/cache', () => ({ revalidatePath: jest.fn() }));
+jest.mock('next-intl/server', () => ({ getLocale: () => 'en' }));
 jest.mock('@/utils/prices', () => ({
 	findChangedPrices: () => ({ toDelete: [], toCreate: [], hasChanges: false })
 }));

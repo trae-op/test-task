@@ -43,8 +43,8 @@ describe('Products components', () => {
 
 	it('ProductState shows available/used states', () => {
 		const { rerender } = render(<ProductState isNew={true} />);
-		expect(screen.getByText('available')).toBeInTheDocument();
+		expect(screen.getByText('Available')).toBeInTheDocument();
 		rerender(<ProductState isNew={false} />);
-		expect(screen.getByText('inRepair')).toBeInTheDocument();
+		expect(screen.getByText('Not available')).toBeInTheDocument();
 	});
 });
