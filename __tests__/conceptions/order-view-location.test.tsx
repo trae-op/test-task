@@ -45,12 +45,15 @@ describe('OrderViewLocation', () => {
 
 		render(<OrderViewLocation location={location} />);
 
-		expect(screen.getByText('View location')).toBeInTheDocument();
+		const popup = popupProps[0];
+
+		expect(popup).toBeDefined();
+		expect(popup.openButtonAriaLabel).toBe('View location');
 		expect(screen.getByText('Selected location')).toBeInTheDocument();
 		expect(screen.getByText('Kyiv')).toBeInTheDocument();
 
-		expect(popupProps[0].showApplyButton).toBe(false);
-		expect(popupProps[0].cancelText).toBe('Close');
+		expect(popup.showApplyButton).toBe(false);
+		expect(popup.cancelText).toBe('Close');
 
 		expect(locationMapMock).toHaveBeenCalledWith(
 			expect.objectContaining({
