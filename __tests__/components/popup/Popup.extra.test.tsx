@@ -60,6 +60,22 @@ describe('components/Popup (extra cases)', () => {
 		expect(applyBtn).toBeDisabled();
 	});
 
+	it('hides the Apply button when showApplyButton is false', () => {
+		render(
+			<Popup
+				title='Title'
+				componentButton={TriggerButton}
+				show
+				showApplyButton={false}
+			/>
+		);
+
+		const footer = screen.getByText('Cancel').closest('div') as HTMLElement;
+		expect(
+			within(footer).queryByRole('button', { name: /^Apply$/i })
+		).toBeNull();
+	});
+
 	it('uses custom ComponentApplyButton when provided', async () => {
 		const onApply = jest.fn();
 		render(

@@ -40,6 +40,7 @@ export const Popup = memo(
 		openButtonAriaLabel,
 		applyButtonClassName,
 		isLoading,
+		showApplyButton = true,
 		...rest
 	}: TConfirmPopupProps) => {
 		const t = useTranslations('App');
@@ -113,38 +114,40 @@ export const Popup = memo(
 									{t(cancelText, { default: cancelText })}
 								</button>
 
-								{ComponentApplyButton !== undefined ? (
-									<ComponentApplyButton
-										className={applyButtonClassName}
-										onClick={handlePopupApply}
-									>
-										{ApplyIcon ? <ApplyIcon /> : null}
-									</ComponentApplyButton>
-								) : (
-									<button
-										type='button'
-										disabled={isLoading || applyDisabled}
-										className={clsx(
-											'd-flex align-items-center justify-content-center gap-2 text-danger btn btn-light',
-											styles[`${BLOCK}__button-apply`],
-											applyButtonClassName
-										)}
-										onClick={handlePopupApply}
-									>
-										{isLoading ? (
-											<Spinner animation='border' size='sm' />
-										) : (
-											<>
-												{ApplyIcon ? <ApplyIcon size={16} /> : null}
-												<span>
-													{t(applyText ?? 'Apply', {
-														default: applyText ?? 'Apply'
-													})}
-												</span>
-											</>
-										)}
-									</button>
-								)}
+								{showApplyButton ? (
+									ComponentApplyButton !== undefined ? (
+										<ComponentApplyButton
+											className={applyButtonClassName}
+											onClick={handlePopupApply}
+										>
+											{ApplyIcon ? <ApplyIcon /> : null}
+										</ComponentApplyButton>
+									) : (
+										<button
+											type='button'
+											disabled={isLoading || applyDisabled}
+											className={clsx(
+												'd-flex align-items-center justify-content-center gap-2 text-danger btn btn-light',
+												styles[`${BLOCK}__button-apply`],
+												applyButtonClassName
+											)}
+											onClick={handlePopupApply}
+										>
+											{isLoading ? (
+												<Spinner animation='border' size='sm' />
+											) : (
+												<>
+													{ApplyIcon ? <ApplyIcon size={16} /> : null}
+													<span>
+														{t(applyText ?? 'Apply', {
+															default: applyText ?? 'Apply'
+														})}
+													</span>
+												</>
+											)}
+										</button>
+									)
+								) : null}
 							</div>
 
 							<div className={styles[`${BLOCK}__close`]}>

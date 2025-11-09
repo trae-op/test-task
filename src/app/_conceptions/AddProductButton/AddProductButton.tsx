@@ -19,8 +19,12 @@ export const AddProductButton = () => {
 	const t = useTranslations('App');
 
 	return (
-		<div className='d-flex align-items-center justify-content-start gap-2 '>
-			<NavigationLink href={getAddProductHref} component={NavigationLinkIcon} />
+		<div className='d-flex align-items-center justify-content-start gap-2'>
+			<NavigationLink
+				className='d-flex'
+				href={getAddProductHref}
+				component={NavigationLinkIcon}
+			/>
 			<span>{t('Add product')}</span>
 		</div>
 	);

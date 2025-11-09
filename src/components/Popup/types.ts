@@ -18,6 +18,7 @@ export type TConfirmPopupProps = Omit<ModalProps, 'children'> & {
 	openButtonAriaLabel?: string;
 	isLoading?: boolean;
 	children?: ReactNode;
+	showApplyButton?: boolean;
 };
 
 export type TConfirmPopupState = {

@@ -35,10 +35,11 @@ export const OrderTable = memo(
 					<tbody>
 						{items.map(item => (
 							<OrderRow
+								{...item}
 								key={item.id}
+								prices={item.prices}
 								isDeleteButton={isDeleteButton}
 								isUpdateButton={isUpdateButton}
-								{...item}
 							/>
 						))}
 					</tbody>

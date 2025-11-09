@@ -96,7 +96,9 @@ export const LocationMapComponent = ({
 	className,
 	inputClassName,
 	mapClassName,
-	initialLocation
+	initialLocation,
+	showSearchControls = true,
+	isInteractive = true
 }: TLocationMapProps) => {
 	const t = useTranslations('App');
 	const {
@@ -111,38 +113,47 @@ export const LocationMapComponent = ({
 		handleMapClick
 	} = useLocationMap({ onSuccessfulLocation, initialLocation });
 
+	const shouldRenderSearchControls = showSearchControls !== false;
+	const isLocationInteractive = isInteractive !== false;
+
 	const handleSubmit = useCallback(
 		(event: FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
+			if (!isLocationInteractive) {
+				return;
+			}
 			handleSearchSubmit();
 		},
-		[handleSearchSubmit]
+		[handleSearchSubmit, isLocationInteractive]
 	);
 
 	return (
 		<div className={clsx(styles['location-map'], className)}>
-			<form
-				className={styles['location-map__controls']}
-				onSubmit={handleSubmit}
-			>
-				<TextField
-					type='text'
-					value={searchQuery}
-					className='w-100'
-					onChange={handleSearchInput}
-					placeholder={t('Search for a location', {
-						default: 'Search for a location'
-					})}
-					inputClassName={inputClassName}
-				/>
-				<Button
-					type='submit'
-					variant='success'
-					text={t('Search', { default: 'Search' })}
-					isLoading={isSearching}
-					disabled={isSearching}
-				/>
-			</form>
+			{shouldRenderSearchControls ? (
+				<form
+					className={styles['location-map__controls']}
+					onSubmit={handleSubmit}
+				>
+					<TextField
+						type='text'
+						value={searchQuery}
+						className='w-100'
+						onChange={isLocationInteractive ? handleSearchInput : undefined}
+						placeholder={t('Search for a location', {
+							default: 'Search for a location'
+						})}
+						inputClassName={inputClassName}
+						disabled={!isLocationInteractive}
+					/>
+					<Button
+						type='submit'
+						variant='success'
+						text={t('Search', { default: 'Search' })}
+						isLoading={isLocationInteractive ? isSearching : false}
+						disabled={!isLocationInteractive || isSearching}
+					/>
+				</form>
+			) : null}
 			<ErrorMessage error={error} />
 			<MapContainer
 				center={toLatLngExpression(mapCenter)}
@@ -151,7 +162,9 @@ export const LocationMapComponent = ({
 				className={clsx(styles['location-map__map'], mapClassName)}
 			>
 				<MapViewUpdater center={toLatLngExpression(mapCenter)} zoom={mapZoom} />
-				<MapClickHandler onClick={handleMapClick} />
+				{isLocationInteractive ? (
+					<MapClickHandler onClick={handleMapClick} />
+				) : null}
 				<TileLayer
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 					url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'

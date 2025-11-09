@@ -7,6 +7,7 @@ export default async function OrdersPage() {
 		selectFields: {
 			id: true,
 			title: true,
+			location: true,
 			products: {
 				select: {
 					id: true,

@@ -1,14 +1,18 @@
 'use client';
 
+import type { OrderLocation } from '@prisma/client';
 import { clsx } from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
-import { memo, useCallback } from 'react';
-import { CaretRight, ListUl, Pencil } from 'react-bootstrap-icons';
+import { memo, useCallback, useMemo } from 'react';
+import { CaretRight, GeoAltFill, ListUl, Pencil } from 'react-bootstrap-icons';
 
 import { NavigationLink } from '@/components/NavigationLink';
 import { Price } from '@/components/Price';
 
+import { TLocationFormValue } from '@/types/location';
+
 import { formatDateTime } from '@/utils/dateTime';
+import { formatLocationLabel } from '@/utils/locationMap';
 import { getOrderDetailHref, getOrderUpdateHref } from '@/utils/routing';
 
 import styles from './Orders.module.scss';
@@ -29,6 +33,32 @@ function ListUlIcon() {
 	return <ListUl className={styles[`${BLOCK}__icon`]} size={15} />;
 }
 
+const toLocationDetails = (
+	location?: OrderLocation | null
+): TLocationFormValue | undefined => {
+	if (!location) {
+		return undefined;
+	}
+
+	const { latitude, longitude } = location;
+
+	if (latitude === null || longitude === null) {
+		return undefined;
+	}
+
+	return {
+		lat: latitude,
+		lng: longitude,
+		country: location.country ?? undefined,
+		state: location.state ?? undefined,
+		city: location.city ?? undefined,
+		district: location.district ?? undefined,
+		street: location.street ?? undefined,
+		postcode: location.postcode ?? undefined,
+		displayName: location.displayName ?? undefined
+	};
+};
+
 export const OrderRow = memo(
 	({
 		title,
@@ -36,6 +66,7 @@ export const OrderRow = memo(
 		prices,
 		amountOfProducts = 0,
 		id,
+		location,
 		isUpdateButton = true,
 		isDeleteButton = true
 	}: TOrderProps) => {
@@ -43,6 +74,11 @@ export const OrderRow = memo(
 		const hasAdaptiveTable = useAdaptiveTableSelector();
 		const i18nLocale = useLocale();
 		const tp = useTranslations('App');
+
+		const locationDetails = useMemo(
+			() => toLocationDetails(location),
+			[location]
+		);
 
 		const dateTime = useCallback(
 			(formatString: string) =>
@@ -67,7 +103,6 @@ export const OrderRow = memo(
 							styles[`${BLOCK}__link`],
 							'd-flex align-items-center justify-content-center w-100 h-100 text-decoration-none'
 						)}
-						title={title}
 						href={getOrderDetailHref(id)}
 					>
 						<div
@@ -76,7 +111,7 @@ export const OrderRow = memo(
 								'overflow-hidden w-100'
 							)}
 						>
-							{title !== undefined && (
+							{title !== null && (
 								<div className={styles[`${BLOCK}__name`]}>
 									<span className={styles[`${BLOCK}__name-title`]}>
 										{title}
@@ -108,6 +143,22 @@ export const OrderRow = memo(
 										</span>
 									</div>
 								</div>
+
+								{locationDetails !== undefined && (
+									<div
+										className={styles[`${BLOCK}__location`]}
+										title={formatLocationLabel(locationDetails)}
+									>
+										<div
+											className={clsx(
+												styles[`${BLOCK}__container-icon`],
+												'd-flex align-items-center justify-content-center'
+											)}
+										>
+											<GeoAltFill />
+										</div>
+									</div>
+								)}
 
 								{date !== undefined && (
 									<div className={styles[`${BLOCK}__detail-item`]}>

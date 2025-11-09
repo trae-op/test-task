@@ -4,6 +4,7 @@ import type { TDynamicPageProps } from '@/types/dynamicPage';
 
 import { getOrders } from '@/actions/orders';
 import { AddProductButton } from '@/conceptions/AddProductButton';
+import { OrderViewLocation } from '@/conceptions/OrderViewLocation';
 import { OrderTable } from '@/conceptions/Orders';
 import { DetailContainer } from '@/conceptions/Orders/DetailContainer';
 import { ProductsTable } from '@/conceptions/Products';
@@ -16,6 +17,7 @@ export default async function OrderPage({ params }: TDynamicPageProps) {
 	const { items, ok } = await getOrders({
 		selectFields: {
 			id: true,
+			title: true,
 			products: {
 				select: {
 					id: true,
@@ -26,16 +28,44 @@ export default async function OrderPage({ params }: TDynamicPageProps) {
 				}
 			},
 			date: true,
-			amountOfProducts: true
+			amountOfProducts: true,
+			location: {
+				select: {
+					latitude: true,
+					longitude: true,
+					country: true,
+					state: true,
+					city: true,
+					district: true,
+					street: true,
+					postcode: true,
+					displayName: true,
+					id: true,
+					orderId: true,
+					userId: true
+				}
+			}
 		}
 	});
 
 	const foundOrderById = items?.find(order => order.id === id);
 	const productsByOrder = foundOrderById?.products || [];
+	const orderLocation = foundOrderById?.location ?? null;
 
 	return (
 		<ProductsProvider isAdaptiveTable items={productsByOrder}>
-			<OrdersProvider entityId={id} isAdaptiveTable items={ok ? items : []}>
+			<OrdersProvider
+				entityId={id}
+				isAdaptiveTable
+				items={
+					ok
+						? items?.map(item => ({
+								...item,
+								title: null
+							}))
+						: []
+				}
+			>
 				<DetailContainer>
 					<div className='mt-4 row g-2'>
 						<div className='mt-0 col-12 col-lg-5 col-xl-3'>
@@ -52,7 +82,11 @@ export default async function OrderPage({ params }: TDynamicPageProps) {
 							<div className='p-3'>
 								<h2 className='fs-5'>{foundOrderById?.title}</h2>
 
-								<AddProductButton />
+								<div className='d-flex align-items-center justify-content-start gap-2'>
+									<AddProductButton />
+
+									<OrderViewLocation location={orderLocation} />
+								</div>
 							</div>
 
 							<ProductsTable />
