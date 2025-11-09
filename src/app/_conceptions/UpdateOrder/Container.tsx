@@ -10,19 +10,7 @@ import type { TUpdateOrderFormData } from '@/hooks/updateOrder/types';
 import type { TLocationFormValue } from '@/types/location';
 
 import { UpdateForm } from './UpdateForm';
-import type { TUpdateContainerProps } from './types';
-
-type TOrderLocationDetails = {
-	latitude: number;
-	longitude: number;
-	country?: string | null;
-	state?: string | null;
-	city?: string | null;
-	district?: string | null;
-	street?: string | null;
-	postcode?: string | null;
-	displayName?: string | null;
-};
+import type { TOrderLocationDetails, TUpdateContainerProps } from './types';
 
 export const Container = ({ values, products }: TUpdateContainerProps) => {
 	const productOptions: OptionType[] = useMemo(
