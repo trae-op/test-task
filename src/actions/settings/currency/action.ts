@@ -4,7 +4,11 @@ import { revalidateTag } from 'next/cache';
 
 import { getUserSession } from '@/utils/session';
 
-import type { TAddCurrencyInput, TAddCurrencyResult } from './types';
+import type {
+	TAddCurrencyInput,
+	TAddCurrencyResult,
+	TDeleteCurrencyState
+} from './types';
 import { prisma } from '@/prisma/prisma-client';
 
 export const addCurrency = async (
@@ -51,15 +55,18 @@ export const getCurrencies = async () => {
 	}
 };
 
-export const deleteCurrency = async (_prevState: any, formData: FormData) => {
+export const deleteCurrency = async (
+	_prevState: TDeleteCurrencyState,
+	formData: FormData
+): Promise<TDeleteCurrencyState> => {
 	try {
 		const userSession = await getUserSession();
 		if (userSession === null) {
 			return { ok: false, code: 'UNAUTHORIZED' };
 		}
-		const id = String(formData.get('id') || '');
+		const id = String(formData.get('id') || '').trim();
 
-		if (id === null) {
+		if (!id) {
 			return { ok: false, code: 'ID_NOT_FOUND' };
 		}
 

@@ -16,3 +16,8 @@ export type TAddCurrencySubmitState = {
 	message?: string;
 	item?: TCurrency;
 };
+
+export type TDeleteCurrencyState = {
+	ok: boolean;
+	code?: 'UNAUTHORIZED' | 'ID_NOT_FOUND' | 'NOT_FOUND' | 'SERVER_ERROR';
+};

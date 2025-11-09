@@ -16,3 +16,8 @@ export type TAddProductTypeSubmitState = {
 	message?: string;
 	item?: TProductType;
 };
+
+export type TDeleteProductTypeState = {
+	ok: boolean;
+	code?: 'UNAUTHORIZED' | 'ID_NOT_FOUND' | 'NOT_FOUND' | 'SERVER_ERROR';
+};

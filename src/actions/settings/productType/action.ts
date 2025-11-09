@@ -4,7 +4,11 @@ import { revalidateTag } from 'next/cache';
 
 import { getUserSession } from '@/utils/session';
 
-import type { TAddProductTypeInput, TAddProductTypeResult } from './types';
+import type {
+	TAddProductTypeInput,
+	TAddProductTypeResult,
+	TDeleteProductTypeState
+} from './types';
 import { prisma } from '@/prisma/prisma-client';
 
 export const addProductType = async (
@@ -52,17 +56,17 @@ export const getProductTypes = async () => {
 };
 
 export const deleteProductType = async (
-	_prevState: any,
+	_prevState: TDeleteProductTypeState,
 	formData: FormData
-) => {
+): Promise<TDeleteProductTypeState> => {
 	try {
 		const userSession = await getUserSession();
 		if (userSession === null) {
 			return { ok: false, code: 'UNAUTHORIZED' };
 		}
-		const id = String(formData.get('id') || '');
+		const id = String(formData.get('id') || '').trim();
 
-		if (id === null) {
+		if (!id) {
 			return { ok: false, code: 'ID_NOT_FOUND' };
 		}
 

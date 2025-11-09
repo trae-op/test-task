@@ -18,6 +18,8 @@ import { useAmountEntitiesSelector } from '@/context/orders/useContext';
 
 /* eslint-disable prettier/prettier */
 
+/* eslint-disable prettier/prettier */
+
 export const DetailContainer = ({ children }: { children?: ReactElement }) => {
 	const setEntitiesTitleDispatch = useEntitiesTitleDispatch();
 	const setEntitiesTotalDispatch = useSetEntitiesTotalDispatch();

@@ -6,6 +6,7 @@
 	"jsxSingleQuote": true,
 	"singleQuote": true,
 	"arrowParens": "avoid",
+	"endOfLine": "lf",
 	"importOrder": [
 		"<THIRD_PARTY_MODULES>",
 		"^@/components/(.*)$",
@@ -24,7 +25,5 @@
 	],
 	"importOrderSeparation": true,
 	"importOrderSortSpecifiers": true,
-	"plugins": [
-		"@trivago/prettier-plugin-sort-imports"
-	]
+	"plugins": ["@trivago/prettier-plugin-sort-imports"]
 }

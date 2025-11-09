@@ -4,8 +4,8 @@ import type { TLocationMapProps } from './types';
 
 const DynamicLocationMap = dynamic<TLocationMapProps>(
 	async () => {
-		const module = await import('./LocationMapComponent');
-		return module.LocationMapComponent;
+		const componentModule = await import('./LocationMapComponent');
+		return componentModule.LocationMapComponent;
 	},
 	{ ssr: false }
 );
