@@ -144,7 +144,7 @@ export const OrderRow = memo(
 									</div>
 								</div>
 
-								{locationDetails !== undefined && (
+								{!hasAdaptiveTable && locationDetails !== undefined && (
 									<div
 										className={styles[`${BLOCK}__location`]}
 										title={formatLocationLabel(locationDetails)}
@@ -157,6 +157,17 @@ export const OrderRow = memo(
 										>
 											<GeoAltFill />
 										</div>
+									</div>
+								)}
+
+								{!hasAdaptiveTable && !locationDetails && (
+									<div
+										className={clsx(
+											styles[`${BLOCK}__location`],
+											'd-flex align-items-center justify-content-start'
+										)}
+									>
+										<span className='fs-1'>-</span>
 									</div>
 								)}
 
