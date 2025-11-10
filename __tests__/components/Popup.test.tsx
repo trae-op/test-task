@@ -4,9 +4,9 @@ import React from 'react';
 import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 import { Popup } from '@/components/Popup/Popup';
 
-const immediateModal = ({ children }: { children: React.ReactNode }) => (
-	<div role='dialog'>{children}</div>
-);
+function immediateModal({ children }: { children: React.ReactNode }) {
+	return <div role='dialog'>{children}</div>;
+}
 
 jest.mock('react-bootstrap/Modal', () => immediateModal);
 

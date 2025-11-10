@@ -15,14 +15,13 @@ jest.mock('@/context/currency/useContext', () => ({
 	useDeleteLoadingSelector: () => deleteLoading
 }));
 
-const MinimalButton = (props: any) => {
-	const { isLoading, text, onClick, disabled } = props;
+function MinimalButton(props: any) {
 	return (
-		<button onClick={onClick} disabled={disabled}>
-			{isLoading ? <span role='status' /> : text}
+		<button type={props.type} disabled={props.disabled}>
+			{props.isLoading ? <span role='status' /> : props.text}
 		</button>
 	);
-};
+}
 
 jest.mock('@/components/Button', () => ({
 	Button: MinimalButton

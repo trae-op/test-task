@@ -6,7 +6,9 @@ import { HeaderInfo } from '@/app/_conceptions/TopHeader.ts/HeaderInfo';
 import { Logo } from '@/app/_conceptions/TopHeader.ts/Logo';
 import { TopHeader } from '@/app/_conceptions/TopHeader.ts/TopHeader';
 
-const noopDynamic = () => () => null;
+function noopDynamic() {
+	return () => null;
+}
 
 jest.mock('next/dynamic', () => noopDynamic);
 jest.mock('@/utils/dateTime', () => ({

@@ -4,9 +4,9 @@ import React from 'react';
 import { Picture } from '@/components/Picture/Picture';
 import type { TPictureProps } from '@/components/Picture/types';
 
-const normalizedNextImage = ({ fill, alt, ...props }: any) => (
-	<img {...props} alt={alt ?? ''} />
-);
+function normalizedNextImage({ alt, fill: _fill, ...props }: any) {
+	return <img {...props} alt={alt ?? ''} />;
+}
 
 jest.mock('next/image', () => normalizedNextImage);
 

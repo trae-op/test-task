@@ -4,7 +4,9 @@ import React from 'react';
 import { DetailContainer } from '@/app/_conceptions/Orders/DetailContainer';
 import { OrderTable } from '@/app/_conceptions/Orders/Orders';
 
-const NoOpDeleteOrderEntity = () => null;
+function NoOpDeleteOrderEntity() {
+	return null;
+}
 
 jest.mock('@/app/_conceptions/DeleteOrder/DeleteEntity', () => ({
 	DeleteEntity: NoOpDeleteOrderEntity

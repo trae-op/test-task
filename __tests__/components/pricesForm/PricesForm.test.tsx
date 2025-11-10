@@ -4,20 +4,20 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { PricesForm } from '@/components/PricesForm/PricesForm';
 
-const inspectedMultiSelect = (props: any) => (
-	<div data-testid='multi' data-value={JSON.stringify(props.value)} />
-);
+function inspectedMultiSelect(props: any) {
+	return <div data-testid='multi' data-value={JSON.stringify(props.value)} />;
+}
 
 jest.mock('@/components/MultiSelectField', () => ({
 	MultiSelectField: inspectedMultiSelect
 }));
 
-const dynamicMultiSelect = () => {
+function dynamicMultiSelect() {
 	return function DynamicMock(props: any) {
 		const { MultiSelectField } = require('@/components/MultiSelectField');
 		return <MultiSelectField {...props} />;
 	};
-};
+}
 
 jest.mock('next/dynamic', () => dynamicMultiSelect);
 

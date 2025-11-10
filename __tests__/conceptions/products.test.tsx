@@ -23,7 +23,9 @@ jest.mock('@/utils/dateTime', () => ({
 	formatDateTime: () => '01 Jan, 2024'
 }));
 
-const NoOpDeleteProductEntity = () => null;
+function NoOpDeleteProductEntity() {
+	return null;
+}
 
 jest.mock('@/app/_conceptions/DeleteProducts/DeleteEntity', () => ({
 	DeleteEntity: NoOpDeleteProductEntity

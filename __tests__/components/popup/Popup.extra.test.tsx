@@ -13,9 +13,9 @@ const ApplyButton = (props: any) => (
 	<button type='button' aria-label='custom-apply' {...props} />
 );
 
-const instantModal = ({ children }: { children: React.ReactNode }) => (
-	<div role='dialog'>{children}</div>
-);
+function instantModal({ children }: { children: React.ReactNode }) {
+	return <div role='dialog'>{children}</div>;
+}
 
 jest.mock('react-bootstrap/Modal', () => instantModal);
 

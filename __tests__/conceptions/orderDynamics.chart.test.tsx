@@ -14,10 +14,10 @@ jest.mock('react-chartjs-2', () => ({
 	)
 }));
 
-const immediateBarDynamic = () => {
+function immediateBarDynamic() {
 	const { Bar } = require('react-chartjs-2');
 	return Bar;
-};
+}
 
 jest.mock('next/dynamic', () => ({
 	__esModule: true,

@@ -19,11 +19,13 @@ jest.mock('react-dom', () => {
 	};
 });
 
-const InspectableButton = (props: any) => (
-	<button type={props.type} disabled={props.disabled}>
-		{props.isLoading ? <span role='status' /> : props.text}
-	</button>
-);
+function InspectableButton(props: any) {
+	return (
+		<button type={props.type} disabled={props.disabled}>
+			{props.isLoading ? <span role='status' /> : props.text}
+		</button>
+	);
+}
 
 jest.mock('@/components/Button', () => ({
 	Button: InspectableButton

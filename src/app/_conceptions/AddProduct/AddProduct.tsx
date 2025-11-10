@@ -26,17 +26,13 @@ export const AddProduct = () => {
 	const form = useFormContext<TAddProductFormExtended>();
 	const { onAddProductSubmit, error } = useAddProductActions();
 
-	const handleActionForm = () => {
-		const values = form.getValues();
-		onAddProductSubmit(values);
-	};
-
-	const onSubmitCapture = async (event: React.FormEvent<HTMLFormElement>) => {
+	const handleActionForm = async () => {
 		const isValid = await form.trigger();
 		if (!isValid) {
-			event.preventDefault();
-			event.stopPropagation();
+			return;
 		}
+		const values = form.getValues();
+		onAddProductSubmit(values);
 	};
 
 	return (
@@ -46,11 +42,7 @@ export const AddProduct = () => {
 			</Card.Header>
 			<Card.Body>
 				<MessagesServer message={error} type='error' />
-				<Form
-					noValidate
-					action={handleActionForm}
-					onSubmitCapture={onSubmitCapture}
-				>
+				<Form noValidate action={handleActionForm}>
 					<TitleField />
 					<TypeField />
 					<SpecificationField />

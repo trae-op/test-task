@@ -3,23 +3,20 @@ import React from 'react';
 
 import { ImageUpload } from '@/components/ImageUpload/ImageUpload';
 
-const croppedFileMock = jest.fn(
-	async () => new File([new Blob(['x'])], 'cropped.png', { type: 'image/png' })
-);
-
 jest.mock('@/utils/imageUpload', () => ({
-	getCroppedImg: croppedFileMock
-}));
-
-const uploadPictureMock = jest.fn(async () => ({
-	results: { ok: true, message: 'ok', data: { url: '/img.png' } }
+	getCroppedImg: jest.fn()
 }));
 
 jest.mock('@/services/imageUpload', () => ({
-	uploadPicture: uploadPictureMock
+	uploadPicture: jest.fn()
 }));
 
 const setToast = jest.fn();
+
+const getCroppedImg = jest.requireMock('@/utils/imageUpload')
+	.getCroppedImg as jest.Mock;
+const uploadPicture = jest.requireMock('@/services/imageUpload')
+	.uploadPicture as jest.Mock;
 
 jest.mock('@/components/Toaster/useActions', () => ({
 	useActions: () => ({ setToast, setOptions: jest.fn() })
@@ -94,6 +91,17 @@ describe('components/ImageUpload', () => {
 		(globalThis as any).Response = ResponseMock as unknown as typeof Response;
 	});
 
+	beforeEach(() => {
+		jest.clearAllMocks();
+		getCroppedImg.mockResolvedValue(
+			new File([new Blob(['x'])], 'cropped.png', { type: 'image/png' })
+		);
+		uploadPicture.mockResolvedValue({
+			results: { ok: true, message: 'ok', data: { url: '/img.png' } }
+		});
+		setToast.mockClear();
+	});
+
 	it('uploads a cropped image and calls handlers on success', async () => {
 		const handleBeforeSuccess = jest.fn();
 		const handleSuccess = jest.fn();
@@ -122,7 +130,6 @@ describe('components/ImageUpload', () => {
 	});
 
 	it('shows an error toast and calls handleFail on failure', async () => {
-		const { uploadPicture } = jest.requireMock('@/services/imageUpload');
 		uploadPicture.mockImplementationOnce(async () => {
 			const responseError = new Response(
 				JSON.stringify({ message: 'Failed' }),

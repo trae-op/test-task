@@ -56,7 +56,11 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 		setSelectedProducts(value);
 	};
 
-	const handleActionForm = () => {
+	const handleActionForm = async () => {
+		const isValid = await form.trigger();
+		if (!isValid) {
+			return;
+		}
 		const values = form.getValues();
 		onAddOrderSubmit(
 			{
@@ -68,14 +72,6 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 		);
 	};
 
-	const onSubmitCapture = async (event: React.FormEvent<HTMLFormElement>) => {
-		const isValid = await form.trigger();
-		if (!isValid) {
-			event.preventDefault();
-			event.stopPropagation();
-		}
-	};
-
 	return (
 		<Card>
 			<Card.Header as='h4' className='text-center'>
@@ -84,11 +80,7 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 			<Card.Body>
 				<MessagesServer message={error} type='error' />
 				<FormProvider {...form}>
-					<Form
-						noValidate
-						action={handleActionForm}
-						onSubmitCapture={onSubmitCapture}
-					>
+					<Form noValidate action={handleActionForm}>
 						<Form.Group className='mb-3' controlId='title'>
 							<Form.Label>{t('Title')}</Form.Label>
 							<TextField
