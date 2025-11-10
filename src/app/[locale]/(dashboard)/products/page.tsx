@@ -1,4 +1,4 @@
-import { getFullPathUploadPicture } from '@/utils/upload-files';
+import { getPicturesByProducts } from '@/utils/products';
 
 import { getPicturesByEntities } from '@/actions/pictures/products';
 import { getProducts } from '@/actions/products';
@@ -39,29 +39,13 @@ export default async function ProductsPage({
 	const picturesByProducts = await getPicturesByEntities(
 		products.length ? products.map(product => product.id) : []
 	);
-
-	const picturesByProductId =
-		picturesByProducts.ok && picturesByProducts.items !== undefined
-			? Object.fromEntries(
-					Object.entries(picturesByProducts.items).map(
-						([_, pictureProduct]) => [
-							pictureProduct.productId,
-							pictureProduct.url
-						]
-					)
-				)
-			: {};
+	const picturesByProductId = getPicturesByProducts(picturesByProducts);
 
 	return (
 		<Provider
 			items={products.map(product => ({
 				...product,
-				photo: picturesByProductId[product.id]
-					? getFullPathUploadPicture({
-							url: picturesByProductId[product.id] || '',
-							type: 'mini'
-						})
-					: null
+				photo: picturesByProductId(product.id)
 			}))}
 		>
 			<Container />

@@ -2,7 +2,10 @@ import { CloseEntityButton } from '@/components/CloseEntityButton';
 
 import type { TDynamicPageProps } from '@/types/dynamicPage';
 
+import { getPicturesByProducts } from '@/utils/products';
+
 import { getOrders } from '@/actions/orders';
+import { getPicturesByEntities } from '@/actions/pictures/products';
 import { AddProductButton } from '@/conceptions/AddProductButton';
 import { OrderViewLocation } from '@/conceptions/OrderViewLocation';
 import { OrderTable } from '@/conceptions/Orders';
@@ -49,11 +52,28 @@ export default async function OrderPage({ params }: TDynamicPageProps) {
 	});
 
 	const foundOrderById = items?.find(order => order.id === id);
+
+	const picturesByProducts =
+		foundOrderById && foundOrderById.products
+			? await getPicturesByEntities(
+					foundOrderById.products.map(product => product.id)
+				)
+			: undefined;
+
 	const productsByOrder = foundOrderById?.products || [];
 	const orderLocation = foundOrderById?.location ?? null;
+	const picturesByProductId = picturesByProducts
+		? getPicturesByProducts(picturesByProducts)
+		: undefined;
 
 	return (
-		<ProductsProvider isAdaptiveTable items={productsByOrder}>
+		<ProductsProvider
+			isAdaptiveTable
+			items={productsByOrder.map(product => ({
+				...product,
+				photo: picturesByProductId ? picturesByProductId(product.id) : null
+			}))}
+		>
 			<OrdersProvider
 				entityId={id}
 				isAdaptiveTable

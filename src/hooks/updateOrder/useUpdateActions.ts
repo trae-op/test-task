@@ -30,7 +30,6 @@ export const useUpdateActions = (): TUpdateOrderHookReturn => {
 			if (data.description) fd.append('description', data.description);
 			const products = (selectedProducts || []).map(p => String(p.value));
 			fd.append('products', JSON.stringify(products));
-			console.log('Selected location:', location);
 			if (location) {
 				fd.append('location', JSON.stringify(location));
 			}

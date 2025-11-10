@@ -1,3 +1,5 @@
+import { getFullPathUploadPicture } from './upload-files';
+
 type TFound = { id: string };
 
 export function findChangedProducts({
@@ -22,4 +24,44 @@ export function findChangedProducts({
 
 	const hasChanges = toDisconnect.length > 0 || toConnect.length > 0;
 	return { toDisconnect, toConnect, hasChanges };
+}
+
+export function getPicturesByProducts(
+	values:
+		| {
+				ok: boolean;
+				code: string;
+				items?: undefined;
+		  }
+		| {
+				ok: boolean;
+				items: {
+					id: string;
+					createdAt: Date;
+					userId: string;
+					productId: string;
+					url: string;
+					pictureId: string;
+				}[];
+				code?: undefined;
+		  }
+) {
+	const picturesByProductId =
+		values.ok && values.items !== undefined
+			? Object.fromEntries(
+					Object.entries(values.items).map(([_, pictureProduct]) => [
+						pictureProduct.productId,
+						pictureProduct.url
+					])
+				)
+			: {};
+
+	return (productId: string) => {
+		return picturesByProductId[productId]
+			? getFullPathUploadPicture({
+					url: picturesByProductId[productId] || '',
+					type: 'mini'
+				})
+			: null;
+	};
 }
