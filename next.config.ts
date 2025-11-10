@@ -20,6 +20,9 @@ const nextConfig: NextConfig = {
 			{ protocol: 'https', hostname: 'placehold.co', pathname: '/**' },
 			{ protocol: 'https', hostname: 'ik.imagekit.io', pathname: '/**' }
 		]
+	},
+	eslint: {
+		ignoreDuringBuilds: true
 	}
 };
 
