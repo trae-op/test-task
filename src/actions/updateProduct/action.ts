@@ -4,6 +4,7 @@ import { getLocale } from 'next-intl/server';
 import { revalidatePath } from 'next/cache';
 
 import { convertToISOStringUTC } from '@/utils/dateTime';
+import { isInt4 } from '@/utils/isInt4';
 import { findChangedPrices } from '@/utils/prices';
 import { getUserSession } from '@/utils/session';
 
@@ -47,6 +48,14 @@ export const updateProduct = async (
 
 	const res = await (async () => {
 		try {
+			if (prices.length) {
+				for (const price of prices) {
+					if (!isInt4(price.value)) {
+						return { ok: false, code: 'INT4_OVERFLOW' };
+					}
+				}
+			}
+
 			const updated = await prisma.product.updateMany({
 				where: { id, userId: userSession.id },
 				data: {
@@ -118,7 +127,8 @@ export const updateProduct = async (
 		UNAUTHORIZED: 'default',
 		INVALID_INPUT: 'invalidInput',
 		ORDER_NOT_FOUND: 'default',
-		SERVER_ERROR: 'default'
+		SERVER_ERROR: 'default',
+		INT4_OVERFLOW: 'INT4_OVERFLOW'
 	};
 
 	return {

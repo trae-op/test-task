@@ -1,6 +1,12 @@
 'use client';
 
-import { startTransition, useActionState, useCallback, useMemo } from 'react';
+import {
+	startTransition,
+	useActionState,
+	useCallback,
+	useEffect,
+	useMemo
+} from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import type {
@@ -17,6 +23,12 @@ export const useActions = (): TAddProductActions => {
 	const [state, formAction] = useActionState(addProductSubmit, {
 		ok: false
 	});
+
+	useEffect(() => {
+		if (state?.message) {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		}
+	}, [state?.message]);
 
 	const onAddProductSubmit = useCallback(
 		(data: TAddProductFormData) => {

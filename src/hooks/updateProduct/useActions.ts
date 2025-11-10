@@ -1,7 +1,13 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { startTransition, useActionState, useCallback, useMemo } from 'react';
+import {
+	startTransition,
+	useActionState,
+	useCallback,
+	useEffect,
+	useMemo
+} from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { TDynamicPageParams } from '@/types/dynamicPage';
@@ -20,6 +26,12 @@ export const useUpdateActions = (): TUpdateActionsHook => {
 	const [state, formAction] = useActionState(updateProduct, {
 		ok: false
 	});
+
+	useEffect(() => {
+		if (state?.message) {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		}
+	}, [state?.message]);
 
 	const onUpdateSubmit = useCallback(
 		(data: TUpdateFormData) => {
