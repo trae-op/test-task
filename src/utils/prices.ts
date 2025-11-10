@@ -35,20 +35,20 @@ export function findChangedPrices({
 	const toDelete: string[] = [];
 	const toCreate: TNewPrice[] = [];
 
-	// Delete missing or changed
-	for (const [symbol, cur] of currentBySymbol) {
+	for (const [symbol, current] of currentBySymbol) {
 		const next = nextBySymbol.get(symbol);
 		if (!next) {
-			toDelete.push(cur.id);
+			toDelete.push(current.id);
 			continue;
 		}
-		if (cur.value !== next.value || cur.isDefault !== next.isDefault) {
-			toDelete.push(cur.id);
+		const changed =
+			current.value !== next.value || current.isDefault !== next.isDefault;
+		if (changed) {
+			toDelete.push(current.id);
 			toCreate.push({ symbol, value: next.value, isDefault: next.isDefault });
 		}
 	}
 
-	// Create new ones
 	for (const [symbol, next] of nextBySymbol) {
 		if (!currentBySymbol.has(symbol)) {
 			toCreate.push({ symbol, value: next.value, isDefault: next.isDefault });

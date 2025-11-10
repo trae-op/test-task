@@ -8,13 +8,13 @@ import { DropdownIndicator } from './DropdownIndicator';
 import { defaultStyles } from './defaultStyles';
 import type { OptionType, SelectFieldProps } from './types';
 
-// Lazy-load react-select on the client to reduce initial bundle size
+const LoadingPlaceholder = () => <div style={{ height: 38 }} />;
+
 const Select = dynamic<
 	ReactSelectProps<OptionType, true, GroupBase<OptionType>>
 >(() => import('react-select'), {
 	ssr: false,
-	// lightweight fallback placeholder with roughly the control height
-	loading: () => <div style={{ height: 38 }} />
+	loading: LoadingPlaceholder
 });
 
 export const MultiSelectField = ({

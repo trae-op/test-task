@@ -14,13 +14,14 @@ jest.mock('react-chartjs-2', () => ({
 	)
 }));
 
-// Ensure dynamic import resolves to the mocked Bar immediately
+const immediateBarDynamic = () => {
+	const { Bar } = require('react-chartjs-2');
+	return Bar;
+};
+
 jest.mock('next/dynamic', () => ({
 	__esModule: true,
-	default: () => {
-		const { Bar } = require('react-chartjs-2');
-		return Bar;
-	}
+	default: immediateBarDynamic
 }));
 
 describe('OrderDynamicsChart', () => {

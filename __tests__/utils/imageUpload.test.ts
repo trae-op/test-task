@@ -5,16 +5,15 @@ describe('getCroppedImg', () => {
 	const originalCreateElement = global.document.createElement;
 
 	beforeEach(() => {
-		// Mock Image constructor with fixed dimensions
-		(global as any).Image = class {
+		const MockImage = class {
 			width = 200;
 			height = 100;
 			naturalWidth = 400;
 			naturalHeight = 200;
 			src = '';
-		} as any;
+		};
+		(global as any).Image = MockImage as any;
 
-		// Mock canvas element with getContext and toBlob
 		jest.spyOn(document, 'createElement').mockImplementation((tagName: any) => {
 			if (tagName === 'canvas') {
 				return {
@@ -42,7 +41,6 @@ describe('getCroppedImg', () => {
 	});
 
 	it('rejects when canvas toBlob returns null', async () => {
-		// Force toBlob to call back with null
 		const createElSpy = jest.spyOn(document, 'createElement');
 		createElSpy.mockImplementation((tagName: any) => {
 			if (tagName === 'canvas') {

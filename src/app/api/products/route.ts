@@ -96,23 +96,17 @@ export const GET = async (req: NextRequest) => {
 		const type = searchParams.get('type');
 		const fieldsParam = searchParams.get('fields');
 
-		// Parse fields as array of keys
 		const fields = fieldsParam
 			? (fieldsParam.split(',') as Array<keyof TProduct>)
 			: undefined;
 
-		// Build Prisma query
 		const where: { id?: string; type?: string } = {};
 		if (id) where.id = id;
 		if (type) where.type = type;
-
-		// Include related products and prices
 		const entities = await prisma.product.findMany({
 			where,
 			include: { order: true, prices: true }
 		});
-
-		// Filter fields if specified
 		let result: Partial<TProduct>[] = entities.map(entity => ({
 			...entity,
 			order: entity.order ?? undefined

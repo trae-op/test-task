@@ -1,13 +1,11 @@
 .dashboard {
 	display: flex;
 	flex-direction: column;
-	/* Offset for fixed TopHeader */
 	padding-top: var(--top-header-height, 4rem);
 
 	&__container {
 		display: flex;
 		min-width: 0;
-		/* Reserve space for fixed Sidebar */
 		margin-left: var(--sidebar-width);
 	}
 

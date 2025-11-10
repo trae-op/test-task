@@ -49,6 +49,4 @@ export const useActions = (): TAddProductActions => {
 		[onAddProductSubmit, state?.message]
 	);
 };
-
-// test alias export (single named re-export, no duplicate)
 export const useAddProductActions = useActions;

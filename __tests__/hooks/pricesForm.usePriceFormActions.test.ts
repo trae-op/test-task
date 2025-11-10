@@ -20,7 +20,21 @@ describe('pricesForm/usePriceFormActions', () => {
 	it('validates input, adds price, and normalizes defaults', () => {
 		const { result } = renderHook(() => usePriceFormActions());
 
-		// invalid
+		const applyAddPrice = (
+			amount: string,
+			currency: string,
+			isDefault: boolean
+		) => {
+			act(() => {
+				result.current.setAmount(amount);
+				result.current.setCurrency(currency);
+				result.current.setIsDefault(isDefault);
+			});
+			act(() => {
+				result.current.handleAddPrice();
+			});
+		};
+
 		act(() => {
 			result.current.setAmount('');
 			result.current.setCurrency('');
@@ -29,15 +43,7 @@ describe('pricesForm/usePriceFormActions', () => {
 		});
 		expect(setValue).not.toHaveBeenCalled();
 
-		// add USD default
-		act(() => {
-			result.current.setAmount('10');
-			result.current.setCurrency('USD');
-			result.current.setIsDefault(true);
-		});
-		act(() => {
-			result.current.handleAddPrice();
-		});
+		applyAddPrice('10', 'USD', true);
 		expect(setValue).toHaveBeenCalledTimes(1);
 		let payload = setValue.mock.calls[0][1];
 		expect(payload).toHaveLength(1);
@@ -45,25 +51,15 @@ describe('pricesForm/usePriceFormActions', () => {
 			expect.objectContaining({ value: 'USD', isDefault: true })
 		);
 
-		// reflect back the set prices for next calls
 		watched = payload;
 
-		// add EUR non-default
-		act(() => {
-			result.current.setAmount('20');
-			result.current.setCurrency('EUR');
-			result.current.setIsDefault(false);
-		});
-		act(() => {
-			result.current.handleAddPrice();
-		});
+		applyAddPrice('20', 'EUR', false);
 		payload = setValue.mock.calls[1][1];
 		const usd = payload.find((p: any) => p.value === 'USD');
 		const eur = payload.find((p: any) => p.value === 'EUR');
 		expect(usd.isDefault).toBe(true);
 		expect(eur.isDefault).toBe(false);
 
-		// handlePricesChange with two defaults -> only one remains
 		act(() => {
 			result.current.handlePricesChange([
 				{ value: 'USD', label: '10 USD', valueAmount: 10, isDefault: true },

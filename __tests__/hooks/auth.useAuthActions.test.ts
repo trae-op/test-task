@@ -3,7 +3,6 @@ import { signIn as nextSignIn, signOut as nextSignOut } from 'next-auth/react';
 
 import { useAuthActions } from '@/hooks/auth';
 
-// Mock React hooks to control useActionState and startTransition for sign-up
 let formActionMock: jest.Mock<any, any>;
 let useActionStateState: any;
 jest.mock('react', () => {
@@ -18,7 +17,6 @@ jest.mock('react', () => {
 	};
 });
 
-// mock router and intl via configured moduleNameMapper (__mocks__)
 jest.mock('next-auth/react', () => ({
 	signIn: jest.fn(),
 	signOut: jest.fn(),
@@ -28,14 +26,17 @@ jest.mock('next-auth/react', () => ({
 	})
 }));
 
-// Provide a stable router mock to assert push reliably
 const pushMock = jest.fn();
 jest.mock('next/navigation', () => ({
 	useRouter: () => ({ push: pushMock, replace: jest.fn(), refresh: jest.fn() })
 }));
 
-// silence actual implementation to use existing mock file
 jest.mock('@/i18n/navigation');
+
+const getFormDataKeys = (formData: FormData) => {
+	const entries = Array.from((formData as any).entries?.() ?? []);
+	return entries.map(([key]: any) => key);
+};
 
 describe('auth/useAuthActions', () => {
 	beforeEach(() => {
@@ -102,7 +103,6 @@ describe('auth/useAuthActions', () => {
 
 	it('onSignUpSubmit: builds FormData and dispatches action via useActionState', () => {
 		useActionStateState = { ok: false };
-		// startTransition is already mocked to run synchronously in this test file
 
 		const { result } = renderHook(() => useAuthActions());
 
@@ -117,9 +117,7 @@ describe('auth/useAuthActions', () => {
 
 		expect(formActionMock).toHaveBeenCalledTimes(1);
 		const fd = formActionMock.mock.calls[0][0] as FormData;
-		// check FormData entries
-		const entries = Array.from((fd as any).entries?.() ?? []);
-		const keys = entries.map(([k]: any) => k);
+		const keys = getFormDataKeys(fd);
 		expect(keys).toEqual(
 			expect.arrayContaining([
 				'locale',

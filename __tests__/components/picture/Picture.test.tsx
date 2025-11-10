@@ -2,21 +2,20 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { Picture } from '@/components/Picture/Picture';
+import type { TPictureProps } from '@/components/Picture/types';
 
-// Mock next/image to behave like a normal <img>
-jest.mock('next/image', () => ({ fill, ...props }: any) => {
-	// Filter out boolean 'fill' prop to avoid React warnings in jsdom
-	// eslint-disable-next-line jsx-a11y/alt-text
-	return <img {...props} />;
-});
+const normalizedNextImage = ({ fill, alt, ...props }: any) => (
+	<img {...props} alt={alt ?? ''} />
+);
+
+jest.mock('next/image', () => normalizedNextImage);
 
 describe('components/Picture/Picture', () => {
 	it('renders an error icon when src is missing', () => {
-		// @ts-expect-error intentionally omit required src to validate error fallback
-		const { container } = render(<Picture alt='avatar' />);
-		// No <img> should be rendered when src is missing
+		const { container } = render(
+			<Picture {...({ alt: 'avatar' } as unknown as TPictureProps)} />
+		);
 		expect(container.querySelector('img')).toBeNull();
-		// Error icon (SVG) should be present
 		expect(container.querySelector('svg')).not.toBeNull();
 	});
 
@@ -27,7 +26,6 @@ describe('components/Picture/Picture', () => {
 		fireEvent.load(img);
 		expect(onLoad).not.toHaveBeenCalled();
 
-		// Now rerender same tree with onLoad and ensure it fires
 		rerender(<Picture alt='avatar' src='/test.png' onLoad={onLoad} />);
 		const img2 = screen.getByRole('img');
 		fireEvent.load(img2);
@@ -41,8 +39,6 @@ describe('components/Picture/Picture', () => {
 		const img = screen.getByRole('img');
 		fireEvent.error(img);
 		expect(onError).toHaveBeenCalled();
-		// Error layer should be visible (at least present in DOM)
-		// We expect there is still an <img> element; absence is not required
 		expect(screen.getByRole('img')).toBeInTheDocument();
 	});
 
@@ -50,7 +46,6 @@ describe('components/Picture/Picture', () => {
 		const { container } = render(<Picture alt='avatar' src='/size.png' />);
 		const img = container.querySelector('img') as HTMLImageElement;
 		expect(img).toBeTruthy();
-		// width/height attributes exist when not full size
 		expect(img.getAttribute('width')).toBe('80');
 		expect(img.getAttribute('height')).toBe('80');
 	});
@@ -60,7 +55,6 @@ describe('components/Picture/Picture', () => {
 			<Picture alt='avatar' src='/full.png' size='full' sizes='100vw' />
 		);
 		const img = container.querySelector('img') as HTMLImageElement;
-		// next/image mock simply maps props; ensure sizes prop is present
 		expect(img.getAttribute('sizes')).toBe('100vw');
 	});
 

@@ -2,17 +2,20 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
+const addProductSubmitSpy = jest.fn();
+const addOrderSubmitSpy = jest.fn();
+
 jest.mock('@/hooks/addProduct', () => ({
 	useAddProductActions: () => ({
-		onAddProductSubmit: jest.fn(),
+		onAddProductSubmit: addProductSubmitSpy,
 		state: { message: '' },
 		isPending: false
 	})
 }));
-// Some components import the hook directly from the file path
+
 jest.mock('@/hooks/addProduct/useActions', () => ({
 	useAddProductActions: () => ({
-		onAddProductSubmit: jest.fn(),
+		onAddProductSubmit: addProductSubmitSpy,
 		state: { message: '' },
 		isPending: false
 	})
@@ -20,7 +23,7 @@ jest.mock('@/hooks/addProduct/useActions', () => ({
 
 jest.mock('@/hooks/addOrder', () => ({
 	useAddOrderActions: () => ({
-		onAddOrderSubmit: jest.fn(),
+		onAddOrderSubmit: addOrderSubmitSpy,
 		state: { message: '' },
 		isPending: false
 	})
@@ -32,14 +35,10 @@ describe('Add forms', () => {
 	it('AddProduct negative: shows validation error on empty submit', async () => {
 		const { Container } = require('@/app/_conceptions/AddProduct/Container');
 		render(<Container />);
-		// Click submit button
 		const user = userEvent.setup();
 		await user.click(screen.getByRole('button', { name: /Submit/i }));
-		// Assert that submit handler wasn't called instead of specific text
-		// since validation messages are translated
-		expect(
-			(await screen.findAllByText('required')).length
-		).toBeGreaterThanOrEqual(0);
+		expect(addProductSubmitSpy).not.toHaveBeenCalled();
+		expect(await screen.findAllByText('required')).not.toHaveLength(0);
 	});
 
 	it('AddOrder negative: shows validation error on empty submit', async () => {
@@ -47,8 +46,7 @@ describe('Add forms', () => {
 		render(<AddOrder products={[]} />);
 		const user = userEvent.setup();
 		await user.click(screen.getByRole('button', { name: /Submit/i }));
-		expect(
-			(await screen.findAllByText('required')).length
-		).toBeGreaterThanOrEqual(0);
+		expect(addOrderSubmitSpy).not.toHaveBeenCalled();
+		expect(await screen.findAllByText('required')).not.toHaveLength(0);
 	});
 });

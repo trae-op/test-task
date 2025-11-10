@@ -4,7 +4,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { useAddProductActions } from '@/hooks/addProduct/useActions';
 
-// Mock React hooks to control useActionState and startTransition behavior
 let formActionMock: jest.Mock<any, any>;
 let useActionStateState: any;
 jest.mock('react', () => {
@@ -18,11 +17,17 @@ jest.mock('react', () => {
 		startTransition: (cb: any) => cb()
 	};
 });
-
-// avoid importing server action internals
 jest.mock('@/actions/addProduct/submit', () => ({
 	addProductSubmit: jest.fn()
 }));
+
+const formDataToMap = (formData: FormData) => {
+	const map = new Map<string, string>();
+	(formData as any).forEach?.((value: string, key: string) =>
+		map.set(key, value)
+	);
+	return map;
+};
 
 const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const methods = useForm({
@@ -60,8 +65,7 @@ describe('addProduct/useAddProductActions', () => {
 
 		expect(formActionMock).toHaveBeenCalledTimes(1);
 		const fd = formActionMock.mock.calls[0][0] as FormData;
-		const map = new Map<string, string>();
-		(fd as any).forEach?.((v: string, k: string) => map.set(k, v));
+		const map = formDataToMap(fd);
 		expect(map.get('title')).toBe('Laptop');
 		expect(map.get('serialNumber')).toBe('SN-1');
 		expect(map.get('type')).toBe('hw');

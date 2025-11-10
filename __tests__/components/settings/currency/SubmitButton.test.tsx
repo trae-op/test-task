@@ -19,13 +19,14 @@ jest.mock('react-dom', () => {
 	};
 });
 
-// Mock Button to inspect props
+const InspectableButton = (props: any) => (
+	<button type={props.type} disabled={props.disabled}>
+		{props.isLoading ? <span role='status' /> : props.text}
+	</button>
+);
+
 jest.mock('@/components/Button', () => ({
-	Button: (props: any) => (
-		<button type={props.type} disabled={props.disabled}>
-			{props.isLoading ? <span role='status' /> : props.text}
-		</button>
-	)
+	Button: InspectableButton
 }));
 
 describe('components/settings/currency/SubmitButton', () => {

@@ -40,7 +40,6 @@ function useGlobalUnderTest() {
 
 describe('global context', () => {
 	it('throws when used outside of Provider', () => {
-		// use any hook that reads the context
 		expect(() => renderHook(() => useEntityContext())).toThrow(
 			'Global useEntityContext must be used within a Provider'
 		);
@@ -51,31 +50,26 @@ describe('global context', () => {
 
 		const { result } = renderHook(() => useGlobalUnderTest(), { wrapper });
 
-		// initial values
 		expect(result.current.title).toBe('');
 		expect(result.current.total).toBe(0);
 		expect(result.current.avatar).toBe('avatar.png');
 		expect(result.current.link).toBe('');
 
-		// update title
 		act(() => {
 			result.current.setTitle('Orders');
 		});
 		expect(result.current.title).toBe('Orders');
 
-		// update total
 		act(() => {
 			result.current.setTotal(5);
 		});
 		expect(result.current.total).toBe(5);
 
-		// update avatar
 		act(() => {
 			result.current.setAvatar('new.png');
 		});
 		expect(result.current.avatar).toBe('new.png');
 
-		// update link
 		act(() => {
 			result.current.setLink('/orders/new');
 		});

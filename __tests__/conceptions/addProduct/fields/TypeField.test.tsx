@@ -38,7 +38,6 @@ describe('AddProduct fields/TypeField', () => {
 		const select = screen.getByLabelText('Type') as HTMLSelectElement;
 		expect(select).toBeInTheDocument();
 
-		// Placeholder exists as hidden option; change to a real value
 		fireEvent.change(select, { target: { value: 'laptop' } });
 		expect(select.value).toBe('laptop');
 	});

@@ -23,9 +23,10 @@ jest.mock('@/utils/dateTime', () => ({
 	formatDateTime: () => '01 Jan, 2024'
 }));
 
-// Avoid invoking delete hook inside ProductRow by stubbing DeleteProducts
+const NoOpDeleteProductEntity = () => null;
+
 jest.mock('@/app/_conceptions/DeleteProducts/DeleteEntity', () => ({
-	DeleteEntity: () => null
+	DeleteEntity: NoOpDeleteProductEntity
 }));
 
 describe('Products components', () => {

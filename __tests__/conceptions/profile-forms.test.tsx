@@ -1,8 +1,6 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-
-// Import after mocks below in tests where needed
 
 jest.mock('@/hooks/profile/usePasswordActions', () => ({
 	usePasswordActions: () => ({
@@ -27,12 +25,14 @@ jest.mock('@/context/global/useContext', () => ({
 	useSetAvatarProfileDispatch: () => jest.fn()
 }));
 
-// Stub heavy child components used inside Info
+const LightweightImageUpload = () => <div />;
+const MessagesPreview = ({ message }: any) => <div>{message}</div>;
+
 jest.mock('@/components/ImageUpload', () => ({
-	ImageUpload: () => <div />
+	ImageUpload: LightweightImageUpload
 }));
 jest.mock('@/components/MessagesServer', () => ({
-	MessagesServer: ({ message }: any) => <div>{message}</div>
+	MessagesServer: MessagesPreview
 }));
 
 describe('Profile forms', () => {
@@ -41,11 +41,9 @@ describe('Profile forms', () => {
 			UpdatePassword
 		} = require('@/app/_conceptions/Profile/UpdatePassword');
 		render(<UpdatePassword />);
-		// Submit without filling any input
 		const submitBtn = screen.getByRole('button');
 		const user = userEvent.setup();
 		await user.click(submitBtn);
-		// Shows validation errors for all three required fields
 		const errors = await screen.findAllByText('required');
 		expect(errors).toHaveLength(3);
 	});
@@ -55,7 +53,6 @@ describe('Profile forms', () => {
 		render(
 			(<Info id={'u1'} name={'John'} email={'john@example.com'} />) as any
 		);
-		// Placeholder uses translation key via mock
 		expect(
 			screen.getByPlaceholderText('Profile.info.placeholders.name')
 		).toBeInTheDocument();

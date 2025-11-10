@@ -48,16 +48,17 @@ export const usePriceActions = ({ onChange }: TUsePriceActionsArgs = {}) => {
 
 	const handlePricesChange = useCallback(
 		(val: MultiValue<OptionType>) => {
-			// ensure at most one default remains if user removes/selects
-			const defaultItems = (val as OptionType[]).filter(v => v.isDefault);
-			let normalized = val as OptionType[];
-			if (defaultItems.length > 1) {
-				const keep = defaultItems[0]?.value;
-				normalized = (val as OptionType[]).map(v => ({
-					...v,
-					isDefault: v.value === keep
-				}));
+			const entries = val as OptionType[];
+			const defaults = entries.filter(entry => entry.isDefault);
+			if (defaults.length <= 1) {
+				pushChange(val);
+				return;
 			}
+			const [{ value: keepDefault }] = defaults;
+			const normalized = entries.map(entry => ({
+				...entry,
+				isDefault: entry.value === keepDefault
+			}));
 			pushChange(normalized as MultiValue<OptionType>);
 		},
 		[pushChange]

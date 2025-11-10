@@ -5,9 +5,6 @@ import toast from 'react-hot-toast';
 import { DeferredToaster } from '@/components/Toaster/DeferredToaster';
 import { InitToaster } from '@/components/Toaster/InitToaster';
 
-// Ensure next-intl mock returns identity translator (provided in __mocks__)
-
-// Polyfill matchMedia for react-hot-toast in JSDOM
 beforeAll(() => {
 	Object.defineProperty(window, 'matchMedia', {
 		writable: true,

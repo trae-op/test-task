@@ -3,7 +3,6 @@ import { act, renderHook } from '@testing-library/react';
 import { usePasswordActions } from '@/hooks/profile/usePasswordActions';
 import { useProfileActions } from '@/hooks/profile/useProfileActions';
 
-// Mock React hooks to control useActionState and startTransition
 let formActionMock: jest.Mock<any, any>;
 let useActionStateState: any;
 jest.mock('react', () => {
@@ -17,8 +16,6 @@ jest.mock('react', () => {
 		startTransition: (cb: any) => cb()
 	};
 });
-
-// avoid importing server action internals used by these hooks
 jest.mock('@/actions/profile/passwordSubmit', () => ({
 	passwordSubmit: jest.fn()
 }));
@@ -33,6 +30,9 @@ jest.mock('next-auth/react', () => ({
 		update: mockUpdate
 	})
 }));
+
+const getFormDataKeys = (formData: FormData) =>
+	Array.from((formData as any).keys?.() ?? []);
 
 describe('profile hooks', () => {
 	beforeEach(() => {
@@ -52,14 +52,13 @@ describe('profile hooks', () => {
 
 		expect(formActionMock).toHaveBeenCalledTimes(1);
 		const fd = formActionMock.mock.calls[0][0] as FormData;
-		const keys = Array.from((fd as any).keys?.() ?? []);
+		const keys = getFormDataKeys(fd);
 		expect(keys).toEqual(
 			expect.arrayContaining(['oldPassword', 'newPassword', 'locale'])
 		);
 	});
 
 	it('useProfileActions: submits and updates session when state.ok becomes true', () => {
-		// First render state
 		useActionStateState = { ok: false } as any;
 		const { result, rerender } = renderHook(() => useProfileActions());
 		const initialFormAction = formActionMock;
@@ -71,7 +70,6 @@ describe('profile hooks', () => {
 			);
 		});
 
-		// Cause state.ok change to true
 		useActionStateState = { ok: true } as any;
 		rerender();
 

@@ -6,7 +6,17 @@ describe('addProduct/usePriceActions', () => {
 	it('validates and adds prices, managing default correctly', () => {
 		const { result } = renderHook(() => usePriceActions());
 
-		// invalid: no currency
+		const addPrice = (amount: string, currency: string, isDefault: boolean) => {
+			act(() => {
+				result.current.setAmount(amount);
+				result.current.setCurrency(currency);
+				result.current.setIsDefault(isDefault);
+			});
+			act(() => {
+				result.current.handleAddPrice();
+			});
+		};
+
 		act(() => {
 			result.current.setAmount('10');
 			result.current.setIsDefault(true);
@@ -14,7 +24,6 @@ describe('addProduct/usePriceActions', () => {
 		});
 		expect(result.current.prices).toHaveLength(0);
 
-		// add USD default (split updates to avoid stale closures)
 		act(() => {
 			result.current.setCurrency('USD');
 		});
@@ -30,15 +39,7 @@ describe('addProduct/usePriceActions', () => {
 			})
 		);
 
-		// add EUR non-default
-		act(() => {
-			result.current.setAmount('20');
-			result.current.setCurrency('EUR');
-			result.current.setIsDefault(false);
-		});
-		act(() => {
-			result.current.handleAddPrice();
-		});
+		addPrice('20', 'EUR', false);
 		expect(result.current.prices).toHaveLength(2);
 		const prices = result.current.prices as any[];
 		const usd = prices.find(p => p.value === 'USD');
@@ -46,28 +47,13 @@ describe('addProduct/usePriceActions', () => {
 		expect(usd.isDefault).toBe(true);
 		expect(eur.isDefault).toBe(false);
 
-		// make EUR default (should flip default to EUR only)
-		act(() => {
-			result.current.setAmount('30');
-			result.current.setCurrency('EUR');
-			result.current.setIsDefault(true);
-		});
-		act(() => {
-			result.current.handleAddPrice();
-		});
+		addPrice('30', 'EUR', true);
 		const prices2 = result.current.prices as any[];
 		expect(prices2.find(p => p.value === 'EUR')!.isDefault).toBe(true);
 		expect(prices2.find(p => p.value === 'USD')!.isDefault).toBe(false);
 
-		// invalid amount
 		const before = (result.current.prices as any[]).length;
-		act(() => {
-			result.current.setAmount('-5');
-			result.current.setCurrency('GBP');
-		});
-		act(() => {
-			result.current.handleAddPrice();
-		});
+		addPrice('-5', 'GBP', false);
 		expect((result.current.prices as any[]).length).toBe(before);
 	});
 

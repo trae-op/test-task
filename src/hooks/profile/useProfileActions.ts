@@ -37,7 +37,6 @@ export const useProfileActions = (): TProfileActions => {
 		[formAction]
 	);
 
-	// After a successful submit, refresh the NextAuth session locally without redirect
 	useEffect(() => {
 		if (!state.ok) return;
 		const submitted = lastSubmittedRef.current;
@@ -54,7 +53,6 @@ export const useProfileActions = (): TProfileActions => {
 			updateSession(payload);
 		}
 
-		// clear ref to avoid repeated updates
 		lastSubmittedRef.current = null;
 	}, [state.ok, session, updateSession]);
 

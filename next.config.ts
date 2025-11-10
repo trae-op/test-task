@@ -2,9 +2,10 @@ import bundleAnalyzer from '@next/bundle-analyzer';
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
-// enable bundle analyzer when ANALYZE env var is set (ESM import)
+const isAnalyzeEnabled = () => process.env.ANALYZE === 'true';
+
 const withBundleAnalyzer = bundleAnalyzer({
-	enabled: process.env.ANALYZE === 'true'
+	enabled: isAnalyzeEnabled()
 });
 
 const nextConfig: NextConfig = {

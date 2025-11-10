@@ -74,7 +74,6 @@ describe('products context', () => {
 
 		const { result } = renderHook(() => useProductsUnderTest(), { wrapper });
 
-		// initial
 		expect(result.current.list.map(i => (i as any).id)).toEqual([
 			'p1',
 			'p2',
@@ -85,32 +84,27 @@ describe('products context', () => {
 		expect(result.current.isDeleteLoading).toBe(false);
 		expect(result.current.isAdaptive).toBe(false);
 
-		// set list loading false
 		act(() => {
 			result.current.setListLoading(false);
 		});
 		expect(result.current.isLoading).toBe(false);
 
-		// set delete loading true
 		act(() => {
 			result.current.setDeleteLoading(true);
 		});
 		expect(result.current.isDeleteLoading).toBe(true);
 
-		// set adaptive table true
 		act(() => {
 			result.current.setAdaptiveTable(true);
 		});
 		expect(result.current.isAdaptive).toBe(true);
 
-		// replace list
 		act(() => {
 			result.current.setAll([{ id: 'p9' }] as any);
 		});
 		expect(result.current.amount).toBe(1);
 		expect(result.current.list.map(i => (i as any).id)).toEqual(['p9']);
 
-		// remove by id
 		act(() => {
 			result.current.remove('p9');
 		});

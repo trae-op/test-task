@@ -31,7 +31,6 @@ describe('Sidebar and NavItem', () => {
 
 	it('Sidebar handles empty items (negative)', () => {
 		render(<Sidebar items={[]} />);
-		// Renders without items and without crashing
 		expect(screen.getByRole('img', { name: /ava/i })).toBeInTheDocument();
 	});
 });

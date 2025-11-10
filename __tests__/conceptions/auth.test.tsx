@@ -31,7 +31,6 @@ describe('Auth forms', () => {
 		);
 		await user.type(screen.getByPlaceholderText('enterPassword'), 'Qwerty12$');
 		await user.click(screen.getByRole('button', { name: /submitButton/i }));
-		// No error expected
 		expect(screen.queryByText('required')).not.toBeInTheDocument();
 	});
 

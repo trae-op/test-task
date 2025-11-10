@@ -1,5 +1,4 @@
 :root {
-	/* Colors */
 	--color-primary: #007bff;
 	--color-border: #dddddd;
 	--color-black: #000000;
@@ -29,7 +28,6 @@
 	--color-white: #ffffff;
 	--color-dimgray: dimgray;
 
-	/* Typography */
 	--font-size-xs: 0.6rem;
 	--font-size-sm: 0.8rem;
 	--font-size-md: 0.8rem;
@@ -38,12 +36,10 @@
 	--font-weight-semibold: 600;
 	--font-weight-bold: 700;
 
-	/* Radii */
 	--radius-sm: 0.3rem;
 	--radius-md: 0.5rem;
 	--radius-lg: 0.8rem;
 
-	/* Spacing */
 	--space-xxs: 0.3rem;
 	--space-xs: 0.3rem;
 	--space-sm: 0.5rem;
@@ -53,7 +49,6 @@
 	--space-2xl: 1.3rem;
 	--space-3xl: 1.9rem;
 
-	/* Sizes */
 	--size-5: 0.3rem;
 	--size-10: 0.6rem;
 	--size-15: 0.9rem;
@@ -67,7 +62,6 @@
 	--size-150: 9.4rem;
 	--size-188: 18.8rem;
 
-	/* Layout widths */
 	--sidebar-width: 12.5rem;
 	--table-min-width: 64rem;
 }

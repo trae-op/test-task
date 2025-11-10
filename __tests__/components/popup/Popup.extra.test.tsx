@@ -13,10 +13,11 @@ const ApplyButton = (props: any) => (
 	<button type='button' aria-label='custom-apply' {...props} />
 );
 
-// Mock react-bootstrap/Modal to render children immediately
-jest.mock('react-bootstrap/Modal', () => {
-	return ({ children }: any) => <div role='dialog'>{children}</div>;
-});
+const instantModal = ({ children }: { children: React.ReactNode }) => (
+	<div role='dialog'>{children}</div>
+);
+
+jest.mock('react-bootstrap/Modal', () => instantModal);
 
 jest.mock('@/hooks/popup', () => ({
 	usePopup: () => ({
@@ -43,7 +44,6 @@ describe('components/Popup (extra cases)', () => {
 			</Popup>
 		);
 
-		// Cancel button exists and works
 		const cancelBtn = await screen.findByRole('button', { name: /Cancel/i });
 		fireEvent.click(cancelBtn);
 		expect(onCancel).toHaveBeenCalled();
@@ -86,7 +86,6 @@ describe('components/Popup (extra cases)', () => {
 			/>
 		);
 
-		// open the popup first
 		fireEvent.click(screen.getAllByRole('button', { name: /Open/i })[0]);
 		const dialogsOpen1 = screen.getAllByRole('dialog');
 		const lastDialog1 = dialogsOpen1[dialogsOpen1.length - 1];
@@ -95,9 +94,7 @@ describe('components/Popup (extra cases)', () => {
 		});
 		fireEvent.click(customApply);
 
-		// onApply only fires in uncontrolled path; it passes close fn
-		// Provide an onApply to assert it is called with a function
-		const { rerender } = render(
+		render(
 			<Popup
 				title='Title'
 				componentButton={TriggerButton}

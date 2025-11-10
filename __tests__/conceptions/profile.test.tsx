@@ -15,24 +15,22 @@ jest.mock('@/app/_conceptions/Profile/UpdatePassword', () => ({
 	UpdatePassword: () => <div data-testid='profile-update-password' />
 }));
 
-// Session mock is mutable per test to avoid module resets (prevents React duplication)
-const sessionMock: { data: any } = { data: null };
+const sessionStore: { data: any } = { data: null };
 jest.mock('next-auth/react', () => ({
-	useSession: () => sessionMock
+	useSession: () => sessionStore
 }));
 
 jest.mock('@/components/Loading', () => ({
 	Loading: () => <div>Loading...</div>
 }));
 
-// Avoid invoking real auth hook (which uses React hooks and server actions)
 jest.mock('@/hooks/auth', () => ({
 	useAuthActions: () => ({ signOut: jest.fn() })
 }));
 
 describe('Profile container', () => {
 	beforeEach(() => {
-		sessionMock.data = null;
+		sessionStore.data = null;
 		infoRenderSpy.mockClear();
 	});
 
@@ -44,13 +42,14 @@ describe('Profile container', () => {
 	});
 
 	it('renders forms when session available (positive)', () => {
-		sessionMock.data = {
+		sessionStore.data = {
 			user: { name: 'John', email: 'john@example.com', id: 'u1' }
 		};
 		const { Profile } = require('@/app/_conceptions/Profile/Profile');
 		render(<Profile />);
+		const signOutButtonSelector = { name: /Sign Out/i };
 		expect(
-			screen.getByRole('button', { name: /Sign Out/i })
+			screen.getByRole('button', signOutButtonSelector)
 		).toBeInTheDocument();
 		expect(screen.getByTestId('profile-info')).toBeInTheDocument();
 		expect(infoRenderSpy).toHaveBeenCalledWith({

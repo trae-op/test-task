@@ -2,7 +2,6 @@ import { act, renderHook } from '@testing-library/react';
 
 import { useActions } from '@/hooks/getProducts';
 
-// Mocks
 const toastMock = jest.fn();
 jest.mock('@/components/Toaster/useActions', () => ({
 	useActions: () => ({ setToast: toastMock })

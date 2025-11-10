@@ -6,9 +6,9 @@ import { HeaderInfo } from '@/app/_conceptions/TopHeader.ts/HeaderInfo';
 import { Logo } from '@/app/_conceptions/TopHeader.ts/Logo';
 import { TopHeader } from '@/app/_conceptions/TopHeader.ts/TopHeader';
 
-// Mocks
-// Mock next/dynamic to return a no-op component, avoiding Promises as elements
-jest.mock('next/dynamic', () => () => () => null);
+const noopDynamic = () => () => null;
+
+jest.mock('next/dynamic', () => noopDynamic);
 jest.mock('@/utils/dateTime', () => ({
 	formatDateTime: ({ formatString }: { formatString: string }) => {
 		if (formatString === 'EEEE') return 'Monday';
@@ -38,10 +38,7 @@ describe('TopHeader suite', () => {
 	});
 
 	it('DateTimeDisplay handles missing date gracefully (negative)', () => {
-		// @ts-expect-error purposely wrong type to simulate runtime misuse
-		render(<DateTimeDisplay date={undefined} />);
-		// Should render container without throwing
-		// There may be no specific text, just ensure test reaches here
+		render(<DateTimeDisplay date={undefined as unknown as Date} />);
 		expect(true).toBe(true);
 	});
 

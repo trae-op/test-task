@@ -13,7 +13,6 @@ import type { TConfirmPopupProps } from './types';
 
 const BLOCK = 'popup';
 
-// Lazy-load react-bootstrap Modal only when needed (client-side only)
 const RBModal = dynamic(() => import('react-bootstrap/Modal'), {
 	ssr: false,
 	loading: () => null

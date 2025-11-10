@@ -1,8 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-// Note: import inside tests to allow remocking navigation
-
 jest.mock('@/context/global/useContext', () => ({
 	useEntitiesTotalSelector: () => 5,
 	useLinkAddEntitySelector: () => '/orders',
@@ -17,9 +15,12 @@ jest.mock('next/navigation', () => ({
 	useParams: () => ({})
 }));
 
-// Avoid rendering actual NavigationLink (uses hooks); provide a dumb anchor
+const PlainNavigationLink = ({ href, children }: any) => (
+	<a href={href}>{children}</a>
+);
+
 jest.mock('@/components/NavigationLink', () => ({
-	NavigationLink: ({ href, children }: any) => <a href={href}>{children}</a>
+	NavigationLink: PlainNavigationLink
 }));
 
 describe('AddEntity wrapper', () => {

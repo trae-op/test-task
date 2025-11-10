@@ -1,14 +1,15 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
+import React from 'react';
 
 import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 import { Popup } from '@/components/Popup/Popup';
 
-// Mock react-bootstrap/Modal to render children immediately
-jest.mock('react-bootstrap/Modal', () => {
-	return ({ children }: any) => <div role='dialog'>{children}</div>;
-});
+const immediateModal = ({ children }: { children: React.ReactNode }) => (
+	<div role='dialog'>{children}</div>
+);
 
-// Force popup hook to report open state after clicking by default
+jest.mock('react-bootstrap/Modal', () => immediateModal);
+
 jest.mock('@/hooks/popup', () => ({
 	usePopup: () => ({
 		isOpen: true,
@@ -28,9 +29,7 @@ describe('components/Popup', () => {
 			/>
 		);
 
-		// click trigger (DeleteEntityButton)
 		fireEvent.click(screen.getAllByRole('button', { name: /Delete/i })[0]);
-		// wait for modal content then click popup button inside the modal footer
 		const footer = (await screen.findByText('Cancel')).closest(
 			'div'
 		) as HTMLElement;

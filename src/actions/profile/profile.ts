@@ -28,7 +28,6 @@ export const updateProfile = async (
 			return { ok: false, code: 'INVALID_INPUT' };
 		}
 
-		// If changing email, ensure it's not taken by another user
 		if (email !== currentEmail) {
 			const exists = await prisma.user.findUnique({ where: { email } });
 			if (exists) return { ok: false, code: 'EMAIL_TAKEN' };
@@ -47,7 +46,6 @@ export const updateProfile = async (
 			}
 		});
 
-		// Note: with JWT sessions, claims may not reflect changes until next token refresh.
 		return { ok: true, code: 'SUCCESS' };
 	} catch {
 		return { ok: false, code: 'SERVER_ERROR' };

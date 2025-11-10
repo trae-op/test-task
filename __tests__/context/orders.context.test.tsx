@@ -83,7 +83,6 @@ describe('orders context', () => {
 
 		const { result } = renderHook(() => useOrdersUnderTest(), { wrapper });
 
-		// initial
 		expect(result.current.list.map(i => (i as any).id)).toEqual(['1', '2']);
 		expect(result.current.amount).toBe(2);
 		expect(result.current.isLoading).toBe(true);
@@ -91,32 +90,27 @@ describe('orders context', () => {
 		expect(result.current.isAdaptive).toBe(true);
 		expect(result.current.entityId).toBe('order-1');
 
-		// set list loading false
 		act(() => {
 			result.current.setListLoading(false);
 		});
 		expect(result.current.isLoading).toBe(false);
 
-		// set delete loading true
 		act(() => {
 			result.current.setDeleteLoading(true);
 		});
 		expect(result.current.isDeleteLoading).toBe(true);
 
-		// set adaptive table false
 		act(() => {
 			result.current.setAdaptiveTable(false);
 		});
 		expect(result.current.isAdaptive).toBe(false);
 
-		// replace list
 		act(() => {
 			result.current.setAll([{ id: '3' } as any]);
 		});
 		expect(result.current.amount).toBe(1);
 		expect(result.current.list.map(i => (i as any).id)).toEqual(['3']);
 
-		// remove by id
 		act(() => {
 			result.current.remove('3');
 		});

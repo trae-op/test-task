@@ -19,7 +19,6 @@ jest.mock('next-intl', () => ({
 }));
 
 const pushSpy = jest.fn();
-// Override next/navigation to control hooks
 jest.mock('next/navigation', () => ({
 	usePathname: () => '/en/products',
 	useSearchParams: () => new URLSearchParams('type='),
@@ -31,7 +30,6 @@ describe('LocalizationDropdown', () => {
 		render(<LocalizationDropdown />);
 		const toggle = screen.getByRole('button', { name: /EN/i });
 		expect(toggle).toBeInTheDocument();
-		// Open the dropdown to render menu items
 		const user = userEvent.setup();
 		await user.click(toggle);
 		expect(await screen.findByText('en')).toBeInTheDocument();

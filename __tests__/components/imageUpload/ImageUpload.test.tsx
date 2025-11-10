@@ -3,28 +3,28 @@ import React from 'react';
 
 import { ImageUpload } from '@/components/ImageUpload/ImageUpload';
 
-// Mock getCroppedImg util
+const croppedFileMock = jest.fn(
+	async () => new File([new Blob(['x'])], 'cropped.png', { type: 'image/png' })
+);
+
 jest.mock('@/utils/imageUpload', () => ({
-	getCroppedImg: jest.fn(
-		async () =>
-			new File([new Blob(['x'])], 'cropped.png', { type: 'image/png' })
-	)
+	getCroppedImg: croppedFileMock
 }));
 
-// Mock uploadPicture service
+const uploadPictureMock = jest.fn(async () => ({
+	results: { ok: true, message: 'ok', data: { url: '/img.png' } }
+}));
+
 jest.mock('@/services/imageUpload', () => ({
-	uploadPicture: jest.fn(async () => ({
-		results: { ok: true, message: 'ok', data: { url: '/img.png' } }
-	}))
+	uploadPicture: uploadPictureMock
 }));
 
-// Mock toaster actions to capture errors
 const setToast = jest.fn();
+
 jest.mock('@/components/Toaster/useActions', () => ({
 	useActions: () => ({ setToast, setOptions: jest.fn() })
 }));
 
-// Mock react-easy-crop Cropper to call onCropComplete immediately
 jest.mock('react-easy-crop', () => {
 	const React = require('react');
 	return {
@@ -48,9 +48,28 @@ jest.mock('react-easy-crop', () => {
 	};
 });
 
+const selectFileInput = (container: HTMLElement) =>
+	container.querySelector('input[type="file"]') as HTMLInputElement;
+
+const createImageFile = () =>
+	new File([new Blob(['x'])], 'pic.png', { type: 'image/png' });
+
+const waitForCropperVisible = async () => {
+	await waitFor(() =>
+		expect(screen.getByTestId('cropper')).toBeInTheDocument()
+	);
+};
+
+const waitForCropperReady = async () => {
+	await waitFor(() =>
+		expect(screen.getByTestId('cropper').getAttribute('data-ready')).toBe(
+			'true'
+		)
+	);
+};
+
 describe('components/ImageUpload', () => {
-	// Mock FileReader globally
-	class MockFileReader {
+	class FileReaderMock {
 		public result: string | ArrayBuffer | null = null;
 		public onload: null | (() => void) = null;
 		readAsDataURL(_file: File) {
@@ -60,10 +79,8 @@ describe('components/ImageUpload', () => {
 	}
 
 	beforeAll(() => {
-		// @ts-ignore
-		global.FileReader = MockFileReader as any;
-		// Minimal Response polyfill for tests
-		class MockResponse {
+		(globalThis as any).FileReader = FileReaderMock;
+		class ResponseMock {
 			status: number;
 			private body: string;
 			constructor(body: string, init: { status: number }) {
@@ -74,8 +91,7 @@ describe('components/ImageUpload', () => {
 				return JSON.parse(this.body);
 			}
 		}
-		// @ts-ignore
-		global.Response = MockResponse as any;
+		(globalThis as any).Response = ResponseMock as unknown as typeof Response;
 	});
 
 	it('uploads a cropped image and calls handlers on success', async () => {
@@ -91,25 +107,13 @@ describe('components/ImageUpload', () => {
 			/>
 		);
 
-		const input = container.querySelector(
-			'input[type="file"]'
-		) as HTMLInputElement;
-		const file = new File([new Blob(['x'])], 'pic.png', { type: 'image/png' });
+		const input = selectFileInput(container);
+		const file = createImageFile();
 		fireEvent.change(input, { target: { files: [file] } });
 
-		// Wait cropper to appear
-		await waitFor(() =>
-			expect(screen.getByTestId('cropper')).toBeInTheDocument()
-		);
+		await waitForCropperVisible();
+		await waitForCropperReady();
 
-		// Wait for cropper to signal ready
-		await waitFor(() =>
-			expect(screen.getByTestId('cropper').getAttribute('data-ready')).toBe(
-				'true'
-			)
-		);
-
-		// Click Apply to trigger save
 		const apply = screen.getByRole('button', { name: 'Apply' });
 		fireEvent.click(apply);
 
@@ -119,11 +123,12 @@ describe('components/ImageUpload', () => {
 
 	it('shows an error toast and calls handleFail on failure', async () => {
 		const { uploadPicture } = jest.requireMock('@/services/imageUpload');
-		// Make it throw a Response with message
 		uploadPicture.mockImplementationOnce(async () => {
-			throw new Response(JSON.stringify({ message: 'Failed' }), {
-				status: 400
-			});
+			const responseError = new Response(
+				JSON.stringify({ message: 'Failed' }),
+				{ status: 400 }
+			);
+			throw responseError;
 		});
 
 		const handleFail = jest.fn();
@@ -135,18 +140,11 @@ describe('components/ImageUpload', () => {
 			/>
 		);
 
-		const input = container.querySelector(
-			'input[type="file"]'
-		) as HTMLInputElement;
-		const file = new File([new Blob(['x'])], 'pic.png', { type: 'image/png' });
+		const input = selectFileInput(container);
+		const file = createImageFile();
 		fireEvent.change(input, { target: { files: [file] } });
 
-		// Ensure cropper ready then click Apply
-		await waitFor(() =>
-			expect(screen.getByTestId('cropper').getAttribute('data-ready')).toBe(
-				'true'
-			)
-		);
+		await waitForCropperReady();
 		const apply = await screen.findByRole('button', { name: 'Apply' });
 		fireEvent.click(apply);
 
@@ -164,23 +162,15 @@ describe('components/ImageUpload', () => {
 			/>
 		);
 
-		const input = container.querySelector(
-			'input[type="file"]'
-		) as HTMLInputElement;
-		const file = new File([new Blob(['x'])], 'pic.png', { type: 'image/png' });
+		const input = selectFileInput(container);
+		const file = createImageFile();
 		fireEvent.change(input, { target: { files: [file] } });
 
-		// Wait for cropper
-		await waitFor(() =>
-			expect(screen.getByTestId('cropper')).toBeInTheDocument()
-		);
+		await waitForCropperVisible();
 
-		// Clear
 		const clearBtn = screen.getByRole('button', { name: 'Clear' });
 		fireEvent.click(clearBtn);
 
-		// Apply should be disabled now
-		const apply = screen.getByRole('button', { name: 'Apply' });
-		expect(apply).toBeDisabled();
+		expect(screen.getByRole('button', { name: 'Apply' })).toBeDisabled();
 	});
 });

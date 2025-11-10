@@ -4,29 +4,30 @@ import React from 'react';
 import { DeleteEntity as DeleteOrderEntity } from '@/app/_conceptions/DeleteOrder/DeleteEntity';
 import { DeleteEntity as DeleteProductEntity } from '@/app/_conceptions/DeleteProducts/DeleteEntity';
 
-// Mock Popup to invoke onOpen then onApply when clicking the open button
+const autoApplyingPopup = ({
+	onApply,
+	onOpen,
+	children,
+	componentButton: Btn,
+	openButtonAriaLabel
+}: any) => (
+	<div>
+		<button
+			aria-label={openButtonAriaLabel || 'open'}
+			onClick={() => {
+				onOpen?.();
+				onApply?.(() => {});
+			}}
+		>
+			open
+		</button>
+		{children}
+		<Btn />
+	</div>
+);
+
 jest.mock('@/components/Popup/Popup', () => ({
-	Popup: ({
-		onApply,
-		onOpen,
-		children,
-		componentButton: Btn,
-		openButtonAriaLabel
-	}: any) => (
-		<div>
-			<button
-				aria-label={openButtonAriaLabel || 'open'}
-				onClick={() => {
-					onOpen?.();
-					onApply?.(() => {});
-				}}
-			>
-				open
-			</button>
-			{children}
-			<Btn />
-		</div>
-	)
+	Popup: autoApplyingPopup
 }));
 
 jest.mock('@/context/orders/useContext', () => ({

@@ -2,7 +2,6 @@ import { act, renderHook } from '@testing-library/react';
 
 import { useAddOrderActions } from '@/hooks/addOrder/useAddActions';
 
-// Mock React hooks to control useActionState and startTransition behavior
 let formActionMock: jest.Mock<any, any>;
 let useActionStateState: any;
 jest.mock('react', () => {
@@ -16,9 +15,15 @@ jest.mock('react', () => {
 		startTransition: (cb: any) => cb()
 	};
 });
-
-// avoid importing server action internals
 jest.mock('@/actions/addOrder/submit', () => ({ addOrderSubmit: jest.fn() }));
+
+const formDataToMap = (formData: FormData) => {
+	const map = new Map<string, string>();
+	(formData as any).forEach?.((value: string, key: string) => {
+		map.set(key, value);
+	});
+	return map;
+};
 
 describe('addOrder/useAddOrderActions', () => {
 	it('maps form data and product ids to FormData and dispatches', () => {
@@ -38,9 +43,7 @@ describe('addOrder/useAddOrderActions', () => {
 
 		expect(formActionMock).toHaveBeenCalledTimes(1);
 		const fd = formActionMock.mock.calls[0][0] as FormData;
-		const map = new Map<string, string>();
-		// FormData iteration in jsdom
-		(fd as any).forEach?.((v: string, k: string) => map.set(k, v));
+		const map = formDataToMap(fd);
 		expect(map.get('title')).toBe('Order 1');
 		expect(map.get('description')).toBe('Desc');
 		expect(map.get('locale')).toBe('en');

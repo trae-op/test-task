@@ -1,4 +1,3 @@
-// ...existing code...
 export type TCreateParamsInput = {
 	id?: string | number;
 	type?: string;
@@ -12,4 +11,3 @@ export type TParseQueryParamsInput = {
 				select?: TParseQueryParamsInput;
 		  };
 };
-// ...existing code...

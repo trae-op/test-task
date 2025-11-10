@@ -15,16 +15,17 @@ jest.mock('@/context/currency/useContext', () => ({
 	useDeleteLoadingSelector: () => deleteLoading
 }));
 
-// Mock Button to render minimal structure while preserving behavior
+const MinimalButton = (props: any) => {
+	const { isLoading, text, onClick, disabled } = props;
+	return (
+		<button onClick={onClick} disabled={disabled}>
+			{isLoading ? <span role='status' /> : text}
+		</button>
+	);
+};
+
 jest.mock('@/components/Button', () => ({
-	Button: (props: any) => {
-		const { isLoading, text, onClick, disabled } = props;
-		return (
-			<button onClick={onClick} disabled={disabled}>
-				{isLoading ? <span role='status' /> : text}
-			</button>
-		);
-	}
+	Button: MinimalButton
 }));
 
 describe('components/settings/currency/DeleteButton', () => {

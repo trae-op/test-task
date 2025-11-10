@@ -24,14 +24,11 @@ describe('AddProduct fields/TitleField', () => {
 			</Wrapper>
 		);
 
-		// Label should be present
 		expect(screen.getByText('Title')).toBeInTheDocument();
 
-		// Trigger blur without entering a value to validate required
 		const input = screen.getByPlaceholderText('Enter title');
 		fireEvent.blur(input);
 
-		// Error message should appear from next-intl mock
 		expect(await screen.findByText('required')).toBeInTheDocument();
 	});
 });

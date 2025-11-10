@@ -2,7 +2,6 @@ import { act, renderHook } from '@testing-library/react';
 
 import { useUpdateActions as useUpdateOrderForm } from '@/hooks/updateOrder/useUpdateActions';
 
-// Mock React hooks to control useActionState and startTransition
 let formActionMock: jest.Mock<any, any>;
 let useActionStateState: any;
 jest.mock('react', () => {
@@ -26,8 +25,15 @@ jest.mock('react-hook-form', () => ({
 	useFormContext: () => mockUseFormContext()
 }));
 
-// avoid importing server action internals from updateOrder action
 jest.mock('@/actions/updateOrder/action', () => ({ updateOrder: jest.fn() }));
+
+const formDataToMap = (formData: FormData) => {
+	const map = new Map<string, string>();
+	(formData as any).forEach?.((value: string, key: string) =>
+		map.set(key, value)
+	);
+	return map;
+};
 
 describe('updateOrder/useUpdateOrderForm', () => {
 	beforeEach(() => jest.clearAllMocks());
@@ -53,8 +59,7 @@ describe('updateOrder/useUpdateOrderForm', () => {
 
 		expect(formActionMock).toHaveBeenCalledTimes(1);
 		const fd = formActionMock.mock.calls[0][0] as FormData;
-		const map = new Map<string, string>();
-		(fd as any).forEach?.((v: string, k: string) => map.set(k, v));
+		const map = formDataToMap(fd);
 		expect(map.get('orderId')).toBe('o1');
 		expect(map.get('title')).toBe('Title');
 		const products = JSON.parse(map.get('products') || '[]');

@@ -34,12 +34,3 @@ export type TUpdateData = {
 		isDefault: boolean;
 	}[];
 };
-
-//   { symbol: 'USD', value: 2332, isDefault: false },
-//   { symbol: 'UAH', value: 3232323, isDefault: true }
-
-// value: number;
-// 	symbol: 'USD' | 'UAH';
-// 	isDefault: boolean;
-// 	productId: string;
-// 	userId: string;

@@ -4,9 +4,10 @@ import React from 'react';
 import { DetailContainer } from '@/app/_conceptions/Orders/DetailContainer';
 import { OrderTable } from '@/app/_conceptions/Orders/Orders';
 
-// Avoid invoking delete hook inside OrderRow by stubbing DeleteOrder/DeleteEntity
+const NoOpDeleteOrderEntity = () => null;
+
 jest.mock('@/app/_conceptions/DeleteOrder/DeleteEntity', () => ({
-	DeleteEntity: () => null
+	DeleteEntity: NoOpDeleteOrderEntity
 }));
 
 jest.mock('@/context/global/useContext', () => ({

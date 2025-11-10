@@ -1,6 +1,5 @@
 import { type TCreateParamsInput } from './types';
 
-// --- Deep collect params serialization ---
 export const createParams = (input: TCreateParamsInput): string => {
 	const query: string[] = [];
 	if (input.id) query.push(`id=${encodeURIComponent(String(input.id))}`);
@@ -31,9 +30,6 @@ export const createParams = (input: TCreateParamsInput): string => {
 function capitalize(str: string): string {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
-// --- Deep query params parsing ---
-// --- Query string to nested object ---
 type TParsedQuery = Record<
 	string,
 	boolean | { select: Record<string, boolean> }
@@ -41,21 +37,17 @@ type TParsedQuery = Record<
 
 export const parseQueryParams = (query: string): TParsedQuery => {
 	if (!query) return {};
-	// Remove leading ? if present
 	const clean = query.startsWith('?') ? query.slice(1) : query;
 	const params = new URLSearchParams(clean);
 	const result: TParsedQuery = {};
-	// First, parse top-level fields
 	const fields = params.get('fields');
 	if (fields) {
 		fields.split(',').forEach(f => {
 			result[f] = true;
 		});
 	}
-	// Now, parse nested fields (fieldsProducts, fieldsOrders, etc)
 	params.forEach((value, key) => {
 		if (key.startsWith('fields') && key !== 'fields') {
-			// e.g. fieldsProducts => products
 			const nestedKey = key.replace(/^fields/, '');
 			const prop = nestedKey.charAt(0).toLowerCase() + nestedKey.slice(1);
 			const nestedFields = value.split(',');
@@ -83,7 +75,6 @@ export const getProductUpdateHref = (id: string | number): string =>
 export const getOrderUpdateHref = (id: string | number): string =>
 	`${getOrdersHref}/${id}/update`;
 
-// Resolve base URL from env in a simple, predictable way
 export const getBaseUrl = (): string => {
 	if (typeof window !== 'undefined') return window.location.origin;
 	const envPublic = process.env.NEXT_PUBLIC_APP_URL;

@@ -1,16 +1,16 @@
 import { passwordSubmit } from '@/actions/profile/passwordSubmit';
 import { profileSubmit } from '@/actions/profile/profileSubmit';
 
+const redirectMock = jest.fn();
+
 jest.mock('@/actions/profile/profile', () => ({ updateProfile: jest.fn() }));
 jest.mock('@/actions/profile/password', () => ({ updatePassword: jest.fn() }));
-
-// Override next/navigation to include redirect for this test
-jest.mock('next/navigation', () => ({ redirect: jest.fn() }));
+jest.mock('next/navigation', () => ({ redirect: redirectMock }));
 jest.mock('@/utils/routing/routing', () => ({ getProfileHref: '/profile' }));
 
 const { updateProfile } = jest.requireMock('@/actions/profile/profile');
 const { updatePassword } = jest.requireMock('@/actions/profile/password');
-const { redirect } = jest.requireMock('next/navigation');
+const redirect = redirectMock;
 
 describe('profile submit actions', () => {
 	beforeEach(() => jest.clearAllMocks());

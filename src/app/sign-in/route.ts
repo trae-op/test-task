@@ -5,6 +5,9 @@ export async function GET(request: Request) {
 	const locale = await getLocale();
 	const from = new URL(request.url);
 	const to = new URL(`/${locale}/sign-in`, from);
-	to.search = from.search; // preserve query params like ?callbackUrl=...
+	const preserveSearchParams = (source: URL, target: URL) => {
+		target.search = source.search;
+	};
+	preserveSearchParams(from, to);
 	return NextResponse.redirect(to);
 }
