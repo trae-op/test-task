@@ -11,7 +11,7 @@ import { Popup } from '@/components/Popup/Popup';
 
 import type { TLocationFormValue } from '@/types/location';
 
-import { formatLocationLabel } from '@/utils/locationMap';
+import { formatLocationLabel } from '@/utils/map';
 
 import styles from './OrderViewLocation.module.scss';
 import type { TOrderViewLocationProps } from './types';

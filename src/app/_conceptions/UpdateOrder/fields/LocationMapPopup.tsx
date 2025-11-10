@@ -13,7 +13,7 @@ import type { TUpdateOrderFormData } from '@/hooks/updateOrder/types';
 
 import type { TLocationFormValue } from '@/types/location';
 
-import { formatLocationLabel } from '@/utils/locationMap';
+import { formatLocationLabel } from '@/utils/map';
 
 const TriggerButton = ({ children, ...props }: ButtonProps) => {
 	const t = useTranslations('App');

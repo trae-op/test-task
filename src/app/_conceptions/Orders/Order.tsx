@@ -12,7 +12,7 @@ import { Price } from '@/components/Price';
 import { TLocationFormValue } from '@/types/location';
 
 import { formatDateTime } from '@/utils/dateTime';
-import { formatLocationLabel } from '@/utils/locationMap';
+import { formatLocationLabel } from '@/utils/map';
 import { getOrderDetailHref, getOrderUpdateHref } from '@/utils/routing';
 
 import styles from './Orders.module.scss';

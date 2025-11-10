@@ -25,9 +25,10 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY package.json package-lock.json ./
 COPY prisma ./prisma
 RUN npm ci --omit=dev --ignore-scripts
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/node_modules/@prisma/client ./node_modules/@prisma/client
 EXPOSE 3000
 CMD ["npm", "run", "start"]
