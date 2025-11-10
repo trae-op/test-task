@@ -29,18 +29,28 @@ describe('orders actions', () => {
 		mockPrisma.order.findMany.mockResolvedValue(items);
 		(calculateOrderTotals as jest.Mock).mockReturnValue({ o1: undefined });
 
-		const res = await getOrders();
+		const res = await getOrders({
+			selectFields: {
+				id: true,
+				title: true,
+				location: true,
+				products: {
+					select: {
+						id: true,
+						title: true,
+						photo: true,
+						prices: true,
+						serialNumber: true
+					}
+				},
+				date: true,
+				amountOfProducts: true
+			}
+		});
+
 		expect(res).toEqual({
 			ok: true,
-			items: [
-				{
-					id: 'o1',
-					title: 'T',
-					products: [],
-					amountOfProducts: 0,
-					prices: undefined
-				}
-			]
+			items: [{ id: 'o1', title: 'T', products: [], prices: undefined }]
 		});
 	});
 
