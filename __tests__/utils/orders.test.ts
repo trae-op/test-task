@@ -22,16 +22,24 @@ describe('calculateOrderTotals', () => {
 		];
 
 		const res = calculateOrderTotals(orders as any);
-		expect(res[0].prices).toEqual(
+		expect(res.o1).toEqual(
 			expect.arrayContaining([
-				{ symbol: 'USD', value: 15.679, isDefault: false },
-				{ symbol: 'EUR', value: 2.4, isDefault: false }
+				expect.objectContaining({
+					symbol: 'USD',
+					value: 15.679,
+					isDefault: false
+				}),
+				expect.objectContaining({
+					symbol: 'EUR',
+					value: 2.4,
+					isDefault: false
+				})
 			])
 		);
 	});
 
 	it('returns prices undefined when no products', () => {
-		const res = calculateOrderTotals([{ id: 'o2' }] as any);
-		expect(res[0].prices).toBeUndefined();
+		const res = calculateOrderTotals([{ id: 'o1' }] as any);
+		expect(res.o2).toBeUndefined();
 	});
 });

@@ -1,7 +1,7 @@
 import { getOrderById, getOrders } from '@/actions/orders/action';
 
 jest.mock('@/utils/orders', () => ({
-	calculateOrderTotals: (x: unknown) => x
+	calculateOrderTotals: jest.fn()
 }));
 
 jest.mock('@/prisma/prisma-client', () => ({
@@ -16,6 +16,7 @@ jest.mock('@/utils/session', () => ({ getUserSession: jest.fn() }));
 
 const { getUserSession } = jest.requireMock('@/utils/session');
 const { prisma: mockPrisma } = jest.requireMock('@/prisma/prisma-client');
+const { calculateOrderTotals } = jest.requireMock('@/utils/orders');
 
 describe('orders actions', () => {
 	beforeEach(() => {
@@ -26,6 +27,7 @@ describe('orders actions', () => {
 		(getUserSession as jest.Mock).mockResolvedValue({ id: 'user-1' });
 		const items = [{ id: 'o1', title: 'T', products: [] }];
 		mockPrisma.order.findMany.mockResolvedValue(items);
+		(calculateOrderTotals as jest.Mock).mockReturnValue({ o1: undefined });
 
 		const res = await getOrders();
 		expect(res).toEqual({
@@ -35,7 +37,8 @@ describe('orders actions', () => {
 					id: 'o1',
 					title: 'T',
 					products: [],
-					amountOfProducts: 0
+					amountOfProducts: 0,
+					prices: undefined
 				}
 			]
 		});
