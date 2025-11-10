@@ -28,14 +28,19 @@ export async function getOrders(
 			}
 		});
 
+		const prices = calculateOrderTotals(
+			entities.map((item: TOrder) => ({
+				...item,
+				amountOfProducts: item.products ? item.products.length : 0
+			}))
+		);
+
 		return {
 			ok: true,
-			items: calculateOrderTotals(
-				entities.map((item: TOrder) => ({
-					...item,
-					amountOfProducts: item.products ? item.products.length : 0
-				}))
-			)
+			items: entities.map((order: TOrder) => ({
+				...order,
+				prices: prices[order.id]
+			}))
 		};
 	} catch (_error) {
 		return { ok: false, code: 'SERVER_ERROR' };

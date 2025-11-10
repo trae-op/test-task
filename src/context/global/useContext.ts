@@ -5,7 +5,6 @@ import { useContext, useSyncExternalStore } from 'react';
 import { TProductType } from '@/types/productType';
 
 import { Context } from './Context';
-import { TEntity } from './types';
 
 export const useEntityContext = () => {
 	const entityContext = useContext(Context);

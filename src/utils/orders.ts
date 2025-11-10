@@ -1,7 +1,11 @@
 import type { TOrder } from '@/types/orders';
+import { TPrice } from '@/types/price';
 
 export function calculateOrderTotals(orders: TOrder[]) {
-	return orders.map(order => {
+	let result: {
+		[key: string]: TPrice[];
+	} = {};
+	orders.forEach(order => {
 		const currencyTotals = new Map<
 			string,
 			{ value: number; isDefault: boolean }
@@ -23,13 +27,15 @@ export function calculateOrderTotals(orders: TOrder[]) {
 			([symbol, { value, isDefault }]) => ({
 				value,
 				symbol,
-				isDefault
+				isDefault,
+				id: order.id ?? '',
+				userId: order.userId ?? '',
+				productId: order.products?.[0]?.id ?? ''
 			})
 		);
 
-		return {
-			...order,
-			prices: prices.length ? prices : undefined
-		};
+		result[order.id ?? ''] = prices;
 	});
+
+	return result;
 }

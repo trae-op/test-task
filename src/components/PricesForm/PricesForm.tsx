@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 import { memo, useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
 
 import { TPriceOption } from '@/hooks/pricesForm/types';
 import { usePriceFormActions } from '@/hooks/pricesForm/usePriceFormActions';
