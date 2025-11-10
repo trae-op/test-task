@@ -30,5 +30,5 @@ COPY prisma ./prisma
 RUN npm ci --omit=dev --ignore-scripts
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/node_modules/@prisma/client ./node_modules/@prisma/client
-EXPOSE 3000
+EXPOSE 4000
 CMD ["npm", "run", "start"]

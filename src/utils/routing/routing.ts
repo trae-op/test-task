@@ -85,6 +85,7 @@ export const getOrderUpdateHref = (id: string | number): string =>
 
 // Resolve base URL from env in a simple, predictable way
 export const getBaseUrl = (): string => {
+	if (typeof window !== 'undefined') return window.location.origin;
 	const envPublic = process.env.NEXT_PUBLIC_APP_URL;
 	if (envPublic) return envPublic.replace(/\/$/, '');
 	const vercelUrl = process.env.VERCEL_URL;

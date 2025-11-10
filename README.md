@@ -21,6 +21,8 @@ The repository provides a `Dockerfile` and `docker-compose.yml` for a containeri
 
 The compose stack reads environment variables from `.env.docker`. Adjust secrets or third-party keys there before running the containers.
 
+When running via Docker, the web app is available at [http://localhost:4000](http://localhost:4000).
+
 ## Useful references
 
 - [Next.js Documentation](https://nextjs.org/docs)

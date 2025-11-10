@@ -9,6 +9,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const nextConfig: NextConfig = {
 	images: {
+		domains: ['ik.imagekit.io'],
 		remotePatterns: [
 			{ protocol: 'https', hostname: 'placehold.co', pathname: '/**' },
 			{ protocol: 'https', hostname: 'ik.imagekit.io', pathname: '/**' }
