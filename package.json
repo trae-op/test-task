@@ -14,7 +14,7 @@
 		"prisma:push": "prisma db push",
 		"prisma:studio": "prisma studio",
 		"postinstall": "prisma generate",
-		"prisma:migrate": "prisma migrate dev",
+		"prisma:migrate:name": "prisma migrate dev --name",
 		"prisma:migrate:reset": "prisma migrate reset",
 		"baseline:migrate": "prisma migrate dev --create-only --name init",
 		"baseline:resolve": "prisma migrate resolve --applied init"
