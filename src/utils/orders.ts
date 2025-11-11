@@ -2,7 +2,7 @@ import type { TOrder } from '@/types/orders';
 import { TPrice } from '@/types/price';
 
 export function calculateOrderTotals(orders: TOrder[]) {
-	let result: {
+	const result: {
 		[key: string]: TPrice[];
 	} = {};
 	orders.forEach(order => {
