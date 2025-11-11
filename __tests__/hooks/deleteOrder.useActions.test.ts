@@ -51,7 +51,10 @@ describe('deleteOrder/useActions', () => {
 		});
 
 		expect(mockSetDeleteLoading).toHaveBeenCalledWith(true);
-		expect(toastMock).toHaveBeenCalledWith('Error deleting entity', 'error');
+		expect(toastMock).toHaveBeenCalledWith(
+			'Something wrong with the server!',
+			'error'
+		);
 		expect(mockSetDeleteLoading).toHaveBeenLastCalledWith(false);
 	});
 });

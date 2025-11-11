@@ -1,10 +1,14 @@
 .toaster {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 
 	&__container-icon {
 		margin-right: var(--size-12);
-		width: var(--size-40);
-		height: var(--size-40);
+		width: var(--size-30);
+		height: var(--size-30);
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }

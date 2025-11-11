@@ -27,7 +27,13 @@ export const useActions = (): TActionsHook => {
 					onSuccess();
 				}
 			} catch (error) {
-				setToast('Error deleting entity', 'error');
+				if (typeof Response !== 'undefined' && error instanceof Response) {
+					const { message } = await error.json();
+
+					setToast(message, 'error');
+				} else {
+					setToast('Something wrong with the server!', 'error');
+				}
 			} finally {
 				setDeleteLoadingDispatch(false);
 			}

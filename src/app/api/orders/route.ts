@@ -73,7 +73,7 @@ export const DELETE = async (req: NextRequest) => {
 	} catch (error) {
 		return NextResponse.json(
 			{
-				message: 'SERVER_ERROR',
+				message: 'Something wrong with the server!',
 				ok: false
 			},
 			{

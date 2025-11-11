@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Bug, CheckCircle } from 'react-bootstrap-icons';
+import { CheckCircle, ExclamationCircleFill } from 'react-bootstrap-icons';
 import { ToastBar, Toaster } from 'react-hot-toast';
 
 import styles from './Toaster.module.scss';
@@ -14,7 +14,7 @@ export const InitToaster = () => {
 	return (
 		<Toaster
 			toastOptions={{
-				duration: 4000,
+				duration: 20000,
 				success: {
 					style: {
 						background: '#31782dff',
@@ -35,7 +35,7 @@ export const InitToaster = () => {
 						<div className={styles[BLOCK]}>
 							<div className={styles[`${BLOCK}__container-icon`]}>
 								{t.type === 'success' && <CheckCircle />}
-								{t.type === 'error' && <Bug />}
+								{t.type === 'error' && <ExclamationCircleFill />}
 							</div>
 
 							{typeof message === 'string' ? tm(message) : message}
