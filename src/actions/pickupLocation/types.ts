@@ -14,3 +14,8 @@ export type TGetPickupLocationsResult = {
 	code?: 'UNAUTHORIZED' | 'SERVER_ERROR';
 	items?: TPickupLocation[];
 };
+
+export type TDeletePickupLocationState = {
+	ok: boolean;
+	code?: 'UNAUTHORIZED' | 'ID_NOT_FOUND' | 'NOT_FOUND' | 'SERVER_ERROR';
+};

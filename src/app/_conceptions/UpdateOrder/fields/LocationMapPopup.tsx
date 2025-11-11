@@ -23,9 +23,14 @@ import { useListSelector } from '@/context/pickupLocation/useContext';
 
 const TriggerButton = ({ children, ...props }: ButtonProps) => {
 	const t = useTranslations('App');
+	const pickupLocations = useListSelector();
 
 	return (
-		<Button {...props} text={t('Select location')}>
+		<Button
+			{...props}
+			text={t('Select location')}
+			disabled={!pickupLocations.length}
+		>
 			{children}
 		</Button>
 	);
@@ -106,6 +111,8 @@ export const LocationMapPopup = () => {
 				<div className='d-flex flex-column flex-lg-row gap-3'>
 					<div className='flex-fill w-100'>
 						<LocationMap
+							isInteractive={false}
+							showSearchControls={false}
 							onSuccessfulLocation={handleSuccessfulLocation}
 							initialLocation={selectedLocation}
 						/>
@@ -122,17 +129,23 @@ export const LocationMapPopup = () => {
 								className='d-flex flex-column gap-2 overflow-auto'
 								style={{ maxHeight: 380 }}
 							>
-								{pickupLocationOptions.map(option => (
-									<Button
-										key={option.id}
-										variant={
-											option.id === selectedId ? 'primary' : 'outline-secondary'
-										}
-										text={option.label}
-										className='rounded-1 w-100 h-auto'
-										onClick={() => handleSelectPickupLocation(option.location)}
-									/>
-								))}
+								{pickupLocationOptions.map(option => {
+									const onClick = () =>
+										handleSelectPickupLocation(option.location);
+									return (
+										<Button
+											key={option.id}
+											variant={
+												option.id === selectedId
+													? 'success'
+													: 'outline-secondary'
+											}
+											text={option.label}
+											className='rounded-1 w-100 h-auto'
+											onClick={onClick}
+										/>
+									);
+								})}
 							</div>
 						) : (
 							<p className='mb-0 text-muted'>
@@ -144,6 +157,9 @@ export const LocationMapPopup = () => {
 					</div>
 				</div>
 			</Popup>
+			{selectedLocation !== undefined && (
+				<div className='pt-2'>{formatLocationLabel(selectedLocation)}</div>
+			)}
 		</div>
 	);
 };

@@ -1,6 +1,11 @@
-export { addPickupLocation, getPickupLocations } from './action';
+export {
+	addPickupLocation,
+	deletePickupLocationById,
+	getPickupLocations
+} from './action';
 export type {
 	TAddPickupLocationInput,
 	TAddPickupLocationResult,
+	TDeletePickupLocationState,
 	TGetPickupLocationsResult
 } from './types';

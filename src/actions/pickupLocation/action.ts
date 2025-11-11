@@ -1,10 +1,13 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
+
 import { getUserSession } from '@/utils/session';
 
 import type {
 	TAddPickupLocationInput,
 	TAddPickupLocationResult,
+	TDeletePickupLocationState,
 	TGetPickupLocationsResult
 } from './types';
 import { prisma } from '@/prisma/prisma-client';
@@ -64,6 +67,51 @@ export const addPickupLocation = async (
 		});
 
 		return { ok: true, item };
+	} catch {
+		return { ok: false, code: 'SERVER_ERROR' };
+	}
+};
+
+export const deletePickupLocationById = async (
+	_prevState: TDeletePickupLocationState,
+	formData: FormData
+): Promise<TDeletePickupLocationState> => {
+	try {
+		const userSession = await getUserSession();
+		if (userSession === null) {
+			return { ok: false, code: 'UNAUTHORIZED' };
+		}
+
+		const id = String(formData.get('id') ?? '').trim();
+		if (!id) {
+			return { ok: false, code: 'ID_NOT_FOUND' };
+		}
+
+		const entity = await prisma.pickupLocation.findFirst({
+			where: { id, userId: userSession.id }
+		});
+		if (!entity) {
+			return { ok: false, code: 'NOT_FOUND' };
+		}
+
+		const orderLocation = await prisma.orderLocation.findFirst({
+			where: {
+				userId: userSession.id,
+				latitude: entity.latitude,
+				longitude: entity.longitude
+			}
+		});
+
+		await prisma.$transaction(async tx => {
+			if (orderLocation) {
+				await tx.orderLocation.delete({ where: { id: orderLocation.id } });
+			}
+
+			await tx.pickupLocation.delete({ where: { id: entity.id } });
+		});
+		revalidateTag('orders');
+
+		return { ok: true };
 	} catch {
 		return { ok: false, code: 'SERVER_ERROR' };
 	}

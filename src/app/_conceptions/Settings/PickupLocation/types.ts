@@ -1,9 +1,11 @@
 import type {
 	TPickupLocationErrorCode,
-	TPickupLocationItem
+	TPickupLocationItem as TPickupLocationItemEntity
 } from '@/hooks/settings/pickupLocation/types';
 
 import type { TLocationFormValue } from '@/types/location';
+
+export type TPickupLocationItem = TPickupLocationItemEntity;
 
 export type TPickupLocationListProps = {
 	items: TPickupLocationItem[];
