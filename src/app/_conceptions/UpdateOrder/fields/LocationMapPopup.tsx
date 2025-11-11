@@ -127,7 +127,7 @@ export const LocationMapPopup = () => {
 						{pickupLocationOptions.length ? (
 							<div
 								className='d-flex flex-column gap-2 overflow-auto'
-								style={{ maxHeight: 380 }}
+								style={{ maxHeight: 320 }}
 							>
 								{pickupLocationOptions.map(option => {
 									const onClick = () =>
