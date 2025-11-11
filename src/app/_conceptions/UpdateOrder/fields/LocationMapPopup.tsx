@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { Button } from '@/components/Button';
@@ -13,7 +13,13 @@ import type { TUpdateOrderFormData } from '@/hooks/updateOrder/types';
 
 import type { TLocationFormValue } from '@/types/location';
 
-import { formatLocationLabel } from '@/utils/map';
+import {
+	formatLocationLabel,
+	isSameLocation,
+	toLocationFormValue
+} from '@/utils/map';
+
+import { useListSelector } from '@/context/pickupLocation/useContext';
 
 const TriggerButton = ({ children, ...props }: ButtonProps) => {
 	const t = useTranslations('App');
@@ -29,11 +35,32 @@ export const LocationMapPopup = () => {
 	const t = useTranslations('App');
 	const { setValue, watch } = useFormContext<TUpdateOrderFormData>();
 	const persistedLocation = watch('location');
+	const pickupLocations = useListSelector();
 	const [pendingLocation, setPendingLocation] = useState<
 		TLocationFormValue | undefined
 	>(undefined);
 
+	const pickupLocationOptions = useMemo(
+		() =>
+			pickupLocations.map(location => {
+				const details = toLocationFormValue(location);
+				return {
+					id: location.id,
+					location: details,
+					label: formatLocationLabel(details)
+				};
+			}),
+		[pickupLocations]
+	);
+
 	const handleSuccessfulLocation = useCallback(
+		(location: TLocationFormValue) => {
+			setPendingLocation(location);
+		},
+		[]
+	);
+
+	const handleSelectPickupLocation = useCallback(
 		(location: TLocationFormValue) => {
 			setPendingLocation(location);
 		},
@@ -51,7 +78,7 @@ export const LocationMapPopup = () => {
 
 			onClose();
 		},
-		[pendingLocation]
+		[pendingLocation, setValue]
 	);
 
 	const handleOpen = useCallback(() => {
@@ -59,6 +86,14 @@ export const LocationMapPopup = () => {
 	}, [persistedLocation]);
 
 	const selectedLocation = pendingLocation ?? persistedLocation ?? undefined;
+
+	const selectedId = useMemo(() => {
+		if (!selectedLocation) return undefined;
+		const match = pickupLocationOptions.find(option =>
+			isSameLocation(option.location, selectedLocation)
+		);
+		return match?.id;
+	}, [pickupLocationOptions, selectedLocation]);
 
 	return (
 		<div className='mb-3'>
@@ -68,19 +103,47 @@ export const LocationMapPopup = () => {
 				onApply={handleApply}
 				onOpen={handleOpen}
 			>
-				<LocationMap
-					onSuccessfulLocation={handleSuccessfulLocation}
-					initialLocation={selectedLocation}
-				/>
-			</Popup>
-			{selectedLocation ? (
-				<div className='mt-2'>
-					<span className='d-block fw-semibold'>
-						{t('Selected location', { default: 'Selected location' })}
-					</span>
-					<span>{formatLocationLabel(selectedLocation)}</span>
+				<div className='d-flex flex-column flex-lg-row gap-3'>
+					<div className='flex-fill w-100'>
+						<LocationMap
+							onSuccessfulLocation={handleSuccessfulLocation}
+							initialLocation={selectedLocation}
+						/>
+					</div>
+					<div className='flex-fill w-75'>
+						<h5
+							className='mb-2 p-2 text-center fw-semibold'
+							style={{ height: 53 }}
+						>
+							{t('Pickup locations')}
+						</h5>
+						{pickupLocationOptions.length ? (
+							<div
+								className='d-flex flex-column gap-2 overflow-auto'
+								style={{ maxHeight: 380 }}
+							>
+								{pickupLocationOptions.map(option => (
+									<Button
+										key={option.id}
+										variant={
+											option.id === selectedId ? 'primary' : 'outline-secondary'
+										}
+										text={option.label}
+										className='rounded-1 w-100 h-auto'
+										onClick={() => handleSelectPickupLocation(option.location)}
+									/>
+								))}
+							</div>
+						) : (
+							<p className='mb-0 text-muted'>
+								{t('No pickup locations yet', {
+									default: 'No pickup locations yet'
+								})}
+							</p>
+						)}
+					</div>
 				</div>
-			) : null}
+			</Popup>
 		</div>
 	);
 };

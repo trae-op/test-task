@@ -24,6 +24,7 @@ model User {
   productTypes ProductType[]
   currencies Currency[]
   orderLocations OrderLocation[]
+  pickupLocations PickupLocation[]
 }
 
 model Product {
@@ -132,4 +133,21 @@ model OrderLocation {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("OrderLocation")
+}
+
+model PickupLocation {
+  id        String  @id @default(uuid())
+  latitude  Float
+  longitude Float
+  country   String?
+  state     String?
+  city      String?
+  district  String?
+  street    String?
+  postcode  String?
+  displayName String?
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("PickupLocation")
 }

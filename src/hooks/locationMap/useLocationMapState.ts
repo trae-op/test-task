@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import type { TLocationDetails } from '@/types/location';
 
@@ -27,6 +27,19 @@ export const useLocationMapState = (
 		TLocationDetails | undefined
 	>(initialLocation);
 	const [error, setErrorState] = useState<string | undefined>(undefined);
+
+	useEffect(() => {
+		if (!initialLocation) {
+			setMarkerPositionState(undefined);
+			setMapCenterState(DEFAULT_MAP_CENTER);
+			setMapZoomState(DEFAULT_MAP_ZOOM);
+			return;
+		}
+
+		setMarkerPositionState(initialLocation);
+		setMapCenterState(initialLocation);
+		setMapZoomState(FOCUSED_MAP_ZOOM);
+	}, [initialLocation]);
 
 	const state: TLocationMapState = useMemo(
 		() => ({

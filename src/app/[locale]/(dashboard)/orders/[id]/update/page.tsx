@@ -1,8 +1,10 @@
 import type { TDynamicPageProps } from '@/types/dynamicPage';
 
 import { getOrders } from '@/actions/orders/action';
+import { getPickupLocations } from '@/actions/pickupLocation';
 import { getProducts } from '@/actions/products/action';
 import { Container } from '@/conceptions/UpdateOrder/Container';
+import { Provider as PickupLocationProvider } from '@/context/pickupLocation';
 
 export default async function UpdateOrderPage({ params }: TDynamicPageProps) {
 	const { id } = await params;
@@ -33,18 +35,29 @@ export default async function UpdateOrderPage({ params }: TDynamicPageProps) {
 	const order =
 		orderRes.ok && orderRes.items?.length ? orderRes.items[0] : undefined;
 
-	const productsRes = await getProducts({
-		selectFields: { id: true, title: true },
-		whereFilters: {
-			isNew: true,
-			OR: [{ orderId: null }, { orderId: id }]
-		}
-	});
+	const [productsRes, pickupLocationsRes] = await Promise.all([
+		getProducts({
+			selectFields: { id: true, title: true },
+			whereFilters: {
+				isNew: true,
+				OR: [{ orderId: null }, { orderId: id }]
+			}
+		}),
+		getPickupLocations()
+	]);
 
 	const products =
 		productsRes.ok && productsRes.items
 			? productsRes.items.map(p => ({ id: p.id, title: p.title }))
 			: [];
 
-	return <Container values={order} products={products} />;
+	const pickupLocations = pickupLocationsRes.ok
+		? (pickupLocationsRes.items ?? [])
+		: [];
+
+	return (
+		<PickupLocationProvider items={pickupLocations}>
+			<Container values={order} products={products} />
+		</PickupLocationProvider>
+	);
 }
