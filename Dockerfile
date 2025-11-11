@@ -28,7 +28,10 @@ COPY --from=builder /app/.next ./.next
 COPY package.json package-lock.json ./
 COPY prisma ./prisma
 RUN npm ci --omit=dev --ignore-scripts
+RUN npm install prisma --no-save --no-package-lock
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/node_modules/@prisma/client ./node_modules/@prisma/client
+COPY --from=builder /app/scripts ./scripts
+RUN chmod +x ./scripts/docker-entrypoint.sh
 EXPOSE 4000
-CMD ["npm", "run", "start"]
+ENTRYPOINT ["./scripts/docker-entrypoint.sh"]
