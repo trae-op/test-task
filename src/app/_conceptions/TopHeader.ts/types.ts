@@ -17,8 +17,3 @@ export type TSearchBarProps = {
 export type TDateTimeDisplayProps = {
 	date: Date;
 };
-
-export type THeaderInfoProps = {
-	title: string;
-	icon?: string;
-};

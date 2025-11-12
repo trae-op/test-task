@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { DateTimeDisplay } from '@/app/_conceptions/TopHeader.ts/DateTimeDisplay';
-import { HeaderInfo } from '@/app/_conceptions/TopHeader.ts/HeaderInfo';
 import { Logo } from '@/app/_conceptions/TopHeader.ts/Logo';
 import { TopHeader } from '@/app/_conceptions/TopHeader.ts/TopHeader';
 
@@ -27,11 +26,6 @@ describe('TopHeader suite', () => {
 		expect(svg).not.toBeNull();
 	});
 
-	it('HeaderInfo shows provided title', () => {
-		render(<HeaderInfo title='INVENTORY' />);
-		expect(screen.getByText('INVENTORY')).toBeInTheDocument();
-	});
-
 	it('DateTimeDisplay renders day, date and time (positive)', () => {
 		render(<DateTimeDisplay date={new Date('2024-01-15T12:34:00.000Z')} />);
 		expect(screen.getByText('Monday')).toBeInTheDocument();
@@ -46,7 +40,6 @@ describe('TopHeader suite', () => {
 
 	it('TopHeader composes HeaderInfo and DateTimeDisplay', () => {
 		render(<TopHeader endContentComponent={<div data-testid='end-slot' />} />);
-		expect(screen.getByText('INVENTORY')).toBeInTheDocument();
 		expect(screen.getByTestId('end-slot')).toBeInTheDocument();
 	});
 });

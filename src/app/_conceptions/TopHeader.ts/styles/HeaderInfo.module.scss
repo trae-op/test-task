@@ -1,13 +1,4 @@
 .header-info {
 	display: flex;
 	align-items: center;
-	gap: var(--space-lg);
-
-	&__title {
-		color: var(--color-accent-green);
-		font-size: var(--font-size-14);
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.03125rem;
-	}
 }

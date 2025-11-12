@@ -19,7 +19,7 @@ export const TopHeader = memo(({ endContentComponent }: TTopHeaderProps) => {
 			<Container>
 				<Row className={styles['top-header__row']}>
 					<Col xs='auto' className={styles['top-header__col']}>
-						<HeaderInfo title='INVENTORY' />
+						<HeaderInfo />
 					</Col>
 					<Col xs='auto' className={styles['top-header__col']}>
 						{endContentComponent}
