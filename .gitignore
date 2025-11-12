@@ -40,6 +40,5 @@ next-env.d.ts
 # SWC Cache
 .swc/
 
-/.github
 /.vscode
 /docs

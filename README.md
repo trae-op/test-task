@@ -44,6 +44,16 @@ npm run azure:webapp:restart
 npm run deploy:azure
 ```
 
+## GitHub Actions deployment
+
+Changes pushed to `main` trigger `.github/workflows/deploy.yml` to build and publish the Docker image, update the Web App container, and restart the instance. Configure these repository secrets before enabling the workflow:
+
+- `AZURE_CREDENTIALS` — JSON from `az ad sp create-for-rbac --sdk-auth ...`
+- `AZURE_CONTAINER_REGISTRY` — login server, for example `testtaskregistry.azurecr.io`
+- `AZURE_REGISTRY_NAME` — registry name, for example `testtaskregistry`
+- `AZURE_WEBAPP_NAME` — target Web App name, for example `test-task-webapp`
+- `AZURE_RESOURCE_GROUP` — resource group containing the Web App
+
 Environment variables such as `POSTGRES_PRISMA_URL`, `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, and ImageKit credentials must be configured in the Azure App Service **Environment variables** blade for `test-task-webapp`.
 
 ## Useful references
