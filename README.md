@@ -23,6 +23,29 @@ The compose stack reads environment variables from `.env.docker`. Adjust secrets
 
 When running via Docker, the web app is available at [http://localhost:4000](http://localhost:4000).
 
+## Azure container deployment
+
+Ensure you are authenticated with `az login` before deploying.
+
+```bash
+# Rebuild image locally
+npm run azure:docker:build
+
+# Push the latest image to Azure Container Registry
+npm run azure:docker:push
+
+# Point the web app at the new image
+npm run azure:webapp:update
+
+# Restart the container to pick up any configuration changes
+npm run azure:webapp:restart
+
+# Full pipeline shortcut
+npm run deploy:azure
+```
+
+Environment variables such as `POSTGRES_PRISMA_URL`, `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, and ImageKit credentials must be configured in the Azure App Service **Environment variables** blade for `test-task-webapp`.
+
 ## Useful references
 
 - [Next.js Documentation](https://nextjs.org/docs)
