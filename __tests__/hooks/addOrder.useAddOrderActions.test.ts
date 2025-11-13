@@ -36,8 +36,7 @@ describe('addOrder/useAddOrderActions', () => {
 				[
 					{ value: 'p1', label: 'p1' },
 					{ value: 'p2', label: 'p2' }
-				] as any,
-				'en'
+				] as any
 			);
 		});
 
@@ -46,7 +45,6 @@ describe('addOrder/useAddOrderActions', () => {
 		const map = formDataToMap(fd);
 		expect(map.get('title')).toBe('Order 1');
 		expect(map.get('description')).toBe('Desc');
-		expect(map.get('locale')).toBe('en');
 		const products = JSON.parse(map.get('products') || '[]');
 		expect(products).toEqual(['p1', 'p2']);
 	});
