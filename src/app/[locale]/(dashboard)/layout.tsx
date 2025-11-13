@@ -10,12 +10,14 @@ import { getFullPathUploadPicture } from '@/utils/upload-files';
 import styles from './Layout.module.scss';
 import { getPictureByEntityId } from '@/actions/pictures/profile';
 import { getProductTypes } from '@/actions/settings/productType/action';
+import { ActiveSessionsCounter } from '@/conceptions/ActiveSessionsCounter';
 import { AddEntity } from '@/conceptions/AddEntity';
 import { FilterProductsWrapper } from '@/conceptions/FilterProducts';
 import { LocalizationDropdown } from '@/conceptions/LocalizationDropdown';
 import { Sidebar } from '@/conceptions/Sidebar';
 import type { TSidebarNavItem } from '@/conceptions/Sidebar/types';
 import { TopHeader } from '@/conceptions/TopHeader.ts';
+import { Provider as ActiveSessionsProvider } from '@/context/activeSessions';
 import { Provider as GlobalProvider } from '@/context/global';
 
 const navigationItems: TSidebarNavItem[] = [
@@ -54,8 +56,16 @@ export default async function AuthLayout({
 				}
 			>
 				<TopHeader
-					endContentComponent={<LocalizationDropdown className='me-2' />}
+					startContentComponent={
+						<>
+							<ActiveSessionsProvider>
+								<ActiveSessionsCounter />
+							</ActiveSessionsProvider>
+							<LocalizationDropdown className='ms-2 me-2' />
+						</>
+					}
 				/>
+
 				<div className={styles[`${BLOCK}__container`]}>
 					<Sidebar items={navigationItems} />
 					<div className={styles[`${BLOCK}__content`]}>

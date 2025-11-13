@@ -33,7 +33,7 @@ export const FilterProducts = memo(() => {
 
 	const show = withoutLocalePath === getProductsHref;
 
-	const currentType = searchParams.get('type') ?? '';
+	const currentType = searchParams?.get('type') ?? '';
 
 	const handleChange: React.ChangeEventHandler<HTMLSelectElement> = useCallback(
 		event => {
@@ -43,7 +43,7 @@ export const FilterProducts = memo(() => {
 				return;
 			}
 
-			const params = new URLSearchParams(searchParams.toString());
+			const params = new URLSearchParams(searchParams?.toString() ?? '');
 
 			if (!value) {
 				params.delete('type');
@@ -54,8 +54,11 @@ export const FilterProducts = memo(() => {
 			const queryString = params.toString();
 			const url = queryString ? `${pathname}?${queryString}` : pathname;
 			setLoading(true);
-			router.push(url);
-			router.refresh();
+
+			if (url !== null) {
+				router.push(url);
+				router.refresh();
+			}
 		},
 		[currentType, pathname, router, searchParams]
 	);

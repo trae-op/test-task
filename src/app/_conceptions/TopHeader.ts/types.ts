@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 export type TTopHeaderProps = {
 	onSearch?: (value: string) => void;
-	endContentComponent?: ReactNode;
+	startContentComponent?: ReactNode;
 };
 
 export type TLogoProps = {

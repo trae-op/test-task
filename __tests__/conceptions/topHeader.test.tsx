@@ -39,7 +39,9 @@ describe('TopHeader suite', () => {
 	});
 
 	it('TopHeader composes HeaderInfo and DateTimeDisplay', () => {
-		render(<TopHeader endContentComponent={<div data-testid='end-slot' />} />);
+		render(
+			<TopHeader startContentComponent={<div data-testid='end-slot' />} />
+		);
 		expect(screen.getByTestId('end-slot')).toBeInTheDocument();
 	});
 });

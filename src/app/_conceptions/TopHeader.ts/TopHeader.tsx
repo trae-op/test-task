@@ -13,13 +13,13 @@ const DateTimeDisplay = dynamic(
 	{ ssr: false }
 );
 
-export const TopHeader = memo(({ endContentComponent }: TTopHeaderProps) => {
+export const TopHeader = memo(({ startContentComponent }: TTopHeaderProps) => {
 	return (
 		<div className={styles['top-header']}>
 			<div className={styles['top-header__row']}>
 				<Logo />
 				<div className={styles['top-header__col']}>
-					{endContentComponent}
+					{startContentComponent}
 					<DateTimeDisplay date={new Date()} />
 				</div>
 			</div>
