@@ -88,33 +88,20 @@
 		"Prices": "Prices",
 		"Select currencies": "Select currencies",
 		"Is new product?": "Is new product?",
-
-		"auth": {
-			"signIn": {
-				"title": "Sign In",
-				"email": "Email address",
-				"password": "Password",
-				"submitButton": "Sign In",
-				"noAccount": "Don't have an account?",
-				"signUpLink": "Sign Up"
-			},
-			"signUp": {
-				"title": "Sign Up",
-				"name": "Name",
-				"email": "Email address",
-				"password": "Password",
-				"confirmPassword": "Confirm Password",
-				"submitButton": "Sign Up",
-				"haveAccount": "Already have an account?",
-				"signInLink": "Sign In"
-			},
-			"placeholders": {
-				"enterName": "Enter your name",
-				"enterEmail": "Enter email",
-				"enterPassword": "Password",
-				"confirmPassword": "Confirm password"
-			}
-		},
+		"Email address": "Email address",
+		"Password": "Password",
+		"Sign In": "Sign In",
+		"Have an account?": "Have an account?",
+		"Don't have an account?": "Don't have an account?",
+		"Sign Up": "Sign Up",
+		"Name": "Name",
+		"Confirm password": "Confirm password",
+		"Confirm your password": "Confirm your password",
+		"Enter your name": "Enter your name",
+		"This field is required": "This field is required",
+		"Passwords must match": "Passwords must match",
+		"Enter your password": "Enter your password",
+		"Enter your email": "Enter your email",
 
 		"addOrder": {
 			"title": "Add Order",
@@ -174,7 +161,6 @@
 			}
 		},
 		"errors": {
-			"required": "This field is required",
 			"email": "Please enter a valid email address",
 			"password": "Password must be at least 8 characters and contain at least one letter and one number",
 			"name": "Name must be between 2 and 30 characters and contain only letters",

@@ -20,9 +20,7 @@ import { type TSignUpFormData } from '@/app/_conceptions/Auth/SignUp/types';
 export const SignUp = () => {
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
-	const t = useTranslations('App.auth.signUp');
-	const tp = useTranslations('App.auth.placeholders');
-	const te = useTranslations('App.errors');
+	const t = useTranslations('App');
 
 	const {
 		register,
@@ -37,77 +35,80 @@ export const SignUp = () => {
 
 	return (
 		<Container>
-			<Row className='justify-content-center align-items-center min-vh-100'>
+			<Row className='align-items-center justify-content-center min-vh-100'>
 				<Col xs={12} md={6} lg={4}>
 					<Card>
 						<Card.Header as='h4' className='text-center'>
-							{t('title')}
+							{t('Sign Up')}
 						</Card.Header>
 						<Card.Body>
 							<MessagesServer message={signUpState.message} type='error' />
 							<Form noValidate onSubmit={handleSubmit(onSignUpSubmit)}>
 								<Form.Group className='mb-3' controlId='formName'>
-									<RequiredLabel text={t('name')} />
+									<RequiredLabel text={t('Name')} />
 									<TextField
 										{...register('name', {
-											required: te('required'),
-											pattern: { value: NAME_PATTERN, message: te('name') }
+											required: t('This field is required'),
+											pattern: { value: NAME_PATTERN, message: t('Name') }
 										})}
 										type='text'
-										placeholder={tp('enterName')}
+										placeholder={t('Enter your name')}
 										isInvalid={!!errors.name}
 										errorMessage={errors.name?.message}
 									/>
 								</Form.Group>
 
 								<Form.Group className='mb-3' controlId='formEmail'>
-									<RequiredLabel text={t('email')} />
+									<RequiredLabel text={t('Email address')} />
 									<TextField
 										{...register('email', {
-											required: te('required'),
-											pattern: { value: EMAIL_PATTERN, message: te('email') }
+											required: t('This field is required'),
+											pattern: {
+												value: EMAIL_PATTERN,
+												message: t('Email address')
+											}
 										})}
 										type='email'
-										placeholder={tp('enterEmail')}
+										placeholder={t('Enter your email')}
 										isInvalid={!!errors.email}
 										errorMessage={errors.email?.message}
 									/>
 								</Form.Group>
 
 								<Form.Group className='mb-3' controlId='formPassword'>
-									<RequiredLabel text={t('password')} />
+									<RequiredLabel text={t('Password')} />
 									<TextField
 										{...register('password', {
-											required: te('required'),
+											required: t('This field is required'),
 											pattern: {
 												value: PASSWORD_PATTERN,
-												message: te('password')
+												message: t('Password')
 											}
 										})}
 										type='password'
-										placeholder={tp('enterPassword')}
+										placeholder={t('Enter your password')}
 										isInvalid={!!errors.password}
 										errorMessage={errors.password?.message}
 									/>
 								</Form.Group>
 
 								<Form.Group className='mb-3' controlId='formConfirmPassword'>
-									<RequiredLabel text={t('confirmPassword')} />
+									<RequiredLabel text={t('Confirm password')} />
 									<TextField
 										{...register('confirmPassword', {
-											required: te('required'),
+											required: t('This field is required'),
 											validate: value =>
-												value === password || te('passwordMatch')
+												value === password || t('Passwords must match')
 										})}
 										type='password'
-										placeholder={tp('confirmPassword')}
+										placeholder={t('Confirm your password')}
 										isInvalid={!!errors.confirmPassword}
 										errorMessage={errors.confirmPassword?.message}
 									/>
 								</Form.Group>
 
 								<Button
-									text={t('submitButton')}
+									text={t('Submit')}
 									type='submit'
 									variant='success'
 									className='w-100'
@@ -115,9 +116,9 @@ export const SignUp = () => {
 									disabled={isLoading}
 								/>
 
-								<div className='text-center mt-3'>
-									{t('haveAccount')}{' '}
-									<Link href={`/${locale}/sign-in`}>{t('signInLink')}</Link>
+								<div className='mt-3 text-center'>
+									{t('Have an account?')}{' '}
+									<Link href={`/${locale}/sign-in`}>{t('Sign In')}</Link>
 								</div>
 							</Form>
 						</Card.Body>

@@ -88,42 +88,21 @@
 		"Prices": "Ціни",
 		"Select currencies": "Оберіть валюти",
 		"Is new product?": "Новий продукт?",
+		"Email address": "Електронна пошта",
+		"Password": "Пароль",
+		"Sign In": "Увійти",
+		"Don't have an account?": "Немає облікового запису?",
+		"Sign Up": "Зареєструватися",
+		"Name": "Ім'я",
+		"Confirm password": "Підтвердження пароля",
+		"Enter your name": "Введіть ваше ім'я",
+		"This field is required": "Це поле обов'язкове",
+		"Passwords must match": "Паролі повинні співпадати",
+		"Enter your password": "Введіть ваш пароль",
+		"Confirm your password": "Підтвердіть ваш пароль",
+		"Have an account?": "Вже маєте обліковий запис?",
+		"Enter your email": "Введіть вашу електронну пошту",
 
-		"auth": {
-			"signIn": {
-				"title": "Вхід",
-				"email": "Електронна пошта",
-				"password": "Пароль",
-				"submitButton": "Увійти",
-				"noAccount": "Немає облікового запису?",
-				"signUpLink": "Зареєструватися"
-			},
-			"errors": {
-				"invalidCredentials": "Невірна електронна пошта або пароль",
-				"default": "Не вдалося увійти",
-				"User already exists": "Користувач вже існує",
-				"invalidInput": "Некоректні дані",
-				"passwordMatch": "Паролі повинні співпадати",
-				"password": "Пароль повинен містити мінімум 8 символів, хоча б одну літеру та одну цифру",
-				"wrongPassword": "Невірний пароль"
-			},
-			"signUp": {
-				"title": "Реєстрація",
-				"name": "Ім'я",
-				"email": "Електронна пошта",
-				"password": "Пароль",
-				"confirmPassword": "Підтвердження пароля",
-				"submitButton": "Зареєструватися",
-				"haveAccount": "Вже маєте обліковий запис?",
-				"signInLink": "Увійти"
-			},
-			"placeholders": {
-				"enterName": "Введіть ваше ім'я",
-				"enterEmail": "Введіть електронну пошту",
-				"enterPassword": "Введіть пароль",
-				"confirmPassword": "Підтвердіть пароль"
-			}
-		},
 		"products": {
 			"Add Product": "Додати продукт",
 
@@ -183,11 +162,9 @@
 			}
 		},
 		"errors": {
-			"required": "Це поле обов'язкове",
 			"email": "Будь ласка, введіть дійсну електронну адресу",
 			"password": "Пароль повинен містити мінімум 8 символів, хоча б одну літеру та одну цифру",
 			"name": "Ім'я повинно містити від 2 до 30 символів і тільки літери",
-			"passwordMatch": "Паролі повинні співпадати",
 			"invalidInput": "Некоректні дані",
 			"INT4_OVERFLOW": "Значення ціни занадто велике",
 			"invalidCredentials": "Невірна електронна пошта або пароль",
