@@ -124,7 +124,7 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 								<Form.Label>{t('Profile.info.fields.email')}</Form.Label>
 								<TextField
 									{...register('email', {
-										required: te('required'),
+										required: t('This field is required'),
 										validate: value => EMAIL_PATTERN.test(value) || te('email')
 									})}
 									type='email'

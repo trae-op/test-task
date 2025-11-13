@@ -49,7 +49,7 @@ export const UpdatePassword = () => {
 						<Form.Label>{t('Profile.password.fields.oldPassword')}</Form.Label>
 						<TextField
 							{...register('oldPassword', {
-								required: te('required')
+								required: t('This field is required')
 							})}
 							type='password'
 							placeholder={t('Profile.password.placeholders.oldPassword')}
@@ -62,7 +62,7 @@ export const UpdatePassword = () => {
 						<Form.Label>{t('Profile.password.fields.newPassword')}</Form.Label>
 						<TextField
 							{...register('newPassword', {
-								required: te('required'),
+								required: t('This field is required'),
 								validate: value =>
 									PASSWORD_PATTERN.test(value) || te('password')
 							})}
@@ -79,8 +79,9 @@ export const UpdatePassword = () => {
 						</Form.Label>
 						<TextField
 							{...register('confirmPassword', {
-								required: te('required'),
-								validate: value => value === newPassword || te('passwordMatch')
+								required: t('This field is required'),
+								validate: value =>
+									value === newPassword || t('Passwords must match')
 							})}
 							type='password'
 							placeholder={t('Profile.password.placeholders.confirmPassword')}
