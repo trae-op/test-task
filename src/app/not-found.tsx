@@ -1,11 +1,15 @@
-import { NextIntlClientProvider } from 'next-intl';
+import { getLocale } from 'next-intl/server';
+import { redirect } from 'next/navigation';
 
-import { NotFound } from '@/components/NotFound';
+import { getUserSession } from '@/utils/session';
 
-export default function NotFoundPage() {
-	return (
-		<NextIntlClientProvider>
-			<NotFound />
-		</NextIntlClientProvider>
-	);
+export default async function NotFoundPage() {
+	const userSession = await getUserSession();
+	const locale = await getLocale();
+
+	if (userSession === null) {
+		redirect(`/${locale}/sign-in`);
+	}
+
+	redirect(`/${locale}/orders`);
 }
