@@ -84,7 +84,9 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 						<Form.Group className='mb-3' controlId='title'>
 							<Form.Label>{t('Title')}</Form.Label>
 							<TextField
-								{...register('title', { required: te('required') })}
+								{...register('title', {
+									required: t('This field is required')
+								})}
 								type='text'
 								placeholder={t('Enter title')}
 								isInvalid={!!errors.title}
