@@ -55,7 +55,7 @@ export const FormProductType = () => {
 					<Form.Group className='mb-3' controlId='pt-title'>
 						<Form.Label>{t('Title')}</Form.Label>
 						<Form.Control
-							{...register('title', { required: te('required') })}
+							{...register('title', { required: t('This field is required') })}
 							type='text'
 							placeholder={t('Enter title')}
 							isInvalid={!!errors.title}
@@ -69,7 +69,7 @@ export const FormProductType = () => {
 						<Form.Label>{t('Value')}</Form.Label>
 						<Form.Control
 							{...register('value', {
-								required: te('required'),
+								required: t('This field is required'),
 								pattern: {
 									value: LOWERCASE_VALUE_PATTERN,
 									message: t(validationMessagesExtended.valueLowercase)

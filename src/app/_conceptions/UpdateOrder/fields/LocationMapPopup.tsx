@@ -108,7 +108,7 @@ export const LocationMapPopup = () => {
 				onApply={handleApply}
 				onOpen={handleOpen}
 			>
-				<div className='d-flex flex-column flex-lg-row gap-3'>
+				<div className='d-flex gap-3'>
 					<div className='flex-fill w-100'>
 						<LocationMap
 							isInteractive={false}
@@ -148,11 +148,7 @@ export const LocationMapPopup = () => {
 								})}
 							</div>
 						) : (
-							<p className='mb-0 text-muted'>
-								{t('No pickup locations yet', {
-									default: 'No pickup locations yet'
-								})}
-							</p>
+							<p className='mb-0 text-muted'>{t('No pickup locations yet')}</p>
 						)}
 					</div>
 				</div>

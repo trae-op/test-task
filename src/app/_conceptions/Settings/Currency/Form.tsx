@@ -55,7 +55,7 @@ export const FormCurrency = () => {
 					<Form.Group className='mb-3' controlId='cr-title'>
 						<Form.Label>{t('Title')}</Form.Label>
 						<Form.Control
-							{...register('title', { required: te('required') })}
+							{...register('title', { required: t('This field is required') })}
 							type='text'
 							placeholder={t('Enter title')}
 							isInvalid={!!errors.title}
@@ -69,7 +69,7 @@ export const FormCurrency = () => {
 						<Form.Label>{t('Value')}</Form.Label>
 						<Form.Control
 							{...register('value', {
-								required: te('required'),
+								required: t('This field is required'),
 								pattern: {
 									value: UPPERCASE_VALUE_PATTERN,
 									message: t(validationMessagesExtended.valueUppercase)
