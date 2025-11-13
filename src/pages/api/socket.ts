@@ -2,7 +2,7 @@ import type { Server as HTTPServer } from 'http';
 import type { NextApiRequest } from 'next';
 import { Server } from 'socket.io';
 
-import { TGlobalThis, TNextApiResponse } from './types';
+import { type TGlobalThis, type TNextApiResponse } from '@/types/api';
 
 export const config = {
 	api: {

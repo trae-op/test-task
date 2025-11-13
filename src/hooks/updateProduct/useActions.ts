@@ -26,6 +26,7 @@ export const useUpdateActions = (): TUpdateActionsHook => {
 	const [state, formAction] = useActionState(updateProduct, {
 		ok: false
 	});
+	const paramId = params?.id;
 
 	useEffect(() => {
 		if (state?.message) {
@@ -44,7 +45,7 @@ export const useUpdateActions = (): TUpdateActionsHook => {
 			);
 
 			const fd = new FormData();
-			fd.append('id', params.id);
+			fd.append('id', paramId || '');
 			fd.append('title', data.title || '');
 			fd.append('isNew', data.isNew ? 'true' : 'false');
 			fd.append('serialNumber', data.serialNumber || '');
@@ -58,7 +59,7 @@ export const useUpdateActions = (): TUpdateActionsHook => {
 				formAction(fd);
 			});
 		},
-		[prices, params.id, formAction]
+		[prices, paramId, formAction]
 	);
 
 	return useMemo(

@@ -33,6 +33,8 @@ export const PictureProduct = memo(() => {
 
 	const [pending, setPending] = useState(false);
 
+	const paramId = params?.id;
+
 	const handleSuccess = useCallback(
 		({ data }: TResultUploadPicture) => {
 			setPending(false);
@@ -66,18 +68,20 @@ export const PictureProduct = memo(() => {
 				sizes='100px'
 				className={styles[`${BLOCK}__picture`]}
 			/>
-			<ImageUpload
-				imageOptions={{
-					fileName: uploadsPictures(params.id).fileName,
-					folder: uploadsPictures(params.id).folder,
-					entityId: params.id || ''
-				}}
-				entity='product'
-				pendingUpload={pending}
-				handleBeforeSuccess={handleBeforeSuccess}
-				handleSuccess={handleSuccess}
-				handleFail={handleFail}
-			/>
+			{paramId && (
+				<ImageUpload
+					imageOptions={{
+						fileName: uploadsPictures(params.id).fileName,
+						folder: uploadsPictures(params.id).folder,
+						entityId: params.id || ''
+					}}
+					entity='product'
+					pendingUpload={pending}
+					handleBeforeSuccess={handleBeforeSuccess}
+					handleSuccess={handleSuccess}
+					handleFail={handleFail}
+				/>
+			)}
 		</div>
 	);
 });

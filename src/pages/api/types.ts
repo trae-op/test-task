@@ -1,16 +1,9 @@
-import type { Server as HTTPServer } from 'http';
-import type { Socket } from 'net';
-import { NextApiResponse } from 'next';
-import { Server as SocketServer } from 'socket.io';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-export type TNextApiResponse = NextApiResponse & {
-	socket: Socket & {
-		server: HTTPServer & {
-			io?: SocketServer;
-		};
-	};
+export { type TGlobalThis, type TNextApiResponse } from '@/types/api';
+
+const handler = (_req: NextApiRequest, res: NextApiResponse) => {
+	res.status(405).json({ ok: false });
 };
 
-export type TGlobalThis = typeof globalThis & {
-	activeSessions?: number;
-};
+export default handler;

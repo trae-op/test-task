@@ -32,17 +32,18 @@ export const AddEntity = ({ children }: PropsWithChildren) => {
 	const linkAddEntityFromContext = useLinkAddEntitySelector();
 
 	const pathname = usePathname();
-	const params = useParams<TDynamicPageParams>();
+	const params = useParams<TDynamicPageParams>() as TDynamicPageParams | null;
+	const paramId = params?.id;
 	const paths = [
 		getAddOrderHref,
 		getAddProductHref,
 		getProfileHref,
 		getSettingsHref,
-		...(params.id ? [getProductUpdateHref(params.id)] : []),
-		...(params.id ? [getOrderUpdateHref(params.id)] : [])
+		...(paramId ? [getProductUpdateHref(paramId)] : []),
+		...(paramId ? [getOrderUpdateHref(paramId)] : [])
 	];
 
-	const withoutLocalePath = getWithoutLocalePath(pathname);
+	const withoutLocalePath = pathname ? getWithoutLocalePath(pathname) : '';
 
 	const shouldHide = paths.some(path => withoutLocalePath === path);
 

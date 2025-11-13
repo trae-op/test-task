@@ -1,7 +1,8 @@
 import type { NextApiRequest } from 'next';
 
+import type { TNextApiResponse } from '@/types/api';
+
 import handler from '@/pages/api/socket';
-import type { TNextApiResponse } from '@/pages/api/types';
 
 const ioInstances: Array<{ on: jest.Mock; emit: jest.Mock }> = [];
 

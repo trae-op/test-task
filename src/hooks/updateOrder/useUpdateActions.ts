@@ -22,10 +22,12 @@ export const useUpdateActions = (): TUpdateOrderHookReturn => {
 	const location: TLocationFormValue | undefined = watch('location');
 	const [state, formAction] = useActionState(updateOrder, { ok: false });
 
+	const paramId = params?.id;
+
 	const onSubmit = useCallback(
 		(data: TUpdateOrderFormData) => {
 			const fd = new FormData();
-			fd.append('orderId', (data.orderId || params.id) as string);
+			fd.append('orderId', (data.orderId || paramId) as string);
 			fd.append('title', data.title || '');
 			if (data.description) fd.append('description', data.description);
 			const products = (selectedProducts || []).map(p => String(p.value));
@@ -38,7 +40,7 @@ export const useUpdateActions = (): TUpdateOrderHookReturn => {
 				formAction(fd);
 			});
 		},
-		[params.id, selectedProducts, formAction, location]
+		[paramId, selectedProducts, formAction, location]
 	);
 
 	return useMemo(
