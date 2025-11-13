@@ -45,6 +45,8 @@ export const ActiveSessionsCounter = () => {
 						size='sm'
 						animation='grow'
 						variant='secondary'
+						role='status'
+						aria-live='polite'
 					/>
 				)}
 
