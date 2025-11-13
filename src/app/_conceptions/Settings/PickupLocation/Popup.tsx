@@ -51,7 +51,7 @@ export const PickupLocationPopup = memo(
 		const errorMessage = useMemo(() => {
 			if (!errorCode) return undefined;
 			const translationKey = ERROR_MESSAGE_KEYS[errorCode as TErrorMessageKey];
-			return t(translationKey, { default: translationKey });
+			return t(translationKey);
 		}, [errorCode, t]);
 
 		return (
@@ -68,7 +68,7 @@ export const PickupLocationPopup = memo(
 					initialLocation={pendingLocation}
 				/>
 				{errorMessage ? (
-					<Alert variant='danger' className='mt-3 mb-0'>
+					<Alert variant='danger' className='my-3'>
 						{errorMessage}
 					</Alert>
 				) : null}

@@ -7,7 +7,7 @@ import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import type { FormEvent } from 'react';
 import {
 	MapContainer,
@@ -41,6 +41,11 @@ const toLatLngExpression = (coords: {
 	lng: number;
 }): LatLngExpression => [coords.lat, coords.lng];
 
+const isValidCoords = (
+	coords?: { lat: number; lng: number } | null
+): coords is { lat: number; lng: number } =>
+	Boolean(coords && Number.isFinite(coords.lat) && Number.isFinite(coords.lng));
+
 const MapViewUpdater = ({
 	center,
 	zoom
@@ -51,7 +56,23 @@ const MapViewUpdater = ({
 	const map = useMap();
 
 	useEffect(() => {
-		map.setView(center, zoom);
+		let lat: number | undefined;
+		let lng: number | undefined;
+		if (Array.isArray(center)) {
+			lat = Number(center[0]);
+			lng = Number(center[1]);
+		} else if (typeof center === 'object' && center !== null) {
+			lat = Number(center.lat);
+			lng = Number(center.lng);
+		}
+
+		if (
+			Number.isFinite(lat) &&
+			Number.isFinite(lng) &&
+			Number.isFinite(Number(zoom))
+		) {
+			map.setView([lat as number, lng as number], zoom);
+		}
 	}, [map, center, zoom]);
 
 	return null;
@@ -84,11 +105,10 @@ const ErrorMessage = ({ error }: { error?: string }) => {
 		return null;
 	}
 
-	return (
-		<span className={styles['location-map__error']}>
-			{t(error, { default: error })}
-		</span>
-	);
+	const normalizedKey = error.startsWith('App.') ? error.slice(4) : error;
+	const translated = t(normalizedKey, { default: normalizedKey });
+
+	return <span className={styles['location-map__error']}>{translated}</span>;
 };
 
 export const LocationMapComponent = ({
@@ -112,6 +132,29 @@ export const LocationMapComponent = ({
 		handleSearchSubmit,
 		handleMapClick
 	} = useLocationMap({ onSuccessfulLocation, initialLocation });
+
+	const fallbackCenter = isValidCoords(initialLocation)
+		? { lat: initialLocation.lat, lng: initialLocation.lng }
+		: { lat: 0, lng: 0 };
+	const lastValidCenterRef = useRef<{ lat: number; lng: number }>(
+		isValidCoords(mapCenter) ? mapCenter : fallbackCenter
+	);
+
+	useEffect(() => {
+		if (isValidCoords(mapCenter)) {
+			lastValidCenterRef.current = mapCenter;
+		}
+	}, [mapCenter]);
+
+	const safeMapCenter = isValidCoords(mapCenter)
+		? mapCenter
+		: lastValidCenterRef.current;
+	const isMarkerValid = isValidCoords(markerPosition);
+	const derivedError =
+		error ??
+		(!isValidCoords(mapCenter)
+			? 'Unable to determine map location'
+			: undefined);
 
 	const shouldRenderSearchControls = showSearchControls !== false;
 	const isLocationInteractive = isInteractive !== false;
@@ -154,14 +197,17 @@ export const LocationMapComponent = ({
 					/>
 				</form>
 			) : null}
-			<ErrorMessage error={error} />
+			<ErrorMessage error={derivedError} />
 			<MapContainer
-				center={toLatLngExpression(mapCenter)}
+				center={toLatLngExpression(safeMapCenter)}
 				zoom={mapZoom}
 				scrollWheelZoom
 				className={clsx(styles['location-map__map'], mapClassName)}
 			>
-				<MapViewUpdater center={toLatLngExpression(mapCenter)} zoom={mapZoom} />
+				<MapViewUpdater
+					center={toLatLngExpression(safeMapCenter)}
+					zoom={mapZoom}
+				/>
 				{isLocationInteractive ? (
 					<MapClickHandler onClick={handleMapClick} />
 				) : null}
@@ -169,7 +215,7 @@ export const LocationMapComponent = ({
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 					url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 				/>
-				{markerPosition ? (
+				{isMarkerValid ? (
 					<Marker position={toLatLngExpression(markerPosition)} />
 				) : null}
 			</MapContainer>
