@@ -16,6 +16,7 @@
 		"deploy:azure": "npm run azure:acr:login && npm run azure:docker:build && npm run azure:docker:push && npm run azure:webapp:update && npm run azure:webapp:restart",
 		"lint": "eslint",
 		"test": "jest",
+		"typecheck": "tsc --noEmit",
 		"test:watch": "jest --watch",
 		"prisma:push": "prisma db push",
 		"prisma:studio": "prisma studio",

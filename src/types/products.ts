@@ -25,12 +25,8 @@ export type TUpdateData = {
 	guaranteeEnd: string;
 	orderId: string;
 	isNew: boolean;
-	prices: {
-		value: string;
-		label: string;
-		valueAmount: number;
-		id: string;
-		userId: string;
-		isDefault: boolean;
-	}[];
+	prices: Omit<TPrice, 'value'> &
+		{
+			value: string;
+		}[];
 };
