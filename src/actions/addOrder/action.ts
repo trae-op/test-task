@@ -7,8 +7,6 @@ import { getUserSession } from '@/utils/session';
 import type { TAddOrderInput, TAddOrderResult } from './types';
 import { prisma } from '@/prisma/prisma-client';
 
-const isValidUuid = (v?: string | null) => !v || /^[0-9a-fA-F-]{36}$/.test(v);
-
 export const addOrder = async (
 	input: TAddOrderInput
 ): Promise<TAddOrderResult> => {
@@ -22,12 +20,6 @@ export const addOrder = async (
 			? String(input.description).trim()
 			: null;
 		const products = Array.isArray(input.products) ? input.products : [];
-
-		if (!title) return { ok: false, code: 'INVALID_INPUT' };
-
-		for (const id of products) {
-			if (!isValidUuid(id)) return { ok: false, code: 'INVALID_INPUT' };
-		}
 
 		if (products.length > 0) {
 			const found = await prisma.product.findMany({

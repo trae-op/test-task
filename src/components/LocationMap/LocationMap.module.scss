@@ -1,23 +1,22 @@
 .location-map {
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	gap: var(--space-2xl);
 }
 
 .location-map__controls {
 	display: flex;
-	gap: 0.75rem;
+	gap: var(--space-lg);
 	align-items: center;
 	justify-content: center;
 }
 
 .location-map__map {
 	height: 24rem;
-	border-radius: 0.75rem;
 	overflow: hidden;
 }
 
 .location-map__error {
 	color: #dc3545;
-	font-size: 0.875rem;
+	font-size: var(--space-lg);
 }

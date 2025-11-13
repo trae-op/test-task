@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
-import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -25,9 +24,6 @@ const MultiSelectField = dynamic(
 
 export const AddOrder = ({ products }: TAddOrderProps) => {
 	const t = useTranslations('App');
-	const te = useTranslations('App.errors');
-	const params = useParams();
-	const locale = (params?.locale as string) || '';
 	const productOptions: OptionType[] = useMemo(
 		() =>
 			products.map(p => ({
@@ -67,8 +63,7 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 				title: values.title,
 				description: values.description
 			},
-			selectedProducts,
-			locale
+			selectedProducts
 		);
 	};
 

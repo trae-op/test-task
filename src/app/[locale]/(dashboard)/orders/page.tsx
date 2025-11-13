@@ -1,4 +1,8 @@
+import { getPicturesByProducts } from '@/utils/products';
+
 import { getOrders } from '@/actions/orders';
+import { getPicturesByEntities } from '@/actions/pictures/products';
+import { getProducts } from '@/actions/products';
 import { Container } from '@/conceptions/Orders';
 import { Provider } from '@/context/orders';
 
@@ -14,6 +18,7 @@ export default async function OrdersPage() {
 					title: true,
 					photo: true,
 					prices: true,
+					isNew: true,
 					serialNumber: true
 				}
 			},
@@ -22,8 +27,50 @@ export default async function OrdersPage() {
 		}
 	});
 
+	const orders = ok && items !== undefined ? items : [];
+	const orderIds = orders.map(order => order.id);
+
+	const productsByOrders =
+		orderIds.length > 0
+			? await getProducts({
+					selectFields: {
+						id: true
+					},
+					whereFilters: {
+						orderId: {
+							in: orderIds
+						}
+					}
+				})
+			: undefined;
+
+	const productsInOrders =
+		productsByOrders !== undefined &&
+		productsByOrders.ok &&
+		productsByOrders.items !== undefined
+			? productsByOrders.items
+			: [];
+
+	const productIds = productsInOrders.map(product => product.id);
+
+	const picturesByProducts =
+		productIds.length > 0 ? await getPicturesByEntities(productIds) : undefined;
+
+	const picturesByProductId =
+		picturesByProducts !== undefined
+			? getPicturesByProducts(picturesByProducts)
+			: undefined;
+
+	const ordersWithPictures = orders.map(order => ({
+		...order,
+		products: order.products?.map(product => ({
+			...product,
+			photo: picturesByProductId ? picturesByProductId(product.id) : null
+		}))
+	}));
+
 	return (
-		<Provider items={ok ? items : []}>
+		<Provider items={ordersWithPictures}>
 			<Container />
 		</Provider>
 	);

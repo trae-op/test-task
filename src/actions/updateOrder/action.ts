@@ -94,13 +94,13 @@ export const updateOrder = async (
 
 			if (hasChanges) {
 				const updateOperations: Array<
-					| ReturnType<typeof prisma.product.deleteMany>
-					| ReturnType<typeof prisma.product.updateMany>
+					ReturnType<typeof prisma.product.updateMany>
 				> = [];
 				if (toDisconnect.length) {
 					updateOperations.push(
-						prisma.product.deleteMany({
-							where: { id: { in: toDisconnect }, userId: userSession.id }
+						prisma.product.updateMany({
+							where: { id: { in: toDisconnect }, userId: userSession.id },
+							data: { orderId: null }
 						})
 					);
 				}
@@ -115,8 +115,6 @@ export const updateOrder = async (
 				if (updateOperations.length)
 					await prisma.$transaction(updateOperations);
 			}
-
-			console.log('Location payload:', locationPayload);
 
 			if (locationPayload) {
 				await prisma.orderLocation.upsert({

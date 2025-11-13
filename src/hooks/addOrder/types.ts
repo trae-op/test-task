@@ -9,8 +9,7 @@ export type TAddOrderFormData = {
 
 export type TOnAddOrderSubmit = (
 	data: TAddOrderFormData,
-	products: MultiValue<OptionType>,
-	locale: string
+	products: MultiValue<OptionType>
 ) => void;
 
 export type TAddOrderActions = {

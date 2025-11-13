@@ -1,6 +1,5 @@
 'use server';
 
-import { getLocale } from 'next-intl/server';
 import { redirect } from 'next/navigation';
 
 import { addProduct } from './action';
@@ -18,7 +17,6 @@ export const addProductSubmit = async (
 	const guaranteeEnd = (formData.get('guaranteeEnd') as string) || undefined;
 	const isNewRaw = (formData.get('isNew') as string) || undefined;
 	const pricesJson = String(formData.get('prices') || '[]');
-	const locale = await getLocale();
 
 	let prices: Array<{
 		symbol: 'USD' | 'UAH';
@@ -28,8 +26,6 @@ export const addProductSubmit = async (
 	try {
 		prices = JSON.parse(pricesJson) ?? [];
 	} catch {}
-
-	console.log('isNewRaw:::', isNewRaw);
 
 	const res = await addProduct({
 		title,
@@ -42,6 +38,7 @@ export const addProductSubmit = async (
 	});
 
 	if (res.ok) {
+		const locale = String(formData.get('locale') || '');
 		redirect(`/${locale}/products`);
 	}
 

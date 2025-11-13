@@ -1,7 +1,6 @@
 'use server';
 
-import { getLocale } from 'next-intl/server';
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 import { generateSerialNumber } from '@/utils/generateSerialNumber';
 import { isInt4 } from '@/utils/isInt4';
@@ -31,8 +30,6 @@ export const addProduct = async (
 			: null;
 
 		const prices = Array.isArray(input.prices) ? input.prices : [];
-
-		if (!title) return { ok: false, code: 'INVALID_INPUT' };
 
 		if (guaranteeStart && Number.isNaN(guaranteeStart.getTime()))
 			return { ok: false, code: 'INVALID_INPUT' };
@@ -77,8 +74,7 @@ export const addProduct = async (
 			});
 		}
 
-		const locale = await getLocale();
-		revalidatePath(`/${locale}/products`);
+		revalidateTag('products');
 
 		return { ok: true, id: created.id };
 	} catch {

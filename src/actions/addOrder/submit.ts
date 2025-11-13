@@ -12,7 +12,6 @@ export const addOrderSubmit = async (
 	const title = String(formData.get('title') || '');
 	const description = (formData.get('description') as string) || undefined;
 	const productsJson = String(formData.get('products') || '[]');
-	const locale = String(formData.get('locale') || '');
 
 	let products: string[] = [];
 	try {
@@ -27,6 +26,7 @@ export const addOrderSubmit = async (
 	});
 
 	if (res.ok) {
+		const locale = String(formData.get('locale') || '');
 		redirect(`/${locale}/orders`);
 	}
 

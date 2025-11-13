@@ -1,5 +1,6 @@
 'use client';
 
+import { useParams } from 'next/navigation';
 import {
 	startTransition,
 	useActionState,
@@ -17,6 +18,8 @@ import type {
 import { addProductSubmit } from '@/actions/addProduct/submit';
 
 export const useActions = (): TAddProductActions => {
+	const params = useParams();
+	const locale = (params?.locale as string) || '';
 	const { watch } = useFormContext();
 	const prices: TPriceOption[] = watch('prices');
 
@@ -42,6 +45,7 @@ export const useActions = (): TAddProductActions => {
 			fd.append('title', data.title);
 			fd.append('serialNumber', data.serialNumber);
 			fd.append('isNew', data.isNew ? 'true' : 'false');
+			fd.append('locale', locale);
 			if (data.type) fd.append('type', data.type);
 			if (data.specification) fd.append('specification', data.specification);
 			if (data.guaranteeStart) fd.append('guaranteeStart', data.guaranteeStart);
@@ -53,7 +57,7 @@ export const useActions = (): TAddProductActions => {
 				formAction(fd);
 			});
 		},
-		[prices, formAction]
+		[prices, formAction, locale]
 	);
 
 	return useMemo(

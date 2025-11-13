@@ -1,5 +1,6 @@
 'use client';
 
+import { useParams } from 'next/navigation';
 import { startTransition, useActionState, useCallback, useMemo } from 'react';
 import type { MultiValue } from 'react-select';
 
@@ -9,16 +10,14 @@ import type { TAddOrderActions, TAddOrderFormData } from './types';
 import { addOrderSubmit } from '@/actions/addOrder/submit';
 
 export const useAddActions = (): TAddOrderActions => {
+	const params = useParams();
+	const locale = (params?.locale as string) || '';
 	const [state, formAction] = useActionState(addOrderSubmit, {
 		ok: false
 	});
 
 	const onAddOrderSubmit = useCallback(
-		(
-			data: TAddOrderFormData,
-			products: MultiValue<OptionType>,
-			locale: string
-		) => {
+		(data: TAddOrderFormData, products: MultiValue<OptionType>) => {
 			const productIds = (products as OptionType[]).map(p => String(p.value));
 
 			const fd = new FormData();
@@ -31,7 +30,7 @@ export const useAddActions = (): TAddOrderActions => {
 				formAction(fd);
 			});
 		},
-		[formAction]
+		[formAction, locale]
 	);
 
 	return useMemo(
