@@ -55,6 +55,8 @@ describe('components/settings/productType/FormProductType', () => {
 
 		await user.click(screen.getByRole('button', { name: 'Submit' }));
 
-		expect(await screen.findAllByText('required')).toHaveLength(2);
+		expect(await screen.findAllByText('This field is required')).toHaveLength(
+			2
+		);
 	});
 });

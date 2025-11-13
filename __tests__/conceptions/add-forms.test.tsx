@@ -38,7 +38,9 @@ describe('Add forms', () => {
 		const user = userEvent.setup();
 		await user.click(screen.getByRole('button', { name: /Submit/i }));
 		expect(addProductSubmitSpy).not.toHaveBeenCalled();
-		expect(await screen.findAllByText('required')).not.toHaveLength(0);
+		expect(
+			await screen.findAllByText('This field is required')
+		).not.toHaveLength(0);
 	});
 
 	it('AddOrder negative: shows validation error on empty submit', async () => {
@@ -47,6 +49,8 @@ describe('Add forms', () => {
 		const user = userEvent.setup();
 		await user.click(screen.getByRole('button', { name: /Submit/i }));
 		expect(addOrderSubmitSpy).not.toHaveBeenCalled();
-		expect(await screen.findAllByText('required')).not.toHaveLength(0);
+		expect(
+			await screen.findAllByText('This field is required')
+		).not.toHaveLength(0);
 	});
 });

@@ -44,7 +44,7 @@ describe('Profile forms', () => {
 		const submitBtn = screen.getByRole('button');
 		const user = userEvent.setup();
 		await user.click(submitBtn);
-		const errors = await screen.findAllByText('required');
+		const errors = await screen.findAllByText('This field is required');
 		expect(errors).toHaveLength(3);
 	});
 

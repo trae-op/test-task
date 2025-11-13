@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -7,6 +7,7 @@ import { SignUp } from '@/app/_conceptions/Auth/SignUp/SignUp';
 
 const signInSpy = jest.fn();
 const signUpSpy = jest.fn();
+
 jest.mock('@/hooks/auth', () => ({
 	useAuthActions: () => ({
 		onSignInSubmit: signInSpy,
@@ -21,40 +22,41 @@ jest.mock('next/navigation', () => ({
 	useParams: () => ({ locale: 'en' })
 }));
 
+beforeEach(() => {
+	jest.clearAllMocks();
+});
+
 describe('Auth forms', () => {
-	it('SignIn positive: submits with valid email and password', async () => {
+	it('should submit sign in when credentials are valid', async () => {
 		render(<SignIn />);
 		const user = userEvent.setup();
 		await user.type(
-			screen.getByPlaceholderText('enterEmail'),
+			screen.getByLabelText(/Email address/i),
 			'john@example.com'
 		);
-		await user.type(screen.getByPlaceholderText('enterPassword'), 'Qwerty12$');
-		await user.click(screen.getByRole('button', { name: /submitButton/i }));
-		expect(screen.queryByText('required')).not.toBeInTheDocument();
+		await user.type(screen.getByLabelText(/Password/i), 'Qwerty12');
+		await user.click(screen.getByRole('button', { name: /sign in|submit/i }));
+		await waitFor(() => expect(signInSpy).toHaveBeenCalledTimes(1));
 	});
 
-	it('SignIn negative: does not call submit with empty fields', async () => {
+	it('should not submit sign in when fields are empty', async () => {
 		render(<SignIn />);
 		const user = userEvent.setup();
-		await user.click(screen.getByRole('button', { name: /submitButton/i }));
+		await user.click(screen.getByRole('button', { name: /sign in|submit/i }));
 		expect(signInSpy).not.toHaveBeenCalled();
 	});
 
-	it('SignUp negative: mismatched passwords shows error', async () => {
+	it('should block sign up when passwords mismatch', async () => {
 		render(<SignUp />);
 		const user = userEvent.setup();
-		await user.type(screen.getByPlaceholderText('enterName'), 'Jane');
+		await user.type(screen.getByLabelText(/Name/i), 'Jane');
 		await user.type(
-			screen.getByPlaceholderText('enterEmail'),
+			screen.getByLabelText(/Email address/i),
 			'jane@example.com'
 		);
-		await user.type(screen.getByPlaceholderText('enterPassword'), 'Qwerty12$');
-		await user.type(
-			screen.getByPlaceholderText('confirmPassword'),
-			'Different12$'
-		);
-		await user.click(screen.getByRole('button', { name: /submitButton/i }));
+		await user.type(screen.getByLabelText(/^Password/i), 'Qwerty12');
+		await user.type(screen.getByLabelText(/Confirm password/i), 'Different12');
+		await user.click(screen.getByRole('button', { name: /submit|sign up/i }));
 		expect(signUpSpy).not.toHaveBeenCalled();
 	});
 });

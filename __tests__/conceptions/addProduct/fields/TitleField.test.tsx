@@ -29,6 +29,8 @@ describe('AddProduct fields/TitleField', () => {
 		const input = screen.getByPlaceholderText('Enter title');
 		fireEvent.blur(input);
 
-		expect(await screen.findByText('required')).toBeInTheDocument();
+		expect(
+			await screen.findByText('This field is required')
+		).toBeInTheDocument();
 	});
 });

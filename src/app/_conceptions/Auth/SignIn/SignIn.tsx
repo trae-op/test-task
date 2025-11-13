@@ -76,7 +76,7 @@ export const SignIn = () => {
 								</Form.Group>
 
 								<Button
-									text={t('Sign In')}
+									text={t('Submit')}
 									type='submit'
 									variant='success'
 									className='w-100'
