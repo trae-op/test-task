@@ -1,8 +1,13 @@
 # syntax=docker/dockerfile:1
 FROM node:20-alpine AS deps
 WORKDIR /app
-ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true
-RUN apk add --no-cache libc6-compat
+ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true \
+	npm_config_registry=https://registry.npmjs.org/ \
+	npm_config_fetch_retries=5 \
+	npm_config_fetch_retry_mintimeout=20000 \
+	npm_config_fetch_retry_maxtimeout=120000 \
+	npm_config_network_timeout=300000
+RUN apk add --no-cache libc6-compat ca-certificates
 COPY package.json package-lock.json ./
 RUN npm ci --ignore-scripts
 
@@ -11,8 +16,13 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXTJS_IGNORE_ESLINT=1
 ENV NEXT_DISABLE_TYPECHECK=1
-ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true
-RUN apk add --no-cache libc6-compat
+ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true \
+	npm_config_registry=https://registry.npmjs.org/ \
+	npm_config_fetch_retries=5 \
+	npm_config_fetch_retry_mintimeout=20000 \
+	npm_config_fetch_retry_maxtimeout=120000 \
+	npm_config_network_timeout=300000
+RUN apk add --no-cache libc6-compat ca-certificates
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx prisma generate
@@ -22,7 +32,13 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true
+ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true \
+	npm_config_registry=https://registry.npmjs.org/ \
+	npm_config_fetch_retries=5 \
+	npm_config_fetch_retry_mintimeout=20000 \
+	npm_config_fetch_retry_maxtimeout=120000 \
+	npm_config_network_timeout=300000
+RUN apk add --no-cache libc6-compat ca-certificates
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY package.json package-lock.json ./
