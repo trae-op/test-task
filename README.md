@@ -1,5 +1,3 @@
-This project runs on [Next.js](https://nextjs.org) with Prisma and PostgreSQL.
-
 ## Table of Contents
 
 - [Overview](#overview)
@@ -13,7 +11,7 @@ This project runs on [Next.js](https://nextjs.org) with Prisma and PostgreSQL.
 
 ## Overview
 
-`test-task` is an operations dashboard for managing the lifecycle of products and orders. The app supports product catalog maintenance, localized content, pricing and currency configuration, and order tracking with location awareness. Administrators can update profile data, manage media assets, and monitor active sessions through a single interface.
+`test-task` is an operations dashboard for managing the lifecycle of products and orders. The app supports product catalog maintenance, localized content, pricing and currency configuration, and order tracking with location awareness. You can update profile data, manage media assets, and monitor active sessions through a single interface.
 
 ## Live Demo
 
@@ -33,16 +31,15 @@ pass: qwerty123
    ```bash
    npm install
    ```
-3. Configure environment variables in `.env.local` (see Azure Environment variables for required keys).
-4. Generate Prisma client:
+3. Generate Prisma client:
    ```bash
    npx prisma generate
    ```
-5. Start the development server:
+4. Start the development server:
    ```bash
    npm run dev
    ```
-6. Open [http://localhost:3000](http://localhost:3000) to access the app.
+5. Open [http://localhost:3000](http://localhost:3000) to access the app.
 
 ## Docker Development
 
@@ -132,9 +129,3 @@ Changes pushed to `main` trigger `.github/workflows/deploy.yml` to build and pub
 - `AZURE_RESOURCE_GROUP` — resource group containing the Web App
 
 Environment variables such as `POSTGRES_PRISMA_URL`, `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, and ImageKit credentials must be configured in the Azure App Service **Environment variables** blade for `test-task-webapp`.
-
-## Useful References
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Prisma Documentation](https://www.prisma.io/docs)
-- [Docker Compose Reference](https://docs.docker.com/compose/compose-file/compose-file-v3/)
