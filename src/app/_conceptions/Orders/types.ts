@@ -15,3 +15,7 @@ export type TOrdersProps = Pick<
 > & {
 	items?: TEntity[];
 };
+
+export type TDeleteEntityProps = {
+	id: string;
+};

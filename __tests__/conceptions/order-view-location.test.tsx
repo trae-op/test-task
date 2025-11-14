@@ -2,7 +2,7 @@ import type { OrderLocation } from '@prisma/client';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { OrderViewLocation } from '@/app/_conceptions/OrderViewLocation/OrderViewLocation';
+import { OrderViewLocation } from '@/app/_conceptions/OrderViewLocation';
 
 const popupProps: any[] = [];
 const locationMapMock = jest.fn();

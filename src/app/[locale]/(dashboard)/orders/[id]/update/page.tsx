@@ -1,10 +1,10 @@
 import type { TDynamicPageProps } from '@/types/dynamicPage';
 
-import { getProducts } from '@/actions/products/action';
-import { getOrders } from '@/app/_conceptions/Orders/actions/action';
-import { getPickupLocations } from '@/app/_conceptions/Settings/actions/pickupLocation';
-import { Provider as PickupLocationProvider } from '@/app/_conceptions/Settings/context/pickupLocation';
-import { Container } from '@/conceptions/UpdateOrder/Container';
+import { getOrders } from '@/conceptions/Orders/actions/action';
+import { getProducts } from '@/conceptions/Products/actions';
+import { getPickupLocations } from '@/conceptions/Settings/actions/pickupLocation';
+import { Provider as PickupLocationProvider } from '@/conceptions/Settings/context/pickupLocation';
+import { Container } from '@/conceptions/UpdateOrder';
 
 export default async function UpdateOrderPage({ params }: TDynamicPageProps) {
 	const { id } = await params;

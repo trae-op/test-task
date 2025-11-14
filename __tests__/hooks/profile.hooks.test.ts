@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { usePasswordActions } from '@/hooks/profile/usePasswordActions';
-import { useProfileActions } from '@/hooks/profile/useProfileActions';
+import { usePasswordActions } from '@/app/_conceptions/Profile/hooks/usePasswordActions';
+import { useProfileActions } from '@/app/_conceptions/Profile/hooks/useProfileActions';
 
 let formActionMock: jest.Mock<any, any>;
 let useActionStateState: any;

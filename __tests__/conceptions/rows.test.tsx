@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { OrderRow } from '@/app/_conceptions/Orders/Order';
-import { ProductRow } from '@/app/_conceptions/Products/Product';
+import { OrderRow } from '@/app/_conceptions/Orders/components/Order';
+import { ProductRow } from '@/app/_conceptions/Products/components/Product';
 
 type TProductRowProps = React.ComponentProps<typeof ProductRow>;
 

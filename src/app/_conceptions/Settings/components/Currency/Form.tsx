@@ -14,6 +14,7 @@ import {
 import { useActions } from '../../hooks/currency';
 import type { TSettingsCurrencyFormData } from '../../hooks/currency/types';
 
+import { CurrencyList } from './List';
 import { SubmitButton } from './SubmitButton';
 
 export const FormCurrency = () => {
@@ -46,6 +47,7 @@ export const FormCurrency = () => {
 				{t('Add currency')}
 			</Card.Header>
 			<Card.Body>
+				<CurrencyList />
 				<MessagesServer message={state.message} type='error' />
 				<Form
 					noValidate

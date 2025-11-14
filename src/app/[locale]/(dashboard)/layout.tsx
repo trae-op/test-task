@@ -12,12 +12,12 @@ import { getPictureByEntityId } from '@/actions/pictures/profile';
 import { Provider as ActiveSessionsProvider } from '@/app/_conceptions/ActiveSessionsCounter/context/activeSessions';
 import { LocalizationDropdown } from '@/app/_conceptions/LocalizationDropdown';
 import { getProductTypes } from '@/app/_conceptions/Settings/actions/productType/action';
+import { TopHeader } from '@/app/_conceptions/TopHeader';
 import { ActiveSessionsCounter } from '@/conceptions/ActiveSessionsCounter';
 import { AddEntity } from '@/conceptions/AddEntity';
 import { FilterProductsWrapper } from '@/conceptions/FilterProducts';
 import { Sidebar } from '@/conceptions/Sidebar';
 import type { TSidebarNavItem } from '@/conceptions/Sidebar/types';
-import { TopHeader } from '@/conceptions/TopHeader.ts';
 import { Provider as GlobalProvider } from '@/context/global';
 
 const navigationItems: TSidebarNavItem[] = [

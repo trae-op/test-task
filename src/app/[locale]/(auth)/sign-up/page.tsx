@@ -1,4 +1,4 @@
-import { SignUp } from '@/app/_conceptions/Auth/SignUp';
+import { SignUp } from '@/conceptions/Auth';
 
 export default function SignUpPage() {
 	return <SignUp />;

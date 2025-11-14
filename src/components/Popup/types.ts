@@ -1,7 +1,7 @@
 import type { ElementType, ReactNode } from 'react';
 import type { ModalProps } from 'react-bootstrap';
 
-export type TConfirmPopupProps = Omit<ModalProps, 'children'> & {
+export type TPopupProps = Omit<ModalProps, 'children'> & {
 	title: string;
 	applyText?: string;
 	cancelText?: string;
@@ -21,14 +21,14 @@ export type TConfirmPopupProps = Omit<ModalProps, 'children'> & {
 	showApplyButton?: boolean;
 };
 
-export type TConfirmPopupState = {
+export type TPopupState = {
 	isOpen: boolean;
 	entityId?: string;
 };
 
-export type TConfirmPopupActions = {
+export type TPopupActions = {
 	handleOpen: (entityId?: string) => void;
 	handleClose: () => void;
 };
 
-export type TUseConfirmPopup = TConfirmPopupState & TConfirmPopupActions;
+export type TUsePopup = TPopupState & TPopupActions;

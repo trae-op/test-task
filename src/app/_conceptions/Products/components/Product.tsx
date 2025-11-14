@@ -16,8 +16,8 @@ import { useAdaptiveTableSelector } from '../context/useContext';
 import styles from '../styles/Products.module.scss';
 import type { TProductProps } from '../types';
 
+import { DeleteEntity } from './DeleteEntity';
 import { ProductState } from './State';
-import { DeleteEntity as DeleteProducts } from '@/conceptions/DeleteProducts';
 
 const BLOCK = 'product-item';
 
@@ -148,7 +148,7 @@ export const ProductRow = memo(
 						/>
 					</div>
 
-					{isDeleteButton && <DeleteProducts id={id} />}
+					{isDeleteButton && <DeleteEntity id={id} />}
 				</td>
 			</tr>
 		);

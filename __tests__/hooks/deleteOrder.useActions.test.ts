@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { useActions } from '@/app/_conceptions/DeleteOrder/hooks';
+import { useActions } from '@/app/_conceptions/Orders/hooks';
 
 const toastMock = jest.fn();
 jest.mock('@/components/Toaster/useActions', () => ({

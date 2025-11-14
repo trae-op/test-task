@@ -85,7 +85,7 @@ export async function getOrderById(id: string) {
 			products: order.products.map(
 				({ title, photo, serialNumber, id, isNew }) => ({
 					title,
-					photo: photo ?? 'https://placehold.co/600x400/000000/FFFFFF.png',
+					photo: photo ?? '',
 					serialNumber,
 					id,
 					isNew

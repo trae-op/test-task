@@ -2,8 +2,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
-import { SignUp } from '@/app/_conceptions/Auth/SignUp/SignUp';
 import { SignIn } from '@/app/_conceptions/Auth/components/SignIn';
+import { SignUp } from '@/app/_conceptions/Auth/components/SignUp';
 
 const signInSpy = jest.fn();
 const signUpSpy = jest.fn();

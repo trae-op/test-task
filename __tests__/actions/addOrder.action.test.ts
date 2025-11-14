@@ -1,4 +1,4 @@
-import { addOrder } from '@/app/_conceptions/AddOrder/actions/addOrder/action';
+import { addOrder } from '@/app/_conceptions/AddOrder/actions/action';
 
 jest.mock('next/cache', () => ({ revalidateTag: jest.fn() }));
 

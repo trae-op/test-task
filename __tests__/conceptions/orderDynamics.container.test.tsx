@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { Container } from '@/app/_conceptions/OrderDynamics/Container';
+import { Container } from '@/app/_conceptions/OrderDynamics';
 
 const setTitle = jest.fn();
 const setTotal = jest.fn();

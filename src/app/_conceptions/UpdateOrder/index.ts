@@ -1,2 +1,2 @@
-export * from './UpdateForm';
-export * from './Container';
+export * from './components/UpdateForm';
+export * from './components/Container';

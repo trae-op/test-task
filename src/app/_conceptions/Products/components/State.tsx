@@ -2,9 +2,8 @@ import { clsx } from 'clsx';
 import { useTranslations } from 'next-intl';
 import { memo } from 'react';
 
+import styles from '../styles/Products.module.scss';
 import type { TProductStateProps } from '../types';
-
-import styles from './styles/Products.module.scss';
 
 const BLOCK = 'product-item';
 

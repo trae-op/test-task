@@ -13,3 +13,7 @@ export type TProductsProps = Pick<TProductProps, 'isDeleteButton'> & {
 export type TProductStateProps = {
 	isNew: boolean;
 };
+
+export type TDeleteEntityProps = {
+	id: string;
+};

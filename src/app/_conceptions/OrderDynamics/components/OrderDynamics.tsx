@@ -186,13 +186,7 @@ export const OrderDynamicsChart = memo(({ orders }: TOrderDynamicsProps) => {
 	}, [labels, ordersSeries, productsSeries, totalsByCurrency, t]);
 
 	if (!hasData) {
-		return (
-			<div className={styles['order-dynamics']}>
-				<div className={styles['order-dynamics__empty']}>
-					<EmptyData text={EMPTY_KEY} />
-				</div>
-			</div>
-		);
+		return <EmptyData text={EMPTY_KEY} />;
 	}
 
 	return (

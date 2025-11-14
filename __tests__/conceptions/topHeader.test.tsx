@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { DateTimeDisplay } from '@/app/_conceptions/TopHeader.ts/DateTimeDisplay';
-import { Logo } from '@/app/_conceptions/TopHeader.ts/Logo';
-import { TopHeader } from '@/app/_conceptions/TopHeader.ts/TopHeader';
+import { DateTimeDisplay } from '@/app/_conceptions/TopHeader/components/DateTimeDisplay';
+import { Logo } from '@/app/_conceptions/TopHeader/components/Logo';
+import { TopHeader } from '@/app/_conceptions/TopHeader/components/TopHeader';
 
 function noopDynamic() {
 	return () => null;

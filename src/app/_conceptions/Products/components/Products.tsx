@@ -8,10 +8,10 @@ import { EmptyData } from '@/components/EmptyData/EmptyData';
 
 import { useListSelector } from '../context/useContext';
 import { useAdaptiveTableSelector } from '../context/useContext';
+import styles from '../styles/Products.module.scss';
 import type { TProductsProps } from '../types';
 
 import { ProductRow } from './Product';
-import styles from './styles/Products.module.scss';
 
 const BLOCK = 'product-table';
 

@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { Sidebar } from '@/app/_conceptions/Sidebar/Sidebar';
-import { NavItem } from '@/app/_conceptions/Sidebar/SidebarNavItem/NavItem';
+import { Sidebar } from '@/app/_conceptions/Sidebar';
+import { NavItem } from '@/app/_conceptions/Sidebar/components/NavItem';
 
 jest.mock('@/context/global/useContext', () => ({
 	useAvatarProfileSelector: () => 'https://example.com/avatar.png'

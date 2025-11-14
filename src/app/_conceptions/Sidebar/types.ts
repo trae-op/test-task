@@ -6,3 +6,12 @@ export type TSidebarNavItem = {
 export type TSidebarProps = {
 	items: TSidebarNavItem[];
 };
+
+export type TSidebarNavItemProps = {
+	item: TSidebarNavItem;
+};
+
+export type TNavItemProps = {
+	isActive: boolean;
+	text?: string;
+};

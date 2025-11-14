@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
-import { FilterProductsWrapper } from '@/app/_conceptions/FilterProducts/FilterProductsWrapper';
 import { FilterProducts } from '@/app/_conceptions/FilterProducts/components/FilterProducts';
 import { LocalizationDropdown } from '@/app/_conceptions/LocalizationDropdown/components/LocalizationDropdown';
 

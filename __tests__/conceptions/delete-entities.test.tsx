@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { DeleteEntity as DeleteOrderEntity } from '@/app/_conceptions/DeleteOrder/DeleteEntity';
-import { DeleteEntity as DeleteProductEntity } from '@/app/_conceptions/DeleteProducts/DeleteEntity';
+import { DeleteEntity as DeleteOrderEntity } from '@/app/_conceptions/Orders/components/DeleteEntity';
+import { DeleteEntity as DeleteProductEntity } from '@/app/_conceptions/Products/components/DeleteEntity';
 
 function autoApplyingPopup({
 	onApply,

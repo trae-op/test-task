@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { OrderDynamicsChart } from '@/app/_conceptions/OrderDynamics/OrderDynamics';
+import { OrderDynamicsChart } from '@/app/_conceptions/OrderDynamics';
 
 jest.mock('next-intl', () => ({
 	useLocale: () => 'en',

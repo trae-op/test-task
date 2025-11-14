@@ -1,9 +1,9 @@
 import { getPicturesByProducts } from '@/utils/products';
 
 import { getPicturesByEntities } from '@/actions/pictures/products';
-import { getProducts } from '@/actions/products';
-import { Provider } from '@/app/_conceptions/Products/context';
 import { Container } from '@/conceptions/Products';
+import { getProducts } from '@/conceptions/Products/actions';
+import { Provider } from '@/conceptions/Products/context';
 
 export default async function ProductsPage({
 	searchParams

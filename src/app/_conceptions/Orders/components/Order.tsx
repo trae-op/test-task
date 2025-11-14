@@ -22,7 +22,7 @@ import {
 import styles from '../styles/Orders.module.scss';
 import { type TOrderProps } from '../types';
 
-import { DeleteEntity } from '@/conceptions/DeleteOrder';
+import { DeleteEntity } from './DeleteEntity';
 
 const BLOCK = 'order-item';
 

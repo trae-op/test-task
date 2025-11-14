@@ -1,4 +1,4 @@
-import { getProducts } from '@/actions/products/action';
+import { getProducts } from '@/app/_conceptions/Products/actions/action';
 
 jest.mock('@/prisma/prisma-client', () => ({
 	prisma: {

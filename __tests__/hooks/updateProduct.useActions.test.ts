@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { useUpdateActions } from '@/hooks/updateProduct/useActions';
+import { useUpdateActions } from '@/app/_conceptions/UpdateProduct/hooks/useActions';
 
 let formActionMock: jest.Mock<any, any>;
 let useActionStateState: any;

@@ -14,6 +14,7 @@ import {
 import { useActions } from '../../hooks/productType';
 import type { TSettingsProductTypeFormData } from '../../hooks/productType/types';
 
+import { ProductTypeList } from './List';
 import { SubmitButton } from './SubmitButton';
 
 export const FormProductType = () => {
@@ -46,6 +47,7 @@ export const FormProductType = () => {
 				{t('Add product type')}
 			</Card.Header>
 			<Card.Body>
+				<ProductTypeList />
 				<MessagesServer message={state.message} type='error' />
 				<Form
 					noValidate

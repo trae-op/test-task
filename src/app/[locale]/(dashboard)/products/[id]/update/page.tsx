@@ -1,8 +1,8 @@
 import type { TDynamicPageProps } from '@/types/dynamicPage';
 
 import { getPictureByEntityId } from '@/actions/pictures/products';
-import { getProducts } from '@/actions/products/action';
-import { Container } from '@/conceptions/UpdateProduct/Container';
+import { getProducts } from '@/conceptions/Products/actions';
+import { Container } from '@/conceptions/UpdateProduct';
 import { prisma } from '@/prisma/prisma-client';
 
 export default async function UpdateProductPage({ params }: TDynamicPageProps) {
