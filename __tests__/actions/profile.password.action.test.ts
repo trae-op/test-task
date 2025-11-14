@@ -1,4 +1,4 @@
-import { updatePassword } from '@/actions/profile/password';
+import { updatePassword } from '@/app/_conceptions/Profile/actions/password';
 
 jest.mock('next-auth', () => ({ getServerSession: jest.fn() }));
 jest.mock('bcryptjs', () => ({ compare: jest.fn(), hash: jest.fn() }));

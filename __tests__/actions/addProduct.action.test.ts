@@ -1,4 +1,4 @@
-import { addProduct } from '@/actions/addProduct/action';
+import { addProduct } from '@/app/_conceptions/AddProduct/actions/addProduct/action';
 
 jest.mock('next/cache', () => ({ revalidatePath: jest.fn() }));
 jest.mock('next-intl/server', () => ({ getLocale: () => 'en' }));

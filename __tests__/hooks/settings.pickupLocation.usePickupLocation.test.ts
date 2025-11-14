@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 
-import { usePickupLocation } from '@/hooks/settings/pickupLocation';
+import { usePickupLocation } from '@/app/_conceptions/Settings/hooks/pickupLocation';
 
 jest.mock('@/hooks/settings/pickupLocation/usePickupLocationState', () => ({
 	usePickupLocationState: jest.fn()

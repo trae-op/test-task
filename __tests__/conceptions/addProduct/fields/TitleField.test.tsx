@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { TitleField } from '@/app/_conceptions/AddProduct/fields/TitleField';
+import { TitleField } from '@/app/_conceptions/AddProduct/components/fields/TitleField';
 
 type TForm = { title: string };
 

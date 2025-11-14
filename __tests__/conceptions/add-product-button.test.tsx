@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { AddProductButton } from '@/app/_conceptions/AddProductButton/AddProductButton';
+import { AddProductButton } from '@/app/_conceptions/AddProductButton/components/AddProductButton';
 
 describe('AddProductButton', () => {
 	it('renders text and icon link (positive)', () => {

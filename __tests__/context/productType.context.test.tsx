@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 import React, { type PropsWithChildren } from 'react';
 
-import { Provider as ProductTypeProvider } from '@/context/productType';
+import { Provider as ProductTypeProvider } from '@/app/_conceptions/Settings/context/productType';
 import {
 	useEntityContext,
 	useListLoadingSelector,
@@ -9,7 +9,7 @@ import {
 	useRemoveDispatch,
 	useSetAllDispatch,
 	useSetListLoadingDispatch
-} from '@/context/productType/useContext';
+} from '@/app/_conceptions/Settings/context/productType/useContext';
 
 function createWrapper(props?: {
 	items?: Array<{ id: string; [k: string]: unknown }>;

@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { usePriceActions } from '@/hooks/addProduct/usePriceActions';
+import { usePriceActions } from '@/app/_conceptions/AddProduct/hooks/usePriceActions';
 
 describe('addProduct/usePriceActions', () => {
 	it('validates and adds prices, managing default correctly', () => {

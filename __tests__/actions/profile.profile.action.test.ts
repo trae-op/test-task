@@ -1,4 +1,4 @@
-import { updateProfile } from '@/actions/profile/profile';
+import { updateProfile } from '@/app/_conceptions/Profile/actions/profile';
 
 jest.mock('next-auth', () => ({ getServerSession: jest.fn() }));
 

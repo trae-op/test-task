@@ -1,4 +1,4 @@
-import { deletePickupLocationById } from '@/actions/pickupLocation';
+import { deletePickupLocationById } from '@/app/_conceptions/Settings/actions/pickupLocation';
 
 jest.mock('next/cache', () => ({
 	revalidateTag: jest.fn()

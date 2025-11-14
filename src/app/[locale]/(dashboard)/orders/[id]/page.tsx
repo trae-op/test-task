@@ -4,15 +4,15 @@ import type { TDynamicPageProps } from '@/types/dynamicPage';
 
 import { getPicturesByProducts } from '@/utils/products';
 
-import { getOrders } from '@/actions/orders';
 import { getPicturesByEntities } from '@/actions/pictures/products';
+import { getOrders } from '@/app/_conceptions/Orders/actions';
+import { DetailContainer } from '@/app/_conceptions/Orders/components/DetailContainer';
+import { Provider as OrdersProvider } from '@/app/_conceptions/Orders/context';
+import { Provider as ProductsProvider } from '@/app/_conceptions/Products/context';
 import { AddProductButton } from '@/conceptions/AddProductButton';
 import { OrderViewLocation } from '@/conceptions/OrderViewLocation';
 import { OrderTable } from '@/conceptions/Orders';
-import { DetailContainer } from '@/conceptions/Orders/DetailContainer';
 import { ProductsTable } from '@/conceptions/Products';
-import { Provider as OrdersProvider } from '@/context/orders';
-import { Provider as ProductsProvider } from '@/context/products';
 
 export default async function OrderPage({ params }: TDynamicPageProps) {
 	const { id } = await params;

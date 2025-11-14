@@ -1,5 +1,5 @@
-import { passwordSubmit } from '@/actions/profile/passwordSubmit';
-import { profileSubmit } from '@/actions/profile/profileSubmit';
+import { passwordSubmit } from '@/app/_conceptions/Profile/actions/passwordSubmit';
+import { profileSubmit } from '@/app/_conceptions/Profile/actions/profileSubmit';
 
 jest.mock('@/actions/profile/profile', () => ({ updateProfile: jest.fn() }));
 jest.mock('@/actions/profile/password', () => ({ updatePassword: jest.fn() }));

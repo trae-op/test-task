@@ -1,2 +1,1 @@
-export * from './AddEntity';
-export * from './Title';
+export * from './components/AddEntity';

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { ProductTypeList } from '@/app/_conceptions/Settings/ProductType/List';
+import { ProductTypeList } from '@/app/_conceptions/Settings/components/ProductType/List';
 
 jest.mock('@/context/productType/useContext', () => ({
 	useListSelector: () => [

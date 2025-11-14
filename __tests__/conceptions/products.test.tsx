@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { ProductsTable } from '@/app/_conceptions/Products/Products';
 import { ProductState } from '@/app/_conceptions/Products/State';
+import { ProductsTable } from '@/app/_conceptions/Products/components/Products';
 
 jest.mock('@/context/products/useContext', () => ({
 	useListSelector: () => [

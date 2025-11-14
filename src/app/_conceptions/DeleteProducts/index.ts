@@ -1,1 +1,1 @@
-export * from './DeleteEntity';
+export * from './components/DeleteEntity';

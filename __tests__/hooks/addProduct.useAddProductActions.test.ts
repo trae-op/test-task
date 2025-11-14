@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { useAddProductActions } from '@/hooks/addProduct/useActions';
+import { useAddProductActions } from '@/app/_conceptions/AddProduct/hooks/useActions';
 
 let formActionMock: jest.Mock<any, any>;
 let useActionStateState: any;

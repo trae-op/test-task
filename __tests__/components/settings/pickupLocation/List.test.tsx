@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react';
 
 import type { TPickupLocation } from '@/types/pickupLocation';
 
-import { PickupLocationList } from '@/app/_conceptions/Settings/PickupLocation/List';
-import type { TPickupLocationItem } from '@/app/_conceptions/Settings/PickupLocation/types';
+import { PickupLocationList } from '@/app/_conceptions/Settings/components/PickupLocation/List';
+import type { TPickupLocationItem } from '@/app/_conceptions/Settings/components/PickupLocation/types';
 
 jest.mock('@/actions/pickupLocation', () => ({
 	deletePickupLocationById: jest.fn()

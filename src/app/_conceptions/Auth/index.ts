@@ -1,4 +1,4 @@
-export { AuthProvider } from './AuthProvider';
+export { AuthProvider } from './components/AuthProvider';
 export type { TAuthProviderProps } from './types';
-export { SignIn } from './SignIn';
-export { SignUp } from './SignUp';
+export { SignIn } from './components/SignIn';
+export { SignUp } from './components/SignUp';

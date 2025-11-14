@@ -1,4 +1,4 @@
-import { addCurrencySubmit } from '@/actions/settings/currency/submit';
+import { addCurrencySubmit } from '@/app/_conceptions/Settings/actions/currency/submit';
 
 jest.mock('@/actions/settings/currency/action', () => ({
 	addCurrency: jest.fn()

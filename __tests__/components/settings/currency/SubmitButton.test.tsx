@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { SubmitButton } from '@/app/_conceptions/Settings/Currency/SubmitButton';
+import { SubmitButton } from '@/app/_conceptions/Settings/components/Currency/SubmitButton';
 
 jest.mock('react-hook-form', () => {
 	const actual = jest.requireActual('react-hook-form');

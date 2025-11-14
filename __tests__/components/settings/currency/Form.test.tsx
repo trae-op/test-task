@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { FormCurrency } from '@/app/_conceptions/Settings/Currency/Form';
+import { FormCurrency } from '@/app/_conceptions/Settings/components/Currency/Form';
 
 const onSubmitMock = jest.fn();
 jest.mock('@/hooks/settings/currency', () => ({

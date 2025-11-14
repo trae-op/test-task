@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { CurrencyContainer } from '@/app/_conceptions/Settings/Currency/Container';
+import { CurrencyContainer } from '@/app/_conceptions/Settings/components/Currency/Container';
 
 jest.mock('@/app/_conceptions/Settings/Currency/List', () => ({
 	CurrencyList: () => <div data-testid='currency-list' />

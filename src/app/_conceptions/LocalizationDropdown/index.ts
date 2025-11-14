@@ -1,1 +1,1 @@
-export * from './LocalizationDropdown';
+export * from './components/LocalizationDropdown';

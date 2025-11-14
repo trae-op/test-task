@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { TypeField } from '@/app/_conceptions/AddProduct/fields/TypeField';
+import { TypeField } from '@/app/_conceptions/AddProduct/components/fields/TypeField';
 
 type TForm = { type?: string };
 

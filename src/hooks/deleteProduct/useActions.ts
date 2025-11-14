@@ -10,7 +10,7 @@ import type { TActionsHook, TDeleteEntityParams } from './types';
 import {
 	useRemoveDispatch,
 	useSetDeleteLoadingDispatch
-} from '@/context/products/useContext';
+} from '@/app/_conceptions/Products/context/useContext';
 
 export const useActions = (): TActionsHook => {
 	const { setToast } = useControlToaster();

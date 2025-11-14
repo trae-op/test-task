@@ -1,4 +1,4 @@
-import { addProductTypeSubmit } from '@/actions/settings/productType/submit';
+import { addProductTypeSubmit } from '@/app/_conceptions/Settings/actions/productType/submit';
 
 jest.mock('@/actions/settings/productType/action', () => ({
 	addProductType: jest.fn()

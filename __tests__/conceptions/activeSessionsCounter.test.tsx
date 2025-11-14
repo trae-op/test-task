@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { ActiveSessionsCounter } from '@/app/_conceptions/ActiveSessionsCounter/ActiveSessionsCounter';
+import { ActiveSessionsCounter } from '@/app/_conceptions/ActiveSessionsCounter/components/ActiveSessionsCounter';
 
 jest.mock('next-intl', () => ({
 	useTranslations: () => (key: string) => key

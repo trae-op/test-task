@@ -1,14 +1,14 @@
 import { act, renderHook } from '@testing-library/react';
 import React, { type PropsWithChildren } from 'react';
 
-import { Provider } from '@/context/pickupLocation';
+import { Provider } from '@/app/_conceptions/Settings/context/pickupLocation';
 import {
 	useEntityContext,
 	useListLoadingSelector,
 	useListSelector,
 	useSetAllDispatch,
 	useSetListLoadingDispatch
-} from '@/context/pickupLocation/useContext';
+} from '@/app/_conceptions/Settings/context/pickupLocation/useContext';
 
 const createEntity = (id: string) => ({
 	id,

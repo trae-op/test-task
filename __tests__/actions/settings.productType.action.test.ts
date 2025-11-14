@@ -2,7 +2,7 @@ import {
 	addProductType,
 	deleteProductType,
 	getProductTypes
-} from '@/actions/settings/productType/action';
+} from '@/app/_conceptions/Settings/actions/productType/action';
 
 jest.mock('next/cache', () => ({ revalidateTag: jest.fn() }));
 jest.mock('@/utils/session', () => ({ getUserSession: jest.fn() }));

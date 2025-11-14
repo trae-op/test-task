@@ -1,9 +1,9 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { usePickupLocationActions } from '@/hooks/settings/pickupLocation/usePickupLocationActions';
-import { usePickupLocationState } from '@/hooks/settings/pickupLocation/usePickupLocationState';
-
 import type { TPickupLocation } from '@/types/pickupLocation';
+
+import { usePickupLocationActions } from '@/app/_conceptions/Settings/hooks/pickupLocation/usePickupLocationActions';
+import { usePickupLocationState } from '@/app/_conceptions/Settings/hooks/pickupLocation/usePickupLocationState';
 
 jest.mock('@/actions/pickupLocation', () => ({
 	addPickupLocation: jest.fn()

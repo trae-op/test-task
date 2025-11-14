@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 import React, { PropsWithChildren } from 'react';
 
-import { Provider as ProductsProvider } from '@/context/products';
+import { Provider as ProductsProvider } from '@/app/_conceptions/Products/context';
 import {
 	useAdaptiveTableSelector,
 	useAmountEntitiesSelector,
@@ -14,7 +14,7 @@ import {
 	useSetAllEntitiesDispatch,
 	useSetDeleteLoadingDispatch,
 	useSetListLoadingDispatch
-} from '@/context/products/useContext';
+} from '@/app/_conceptions/Products/context/useContext';
 
 function createWrapper(props?: {
 	isAdaptiveTable?: boolean;

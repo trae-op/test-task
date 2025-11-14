@@ -6,7 +6,7 @@ import {
 	useActiveSessionsContext,
 	useActiveSessionsCountSelector,
 	useActiveSessionsStatusSelector
-} from '@/context/activeSessions';
+} from '@/app/_conceptions/ActiveSessionsCounter/context/activeSessions';
 
 const sockets: Array<{
 	on: jest.Mock;

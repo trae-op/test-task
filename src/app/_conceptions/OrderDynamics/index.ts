@@ -1,2 +1,2 @@
-export { Container } from './Container';
-export { OrderDynamicsChart } from './OrderDynamics';
+export { Container } from './components/Container';
+export { OrderDynamicsChart } from './components/OrderDynamics';

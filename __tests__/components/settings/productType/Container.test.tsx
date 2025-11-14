@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { ProductTypeContainer } from '@/app/_conceptions/Settings/ProductType/Container';
+import { ProductTypeContainer } from '@/app/_conceptions/Settings/components/ProductType/Container';
 
 jest.mock('@/app/_conceptions/Settings/ProductType/List', () => ({
 	ProductTypeList: () => <div data-testid='pt-list' />

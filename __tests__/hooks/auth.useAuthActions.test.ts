@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 import { signIn as nextSignIn, signOut as nextSignOut } from 'next-auth/react';
 
-import { useAuthActions } from '@/hooks/auth';
+import { useAuthActions } from '@/app/_conceptions/Auth/hooks';
 
 let formActionMock: jest.Mock<any, any>;
 let useActionStateState: any;

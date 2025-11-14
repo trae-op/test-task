@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { DeleteButton } from '@/app/_conceptions/Settings/ProductType/DeleteButton';
+import { DeleteButton } from '@/app/_conceptions/Settings/components/ProductType/DeleteButton';
 
 const deleteEntityMock = jest.fn();
 jest.mock('@/hooks/settings/productType', () => ({

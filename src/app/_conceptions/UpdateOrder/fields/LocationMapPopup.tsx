@@ -19,7 +19,7 @@ import {
 	toLocationFormValue
 } from '@/utils/map';
 
-import { useListSelector } from '@/context/pickupLocation/useContext';
+import { useListSelector } from '@/app/_conceptions/Settings/context/pickupLocation/useContext';
 
 const TriggerButton = ({ children, ...props }: ButtonProps) => {
 	const t = useTranslations('App');

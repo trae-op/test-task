@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { FormProductType } from '@/app/_conceptions/Settings/ProductType/Form';
+import { FormProductType } from '@/app/_conceptions/Settings/components/ProductType/Form';
 
 const onSubmitMock = jest.fn();
 jest.mock('@/hooks/settings/productType', () => ({

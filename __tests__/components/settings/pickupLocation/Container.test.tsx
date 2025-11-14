@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { PickupLocationContainer } from '@/app/_conceptions/Settings/PickupLocation/Container';
+import { PickupLocationContainer } from '@/app/_conceptions/Settings/components/PickupLocation/Container';
 
 jest.mock('@/hooks/settings/pickupLocation', () => ({
 	usePickupLocation: jest.fn()

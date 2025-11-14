@@ -2,8 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { GuaranteeEndField } from '@/app/_conceptions/AddProduct/fields/GuaranteeEndField';
-import { GuaranteeStartField } from '@/app/_conceptions/AddProduct/fields/GuaranteeStartField';
+import { GuaranteeEndField } from '@/app/_conceptions/AddProduct/components/fields/GuaranteeEndField';
+import { GuaranteeStartField } from '@/app/_conceptions/AddProduct/components/fields/GuaranteeStartField';
 
 type TForm = { guaranteeStart?: string; guaranteeEnd?: string };
 

@@ -1,4 +1,7 @@
-import { getOrderById, getOrders } from '@/actions/orders/action';
+import {
+	getOrderById,
+	getOrders
+} from '@/app/_conceptions/Orders/actions/action';
 
 jest.mock('@/utils/orders', () => ({
 	calculateOrderTotals: jest.fn()

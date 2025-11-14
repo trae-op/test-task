@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { CurrencyList } from '@/app/_conceptions/Settings/Currency/List';
+import { CurrencyList } from '@/app/_conceptions/Settings/components/Currency/List';
 
 jest.mock('@/context/currency/useContext', () => ({
 	useListSelector: () => [

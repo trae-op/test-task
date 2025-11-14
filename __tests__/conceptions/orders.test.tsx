@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { DetailContainer } from '@/app/_conceptions/Orders/DetailContainer';
-import { OrderTable } from '@/app/_conceptions/Orders/Orders';
+import { DetailContainer } from '@/app/_conceptions/Orders/components/DetailContainer';
+import { OrderTable } from '@/app/_conceptions/Orders/components/Orders';
 
 function NoOpDeleteOrderEntity() {
 	return null;

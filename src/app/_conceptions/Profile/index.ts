@@ -1,3 +1,1 @@
-export * from './Profile';
-export * from './Info';
-export * from './UpdatePassword';
+export * from './components/Profile';

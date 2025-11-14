@@ -1,1 +1,1 @@
-export { OrderViewLocation } from './OrderViewLocation';
+export { OrderViewLocation } from './components/OrderViewLocation';

@@ -1,2 +1,1 @@
-export * from './AddProduct';
-export * from './Container';
+export * from './components/AddProduct';

@@ -2,7 +2,7 @@ import {
 	addCurrency,
 	deleteCurrency,
 	getCurrencies
-} from '@/actions/settings/currency/action';
+} from '@/app/_conceptions/Settings/actions/currency/action';
 
 jest.mock('next/cache', () => ({ revalidateTag: jest.fn() }));
 jest.mock('@/utils/session', () => ({ getUserSession: jest.fn() }));

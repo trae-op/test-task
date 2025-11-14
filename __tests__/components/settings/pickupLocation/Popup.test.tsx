@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { PickupLocationPopup } from '@/app/_conceptions/Settings/PickupLocation/Popup';
+import { PickupLocationPopup } from '@/app/_conceptions/Settings/components/PickupLocation/Popup';
 
 const buttonMock = jest.fn();
 const popupPropsMock = jest.fn();

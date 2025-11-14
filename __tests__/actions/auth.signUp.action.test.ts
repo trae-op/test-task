@@ -1,4 +1,4 @@
-import { signUp } from '@/actions/auth/signUp/action';
+import { signUp } from '@/app/_conceptions/Auth/actions/action';
 
 jest.mock('bcryptjs', () => ({ compare: jest.fn(), hash: jest.fn() }));
 

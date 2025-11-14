@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { usePickupLocationState } from '@/hooks/settings/pickupLocation/usePickupLocationState';
+import { usePickupLocationState } from '@/app/_conceptions/Settings/hooks/pickupLocation/usePickupLocationState';
 
 describe('hooks/settings/pickupLocation/usePickupLocationState', () => {
 	it('returns initial state and handlers', () => {

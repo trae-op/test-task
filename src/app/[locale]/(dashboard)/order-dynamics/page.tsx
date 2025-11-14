@@ -1,4 +1,4 @@
-import { getOrders } from '@/actions/orders';
+import { getOrders } from '@/app/_conceptions/Orders/actions';
 import { Container } from '@/conceptions/OrderDynamics';
 
 export default async function OrderDynamicsPage() {
