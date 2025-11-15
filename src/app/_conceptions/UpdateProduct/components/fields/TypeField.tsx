@@ -26,13 +26,18 @@ export const TypeField = () => {
 	);
 
 	return (
-		<Form.Group className='mb-3' controlId='type'>
+		<Form.Group
+			className='mb-3'
+			controlId='type'
+			data-testid='update-product-type-field'
+		>
 			<Form.Label>{t('Type')}</Form.Label>
 			<SelectField
 				options={typeOptions}
 				value={toSelectValue(typeOptions, value)}
 				onChange={e => setValue('type', e.target.value)}
 				placeholder={t('Select type')}
+				data-testid='update-product-type-select'
 			/>
 			<input type='hidden' {...register('type')} />
 		</Form.Group>

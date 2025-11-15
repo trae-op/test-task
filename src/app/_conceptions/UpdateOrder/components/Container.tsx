@@ -63,7 +63,9 @@ export const Container = ({ values, products }: TUpdateContainerProps) => {
 
 	return (
 		<FormProvider {...methods}>
-			<UpdateForm />
+			<div data-testid='update-order-container'>
+				<UpdateForm />
+			</div>
 		</FormProvider>
 	);
 };

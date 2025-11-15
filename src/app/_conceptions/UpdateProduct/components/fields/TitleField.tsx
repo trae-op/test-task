@@ -13,7 +13,11 @@ export const TitleField = () => {
 	const te = useTranslations('App.errors');
 
 	return (
-		<Form.Group className='mb-3' controlId='title'>
+		<Form.Group
+			className='mb-3'
+			controlId='title'
+			data-testid='update-product-title-field'
+		>
 			<Form.Label>{t('Title')}</Form.Label>
 			<TextField
 				{...register('title', { required: t('This field is required') })}
@@ -25,6 +29,7 @@ export const TitleField = () => {
 						? errors.title.message
 						: undefined
 				}
+				data-testid='update-product-title-input'
 			/>
 		</Form.Group>
 	);

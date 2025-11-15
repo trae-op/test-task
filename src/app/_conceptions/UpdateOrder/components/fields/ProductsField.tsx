@@ -22,7 +22,11 @@ export const ProductsField = () => {
 	};
 
 	return (
-		<Form.Group className='mb-4' controlId='products'>
+		<Form.Group
+			className='mb-4'
+			controlId='products'
+			data-testid='update-order-products-field'
+		>
 			<Form.Label>{t('Products')}</Form.Label>
 			<MultiSelectField
 				options={productOptions}
@@ -30,6 +34,7 @@ export const ProductsField = () => {
 				onChange={onProductsChange}
 				closeMenuOnSelect={false}
 				placeholder={t('Select')}
+				data-testid='update-order-products-input'
 			/>
 		</Form.Group>
 	);

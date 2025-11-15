@@ -3,6 +3,10 @@ import * as React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
+	addProductTypeSubmit,
+	deleteProductType
+} from '@/app/_conceptions/Settings/actions/productType';
+import {
 	useListSelector,
 	useSetAllDispatch
 } from '@/app/_conceptions/Settings/context/productType/useContext';
@@ -49,9 +53,13 @@ type TMockState = {
 const setupHook = () => {
 	const addState: TMockState = { ok: false };
 	mockUseActionState.mockReset();
-	mockUseActionState
-		.mockReturnValueOnce([addState, formActionMock])
-		.mockReturnValueOnce([{ ok: false }, deleteFormActionMock]);
+	mockUseActionState.mockImplementation(handler => {
+		if (handler === addProductTypeSubmit) {
+			return [addState, formActionMock];
+		}
+
+		return [{ ok: false }, deleteFormActionMock];
+	});
 	(useListSelector as jest.Mock).mockReturnValue(mockList);
 	(useSetAllDispatch as jest.Mock).mockReturnValue(setAllMock);
 	const resetMock = jest.fn();

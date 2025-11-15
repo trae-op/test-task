@@ -12,7 +12,11 @@ export const GuaranteeStartField = () => {
 	const t = useTranslations('App');
 
 	return (
-		<Form.Group className='mb-3' controlId='guaranteeStart'>
+		<Form.Group
+			className='mb-3'
+			controlId='guaranteeStart'
+			data-testid='update-product-guarantee-start-field'
+		>
 			<Form.Label>{t('Guarantee start')}</Form.Label>
 			<Controller
 				name='guaranteeStart'
@@ -27,6 +31,7 @@ export const GuaranteeStartField = () => {
 								? errors.guaranteeStart.message
 								: undefined
 						}
+						data-testid='update-product-guarantee-start-input'
 					/>
 				)}
 			/>

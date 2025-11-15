@@ -23,6 +23,7 @@ export const SubmitButton = () => {
 				isLoading={isLoading}
 				disabled={isLoading}
 				className='ps-3 pe-3'
+				data-testid='update-product-submit'
 			/>
 		</div>
 	);

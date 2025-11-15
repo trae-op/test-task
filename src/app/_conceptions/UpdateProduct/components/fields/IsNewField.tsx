@@ -7,7 +7,11 @@ export const IsNewField = () => {
 	const t = useTranslations('App');
 
 	return (
-		<Form.Group className='mb-3' controlId='isNew'>
+		<Form.Group
+			className='mb-3'
+			controlId='isNew'
+			data-testid='update-product-is-new-field'
+		>
 			<Controller
 				name='isNew'
 				control={control}
@@ -19,6 +23,7 @@ export const IsNewField = () => {
 						checked={!!field.value}
 						onChange={e => field.onChange(e.target.checked)}
 						ref={field.ref}
+						data-testid='update-product-is-new-input'
 					/>
 				)}
 			/>

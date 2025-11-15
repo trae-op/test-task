@@ -9,12 +9,17 @@ export const SpecificationField = () => {
 	const t = useTranslations('App');
 
 	return (
-		<Form.Group className='mb-3' controlId='specification'>
+		<Form.Group
+			className='mb-3'
+			controlId='specification'
+			data-testid='update-product-specification-field'
+		>
 			<Form.Label>{t('Specification')}</Form.Label>
 			<TextField
 				{...register('specification')}
 				as='textarea'
 				placeholder={t('Enter specification')}
+				data-testid='update-product-specification-input'
 			/>
 		</Form.Group>
 	);

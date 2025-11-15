@@ -14,7 +14,11 @@ export const GuaranteeEndField = () => {
 	const watchGuaranteeStart = watch('guaranteeStart');
 
 	return (
-		<Form.Group className='mb-3' controlId='guaranteeEnd'>
+		<Form.Group
+			className='mb-3'
+			controlId='guaranteeEnd'
+			data-testid='update-product-guarantee-end-field'
+		>
 			<Form.Label>{t('Guarantee end')}</Form.Label>
 			<Controller
 				name='guaranteeEnd'
@@ -38,6 +42,7 @@ export const GuaranteeEndField = () => {
 								? errors.guaranteeEnd.message
 								: undefined
 						}
+						data-testid='update-product-guarantee-end-input'
 					/>
 				)}
 			/>

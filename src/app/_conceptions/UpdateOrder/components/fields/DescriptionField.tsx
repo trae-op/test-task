@@ -11,12 +11,17 @@ export const DescriptionField = () => {
 	const { register } = useFormContext<TUpdateOrderFormData>();
 
 	return (
-		<Form.Group className='mb-3' controlId='description'>
+		<Form.Group
+			className='mb-3'
+			controlId='description'
+			data-testid='update-order-description-field'
+		>
 			<Form.Label>{t('Description')}</Form.Label>
 			<TextField
 				{...register('description')}
 				as='textarea'
 				placeholder={t('Enter description')}
+				data-testid='update-order-description-input'
 			/>
 		</Form.Group>
 	);

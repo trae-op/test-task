@@ -39,7 +39,11 @@ export const UpdateForm = () => {
 
 	return (
 		<Card>
-			<Card.Header as='h4' className='text-center'>
+			<Card.Header
+				as='h4'
+				className='text-center'
+				data-testid='update-product-header'
+			>
 				{t('Update product')}
 			</Card.Header>
 			<Card.Body>
@@ -49,6 +53,7 @@ export const UpdateForm = () => {
 					noValidate
 					action={handleActionForm}
 					onSubmitCapture={onSubmitCapture}
+					data-testid='update-product-form'
 				>
 					<TitleField />
 					<TypeField />

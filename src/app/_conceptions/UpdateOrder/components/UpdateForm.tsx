@@ -31,12 +31,24 @@ export const UpdateForm = () => {
 		if (!isValid) {
 			event.preventDefault();
 			event.stopPropagation();
+
+			const nativeEvent = event.nativeEvent;
+			if (typeof nativeEvent?.preventDefault === 'function') {
+				nativeEvent.preventDefault();
+			}
+			if (typeof nativeEvent?.stopPropagation === 'function') {
+				nativeEvent.stopPropagation();
+			}
 		}
 	};
 
 	return (
 		<Card>
-			<Card.Header as='h4' className='text-center'>
+			<Card.Header
+				as='h4'
+				className='text-center'
+				data-testid='update-order-header'
+			>
 				{t('Update order')}
 			</Card.Header>
 			<Card.Body>
@@ -45,6 +57,7 @@ export const UpdateForm = () => {
 					noValidate
 					action={handleActionForm}
 					onSubmitCapture={onSubmitCapture}
+					data-testid='update-order-form'
 				>
 					<TitleField />
 					<DescriptionField />

@@ -29,6 +29,7 @@ const TriggerButton = ({ children, ...props }: ButtonProps) => {
 			{...props}
 			text={t('Select location')}
 			disabled={!pickupLocations.length}
+			data-testid='update-order-location-trigger'
 		>
 			{children}
 		</Button>
@@ -100,7 +101,7 @@ export const LocationMapPopup = () => {
 	}, [pickupLocationOptions, selectedLocation]);
 
 	return (
-		<div className='mb-3'>
+		<div className='mb-3' data-testid='update-order-location-popup'>
 			<Popup
 				title='Select location'
 				componentButton={TriggerButton}
@@ -120,6 +121,7 @@ export const LocationMapPopup = () => {
 						<h5
 							className='mb-2 p-2 text-center fw-semibold'
 							style={{ height: 53 }}
+							data-testid='update-order-location-heading'
 						>
 							{t('Pickup locations')}
 						</h5>
@@ -127,6 +129,7 @@ export const LocationMapPopup = () => {
 							<div
 								className='d-flex flex-column gap-2 overflow-auto'
 								style={{ maxHeight: 320 }}
+								data-testid='update-order-location-list'
 							>
 								{pickupLocationOptions.map(option => {
 									const onClick = () =>
@@ -142,6 +145,7 @@ export const LocationMapPopup = () => {
 											text={option.label}
 											className='rounded-1 w-100 h-auto'
 											onClick={onClick}
+											data-testid={`update-order-location-option-${option.id}`}
 										/>
 									);
 								})}
@@ -153,7 +157,9 @@ export const LocationMapPopup = () => {
 				</div>
 			</Popup>
 			{selectedLocation !== undefined && (
-				<div className='pt-2'>{formatLocationLabel(selectedLocation)}</div>
+				<div className='pt-2' data-testid='update-order-selected-location'>
+					{formatLocationLabel(selectedLocation)}
+				</div>
 			)}
 		</div>
 	);

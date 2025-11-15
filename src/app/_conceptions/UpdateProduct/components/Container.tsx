@@ -50,7 +50,9 @@ export const Container = ({
 
 	return (
 		<FormProvider {...methods}>
-			<UpdateForm />
+			<div data-testid='update-product-container'>
+				<UpdateForm />
+			</div>
 		</FormProvider>
 	);
 };

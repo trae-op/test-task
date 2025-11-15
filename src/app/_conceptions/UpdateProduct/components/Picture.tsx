@@ -60,7 +60,7 @@ export const PictureProduct = memo(() => {
 	};
 
 	return (
-		<div className='d-flex gap-3'>
+		<div className='d-flex gap-3' data-testid='update-product-picture-section'>
 			<Picture
 				src={picture || ''}
 				alt='Product Picture'
@@ -80,6 +80,7 @@ export const PictureProduct = memo(() => {
 					handleBeforeSuccess={handleBeforeSuccess}
 					handleSuccess={handleSuccess}
 					handleFail={handleFail}
+					data-testid='update-product-image-upload'
 				/>
 			)}
 		</div>
