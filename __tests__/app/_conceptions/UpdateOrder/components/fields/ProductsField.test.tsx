@@ -12,8 +12,8 @@ const multiSelectMock = jest.fn();
 jest.mock(
 	'next/dynamic',
 	() => (factory: () => Promise<{ MultiSelectField: React.ComponentType }>) => {
-		const module = require('@/components/MultiSelectField');
-		return module.MultiSelectField;
+		const multiSelectModule = require('@/components/MultiSelectField');
+		return multiSelectModule.MultiSelectField;
 	}
 );
 

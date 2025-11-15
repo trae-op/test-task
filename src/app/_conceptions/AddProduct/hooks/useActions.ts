@@ -10,12 +10,13 @@ import {
 } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import { addProductSubmit } from '../actions/submit';
+
 import type {
 	TAddProductActions,
 	TAddProductFormData,
 	TPriceOption
 } from './types';
-import { addProductSubmit } from '../actions/submit';
 
 export const useActions = (): TAddProductActions => {
 	const params = useParams();

@@ -6,14 +6,6 @@ import { getUserSession } from '@/utils/session';
 import { updateOrder } from '@/app/_conceptions/UpdateOrder/actions/action';
 import { prisma } from '@/prisma/prisma-client';
 
-import { revalidateTag } from 'next/cache';
-
-import { prisma } from '@/prisma/prisma-client';
-import { findChangedProducts } from '@/utils/products';
-import { getUserSession } from '@/utils/session';
-
-import { updateOrder } from '@/app/_conceptions/UpdateOrder/actions/action';
-
 jest.mock('next/cache', () => ({
 	revalidateTag: jest.fn()
 }));
@@ -47,38 +39,6 @@ jest.mock('@/utils/products', () => ({
 }));
 
 describe('UpdateOrder updateOrder', () => {
-	jest.mock('next/cache', () => ({
-		revalidateTag: jest.fn()
-	}));
-
-	jest.mock('@/prisma/prisma-client', () => ({
-		prisma: {
-			order: {
-				updateMany: jest.fn()
-			},
-			product: {
-				findMany: jest.fn(),
-				updateMany: jest.fn()
-			},
-			orderLocation: {
-				upsert: jest.fn()
-			},
-			$transaction: jest.fn(fn => fn())
-		}
-	}));
-
-	jest.mock('@/utils/session', () => ({
-		getUserSession: jest.fn()
-	}));
-
-	jest.mock('@/utils/products', () => ({
-		findChangedProducts: jest.fn(() => ({
-			toDisconnect: [],
-			toConnect: [],
-			hasChanges: false
-		}))
-	}));
-
 	test('returns default message when no session', async () => {
 		(getUserSession as jest.Mock).mockResolvedValueOnce(null);
 
