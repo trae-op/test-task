@@ -1,14 +1,14 @@
 import { getUserSession } from '@/utils/session';
 
-import { getPickupLocations } from '@/actions/pickupLocation';
-import { getCurrencies } from '@/actions/settings/currency/action';
-import { getProductTypes } from '@/actions/settings/productType';
-import { CurrencyContainer } from '@/conceptions/Settings/Currency/Container';
-import { PickupLocationContainer } from '@/conceptions/Settings/PickupLocation/Container';
-import { ProductTypeContainer } from '@/conceptions/Settings/ProductType/Container';
-import { Provider as CurrencyProvider } from '@/context/currency';
-import { Provider as PickupLocationProvider } from '@/context/pickupLocation';
-import { Provider as ProductTypeProvider } from '@/context/productType';
+import { getCurrencies } from '@/conceptions/Settings/actions/currency/action';
+import { getPickupLocations } from '@/conceptions/Settings/actions/pickupLocation';
+import { getProductTypes } from '@/conceptions/Settings/actions/productType';
+import { CurrencyContainer } from '@/conceptions/Settings/components/Currency/Container';
+import { PickupLocationContainer } from '@/conceptions/Settings/components/PickupLocation/Container';
+import { ProductTypeContainer } from '@/conceptions/Settings/components/ProductType/Container';
+import { Provider as CurrencyProvider } from '@/conceptions/Settings/context/currency';
+import { Provider as PickupLocationProvider } from '@/conceptions/Settings/context/pickupLocation';
+import { Provider as ProductTypeProvider } from '@/conceptions/Settings/context/productType';
 
 export default async function SettingsPage() {
 	const userSession = await getUserSession();

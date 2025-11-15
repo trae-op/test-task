@@ -1,35 +1,50 @@
-import { findChangedProducts } from '@/utils/products';
+import { findChangedProducts, getPicturesByProducts } from '@/utils/products';
+
+jest.mock('@/utils/upload-files', () => ({
+	getFullPathUploadPicture: jest.fn(({ url }: { url: string }) => `${url}-mini`)
+}));
 
 describe('findChangedProducts', () => {
-	it('detects connects only', () => {
-		const res = findChangedProducts({
-			foundProducts: [],
-			newProductIds: ['a', 'b']
-		});
-		expect(res).toEqual({
-			toDisconnect: [],
-			toConnect: ['a', 'b'],
-			hasChanges: true
-		});
+	test('detects products to connect and disconnect', () => {
+		const foundProducts = [{ id: '1' }, { id: '2' }];
+		const newProductIds = ['2', '3'];
+		const result = findChangedProducts({ foundProducts, newProductIds });
+		expect(result.toDisconnect).toEqual(['1']);
+		expect(result.toConnect).toEqual(['3']);
+		expect(result.hasChanges).toBe(true);
 	});
 
-	it('detects disconnects only', () => {
-		const res = findChangedProducts({
-			foundProducts: [{ id: '1' }, { id: '2' }] as any,
-			newProductIds: []
-		});
-		expect(res).toEqual({
-			toDisconnect: ['1', '2'],
-			toConnect: [],
-			hasChanges: true
-		});
+	test('reports no changes for same products', () => {
+		const foundProducts = [{ id: '1' }];
+		const newProductIds = ['1'];
+		const result = findChangedProducts({ foundProducts, newProductIds });
+		expect(result.toDisconnect).toEqual([]);
+		expect(result.toConnect).toEqual([]);
+		expect(result.hasChanges).toBe(false);
+	});
+});
+
+describe('getPicturesByProducts', () => {
+	test('returns null when no items', () => {
+		const selector = getPicturesByProducts({ ok: false, code: 'ERR' });
+		expect(selector('1')).toBeNull();
 	});
 
-	it('no changes when sets are equal', () => {
-		const res = findChangedProducts({
-			foundProducts: [{ id: '1' }, { id: '2' }] as any,
-			newProductIds: ['2', '1']
+	test('returns mini picture url when available', () => {
+		const selector = getPicturesByProducts({
+			ok: true,
+			items: [
+				{
+					id: '1',
+					createdAt: new Date(),
+					userId: 'u',
+					productId: 'p1',
+					url: 'http://example.com/img.jpg',
+					pictureId: 'pic'
+				}
+			]
 		});
-		expect(res).toEqual({ toDisconnect: [], toConnect: [], hasChanges: false });
+		const value = selector('p1');
+		expect(value).toBe('http://example.com/img.jpg-mini');
 	});
 });

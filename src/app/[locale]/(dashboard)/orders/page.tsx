@@ -1,10 +1,10 @@
 import { getPicturesByProducts } from '@/utils/products';
 
-import { getOrders } from '@/actions/orders';
 import { getPicturesByEntities } from '@/actions/pictures/products';
-import { getProducts } from '@/actions/products';
 import { Container } from '@/conceptions/Orders';
-import { Provider } from '@/context/orders';
+import { getOrders } from '@/conceptions/Orders/actions';
+import { Provider } from '@/conceptions/Orders/context';
+import { getProducts } from '@/conceptions/Products/actions';
 
 export default async function OrdersPage() {
 	const { items, ok } = await getOrders({

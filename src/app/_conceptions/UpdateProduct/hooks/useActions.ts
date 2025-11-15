@@ -1,0 +1,70 @@
+'use client';
+
+import { useParams } from 'next/navigation';
+import {
+	startTransition,
+	useActionState,
+	useCallback,
+	useEffect,
+	useMemo
+} from 'react';
+import { useFormContext } from 'react-hook-form';
+
+import { TDynamicPageParams } from '@/types/dynamicPage';
+
+import { updateProduct } from '../actions';
+
+import type {
+	TPriceOption,
+	TUpdateActionsHook,
+	TUpdateFormData
+} from './types';
+
+export const useUpdateActions = (): TUpdateActionsHook => {
+	const { watch } = useFormContext();
+	const params = useParams<TDynamicPageParams>();
+	const prices: TPriceOption[] = watch('prices');
+	const [state, formAction] = useActionState(updateProduct, {
+		ok: false
+	});
+	const paramId = params?.id;
+
+	useEffect(() => {
+		if (state?.message) {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		}
+	}, [state?.message]);
+
+	const onUpdateSubmit = useCallback(
+		(data: TUpdateFormData) => {
+			const pricesPayload = prices?.map(
+				({ value, valueAmount, isDefault }, index) => ({
+					symbol: value,
+					value: Number(valueAmount ?? 0),
+					isDefault: typeof isDefault === 'boolean' ? isDefault : index === 0
+				})
+			);
+
+			const fd = new FormData();
+			fd.append('id', paramId || '');
+			fd.append('title', data.title || '');
+			fd.append('isNew', data.isNew ? 'true' : 'false');
+			fd.append('serialNumber', data.serialNumber || '');
+			fd.append('type', data.type || '');
+			fd.append('specification', data.specification || '');
+			fd.append('guaranteeStart', String(data.guaranteeStart || ''));
+			fd.append('guaranteeEnd', String(data.guaranteeEnd || ''));
+			fd.append('prices', JSON.stringify(pricesPayload));
+
+			startTransition(() => {
+				formAction(fd);
+			});
+		},
+		[prices, paramId, formAction]
+	);
+
+	return useMemo(
+		() => ({ onUpdateSubmit, error: state?.message }),
+		[onUpdateSubmit, state?.message]
+	);
+};

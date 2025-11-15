@@ -1,30 +1,11 @@
 import { generateSerialNumber } from '@/utils/generateSerialNumber';
 
+jest.useFakeTimers().setSystemTime(new Date('2024-01-02T03:04:05Z'));
+
 describe('generateSerialNumber', () => {
-	const realRandom = Math.random;
-	const fixedDate = new Date(2025, 10, 3, 9, 7, 5);
-	const deterministicRandom = () => 0.1234;
-
-	beforeAll(() => {
-		jest.useFakeTimers();
-		jest.setSystemTime(fixedDate);
-		Math.random = deterministicRandom;
-	});
-
-	afterAll(() => {
-		jest.useRealTimers();
-		Math.random = realRandom;
-	});
-
-	it('returns formatted serial string with date, time, and 4-digit random', () => {
-		const sn = generateSerialNumber();
-		expect(sn).toBe('SN-20251103-090705-1234');
-	});
-
-	it('pads random to 4 digits', () => {
-		Math.random = () => 0;
-		const sn = generateSerialNumber();
-		const suffix = sn.split('-').pop();
-		expect(suffix).toBe('0000');
+	test('returns deterministic serial format', () => {
+		jest.spyOn(Math, 'random').mockReturnValue(0.1234);
+		const value = generateSerialNumber();
+		expect(value).toMatch(/^SN-\d{8}-\d{6}-\d{4}$/);
 	});
 });

@@ -1,1 +1,1 @@
-export * from './FilterProductsWrapper';
+export * from './components/FilterProductsWrapper';

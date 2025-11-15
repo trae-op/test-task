@@ -24,6 +24,12 @@
 			"@/conceptions/*": ["./src/app/_conceptions/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"src/app/_conceptions/TopHeader"
+	],
 	"exclude": ["node_modules"]
 }

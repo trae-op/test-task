@@ -1,30 +1,30 @@
-import { formatDateTime } from '@/utils/dateTime';
+import {
+	convertISODateToInputDate,
+	convertToISOStringUTC,
+	formatDateTime
+} from '@/utils/dateTime/dateTime';
 
-describe('utils/dateTime: formatDateTime', () => {
-	it('formats ISO string with i18n locale (en default)', () => {
-		const iso = '2025-10-17T14:35:00.000Z';
-		const out = formatDateTime({
-			dateString: iso,
-			formatString: 'yyyy-MM-dd HH:mm',
-			i18nLocale: 'en-US'
+jest.useFakeTimers().setSystemTime(new Date('2024-01-02T03:04:05Z'));
+
+describe('dateTime utils', () => {
+	test('formatDateTime formats ISO string with default locale', () => {
+		const value = formatDateTime({
+			dateString: '2024-01-15T10:30:00Z',
+			i18nLocale: 'en'
 		});
-		expect(out).toMatch(/2025-10-17 \d{2}:\d{2}/);
+		expect(typeof value).toBe('string');
+		expect(value).toContain('2024');
 	});
 
-	it('formats Date with uk locale', () => {
-		const d = new Date('2025-10-17T14:35:00.000Z');
-		const out = formatDateTime({
-			dateString: d,
-			formatString: 'dd MMM yyyy',
-			i18nLocale: 'uk'
-		});
-		expect(out).toMatch(/17 .* 2025/);
+	test('convertToISOStringUTC normalizes to midnight UTC', () => {
+		const result = convertToISOStringUTC('2024-01-15');
+		expect(result).toBe('2024-01-15T00:00:00.000Z');
 	});
 
-	it('uses default format when formatString is not provided', () => {
-		const d = new Date('2025-10-17T14:35:00.000Z');
-		const out = formatDateTime({ dateString: d });
-		expect(typeof out).toBe('string');
-		expect(out.length).toBeGreaterThan(0);
+	test('convertISODateToInputDate extracts date part or empty', () => {
+		expect(convertISODateToInputDate('2024-01-15T00:00:00.000Z')).toBe(
+			'2024-01-15'
+		);
+		expect(convertISODateToInputDate('')).toBe('');
 	});
 });

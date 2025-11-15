@@ -1,1 +1,1 @@
-export * from './ActiveSessionsCounter';
+export * from './components/ActiveSessionsCounter';

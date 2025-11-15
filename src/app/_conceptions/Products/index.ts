@@ -1,3 +1,2 @@
-export * from './Products';
-export * from './Product';
-export * from './Container';
+export * from './components/Products';
+export * from './components/Container';

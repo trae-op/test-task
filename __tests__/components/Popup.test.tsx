@@ -1,40 +1,64 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
-import React from 'react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import { DeleteEntityButton } from '@/components/DeleteEntityButton';
-import { Popup } from '@/components/Popup/Popup';
+import { Popup } from '@/components/Popup';
 
-function immediateModal({ children }: { children: React.ReactNode }) {
-	return <div role='dialog'>{children}</div>;
-}
+type TestButtonProps = {
+	children?: React.ReactNode;
+	className?: string;
+	'aria-label'?: string;
+	onClick?: () => void;
+};
 
-jest.mock('react-bootstrap/Modal', () => immediateModal);
+const TestButton = ({ children, ...rest }: TestButtonProps) => (
+	<button type='button' data-testid='popup-open-button' {...rest}>
+		{children}
+	</button>
+);
 
-jest.mock('@/hooks/popup', () => ({
-	usePopup: () => ({
-		isOpen: true,
-		handleOpen: jest.fn(),
-		handleClose: jest.fn()
-	})
-}));
+describe('Popup', () => {
+	test('opens popup and triggers callbacks via open button', () => {
+		const onOpen = jest.fn();
+		const onCancel = jest.fn();
+		const onHide = jest.fn();
 
-describe('components/Popup', () => {
-	it('opens and invokes popup handler', async () => {
-		const onApply = jest.fn();
 		render(
 			<Popup
-				title='popup?'
-				componentButton={DeleteEntityButton}
-				onApply={onApply}
-			/>
+				title='Confirm action'
+				applyText='Apply'
+				componentButton={TestButton}
+				onOpen={onOpen}
+				onCancel={onCancel}
+				onHide={onHide}
+			>
+				<div data-testid='popup-body'>Body content</div>
+			</Popup>
 		);
 
-		fireEvent.click(screen.getAllByRole('button', { name: /Delete/i })[0]);
-		const footer = (await screen.findByText('Cancel')).closest(
-			'div'
-		) as HTMLElement;
-		const btn = within(footer).getByRole('button', { name: /^Apply$/i });
-		fireEvent.click(btn);
-		expect(onApply).toHaveBeenCalled();
+		const openButton = screen.getByTestId('popup-open-button');
+		fireEvent.click(openButton);
+
+		expect(onOpen).toHaveBeenCalledTimes(1);
+	});
+
+	test('calls onApply in uncontrolled mode when apply button is clicked', () => {
+		const onApply = jest.fn();
+
+		render(
+			<Popup
+				title='Confirm action'
+				applyText='Apply'
+				componentButton={TestButton}
+				onApply={onApply}
+			>
+				<div data-testid='popup-body'>Body content</div>
+			</Popup>
+		);
+
+		fireEvent.click(screen.getByTestId('popup-open-button'));
+
+		const applyButton = screen.getByRole('button', { name: 'Apply' });
+		fireEvent.click(applyButton);
+
+		expect(onApply).toHaveBeenCalledTimes(1);
 	});
 });

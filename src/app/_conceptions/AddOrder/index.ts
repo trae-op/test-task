@@ -1,1 +1,1 @@
-export * from './AddOrder';
+export * from './components/AddOrder';

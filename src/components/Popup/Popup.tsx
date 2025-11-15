@@ -1,19 +1,17 @@
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
-import { type MouseEvent, memo, useCallback } from 'react';
+import { type MouseEvent, memo, useCallback, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import { CloseEntityButton } from '@/components/CloseEntityButton';
 
-import { usePopup } from '@/hooks/popup';
-
 import styles from './Popup.module.scss';
-import type { TConfirmPopupProps } from './types';
+import type { TPopupProps } from './types';
 
 const BLOCK = 'popup';
 
-const RBModal = dynamic(() => import('react-bootstrap/Modal'), {
+const Dialog = dynamic(() => import('react-bootstrap/Modal'), {
 	ssr: false,
 	loading: () => null
 });
@@ -41,12 +39,20 @@ export const Popup = memo(
 		isLoading,
 		showApplyButton = true,
 		...rest
-	}: TConfirmPopupProps) => {
+	}: TPopupProps) => {
 		const t = useTranslations('App');
-		const { isOpen, handleOpen, handleClose } = usePopup();
+		const [isOpen, setIsOpen] = useState(false);
 
 		const isControlled = show !== undefined;
 		const isModalOpen = isControlled ? show : isOpen;
+
+		const handleOpen = () => {
+			setIsOpen(true);
+		};
+
+		const handleClose = () => {
+			setIsOpen(false);
+		};
 
 		const handlePopupOpen = () => {
 			onOpen?.();
@@ -88,7 +94,7 @@ export const Popup = memo(
 					{Icon ? <Icon /> : null}
 				</ComponentButton>
 				{isModalOpen ? (
-					<RBModal
+					<Dialog
 						show={isModalOpen}
 						onHide={handleModalHide}
 						className={clsx(styles[BLOCK], className)}
@@ -158,7 +164,7 @@ export const Popup = memo(
 								/>
 							</div>
 						</div>
-					</RBModal>
+					</Dialog>
 				) : null}
 			</>
 		);

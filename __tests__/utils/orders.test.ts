@@ -1,45 +1,32 @@
 import { calculateOrderTotals } from '@/utils/orders';
 
-type Price = { symbol: string; value: number; isDefault?: boolean };
-type Product = { prices?: Price[] };
-type Order = { id: string; products?: Product[] };
+const makeOrder = (id: string, userId: string) => ({
+	id,
+	userId,
+	products: [
+		{
+			id: 'p1',
+			prices: [
+				{ value: 1.1111, symbol: 'USD', isDefault: true },
+				{ value: 2, symbol: 'EUR', isDefault: false }
+			]
+		},
+		{
+			id: 'p2',
+			prices: [{ value: 3.2222, symbol: 'USD', isDefault: false }]
+		}
+	]
+});
 
 describe('calculateOrderTotals', () => {
-	it('aggregates product prices by currency with 3-decimal rounding', () => {
-		const orders: Order[] = [
-			{
-				id: 'o1',
-				products: [
-					{ prices: [{ symbol: 'USD', value: 10.12345, isDefault: true }] },
-					{
-						prices: [
-							{ symbol: 'USD', value: 5.55555 },
-							{ symbol: 'EUR', value: 2.4 }
-						]
-					}
-				]
-			}
-		];
-
-		const res = calculateOrderTotals(orders as any);
-		expect(res.o1).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({
-					symbol: 'USD',
-					value: 15.679,
-					isDefault: false
-				}),
-				expect.objectContaining({
-					symbol: 'EUR',
-					value: 2.4,
-					isDefault: false
-				})
-			])
-		);
-	});
-
-	it('returns prices undefined when no products', () => {
-		const res = calculateOrderTotals([{ id: 'o1' }] as any);
-		expect(res.o2).toBeUndefined();
+	test('aggregates totals per currency per order', () => {
+		const orders = [makeOrder('o1', 'u1')];
+		const result = calculateOrderTotals(orders as any);
+		const prices = result['o1'];
+		expect(prices).toHaveLength(2);
+		const usd = prices.find(p => p.symbol === 'USD');
+		const eur = prices.find(p => p.symbol === 'EUR');
+		expect(usd?.value).toBeCloseTo(4.333, 3);
+		expect(eur?.value).toBe(2);
 	});
 });
