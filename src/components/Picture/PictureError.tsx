@@ -16,7 +16,10 @@ export const PictureError = ({
 }) => {
 	if (!hasError) return null;
 	return (
-		<div className={clsx(styles[`${BLOCK}__error`], className)}>
+		<div
+			data-testid='picture-error'
+			className={clsx(styles[`${BLOCK}__error`], className)}
+		>
 			<ExclamationCircle
 				size={size}
 				className={styles[`${BLOCK}__error-icon`]}
