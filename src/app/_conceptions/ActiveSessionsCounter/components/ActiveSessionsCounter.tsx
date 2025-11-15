@@ -21,7 +21,7 @@ export const ActiveSessionsCounter = () => {
 	const isConnecting = status === 'connecting';
 
 	return (
-		<div className={styles[BLOCK]}>
+		<div className={styles[BLOCK]} data-testid='active-sessions-counter'>
 			<PeopleFill
 				aria-hidden
 				className={clsx({
@@ -36,6 +36,7 @@ export const ActiveSessionsCounter = () => {
 					['text-danger']: isError,
 					['text-success']: !isError
 				})}
+				data-testid='active-sessions-status'
 			>
 				{isError && t('Connection error')}
 
@@ -47,6 +48,7 @@ export const ActiveSessionsCounter = () => {
 						variant='secondary'
 						role='status'
 						aria-live='polite'
+						data-testid='active-sessions-spinner'
 					/>
 				)}
 

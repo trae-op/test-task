@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
-import { useMemo, useState } from 'react';
+import { FormEvent, useMemo, useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { FormProvider, useForm } from 'react-hook-form';
 import type { MultiValue } from 'react-select';
@@ -52,7 +52,8 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 		setSelectedProducts(value);
 	};
 
-	const handleActionForm = async () => {
+	const handleActionForm = async (event?: FormEvent<HTMLFormElement>) => {
+		event?.preventDefault();
 		const isValid = await form.trigger();
 		if (!isValid) {
 			return;
@@ -75,7 +76,11 @@ export const AddOrder = ({ products }: TAddOrderProps) => {
 			<Card.Body>
 				<MessagesServer message={error} type='error' />
 				<FormProvider {...form}>
-					<Form noValidate action={handleActionForm}>
+					<Form
+						noValidate
+						onSubmit={handleActionForm}
+						data-testid='add-order-form'
+					>
 						<Form.Group className='mb-3' controlId='title'>
 							<Form.Label>{t('Title')}</Form.Label>
 							<TextField
