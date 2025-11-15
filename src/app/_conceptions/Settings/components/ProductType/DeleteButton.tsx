@@ -21,6 +21,7 @@ const DeleteEntity = () => {
 			type='submit'
 			isLoading={pending}
 			disabled={pending}
+			data-testid='settings-product-type-delete-button'
 		/>
 	);
 };
@@ -40,7 +41,10 @@ export const DeleteButton = ({ entityId }: { entityId: string }) => {
 	}
 
 	return (
-		<form action={deleteAction}>
+		<form
+			action={deleteAction}
+			data-testid={`settings-product-type-delete-form-${entityId}`}
+		>
 			<DeleteEntity />
 		</form>
 	);

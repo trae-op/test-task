@@ -43,13 +43,18 @@ export const FormProductType = () => {
 
 	return (
 		<Card>
-			<Card.Header as='h5' className='text-center'>
+			<Card.Header
+				as='h5'
+				className='text-center'
+				data-testid='settings-product-type-header'
+			>
 				{t('Add product type')}
 			</Card.Header>
 			<Card.Body>
 				<ProductTypeList />
 				<MessagesServer message={state.message} type='error' />
 				<Form
+					data-testid='settings-product-type-form'
 					noValidate
 					action={handleActionForm}
 					onSubmitCapture={onSubmitCapture}
@@ -62,7 +67,10 @@ export const FormProductType = () => {
 							placeholder={t('Enter title')}
 							isInvalid={!!errors.title}
 						/>
-						<Form.Control.Feedback type='invalid'>
+						<Form.Control.Feedback
+							type='invalid'
+							data-testid='settings-product-type-error-title'
+						>
 							{errors.title?.message as string}
 						</Form.Control.Feedback>
 					</Form.Group>
@@ -81,7 +89,10 @@ export const FormProductType = () => {
 							placeholder={t('Enter value')}
 							isInvalid={!!errors.value}
 						/>
-						<Form.Control.Feedback type='invalid'>
+						<Form.Control.Feedback
+							type='invalid'
+							data-testid='settings-product-type-error-value'
+						>
 							{errors.value?.message as string}
 						</Form.Control.Feedback>
 					</Form.Group>

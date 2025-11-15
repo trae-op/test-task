@@ -15,11 +15,12 @@ export const ProductTypeList = memo(() => {
 	}
 
 	return (
-		<ListGroup className='mb-3'>
+		<ListGroup className='mb-3' data-testid='settings-product-type-list'>
 			{items.map(item => (
 				<ListGroup.Item
 					key={item.id}
 					className='d-flex align-items-center justify-content-between'
+					data-testid={`settings-product-type-item-${item.id}`}
 				>
 					<span>
 						{item.title} ({item.value})

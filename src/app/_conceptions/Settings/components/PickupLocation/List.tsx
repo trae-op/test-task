@@ -30,6 +30,7 @@ const DeleteButton = ({ ariaLabel }: TDeleteButtonProps) => {
 				},
 				'd-flex align-items-center justify-content-center bg-danger p-3 border-0 rounded text-white'
 			)}
+			data-testid='settings-pickup-delete-button'
 		>
 			{pending ? <Spinner animation='border' size='sm' /> : <Trash size={16} />}
 		</button>
@@ -63,7 +64,10 @@ const PickupLocationListItem = memo(
 		}, [state.ok, get, setAll, item.id]);
 
 		return (
-			<ListGroup.Item className='d-flex align-items-center justify-content-between gap-1'>
+			<ListGroup.Item
+				className='d-flex align-items-center justify-content-between gap-1'
+				data-testid={`settings-pickup-item-${item.id}`}
+			>
 				<span>{item.label}</span>
 				<form action={formAction} className='d-inline-flex'>
 					<input type='hidden' name='id' value={item.id} />
@@ -81,7 +85,7 @@ export const PickupLocationList = memo(
 
 		if (!items.length) {
 			return (
-				<p className='mb-3 text-muted'>
+				<p className='mb-3 text-muted' data-testid='settings-pickup-empty'>
 					{t('No pickup locations yet', {
 						default: 'No pickup locations yet'
 					})}
@@ -90,7 +94,7 @@ export const PickupLocationList = memo(
 		}
 
 		return (
-			<ListGroup className='mb-3 w-100'>
+			<ListGroup className='mb-3 w-100' data-testid='settings-pickup-list'>
 				{items.map(item => (
 					<PickupLocationListItem
 						key={item.id}

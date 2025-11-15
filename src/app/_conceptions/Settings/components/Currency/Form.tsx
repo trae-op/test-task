@@ -43,13 +43,18 @@ export const FormCurrency = () => {
 
 	return (
 		<Card>
-			<Card.Header as='h5' className='text-center'>
+			<Card.Header
+				as='h5'
+				className='text-center'
+				data-testid='settings-currency-header'
+			>
 				{t('Add currency')}
 			</Card.Header>
 			<Card.Body>
 				<CurrencyList />
 				<MessagesServer message={state.message} type='error' />
 				<Form
+					data-testid='settings-currency-form'
 					noValidate
 					action={handleActionForm}
 					onSubmitCapture={onSubmitCapture}
@@ -62,7 +67,10 @@ export const FormCurrency = () => {
 							placeholder={t('Enter title')}
 							isInvalid={!!errors.title}
 						/>
-						<Form.Control.Feedback type='invalid'>
+						<Form.Control.Feedback
+							type='invalid'
+							data-testid='settings-currency-error-title'
+						>
 							{errors.title?.message as string}
 						</Form.Control.Feedback>
 					</Form.Group>
@@ -81,7 +89,10 @@ export const FormCurrency = () => {
 							placeholder={t('Enter value')}
 							isInvalid={!!errors.value}
 						/>
-						<Form.Control.Feedback type='invalid'>
+						<Form.Control.Feedback
+							type='invalid'
+							data-testid='settings-currency-error-value'
+						>
 							{errors.value?.message as string}
 						</Form.Control.Feedback>
 					</Form.Group>

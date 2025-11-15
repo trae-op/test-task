@@ -15,12 +15,13 @@ export const CurrencyList = memo(() => {
 	}
 
 	return (
-		<ListGroup className='mb-3'>
+		<ListGroup className='mb-3' data-testid='settings-currency-list'>
 			{items.map(item => {
 				return (
 					<ListGroup.Item
 						key={item.id}
 						className='d-flex align-items-center justify-content-between'
+						data-testid={`settings-currency-item-${item.id}`}
 					>
 						<span>
 							{item.title} ({item.value})

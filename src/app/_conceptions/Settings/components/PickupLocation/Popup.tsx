@@ -68,7 +68,11 @@ export const PickupLocationPopup = memo(
 					initialLocation={pendingLocation}
 				/>
 				{errorMessage ? (
-					<Alert variant='danger' className='my-3'>
+					<Alert
+						variant='danger'
+						className='my-3'
+						data-testid='settings-pickup-error'
+					>
 						{errorMessage}
 					</Alert>
 				) : null}
