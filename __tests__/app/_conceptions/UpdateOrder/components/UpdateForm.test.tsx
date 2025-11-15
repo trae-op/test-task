@@ -85,7 +85,7 @@ const mockFormContext = (
 	const formReturn = {
 		getValues: getValuesMock,
 		trigger: triggerMock
-	} as unknown as UseFormReturn<TUpdateOrderFormData>;
+	} as unknown as UseFormReturn<reactHookForm.FieldValues>;
 
 	useFormContextMock.mockReturnValue(formReturn);
 
