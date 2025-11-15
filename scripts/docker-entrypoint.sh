@@ -1,6 +1,12 @@
 #!/bin/sh
 set -e
 
-npx prisma migrate deploy
+export PORT=${PORT:-4000}
+
+if [ -d "./prisma/migrations" ] && [ "$(ls -A ./prisma/migrations)" ]; then
+	npx prisma migrate deploy --schema ./prisma/schema.prisma
+else
+	npx prisma db push --skip-generate --schema ./prisma/schema.prisma
+fi
 
 exec npm run start
