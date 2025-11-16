@@ -8,7 +8,6 @@ import { Popup } from '@/components/Popup';
 
 import { TProduct } from '@/types/products';
 
-import { Provider as ProductsProvider } from '../context/Context';
 import {
 	useDeleteLoadingSelector,
 	useListSelector
@@ -16,7 +15,7 @@ import {
 import { useActions as useDeleteEntityActions } from '../hooks';
 import type { TDeleteEntityProps } from '../types';
 
-import { ProductsTable } from '@/conceptions/Products';
+import { ProductsByOrder } from './ProductsByOrder';
 
 export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 	const [entities, setEntities] = useState<TProduct[] | undefined>(undefined);
@@ -56,10 +55,8 @@ export const DeleteEntity = memo(({ id }: TDeleteEntityProps) => {
 				applyButtonClassName=''
 				onApply={onDelete}
 			>
-				{Boolean(entities?.length) && (
-					<ProductsProvider isAdaptiveTable>
-						<ProductsTable isDeleteButton={false} items={entities} />
-					</ProductsProvider>
+				{entities !== undefined && entities.length > 0 && (
+					<ProductsByOrder items={entities} />
 				)}
 			</Popup>
 		</div>

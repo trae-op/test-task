@@ -3,8 +3,9 @@ import { getPicturesByProducts } from '@/utils/products';
 import { getPicturesByEntities } from '@/actions/pictures/products';
 import { Container } from '@/conceptions/Orders';
 import { getOrders } from '@/conceptions/Orders/actions';
-import { Provider } from '@/conceptions/Orders/context';
+import { Provider as OrdersProvider } from '@/conceptions/Orders/context';
 import { getProducts } from '@/conceptions/Products/actions';
+import { Provider as ProductsProvider } from '@/conceptions/Products/context';
 
 export default async function OrdersPage() {
 	const { items, ok } = await getOrders({
@@ -70,8 +71,10 @@ export default async function OrdersPage() {
 	}));
 
 	return (
-		<Provider items={ordersWithPictures}>
-			<Container />
-		</Provider>
+		<OrdersProvider items={ordersWithPictures}>
+			<ProductsProvider>
+				<Container />
+			</ProductsProvider>
+		</OrdersProvider>
 	);
 }

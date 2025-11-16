@@ -122,27 +122,33 @@ export const OrderRow = memo(
 
 							<div className={styles[`${BLOCK}__detail`]}>
 								<div className={styles[`${BLOCK}__detail-item`]}>
-									<div
-										className={clsx(
-											styles[`${BLOCK}__container-icon`],
-											'd-flex align-items-center justify-content-center'
-										)}
-									>
-										<ListUlIcon />
-									</div>
-									<div
-										className={clsx(
-											styles[`${BLOCK}__container-count`],
-											'd-flex flex-column'
-										)}
-									>
-										<span className={styles[`${BLOCK}__count`]}>
-											{amountOfProducts}
-										</span>
-										<span className={styles[`${BLOCK}__primary-text`]}>
-											{tp('Products')}
-										</span>
-									</div>
+									{Boolean(amountOfProducts) ? (
+										<>
+											<div
+												className={clsx(
+													styles[`${BLOCK}__container-icon`],
+													'd-flex align-items-center justify-content-center'
+												)}
+											>
+												<ListUlIcon />
+											</div>
+											<div
+												className={clsx(
+													styles[`${BLOCK}__container-count`],
+													'd-flex flex-column'
+												)}
+											>
+												<span className={styles[`${BLOCK}__count`]}>
+													{amountOfProducts}
+												</span>
+												<span className={styles[`${BLOCK}__primary-text`]}>
+													{tp('Products')}
+												</span>
+											</div>
+										</>
+									) : (
+										<span className='fs-1'>-</span>
+									)}
 								</div>
 
 								{!hasAdaptiveTable && locationDetails !== undefined && (
