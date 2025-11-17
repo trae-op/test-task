@@ -12,16 +12,12 @@ import { useEntityContext } from '../../context/pickupLocation/useContext';
 
 import type { TPickupLocationItem, TPickupLocationListProps } from './types';
 
-type TDeleteButtonProps = {
-	ariaLabel: string;
-};
-
-const DeleteButton = ({ ariaLabel }: TDeleteButtonProps) => {
+const DeleteButton = () => {
 	const { pending } = useFormStatus();
+
 	return (
 		<button
-			aria-label={ariaLabel}
-			title={ariaLabel}
+			aria-label='Delete pickup location'
 			type='submit'
 			disabled={pending}
 			className={clsx(
@@ -71,7 +67,7 @@ const PickupLocationListItem = memo(
 				<span>{item.label}</span>
 				<form action={formAction} className='d-inline-flex'>
 					<input type='hidden' name='id' value={item.id} />
-					<DeleteButton ariaLabel={deleteLabel} />
+					<DeleteButton />
 				</form>
 			</ListGroup.Item>
 		);

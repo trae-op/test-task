@@ -1,28 +1,32 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import clsx from 'clsx';
 import { useCallback } from 'react';
+import { Spinner } from 'react-bootstrap';
+import { Trash } from 'react-bootstrap-icons';
 import { useFormStatus } from 'react-dom';
-
-import { Button } from '@/components/Button';
 
 import { useListSelector } from '../../context/productType/useContext';
 import { useActions } from '../../hooks/productType';
 
 const DeleteEntity = () => {
-	const t = useTranslations('App');
 	const { pending } = useFormStatus();
 
 	return (
-		<Button
-			variant='danger'
-			text={t('Delete')}
-			size='sm'
+		<button
+			aria-label='Delete currency'
 			type='submit'
-			isLoading={pending}
 			disabled={pending}
-			data-testid='settings-product-type-delete-button'
-		/>
+			className={clsx(
+				{
+					['opacity-50']: pending
+				},
+				'd-flex align-items-center justify-content-center bg-danger p-3 border-0 rounded text-white'
+			)}
+			data-testid='settings-pickup-delete-button'
+		>
+			{pending ? <Spinner animation='border' size='sm' /> : <Trash size={16} />}
+		</button>
 	);
 };
 
