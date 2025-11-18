@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
@@ -22,7 +23,19 @@ const BLOCK = 'update-product';
 
 const ImageUpload = dynamic(
 	() => import('@/components/ImageUpload').then(m => m.ImageUpload),
-	{ ssr: false, loading: () => <Loading /> }
+	{
+		ssr: false,
+		loading: () => (
+			<div
+				className={clsx(
+					styles[`${BLOCK}__image-upload`],
+					'd-flex align-items-center justify-content-center w-100'
+				)}
+			>
+				<Loading />
+			</div>
+		)
+	}
 );
 
 export const PictureProduct = memo(() => {
@@ -65,7 +78,6 @@ export const PictureProduct = memo(() => {
 				src={picture || ''}
 				alt='Product Picture'
 				size='full'
-				sizes='100px'
 				className={styles[`${BLOCK}__picture`]}
 			/>
 			{paramId && (

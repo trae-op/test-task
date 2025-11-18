@@ -96,7 +96,7 @@ export const ImageUpload = ({
 	};
 
 	return (
-		<div className='d-flex flex-column align-items-center gap-2'>
+		<div className='d-flex flex-column align-items-center gap-2 w-100'>
 			<div className={clsx(styles[BLOCK], 'w-100')}>
 				<div
 					className={clsx(
