@@ -61,13 +61,22 @@ jobs:
           docker push "$REGISTRY_LOGIN_SERVER/$IMAGE_NAME:$TAG"
           docker push "$REGISTRY_LOGIN_SERVER/$IMAGE_NAME:latest"
 
+      - name: Apply Prisma runtime settings
+        run: |
+          az webapp config appsettings set \
+            --resource-group "$RESOURCE_GROUP" \
+            --name "$WEBAPP_NAME" \
+            --settings \
+              PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=$PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING \
+              PRISMA_CLI_QUERY_ENGINE_TYPE=$PRISMA_CLI_QUERY_ENGINE_TYPE \
+              PRISMA_CLIENT_ENGINE_TYPE=$PRISMA_CLIENT_ENGINE_TYPE
+
       - name: Update Azure Web App image
         run: |
           az webapp config container set \
             --resource-group "$RESOURCE_GROUP" \
             --name "$WEBAPP_NAME" \
-            --container-image-name "$REGISTRY_LOGIN_SERVER/$IMAGE_NAME:$TAG" \
-            --container-env PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1
+            --container-image-name "$REGISTRY_LOGIN_SERVER/$IMAGE_NAME:$TAG"
 
       - name: Restart Azure Web App
         run: az webapp restart --resource-group "$RESOURCE_GROUP" --name "$WEBAPP_NAME"
