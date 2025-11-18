@@ -1,7 +1,7 @@
 type TProductIdList = string[] | null;
 
 export type TAddOrderInput = {
-	title: string;
+	title?: string;
 	description?: string | null;
 	products?: TProductIdList;
 };

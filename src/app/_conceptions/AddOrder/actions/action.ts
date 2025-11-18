@@ -2,6 +2,7 @@
 
 import { revalidateTag } from 'next/cache';
 
+import { getOrderNumberGeneration } from '@/utils/orders';
 import { getUserSession } from '@/utils/session';
 
 import type { TAddOrderInput, TAddOrderResult } from './types';
@@ -32,7 +33,7 @@ export const addOrder = async (
 
 		const created = await prisma.order.create({
 			data: {
-				title,
+				title: title || getOrderNumberGeneration(),
 				description,
 				date: new Date(),
 				userId: userSession.id,

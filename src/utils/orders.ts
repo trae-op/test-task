@@ -1,6 +1,11 @@
 import type { TOrder } from '@/types/orders';
 import { TPrice } from '@/types/price';
 
+export function getOrderNumberGeneration(): string {
+	const randomPart = Math.floor(10000 + Math.random() * 90000);
+	return `#${randomPart}`;
+}
+
 export function calculateOrderTotals(orders: TOrder[]) {
 	const result: {
 		[key: string]: TPrice[];

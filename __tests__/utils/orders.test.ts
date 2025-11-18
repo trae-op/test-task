@@ -1,4 +1,4 @@
-import { calculateOrderTotals } from '@/utils/orders';
+import { calculateOrderTotals, getOrderNumberGeneration } from '@/utils/orders';
 
 const makeOrder = (id: string, userId: string) => ({
 	id,
@@ -28,5 +28,20 @@ describe('calculateOrderTotals', () => {
 		const eur = prices.find(p => p.symbol === 'EUR');
 		expect(usd?.value).toBeCloseTo(4.333, 3);
 		expect(eur?.value).toBe(2);
+	});
+});
+
+describe('getOrderNumberGeneration', () => {
+	test('returns value in #12345 format', () => {
+		const value = getOrderNumberGeneration();
+		expect(value).toMatch(/^#\d{5}$/);
+	});
+
+	test('generates different values over multiple calls', () => {
+		const values = new Set<string>();
+		for (let i = 0; i < 20; i += 1) {
+			values.add(getOrderNumberGeneration());
+		}
+		expect(values.size).toBeGreaterThan(1);
 	});
 });
