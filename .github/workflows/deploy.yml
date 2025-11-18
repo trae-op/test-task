@@ -20,6 +20,8 @@ jobs:
       IMAGE_NAME: test-task
       TAG: ${{ github.sha }}
       PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING: "1"
+      PRISMA_CLI_QUERY_ENGINE_TYPE: binary
+      PRISMA_CLIENT_ENGINE_TYPE: binary
     steps:
       - name: Checkout
         uses: actions/checkout@v4

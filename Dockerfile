@@ -3,6 +3,8 @@ FROM node:20-slim AS deps
 WORKDIR /app
 ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true \
     PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1 \
+	PRISMA_CLI_QUERY_ENGINE_TYPE=binary \
+	PRISMA_CLIENT_ENGINE_TYPE=binary \
 	npm_config_registry=https://registry.npmjs.org/ \
 	npm_config_fetch_retries=5 \
 	npm_config_fetch_retry_mintimeout=20000 \
@@ -21,6 +23,8 @@ ENV NEXTJS_IGNORE_ESLINT=1
 ENV NEXT_DISABLE_TYPECHECK=1
 ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true \
     PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1 \
+	PRISMA_CLI_QUERY_ENGINE_TYPE=binary \
+	PRISMA_CLIENT_ENGINE_TYPE=binary \
 	npm_config_registry=https://registry.npmjs.org/ \
 	npm_config_fetch_retries=5 \
 	npm_config_fetch_retry_mintimeout=20000 \
@@ -40,6 +44,8 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true \
     PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1 \
+	PRISMA_CLI_QUERY_ENGINE_TYPE=binary \
+	PRISMA_CLIENT_ENGINE_TYPE=binary \
 	npm_config_registry=https://registry.npmjs.org/ \
 	npm_config_fetch_retries=5 \
 	npm_config_fetch_retry_mintimeout=20000 \
