@@ -113,7 +113,12 @@ export const OrderRow = memo(
 							)}
 						>
 							{title !== null && (
-								<div className={styles[`${BLOCK}__name`]}>
+								<div
+									className={clsx(
+										styles[`${BLOCK}__name`],
+										'ellipsis-shadow me-4'
+									)}
+								>
 									<span className={styles[`${BLOCK}__name-title`]}>
 										{title}
 									</span>

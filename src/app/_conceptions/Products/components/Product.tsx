@@ -73,7 +73,10 @@ export const ProductRow = memo(
 					</div>
 
 					<div
-						className={clsx(styles[`${BLOCK}__name`], 'd-flex gap-3 w-100')}
+						className={clsx(
+							styles[`${BLOCK}__name`],
+							'd-flex gap-3 w-100 ellipsis-shadow'
+						)}
 						title={title}
 					>
 						<Picture
@@ -129,7 +132,13 @@ export const ProductRow = memo(
 					<Price hasAdaptiveTable={hasAdaptiveTable} prices={prices} />
 
 					{order !== undefined && order !== null && (
-						<div className={clsx(styles[`${BLOCK}__order`], 'w-50')}>
+						<div
+							title={order.title ?? undefined}
+							className={clsx(
+								styles[`${BLOCK}__order`],
+								'ellipsis-shadow w-50'
+							)}
+						>
 							{order.title}
 						</div>
 					)}

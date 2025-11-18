@@ -97,13 +97,10 @@
 		font-size: var(--font-size-base);
 		font-weight: 500;
 		color: var(--color-text);
+		display: flex;
+		align-items: center;
 		white-space: nowrap;
 		overflow: hidden;
-		text-overflow: ellipsis;
-
-		& span:first-child {
-			text-decoration: underline;
-		}
 
 		& span:last-child {
 			color: var(--color-muted);
@@ -164,6 +161,5 @@
 		width: 100%;
 		white-space: nowrap;
 		overflow: hidden;
-		text-overflow: ellipsis;
 	}
 }

@@ -13,3 +13,18 @@
 .negative-top-rem1 {
 	top: -1rem !important;
 }
+
+.ellipsis-shadow {
+	position: relative;
+}
+
+.ellipsis-shadow::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: var(--size-25);
+	height: 100%;
+	pointer-events: none;
+	background: linear-gradient(to right, transparent, var(--color-surface));
+}
