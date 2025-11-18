@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM node:20-alpine AS deps
+FROM node:20-slim AS deps
 WORKDIR /app
 ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true \
     PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1 \
@@ -8,11 +8,13 @@ ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true \
 	npm_config_fetch_retry_mintimeout=20000 \
 	npm_config_fetch_retry_maxtimeout=120000 \
 	npm_config_network_timeout=300000
-RUN apk add --no-cache libc6-compat ca-certificates
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends ca-certificates openssl \
+	&& rm -rf /var/lib/apt/lists/*
 COPY package.json package-lock.json ./
 RUN npm ci --ignore-scripts
 
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXTJS_IGNORE_ESLINT=1
@@ -24,13 +26,15 @@ ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true \
 	npm_config_fetch_retry_mintimeout=20000 \
 	npm_config_fetch_retry_maxtimeout=120000 \
 	npm_config_network_timeout=300000
-RUN apk add --no-cache libc6-compat ca-certificates
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends ca-certificates openssl \
+	&& rm -rf /var/lib/apt/lists/*
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx prisma generate
 RUN npm run build -- --no-lint
 
-FROM node:20-alpine AS runner
+FROM node:20-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -41,7 +45,9 @@ ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true \
 	npm_config_fetch_retry_mintimeout=20000 \
 	npm_config_fetch_retry_maxtimeout=120000 \
 	npm_config_network_timeout=300000
-RUN apk add --no-cache libc6-compat ca-certificates
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends ca-certificates openssl \
+	&& rm -rf /var/lib/apt/lists/*
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY package.json package-lock.json ./
