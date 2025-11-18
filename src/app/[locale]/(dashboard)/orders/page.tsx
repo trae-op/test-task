@@ -64,6 +64,7 @@ export default async function OrdersPage() {
 
 	const ordersWithPictures = orders.map(order => ({
 		...order,
+		amountOfProducts: order.products?.length || 0,
 		products: order.products?.map(product => ({
 			...product,
 			photo: picturesByProductId ? picturesByProductId(product.id) : null
