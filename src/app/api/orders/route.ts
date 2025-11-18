@@ -1,5 +1,3 @@
-import { getLocale } from 'next-intl/server';
-import { revalidatePath } from 'next/cache';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { type TOrder } from '@/types/orders';
@@ -57,9 +55,6 @@ export const DELETE = async (req: NextRequest) => {
 		}
 
 		await prisma.order.delete({ where: { id } });
-
-		const locale = await getLocale();
-		revalidatePath(`/${locale}/orders`);
 
 		return NextResponse.json(
 			{
