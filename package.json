@@ -11,7 +11,7 @@
 		"azure:acr:login": "az acr login --name testtaskregistry",
 		"azure:docker:build": "docker build -t testtaskregistry.azurecr.io/test-task:latest .",
 		"azure:docker:push": "docker push testtaskregistry.azurecr.io/test-task:latest",
-		"azure:webapp:update": "az webapp config container set --name test-task-webapp --resource-group rg-test-task --container-image-name testtaskregistry.azurecr.io/test-task:latest",
+		"azure:webapp:update": "az webapp config container set --name test-task-webapp --resource-group rg-test-task --container-image-name testtaskregistry.azurecr.io/test-task:latest --container-env PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1",
 		"azure:webapp:restart": "az webapp restart --resource-group rg-test-task --name test-task-webapp",
 		"deploy:azure": "npm run azure:acr:login && npm run azure:docker:build && npm run azure:docker:push && npm run azure:webapp:update && npm run azure:webapp:restart",
 		"lint": "eslint",

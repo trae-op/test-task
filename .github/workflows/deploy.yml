@@ -64,7 +64,8 @@ jobs:
           az webapp config container set \
             --resource-group "$RESOURCE_GROUP" \
             --name "$WEBAPP_NAME" \
-            --container-image-name "$REGISTRY_LOGIN_SERVER/$IMAGE_NAME:$TAG"
+            --container-image-name "$REGISTRY_LOGIN_SERVER/$IMAGE_NAME:$TAG" \
+            --container-env PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1
 
       - name: Restart Azure Web App
         run: az webapp restart --resource-group "$RESOURCE_GROUP" --name "$WEBAPP_NAME"
