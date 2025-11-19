@@ -81,6 +81,7 @@ export default async function OrderPage({ params }: TDynamicPageProps) {
 					ok
 						? items?.map(item => ({
 								...item,
+								amountOfProducts: item.products?.length || 0,
 								title: null
 							}))
 						: []
