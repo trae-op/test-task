@@ -16,16 +16,22 @@ export const IsNewField = () => {
 				name='isNew'
 				control={control}
 				defaultValue={true}
-				render={({ field }) => (
-					<Form.Check
-						type='checkbox'
-						label={t('Available')}
-						checked={!!field.value}
-						onChange={e => field.onChange(e.target.checked)}
-						ref={field.ref}
-						data-testid='update-product-is-new-input'
-					/>
-				)}
+				render={({ field }) => {
+					const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+						field.onChange(event.target.checked);
+					};
+
+					return (
+						<Form.Check
+							type='checkbox'
+							label={t('Available')}
+							checked={!!field.value}
+							onChange={onChange}
+							ref={field.ref}
+							data-testid='update-product-is-new-input'
+						/>
+					);
+				}}
 			/>
 		</Form.Group>
 	);
