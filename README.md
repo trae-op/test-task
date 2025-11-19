@@ -4,10 +4,7 @@
 - [Live Demo](#live-demo)
 - [Local Development](#local-development)
 - [Docker Development](#docker-development)
-- [Azure Deployment (App Code Updates)](#azure-deployment-app-code-updates)
-- [Azure Deployment (Prisma Schema Changes)](#azure-deployment-prisma-schema-changes)
 - [GitHub Actions Deployment](#github-actions-deployment)
-- [Useful References](#useful-references)
 
 ## Overview
 
