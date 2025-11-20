@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import type { LatLngExpression } from 'leaflet';
+import type { LatLngBoundsExpression, LatLngExpression } from 'leaflet';
 import L from 'leaflet';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
@@ -12,6 +12,7 @@ import type { FormEvent } from 'react';
 import {
 	MapContainer,
 	Marker,
+	Polygon,
 	TileLayer,
 	useMap,
 	useMapEvents
@@ -21,6 +22,12 @@ import { Button } from '@/components/Button';
 import { TextField } from '@/components/TextField';
 
 import { useLocationMap } from '@/hooks/locationMap';
+
+import {
+	UKRAINE_MASK_POLYGON,
+	UKRAINE_POLYGON,
+	isPointInUkraine
+} from '@/utils/map';
 
 import styles from './LocationMap.module.scss';
 import type { TLocationMapProps } from './types';
@@ -35,6 +42,11 @@ const iconAssets = {
 if (typeof window !== 'undefined') {
 	L.Icon.Default.mergeOptions(iconAssets);
 }
+
+const UKRAINE_BOUNDS: LatLngBoundsExpression = [
+	[44.02, 22.13],
+	[52.38, 40.22]
+];
 
 const toLatLngExpression = (coords: {
 	lat: number;
@@ -159,6 +171,15 @@ export const LocationMapComponent = ({
 	const shouldRenderSearchControls = showSearchControls !== false;
 	const isLocationInteractive = isInteractive !== false;
 
+	const handleRestrictedMapClick = useCallback(
+		(params: { coords: { lat: number; lng: number }; zoom: number }) => {
+			if (isPointInUkraine(params.coords)) {
+				handleMapClick(params);
+			}
+		},
+		[handleMapClick]
+	);
+
 	const handleSubmit = useCallback(
 		(event: FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
@@ -203,14 +224,31 @@ export const LocationMapComponent = ({
 				zoom={mapZoom}
 				scrollWheelZoom
 				className={clsx(styles['location-map__map'], mapClassName)}
+				maxBounds={UKRAINE_BOUNDS}
+				maxBoundsViscosity={1.0}
+				minZoom={5}
 			>
 				<MapViewUpdater
 					center={toLatLngExpression(safeMapCenter)}
 					zoom={mapZoom}
 				/>
 				{isLocationInteractive ? (
-					<MapClickHandler onClick={handleMapClick} />
+					<MapClickHandler onClick={handleRestrictedMapClick} />
 				) : null}
+				<Polygon
+					positions={UKRAINE_MASK_POLYGON}
+					pathOptions={{
+						color: 'transparent',
+						fillColor: '#3388ff',
+						fillOpacity: 0.25
+					}}
+					interactive={false}
+				/>
+				<Polygon
+					positions={UKRAINE_POLYGON}
+					pathOptions={{ color: '#3388ff', weight: 2, fillOpacity: 0 }}
+					interactive={false}
+				/>
 				<TileLayer
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 					url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'

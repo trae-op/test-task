@@ -85,7 +85,8 @@ export const searchLocation = async ({
 		format: 'jsonv2',
 		q: trimmedQuery,
 		limit: '1',
-		addressdetails: '1'
+		addressdetails: '1',
+		countrycodes: 'ua'
 	});
 
 	const results = await request<TNominatimSearchResult[]>(url);
