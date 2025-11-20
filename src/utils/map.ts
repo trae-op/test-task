@@ -42,7 +42,7 @@ export const isSameLocation = (
 	return isLatEqual && isLngEqual;
 };
 
-export const UKRAINE_POLYGON: ReadonlyArray<[number, number]> = [
+export const UKRAINE_POLYGON: [number, number][] = [
 	[52.101678, 31.785998],
 	[52.061267, 32.159412],
 	[52.288695, 32.412058],
@@ -143,7 +143,7 @@ export const UKRAINE_POLYGON: ReadonlyArray<[number, number]> = [
 	[52.101678, 31.785998]
 ];
 
-const WORLD_BOUNDS_POLYGON: ReadonlyArray<[number, number]> = [
+const WORLD_BOUNDS_POLYGON: [number, number][] = [
 	[90, -180],
 	[90, 180],
 	[-90, 180],
@@ -151,9 +151,10 @@ const WORLD_BOUNDS_POLYGON: ReadonlyArray<[number, number]> = [
 	[90, -180]
 ];
 
-export const UKRAINE_MASK_POLYGON: ReadonlyArray<
-	ReadonlyArray<[number, number]>
-> = [WORLD_BOUNDS_POLYGON, [...UKRAINE_POLYGON].reverse()];
+export const UKRAINE_MASK_POLYGON: [number, number][][] = [
+	WORLD_BOUNDS_POLYGON,
+	[...UKRAINE_POLYGON].reverse()
+];
 
 export const isPointInPolygon = (
 	point: { lat: number; lng: number },
