@@ -96,15 +96,13 @@ export const LocationMapPopup = () => {
 		setPendingLocation(persistedLocation ?? undefined);
 	}, [persistedLocation]);
 
-	const selectedLocation = pendingLocation ?? persistedLocation ?? undefined;
-
 	const selectedId = useMemo(() => {
-		if (!selectedLocation) return undefined;
+		if (!pendingLocation) return undefined;
 		const match = pickupLocationOptions.find(option =>
-			isSameLocation(option.location, selectedLocation)
+			isSameLocation(option.location, pendingLocation)
 		);
 		return match?.id;
-	}, [pickupLocationOptions, selectedLocation]);
+	}, [pickupLocationOptions, pendingLocation]);
 
 	return (
 		<div className='mb-3' data-testid='update-order-location-popup'>
@@ -120,7 +118,7 @@ export const LocationMapPopup = () => {
 							isInteractive={false}
 							showSearchControls={false}
 							onSuccessfulLocation={handleSuccessfulLocation}
-							initialLocation={selectedLocation}
+							initialLocation={pendingLocation}
 							polygon={{
 								availableBounds: UKRAINE_POLYGON,
 								disabledBounds: UKRAINE_MASK_POLYGON
@@ -166,9 +164,9 @@ export const LocationMapPopup = () => {
 					</div>
 				</div>
 			</Popup>
-			{selectedLocation !== undefined && (
+			{persistedLocation !== undefined && (
 				<div className='pt-2' data-testid='update-order-selected-location'>
-					{formatLocationLabel(selectedLocation)}
+					{formatLocationLabel(persistedLocation)}
 				</div>
 			)}
 		</div>
