@@ -3,7 +3,13 @@
 import { signIn as nextSignIn, signOut as nextSignOut } from 'next-auth/react';
 import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { startTransition, useActionState, useCallback, useState } from 'react';
+import {
+	startTransition,
+	useActionState,
+	useCallback,
+	useMemo,
+	useState
+} from 'react';
 
 import { getOrdersHref } from '@/utils/routing/routing';
 
@@ -16,6 +22,7 @@ import { getPathname } from '@/i18n/navigation';
 export const useAuthActions = (): TAuthActions => {
 	const locale = useLocale();
 	const router = useRouter();
+	const [signInIsPending, setSignInIsPending] = useState(false);
 	const [signInError, setSignInError] = useState<string | null>(null);
 
 	const signIn = useCallback(async (email: string, password: string) => {
@@ -31,14 +38,18 @@ export const useAuthActions = (): TAuthActions => {
 	const onSignInSubmit = useCallback(
 		async (data: { email: string; password: string }) => {
 			setSignInError(null);
+			setSignInIsPending(true);
 			const res = await signIn(data.email, data.password);
+
 			if (!res.ok) {
 				const message =
 					res.error === 'CredentialsSignin' ? 'invalidCredentials' : 'default';
 				setSignInError(message);
+				setSignInIsPending(false);
 				return;
 			}
 			router.push(`/${locale}${getOrdersHref}`);
+			// setSignInIsPending(false);
 		},
 		[router, locale, signIn]
 	);
@@ -73,12 +84,24 @@ export const useAuthActions = (): TAuthActions => {
 		[locale, signUpFormAction]
 	);
 
-	return {
-		signOut,
-		onSignInSubmit,
-		onSignUpSubmit,
-		signUpState,
-		signUpIsPending,
-		signInError
-	};
+	return useMemo(
+		() => ({
+			signOut,
+			onSignInSubmit,
+			onSignUpSubmit,
+			signUpState,
+			signUpIsPending,
+			signInIsPending,
+			signInError
+		}),
+		[
+			signOut,
+			onSignInSubmit,
+			onSignUpSubmit,
+			signUpState,
+			signUpIsPending,
+			signInIsPending,
+			signInError
+		]
+	);
 };

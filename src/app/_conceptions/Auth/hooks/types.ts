@@ -11,5 +11,6 @@ export type TAuthActions = {
 	}) => void;
 	signUpState: TSignUpSubmitState;
 	signUpIsPending: boolean;
+	signInIsPending: boolean;
 	signInError?: string | null;
 };

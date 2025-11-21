@@ -20,14 +20,14 @@ export const SignIn = () => {
 	const t = useTranslations('App');
 	const params = useParams();
 	const locale = (params?.locale as string) || '';
-	const { onSignInSubmit, signInError, signUpIsPending } = useAuthActions();
+	const { onSignInSubmit, signInError, signInIsPending } = useAuthActions();
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors, isSubmitting }
 	} = useForm<TSignInFormData>({ mode: 'onBlur' });
-	const isLoading = isSubmitting || signUpIsPending;
+	const isLoading = isSubmitting || signInIsPending;
 
 	return (
 		<Container>
