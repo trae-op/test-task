@@ -23,14 +23,10 @@ import { TextField } from '@/components/TextField';
 
 import { useLocationMap } from '@/hooks/locationMap';
 
-import {
-	UKRAINE_MASK_POLYGON,
-	UKRAINE_POLYGON,
-	isPointInUkraine
-} from '@/utils/map';
+import { isPointInPolygon } from '@/utils/map';
 
 import styles from './LocationMap.module.scss';
-import type { TLocationMapProps } from './types';
+import type { TLocationMapPolygon, TLocationMapProps } from './types';
 
 const iconAssets = {
 	iconRetinaUrl:
@@ -43,10 +39,34 @@ if (typeof window !== 'undefined') {
 	L.Icon.Default.mergeOptions(iconAssets);
 }
 
-const UKRAINE_BOUNDS: LatLngBoundsExpression = [
-	[44.02, 22.13],
-	[52.38, 40.22]
-];
+const getBoundsFromPolygon = (
+	polygon?: [number, number][]
+): LatLngBoundsExpression | undefined => {
+	if (!polygon || polygon.length === 0) {
+		return undefined;
+	}
+
+	let minLat = Infinity;
+	let maxLat = -Infinity;
+	let minLng = Infinity;
+	let maxLng = -Infinity;
+
+	polygon.forEach(([lat, lng]) => {
+		if (lat < minLat) minLat = lat;
+		if (lat > maxLat) maxLat = lat;
+		if (lng < minLng) minLng = lng;
+		if (lng > maxLng) maxLng = lng;
+	});
+
+	if (!Number.isFinite(minLat) || !Number.isFinite(maxLat)) {
+		return undefined;
+	}
+
+	return [
+		[minLat, minLng],
+		[maxLat, maxLng]
+	];
+};
 
 const toLatLngExpression = (coords: {
 	lat: number;
@@ -130,7 +150,8 @@ export const LocationMapComponent = ({
 	mapClassName,
 	initialLocation,
 	showSearchControls = true,
-	isInteractive = true
+	isInteractive = true,
+	polygon
 }: TLocationMapProps) => {
 	const t = useTranslations('App');
 	const {
@@ -171,13 +192,18 @@ export const LocationMapComponent = ({
 	const shouldRenderSearchControls = showSearchControls !== false;
 	const isLocationInteractive = isInteractive !== false;
 
+	const resolvedPolygon: TLocationMapPolygon | undefined = polygon;
+
 	const handleRestrictedMapClick = useCallback(
 		(params: { coords: { lat: number; lng: number }; zoom: number }) => {
-			if (isPointInUkraine(params.coords)) {
+			if (
+				!resolvedPolygon ||
+				isPointInPolygon(params.coords, resolvedPolygon.availableBounds)
+			) {
 				handleMapClick(params);
 			}
 		},
-		[handleMapClick]
+		[handleMapClick, resolvedPolygon]
 	);
 
 	const handleSubmit = useCallback(
@@ -190,6 +216,12 @@ export const LocationMapComponent = ({
 		},
 		[handleSearchSubmit, isLocationInteractive]
 	);
+
+	const disabledBounds = resolvedPolygon?.disabledBounds;
+	const availableBounds = resolvedPolygon?.availableBounds;
+	const maxBounds = availableBounds
+		? getBoundsFromPolygon(availableBounds)
+		: undefined;
 
 	return (
 		<div className={clsx(styles['location-map'], className)}>
@@ -224,7 +256,7 @@ export const LocationMapComponent = ({
 				zoom={mapZoom}
 				scrollWheelZoom
 				className={clsx(styles['location-map__map'], mapClassName)}
-				maxBounds={UKRAINE_BOUNDS}
+				maxBounds={maxBounds}
 				maxBoundsViscosity={1.0}
 				minZoom={5}
 			>
@@ -235,20 +267,24 @@ export const LocationMapComponent = ({
 				{isLocationInteractive ? (
 					<MapClickHandler onClick={handleRestrictedMapClick} />
 				) : null}
-				<Polygon
-					positions={UKRAINE_MASK_POLYGON}
-					pathOptions={{
-						color: 'transparent',
-						fillColor: '#3388ff',
-						fillOpacity: 0.25
-					}}
-					interactive={false}
-				/>
-				<Polygon
-					positions={UKRAINE_POLYGON}
-					pathOptions={{ color: '#3388ff', weight: 2, fillOpacity: 0 }}
-					interactive={false}
-				/>
+				{disabledBounds ? (
+					<Polygon
+						positions={disabledBounds}
+						pathOptions={{
+							color: 'transparent',
+							fillColor: '#3388ff',
+							fillOpacity: 0.25
+						}}
+						interactive={false}
+					/>
+				) : null}
+				{availableBounds ? (
+					<Polygon
+						positions={availableBounds}
+						pathOptions={{ color: '#3388ff', weight: 2, fillOpacity: 0 }}
+						interactive={false}
+					/>
+				) : null}
 				<TileLayer
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 					url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'

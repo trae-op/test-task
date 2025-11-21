@@ -1,5 +1,10 @@
 import type { TLocationDetails } from '@/types/location';
 
+export type TLocationMapPolygon = {
+	disabledBounds: [number, number][][];
+	availableBounds: [number, number][];
+};
+
 export type TLocationMapProps = {
 	onSuccessfulLocation?: (location: TLocationDetails) => void;
 	className?: string;
@@ -8,4 +13,5 @@ export type TLocationMapProps = {
 	initialLocation?: TLocationDetails;
 	showSearchControls?: boolean;
 	isInteractive?: boolean;
+	polygon?: TLocationMapPolygon;
 };

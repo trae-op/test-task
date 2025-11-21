@@ -16,6 +16,13 @@ import { formatLocationLabel } from '@/utils/map';
 import styles from '../styles/OrderViewLocation.module.scss';
 import type { TOrderViewLocationProps } from '../types';
 
+import { UKRAINE_POLYGON, WORLD_BOUNDS_POLYGON } from '@/constants';
+
+const UKRAINE_MASK_POLYGON: [number, number][][] = [
+	WORLD_BOUNDS_POLYGON,
+	[...UKRAINE_POLYGON].reverse()
+];
+
 const TriggerButton = ({ ...props }: ButtonProps) => {
 	const t = useTranslations('App');
 
@@ -87,6 +94,10 @@ export const OrderViewLocation = ({ location }: TOrderViewLocationProps) => {
 					initialLocation={locationDetails}
 					showSearchControls={false}
 					isInteractive={false}
+					polygon={{
+						availableBounds: UKRAINE_POLYGON,
+						disabledBounds: UKRAINE_MASK_POLYGON
+					}}
 				/>
 				<div className='mt-2'>
 					<span className='d-block fw-semibold'>{t('Selected location')}</span>

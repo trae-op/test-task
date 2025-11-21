@@ -10,6 +10,12 @@ import { LocationMap } from '@/components/LocationMap';
 import { Popup } from '@/components/Popup/Popup';
 
 import type { TPickupLocationPopupProps } from './types';
+import { UKRAINE_POLYGON, WORLD_BOUNDS_POLYGON } from '@/constants';
+
+const UKRAINE_MASK_POLYGON: [number, number][][] = [
+	WORLD_BOUNDS_POLYGON,
+	[...UKRAINE_POLYGON].reverse()
+];
 
 const ERROR_MESSAGE_KEYS = {
 	UNAUTHORIZED: 'Unauthorized',
@@ -66,6 +72,10 @@ export const PickupLocationPopup = memo(
 				<LocationMap
 					onSuccessfulLocation={onSuccessfulLocation}
 					initialLocation={pendingLocation}
+					polygon={{
+						availableBounds: UKRAINE_POLYGON,
+						disabledBounds: UKRAINE_MASK_POLYGON
+					}}
 				/>
 				{errorMessage ? (
 					<Alert

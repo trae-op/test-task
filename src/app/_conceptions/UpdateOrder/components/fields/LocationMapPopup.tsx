@@ -19,6 +19,12 @@ import {
 
 import { useListSelector } from '@/app/_conceptions/Settings/context/pickupLocation/useContext';
 import type { TUpdateOrderFormData } from '@/app/_conceptions/UpdateOrder/hooks/types';
+import { UKRAINE_POLYGON, WORLD_BOUNDS_POLYGON } from '@/constants';
+
+const UKRAINE_MASK_POLYGON: [number, number][][] = [
+	WORLD_BOUNDS_POLYGON,
+	[...UKRAINE_POLYGON].reverse()
+];
 
 const TriggerButton = ({ children, ...props }: ButtonProps) => {
 	const t = useTranslations('App');
@@ -115,6 +121,10 @@ export const LocationMapPopup = () => {
 							showSearchControls={false}
 							onSuccessfulLocation={handleSuccessfulLocation}
 							initialLocation={selectedLocation}
+							polygon={{
+								availableBounds: UKRAINE_POLYGON,
+								disabledBounds: UKRAINE_MASK_POLYGON
+							}}
 						/>
 					</div>
 					<div className='flex-fill w-75'>
