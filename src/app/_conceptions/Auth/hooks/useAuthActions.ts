@@ -49,7 +49,6 @@ export const useAuthActions = (): TAuthActions => {
 				return;
 			}
 			router.push(`/${locale}${getOrdersHref}`);
-			// setSignInIsPending(false);
 		},
 		[router, locale, signIn]
 	);
