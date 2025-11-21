@@ -10,6 +10,7 @@
 		"Cancel": "Скасувати",
 		"Settings": "Налаштування",
 		"Products": "Продукти",
+		"Password must be at least 8 characters and contain at least one letter and one number": "Пароль повинен містити щонайменше 8 символів та містити принаймні одну літеру та одну цифру",
 		"Automatic title generation": "Автоматичне генерування назви",
 		"Delete this order?": "Видалити це замовлення?",
 		"Delete this product?": "Видалити цей продукт?",
@@ -106,65 +107,17 @@
 		"Confirm your password": "Підтвердіть ваш пароль",
 		"Have an account?": "Вже маєте обліковий запис?",
 		"Enter your email": "Введіть вашу електронну пошту",
+		"Profile": "Профіль",
+		"No options": "Немає варіантів",
+		"Profile Info": "Інформація профілю",
+		"Update Password": "Оновити пароль",
+		"Old password": "Старий пароль",
+		"New password": "Новий пароль",
+		"Confirm new password": "Підтвердіть новий пароль",
+		"Enter old password": "Введіть старий пароль",
+		"Enter new password": "Введіть новий пароль",
+		"Enter confirm new password": "Введіть підтвердження нового пароля",
 
-		"products": {
-			"Add Product": "Додати продукт",
-
-			"state": {
-				"available": "Доступний",
-				"inRepair": "В ремонті"
-			},
-			"status": {
-				"new": "новий",
-				"used": "вживаний"
-			}
-		},
-		"addOrder": {
-			"title": "Додати надходження",
-			"titleLabel": "Назва",
-			"enterTitle": "Введіть назву",
-			"description": "Опис",
-			"enterDescription": "Введіть опис",
-			"products": "Продукти",
-			"submit": "Додати надходження"
-		},
-		"orders": {
-			"productLabel": "Продукта",
-			"Orders": "Надходження"
-		},
-		"ui": {
-			"addContent": {
-				"ariaLabel": "додати вміст"
-			}
-		},
-		"Profile": {
-			"title": "Профіль",
-			"signOut": "Вийти",
-			"info": {
-				"title": "Інформація профілю",
-				"fields": {
-					"name": "Ім'я",
-					"email": "Електронна пошта"
-				},
-				"placeholders": {
-					"name": "Введіть ваше ім'я",
-					"email": "Введіть електронну пошту"
-				}
-			},
-			"password": {
-				"title": "Оновити пароль",
-				"fields": {
-					"oldPassword": "Старий пароль",
-					"newPassword": "Новий пароль",
-					"confirmPassword": "Підтвердіть новий пароль"
-				},
-				"placeholders": {
-					"oldPassword": "Введіть старий пароль",
-					"newPassword": "Введіть новий пароль",
-					"confirmPassword": "Підтвердіть новий пароль"
-				}
-			}
-		},
 		"errors": {
 			"email": "Будь ласка, введіть дійсну електронну адресу",
 			"password": "Пароль повинен містити мінімум 8 символів, хоча б одну літеру та одну цифру",
@@ -183,9 +136,6 @@
 				"noMatchingPathname": "checkPathnames: не знайдено відповідного шляху серед наданих конфігурацій",
 				"failedToFetchItems": "checkPathnames: не вдалося отримати елементи для розділу \"{section}\": {reason}"
 			}
-		},
-		"success": {
-			"profileUpdated": "Профіль успішно оновлено"
 		}
 	}
 }

@@ -39,6 +39,7 @@
 		"Pickup locations": "Pickup locations",
 		"No pickup locations yet": "No pickup locations yet",
 		"Update order": "Update order",
+		"Password must be at least 8 characters and contain at least one letter and one number": "Password must be at least 8 characters and contain at least one letter and one number",
 		"Error deleting entity": "Error deleting entity",
 		"Error fetching entities": "Error fetching entities",
 		"Orders": "Orders",
@@ -94,6 +95,7 @@
 		"Is new product?": "Is new product?",
 		"Email address": "Email address",
 		"Password": "Password",
+		"No options": "No options",
 		"Sign In": "Sign In",
 		"Have an account?": "Have an account?",
 		"Don't have an account?": "Don't have an account?",
@@ -106,67 +108,18 @@
 		"Passwords must match": "Passwords must match",
 		"Enter your password": "Enter your password",
 		"Enter your email": "Enter your email",
+		"Profile": "Profile",
+		"Profile Info": "Profile Info",
+		"Update Password": "Update Password",
+		"Old password": "Old password",
+		"New password": "New password",
+		"Confirm new password": "Confirm new password",
+		"Enter old password": "Enter old password",
+		"Enter new password": "Enter new password",
+		"Enter confirm new password": "Enter confirm new password",
 
-		"addOrder": {
-			"title": "Add Order",
-			"titleLabel": "Title",
-			"enterTitle": "Enter title",
-			"description": "Description",
-			"enterDescription": "Enter description",
-			"products": "Products",
-			"submit": "Add Order"
-		},
-		"products": {
-			"Add Product": "Add Product",
-			"Products": "Products",
-			"state": {
-				"available": "Available",
-				"inRepair": "In Repair"
-			},
-			"status": {
-				"new": "new",
-				"used": "used"
-			}
-		},
-		"orders": {
-			"productLabel": "Products"
-		},
-		"ui": {
-			"addContent": {
-				"ariaLabel": "add content"
-			}
-		},
-		"Profile": {
-			"title": "Profile",
-			"signOut": "Sign Out",
-			"info": {
-				"title": "Profile Info",
-				"fields": {
-					"name": "Name",
-					"email": "Email"
-				},
-				"placeholders": {
-					"name": "Enter your name",
-					"email": "Enter email"
-				}
-			},
-			"password": {
-				"title": "Update Password",
-				"fields": {
-					"oldPassword": "Old password",
-					"newPassword": "New password",
-					"confirmPassword": "Confirm new password"
-				},
-				"placeholders": {
-					"oldPassword": "Enter old password",
-					"newPassword": "Enter new password",
-					"confirmPassword": "Confirm new password"
-				}
-			}
-		},
 		"errors": {
 			"email": "Please enter a valid email address",
-			"password": "Password must be at least 8 characters and contain at least one letter and one number",
 			"name": "Name must be between 2 and 30 characters and contain only letters",
 			"passwordMatch": "Passwords must match",
 			"invalidInput": "Invalid input",
@@ -183,9 +136,6 @@
 				"noMatchingPathname": "checkPathnames: no matching pathname found among provided configurations",
 				"failedToFetchItems": "checkPathnames: failed to fetch items for section \"{section}\": {reason}"
 			}
-		},
-		"success": {
-			"profileUpdated": "Profile updated successfully"
 		}
 	}
 }

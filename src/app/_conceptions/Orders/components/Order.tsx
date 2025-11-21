@@ -25,13 +25,14 @@ import { type TOrderProps } from '../types';
 import { DeleteEntity } from './DeleteEntity';
 
 const BLOCK = 'order-item';
+const iconStyle = styles[`${BLOCK}__icon`];
 
 function UpdateIcon() {
-	return <Pencil className={styles[`${BLOCK}__icon`]} size={15} />;
+	return <Pencil className={iconStyle} size={15} />;
 }
 
 function ListUlIcon() {
-	return <ListUl className={styles[`${BLOCK}__icon`]} size={15} />;
+	return <ListUl className={iconStyle} size={15} />;
 }
 
 const toLocationDetails = (

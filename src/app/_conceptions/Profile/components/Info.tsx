@@ -78,7 +78,7 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 	return (
 		<Card className='mb-4'>
 			<Card.Body>
-				<h5 className='mb-3'>{t('Profile.info.title')}</h5>
+				<h5 className='mb-3'>{t('Profile Info')}</h5>
 				<MessagesServer
 					message={state.message}
 					type={state.ok ? 'success' : 'error'}
@@ -105,7 +105,7 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 							onSubmit={handleSubmit(onFormSubmit)}
 						>
 							<Form.Group className='mb-3' controlId='name'>
-								<Form.Label>{t('Profile.info.fields.name')}</Form.Label>
+								<Form.Label>{t('Name')}</Form.Label>
 								<TextField
 									{...register('name', {
 										validate: value => {
@@ -114,21 +114,21 @@ export const Info = memo((defaultValues: TProfileFormData) => {
 										}
 									})}
 									type='text'
-									placeholder={t('Profile.info.placeholders.name')}
+									placeholder={t('Enter your name')}
 									isInvalid={!!errors.name}
 									errorMessage={errors.name?.message}
 								/>
 							</Form.Group>
 
 							<Form.Group className='mb-3' controlId='email'>
-								<Form.Label>{t('Profile.info.fields.email')}</Form.Label>
+								<Form.Label>{t('Email address')}</Form.Label>
 								<TextField
 									{...register('email', {
 										required: t('This field is required'),
 										validate: value => EMAIL_PATTERN.test(value) || te('email')
 									})}
 									type='email'
-									placeholder={t('Profile.info.placeholders.email')}
+									placeholder={t('Enter your email')}
 									isInvalid={!!errors.email}
 									errorMessage={errors.email?.message}
 								/>

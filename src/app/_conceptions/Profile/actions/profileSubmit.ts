@@ -16,12 +16,11 @@ export const profileSubmit = async (
 		UNAUTHORIZED: 'default',
 		INVALID_INPUT: 'invalidInput',
 		EMAIL_TAKEN: 'User already exists',
-		SERVER_ERROR: 'default',
-		SUCCESS: 'profileUpdated'
+		SERVER_ERROR: 'default'
 	};
 
 	if (res.ok) {
-		return { ok: true, message: codeToKey[res.code] ?? '' };
+		return { ok: true };
 	}
 
 	return { ok: false, message: codeToKey[res.code] ?? 'default' };

@@ -39,27 +39,27 @@ export const UpdatePassword = () => {
 	return (
 		<Card>
 			<Card.Body>
-				<h5 className='mb-3'>{t('Profile.password.title')}</h5>
+				<h5 className='mb-3'>{t('Update Password')}</h5>
 				<MessagesServer
 					message={state.message}
 					type={state.ok ? 'success' : 'error'}
 				/>
 				<Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
 					<Form.Group className='mb-3' controlId='oldPassword'>
-						<Form.Label>{t('Profile.password.fields.oldPassword')}</Form.Label>
+						<Form.Label>{t('Old password')}</Form.Label>
 						<TextField
 							{...register('oldPassword', {
 								required: t('This field is required')
 							})}
 							type='password'
-							placeholder={t('Profile.password.placeholders.oldPassword')}
+							placeholder={t('Enter old password')}
 							isInvalid={!!errors.oldPassword}
 							errorMessage={errors.oldPassword?.message}
 						/>
 					</Form.Group>
 
 					<Form.Group className='mb-3' controlId='newPassword'>
-						<Form.Label>{t('Profile.password.fields.newPassword')}</Form.Label>
+						<Form.Label>{t('New password')}</Form.Label>
 						<TextField
 							{...register('newPassword', {
 								required: t('This field is required'),
@@ -67,16 +67,14 @@ export const UpdatePassword = () => {
 									PASSWORD_PATTERN.test(value) || te('password')
 							})}
 							type='password'
-							placeholder={t('Profile.password.placeholders.newPassword')}
+							placeholder={t('Enter new password')}
 							isInvalid={!!errors.newPassword}
 							errorMessage={errors.newPassword?.message}
 						/>
 					</Form.Group>
 
 					<Form.Group className='mb-3' controlId='confirmPassword'>
-						<Form.Label>
-							{t('Profile.password.fields.confirmPassword')}
-						</Form.Label>
+						<Form.Label>{t('Confirm new password')}</Form.Label>
 						<TextField
 							{...register('confirmPassword', {
 								required: t('This field is required'),
@@ -84,7 +82,7 @@ export const UpdatePassword = () => {
 									value === newPassword || t('Passwords must match')
 							})}
 							type='password'
-							placeholder={t('Profile.password.placeholders.confirmPassword')}
+							placeholder={t('Enter confirm new password')}
 							isInvalid={!!errors.confirmPassword}
 							errorMessage={errors.confirmPassword?.message}
 						/>

@@ -81,7 +81,9 @@ export const SignUp = () => {
 											required: t('This field is required'),
 											pattern: {
 												value: PASSWORD_PATTERN,
-												message: t('Password')
+												message: t(
+													'Password must be at least 8 characters and contain at least one letter and one number'
+												)
 											}
 										})}
 										type='password'

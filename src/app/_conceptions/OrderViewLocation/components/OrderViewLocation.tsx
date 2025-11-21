@@ -99,7 +99,7 @@ export const OrderViewLocation = ({ location }: TOrderViewLocationProps) => {
 						disabledBounds: UKRAINE_MASK_POLYGON
 					}}
 				/>
-				<div className='mt-2'>
+				<div className='mt-2 mb-2'>
 					<span className='d-block fw-semibold'>{t('Selected location')}</span>
 					<span>{formatLocationLabel(locationDetails)}</span>
 				</div>

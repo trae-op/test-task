@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 import type { GroupBase, Props as ReactSelectProps } from 'react-select';
@@ -24,6 +25,8 @@ export const MultiSelectField = ({
 	styles,
 	...rest
 }: SelectFieldProps) => {
+	const t = useTranslations('App');
+
 	const mergeStyles = useMemo(() => {
 		if (!styles) {
 			return defaultStyles;
@@ -38,6 +41,7 @@ export const MultiSelectField = ({
 	return (
 		<Select
 			isMulti={true}
+			noOptionsMessage={() => t('No options')}
 			options={options}
 			value={value}
 			onChange={onChange}
