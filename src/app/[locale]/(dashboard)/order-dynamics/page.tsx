@@ -2,31 +2,35 @@ import { Container } from '@/conceptions/OrderDynamics';
 import { getOrders } from '@/conceptions/Orders/actions';
 
 export default async function OrderDynamicsPage() {
-	const response = await getOrders({
+	const { items, ok } = await getOrders({
 		selectFields: {
 			id: true,
-			date: true,
+			title: true,
+			location: true,
 			products: {
 				select: {
 					id: true,
-					prices: true
+					title: true,
+					photo: true,
+					prices: true,
+					isNew: true,
+					serialNumber: true
 				}
-			}
+			},
+			date: true,
+			amountOfProducts: true
 		}
 	});
+	const orders = ok && items !== undefined ? items : [];
 
 	return (
 		<Container
-			orders={
-				response.ok && response.items
-					? response.items.map(order => {
-							return {
-								...order,
-								date: order.date ? order.date.toISOString() : null
-							};
-						})
-					: []
-			}
+			orders={orders.map(order => {
+				return {
+					...order,
+					date: order.date ? order.date.toISOString() : null
+				};
+			})}
 		/>
 	);
 }

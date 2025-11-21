@@ -79,8 +79,11 @@ export const buildOrderDynamicsSeries = ({
 		totalsByCurrency[symbol] = [];
 	}
 
-	const cursor = new Date(min.getTime());
-	while (cursor.getTime() <= max.getTime()) {
+	for (
+		const cursor = new Date(min.getTime());
+		cursor.getTime() <= max.getTime();
+		cursor.setUTCMonth(cursor.getUTCMonth() + 1)
+	) {
 		const key = buildMonthKey(cursor);
 		labels.push(formatter.format(cursor));
 		const bucket = buckets.get(key);
@@ -90,7 +93,6 @@ export const buildOrderDynamicsSeries = ({
 			const totals = totalsByCurrency[symbol];
 			totals.push(bucket?.totals.get(symbol) ?? 0);
 		}
-		cursor.setUTCMonth(cursor.getUTCMonth() + 1);
 	}
 
 	return {

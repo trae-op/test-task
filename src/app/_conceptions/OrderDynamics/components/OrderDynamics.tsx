@@ -11,16 +11,20 @@ import {
 	LinearScale,
 	Tooltip
 } from 'chart.js';
+import clsx from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import { memo, useMemo } from 'react';
 
 import { EmptyData } from '@/components/EmptyData';
+import { Loading } from '@/components/Loading';
 
 import { buildOrderDynamicsSeries } from '@/utils/orderDynamics';
 
 import styles from '../styles/OrderDynamics.module.scss';
 import type { TOrderDynamicsProps } from '../types';
+
+const BLOCK = 'order-dynamics';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -29,7 +33,14 @@ const BarChart = dynamic(
 	{
 		ssr: false,
 		loading: () => (
-			<div className={styles['order-dynamics__loading']}>Loading chart…</div>
+			<div
+				className={clsx(
+					styles[`${BLOCK}__image-upload`],
+					'd-flex align-items-center justify-content-center w-100'
+				)}
+			>
+				<Loading />
+			</div>
 		)
 	}
 );
@@ -190,8 +201,8 @@ export const OrderDynamicsChart = memo(({ orders }: TOrderDynamicsProps) => {
 	}
 
 	return (
-		<div className={styles['order-dynamics']}>
-			<div className={styles['order-dynamics__chart']}>
+		<div className={styles[`${BLOCK}`]}>
+			<div className={styles[`${BLOCK}__chart`]}>
 				<BarChart data={chartData} options={CHART_OPTIONS} />
 			</div>
 		</div>
