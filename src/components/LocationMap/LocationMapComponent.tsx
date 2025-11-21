@@ -189,7 +189,7 @@ export const LocationMapComponent = ({
 			? 'Unable to determine map location'
 			: undefined);
 
-	const shouldRenderSearchControls = showSearchControls !== false;
+	const isRenderSearchControls = showSearchControls !== false;
 	const isLocationInteractive = isInteractive !== false;
 
 	const resolvedPolygon: TLocationMapPolygon | undefined = polygon;
@@ -217,15 +217,18 @@ export const LocationMapComponent = ({
 		[handleSearchSubmit, isLocationInteractive]
 	);
 
-	const disabledBounds = resolvedPolygon?.disabledBounds;
-	const availableBounds = resolvedPolygon?.availableBounds;
+	const disabledBounds = resolvedPolygon.disabledBounds;
+	const availableBounds = resolvedPolygon.availableBounds;
 	const maxBounds = availableBounds
 		? getBoundsFromPolygon(availableBounds)
 		: undefined;
 
 	return (
-		<div className={clsx(styles['location-map'], className)}>
-			{shouldRenderSearchControls ? (
+		<div
+			data-testid='location-map'
+			className={clsx(styles['location-map'], className)}
+		>
+			{isRenderSearchControls && (
 				<form
 					className={styles['location-map__controls']}
 					onSubmit={handleSubmit}
@@ -235,21 +238,19 @@ export const LocationMapComponent = ({
 						value={searchQuery}
 						className='w-100'
 						onChange={isLocationInteractive ? handleSearchInput : undefined}
-						placeholder={t('Search for a location', {
-							default: 'Search for a location'
-						})}
+						placeholder={t('Search for a location')}
 						inputClassName={inputClassName}
 						disabled={!isLocationInteractive}
 					/>
 					<Button
 						type='submit'
 						variant='success'
-						text={t('Search', { default: 'Search' })}
+						text={t('Search')}
 						isLoading={isLocationInteractive ? isSearching : false}
 						disabled={!isLocationInteractive || isSearching}
 					/>
 				</form>
-			) : null}
+			)}
 			<ErrorMessage error={derivedError} />
 			<MapContainer
 				center={toLatLngExpression(safeMapCenter)}
@@ -264,34 +265,30 @@ export const LocationMapComponent = ({
 					center={toLatLngExpression(safeMapCenter)}
 					zoom={mapZoom}
 				/>
-				{isLocationInteractive ? (
+				{isLocationInteractive && (
 					<MapClickHandler onClick={handleRestrictedMapClick} />
-				) : null}
-				{disabledBounds ? (
-					<Polygon
-						positions={disabledBounds}
-						pathOptions={{
-							color: 'transparent',
-							fillColor: '#3388ff',
-							fillOpacity: 0.25
-						}}
-						interactive={false}
-					/>
-				) : null}
-				{availableBounds ? (
-					<Polygon
-						positions={availableBounds}
-						pathOptions={{ color: '#3388ff', weight: 2, fillOpacity: 0 }}
-						interactive={false}
-					/>
-				) : null}
+				)}
+				<Polygon
+					positions={disabledBounds}
+					pathOptions={{
+						color: 'transparent',
+						fillColor: '#3388ff',
+						fillOpacity: 0.25
+					}}
+					interactive={false}
+				/>
+				<Polygon
+					positions={availableBounds}
+					pathOptions={{ color: '#3388ff', weight: 2, fillOpacity: 0 }}
+					interactive={false}
+				/>
 				<TileLayer
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 					url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 				/>
-				{isMarkerValid ? (
+				{isMarkerValid && (
 					<Marker position={toLatLngExpression(markerPosition)} />
-				) : null}
+				)}
 			</MapContainer>
 		</div>
 	);

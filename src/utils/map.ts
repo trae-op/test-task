@@ -1,8 +1,6 @@
 import type { TLocationFormValue } from '@/types/location';
 import type { TPickupLocation } from '@/types/pickupLocation';
 
-import { UKRAINE_POLYGON, WORLD_BOUNDS_POLYGON } from '@/constants';
-
 export const formatLocationLabel = (location: TLocationFormValue): string => {
 	if (location.displayName) return location.displayName;
 
@@ -44,11 +42,6 @@ export const isSameLocation = (
 	return isLatEqual && isLngEqual;
 };
 
-export const UKRAINE_MASK_POLYGON: [number, number][][] = [
-	WORLD_BOUNDS_POLYGON,
-	[...UKRAINE_POLYGON].reverse()
-];
-
 export const isPointInPolygon = (
 	point: { lat: number; lng: number },
 	polygon: [number, number][]
@@ -69,11 +62,4 @@ export const isPointInPolygon = (
 	}
 
 	return inside;
-};
-
-export const isPointInUkraine = (point: {
-	lat: number;
-	lng: number;
-}): boolean => {
-	return isPointInPolygon(point, UKRAINE_POLYGON);
 };

@@ -13,5 +13,5 @@ export type TLocationMapProps = {
 	initialLocation?: TLocationDetails;
 	showSearchControls?: boolean;
 	isInteractive?: boolean;
-	polygon?: TLocationMapPolygon;
+	polygon: TLocationMapPolygon;
 };

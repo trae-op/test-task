@@ -10,6 +10,7 @@ const config: Config = {
 	testEnvironment: 'jsdom',
 	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 	modulePathIgnorePatterns: ['<rootDir>/__tests__/__mocks__'],
+	transformIgnorePatterns: ['/node_modules/(?!react-leaflet|@react-leaflet)'],
 	moduleNameMapper: {
 		'^@/i18n/navigation$': '<rootDir>/__mocks__/i18n-navigation.ts',
 		'^next-intl$': '<rootDir>/__mocks__/next-intl.ts',

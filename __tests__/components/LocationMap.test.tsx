@@ -1,23 +1,39 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import { LocationMap } from '@/components/LocationMap';
+import { LocationMapComponent } from '@/components/LocationMap/LocationMapComponent';
 
-jest.mock('next/dynamic', () => () => (props: unknown) => (
-	<div data-testid='location-map'>{JSON.stringify(props)}</div>
-));
+import { UKRAINE_POLYGON, WORLD_BOUNDS_POLYGON } from '@/constants';
+
+jest.mock('react-leaflet', () => ({
+	MapContainer: ({ children }: { children: React.ReactNode }) => (
+		<div data-testid='map-container'>{children}</div>
+	),
+	Marker: () => <div data-testid='marker' />,
+	Polygon: () => <div data-testid='polygon' />,
+	TileLayer: () => <div data-testid='tile-layer' />,
+	useMap: () => ({ setView: jest.fn() }),
+	useMapEvents: () => ({ on: jest.fn() })
+}));
+
+const UKRAINE_MASK_POLYGON: [number, number][][] = [
+	WORLD_BOUNDS_POLYGON,
+	[...UKRAINE_POLYGON].reverse()
+];
 
 describe('LocationMap', () => {
 	test('passes props to dynamic LocationMapComponent', () => {
 		const props = {
 			latitude: 1,
 			longitude: 2,
-			zoom: 5
+			zoom: 5,
+			polygon: {
+				availableBounds: UKRAINE_POLYGON,
+				disabledBounds: UKRAINE_MASK_POLYGON
+			}
 		};
 
-		const { container } = render(<LocationMap {...props} />);
+		render(<LocationMapComponent {...props} />);
 
-		expect(
-			container.querySelector('[data-testid="location-map"]')
-		).toBeInTheDocument();
+		expect(screen.getByTestId('location-map')).toBeInTheDocument();
 	});
 });
