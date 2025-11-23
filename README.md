@@ -18,7 +18,7 @@ Test credentials:
 
 ```
 email: test@gmail.com
-pass: qwerty123
+pass: qwerty1234
 ```
 
 ## Local Development
