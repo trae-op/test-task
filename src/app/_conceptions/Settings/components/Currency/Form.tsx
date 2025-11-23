@@ -39,7 +39,7 @@ export const FormCurrency = () => {
 	const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
 		form.setValue('title', value);
-		form.setValue('value', value.toUpperCase());
+		form.setValue('value', value.toLocaleUpperCase().replace(/\s/g, ''));
 	};
 
 	const {

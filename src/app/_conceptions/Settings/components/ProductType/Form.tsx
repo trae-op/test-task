@@ -39,7 +39,7 @@ export const FormProductType = () => {
 	const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;
 		form.setValue('title', value);
-		form.setValue('value', value.toLocaleLowerCase());
+		form.setValue('value', value.toLocaleLowerCase().replace(/\s/g, ''));
 	};
 
 	const {
