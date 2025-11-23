@@ -83,7 +83,7 @@ describe('Orders Context Provider', () => {
 		});
 
 		const listAfterSetAll = ctx.get();
-		console.log('listAfterSetAll>>>>', listAfterSetAll);
+
 		expect(listAfterSetAll).toHaveLength(2);
 		expect(listAfterSetAll[0].id).toBe('2');
 

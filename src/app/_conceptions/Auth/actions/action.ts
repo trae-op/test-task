@@ -1,6 +1,6 @@
 'use server';
 
-import { compare, hash } from 'bcryptjs';
+import { hash } from 'bcryptjs';
 
 import { EMAIL_PATTERN, PASSWORD_PATTERN, isValidName } from '@/utils/regExp';
 
@@ -34,25 +34,7 @@ export const signUp = async (input: TSignUpInput): Promise<TSignUpResult> => {
 
 		const existing = await prisma.user.findUnique({ where: { email } });
 		if (existing) {
-			if (existing.password) {
-				const same = await compare(password, existing.password);
-				if (!same) {
-					return { ok: false, code: 'WRONG_PASSWORD' };
-				}
-				return { ok: false, code: 'USER_EXISTS' };
-			}
-			if (!existing.password && password) {
-				const hashed = await hash(password, 10);
-				const updated = await prisma.user.update({
-					where: { id: existing.id },
-					data: {
-						password: hashed,
-						name: name ?? existing.name,
-						provider: 'credentials'
-					}
-				});
-				return { ok: true, userId: updated.id };
-			}
+			return { ok: false, code: 'USER_EXISTS' };
 		}
 
 		const passwordHash = await hash(password, 10);
