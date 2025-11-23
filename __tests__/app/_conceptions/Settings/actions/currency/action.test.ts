@@ -17,6 +17,7 @@ jest.mock('@/prisma/prisma-client', () => ({
 	prisma: {
 		currency: {
 			create: jest.fn(),
+			findFirst: jest.fn(),
 			findMany: jest.fn(),
 			findUnique: jest.fn(),
 			delete: jest.fn()
@@ -48,6 +49,7 @@ describe('Settings currency actions', () => {
 	test('addCurrency creates and returns item', async () => {
 		(getUserSession as jest.Mock).mockResolvedValueOnce({ id: 'user-1' });
 		const item = { id: 'c1', title: 'USD', value: '$', userId: 'user-1' };
+		(prisma.currency.findFirst as jest.Mock).mockResolvedValueOnce(null);
 		(prisma.currency.create as jest.Mock).mockResolvedValueOnce(item);
 
 		const result = await addCurrency({ title: 'USD', value: '$' });

@@ -17,6 +17,7 @@ jest.mock('@/prisma/prisma-client', () => ({
 	prisma: {
 		productType: {
 			create: jest.fn(),
+			findFirst: jest.fn(),
 			findMany: jest.fn(),
 			findUnique: jest.fn(),
 			delete: jest.fn()
@@ -48,6 +49,7 @@ describe('Settings productType actions', () => {
 	test('addProductType creates and returns item', async () => {
 		(getUserSession as jest.Mock).mockResolvedValueOnce({ id: 'user-1' });
 		const item = { id: 't1', title: 'Phone', value: 'phone', userId: 'user-1' };
+		(prisma.productType.findFirst as jest.Mock).mockResolvedValueOnce(null);
 		(prisma.productType.create as jest.Mock).mockResolvedValueOnce(item);
 
 		const result = await addProductType({ title: 'Phone', value: 'phone' });

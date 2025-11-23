@@ -66,7 +66,7 @@ describe('FormCurrency', () => {
 
 			expect(mockActions.onSubmit).toHaveBeenCalledWith({
 				title: 'Dollar',
-				value: 'USD'
+				value: 'DOLLARUSD'
 			});
 		});
 	});

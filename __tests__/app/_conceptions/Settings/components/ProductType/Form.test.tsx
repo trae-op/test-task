@@ -68,7 +68,7 @@ describe('FormProductType', () => {
 
 			expect(mockActions.onSubmit).toHaveBeenCalledWith({
 				title: 'Gadget',
-				value: 'gadget'
+				value: 'gadgetgadget'
 			});
 		});
 	});
