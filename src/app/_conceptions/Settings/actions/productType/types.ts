@@ -1,3 +1,4 @@
+import { TErrorCodes } from '@/types/errorCodes';
 import type { TProductType } from '@/types/productType';
 
 export type TAddProductTypeInput = {
@@ -7,7 +8,7 @@ export type TAddProductTypeInput = {
 
 export type TAddProductTypeResult = {
 	ok: boolean;
-	code?: 'UNAUTHORIZED' | 'INVALID_INPUT' | 'SERVER_ERROR';
+	code?: TErrorCodes;
 	item?: TProductType;
 };
 
@@ -19,5 +20,5 @@ export type TAddProductTypeSubmitState = {
 
 export type TDeleteProductTypeState = {
 	ok: boolean;
-	code?: 'UNAUTHORIZED' | 'ID_NOT_FOUND' | 'NOT_FOUND' | 'SERVER_ERROR';
+	code?: TErrorCodes;
 };

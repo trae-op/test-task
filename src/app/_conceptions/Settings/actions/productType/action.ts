@@ -22,6 +22,17 @@ export const addProductType = async (
 		const value = String(input.value || '').trim();
 		if (!title || !value) return { ok: false, code: 'INVALID_INPUT' };
 
+		const existingProductType = await prisma.productType.findFirst({
+			where: {
+				userId: userSession.id,
+				OR: [{ title }, { value }]
+			}
+		});
+
+		if (existingProductType) {
+			return { ok: false, code: 'ALREADY_EXISTS' };
+		}
+
 		const item = await prisma.productType.create({
 			data: { title, value, userId: userSession.id }
 		});

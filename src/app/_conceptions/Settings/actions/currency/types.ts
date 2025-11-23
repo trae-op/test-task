@@ -1,4 +1,5 @@
 import type { TCurrency } from '@/types/currency';
+import { TErrorCodes } from '@/types/errorCodes';
 
 export type TAddCurrencyInput = {
 	title: string;
@@ -7,7 +8,7 @@ export type TAddCurrencyInput = {
 
 export type TAddCurrencyResult = {
 	ok: boolean;
-	code?: 'UNAUTHORIZED' | 'INVALID_INPUT' | 'SERVER_ERROR';
+	code?: TErrorCodes;
 	item?: TCurrency;
 };
 
@@ -19,5 +20,5 @@ export type TAddCurrencySubmitState = {
 
 export type TDeleteCurrencyState = {
 	ok: boolean;
-	code?: 'UNAUTHORIZED' | 'ID_NOT_FOUND' | 'NOT_FOUND' | 'SERVER_ERROR';
+	code?: TErrorCodes;
 };

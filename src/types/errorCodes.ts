@@ -4,4 +4,7 @@ export type TErrorCodes =
 	| 'MISSING_ID'
 	| 'INVALID_INPUT'
 	| 'INT4_OVERFLOW'
-	| 'ORDER_NOT_FOUND';
+	| 'ORDER_NOT_FOUND'
+	| 'NOT_FOUND'
+	| 'ID_NOT_FOUND'
+	| 'ALREADY_EXISTS';

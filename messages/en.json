@@ -126,6 +126,7 @@
 			"INT4_OVERFLOW": "The price value is too large",
 			"invalidCredentials": "Invalid email or password",
 			"default": "Failed to sign in",
+			"ALREADY_EXISTS": "Already exists",
 			"User already exists": "User already exists",
 			"wrongPassword": "Wrong password",
 			"failedToLoadProducts": "Failed to load products",

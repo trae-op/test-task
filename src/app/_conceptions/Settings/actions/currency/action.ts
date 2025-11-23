@@ -22,6 +22,17 @@ export const addCurrency = async (
 		const value = String(input.value || '').trim();
 		if (!title || !value) return { ok: false, code: 'INVALID_INPUT' };
 
+		const existingCurrency = await prisma.currency.findFirst({
+			where: {
+				userId: userSession.id,
+				OR: [{ title }, { value }]
+			}
+		});
+
+		if (existingCurrency) {
+			return { ok: false, code: 'ALREADY_EXISTS' };
+		}
+
 		const item = await prisma.currency.create({
 			data: { title, value, userId: userSession.id }
 		});

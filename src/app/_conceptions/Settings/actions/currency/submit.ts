@@ -19,7 +19,8 @@ export const addCurrencySubmit = async (
 	const codeToKey: Record<string, string> = {
 		UNAUTHORIZED: 'default',
 		INVALID_INPUT: 'invalidInput',
-		SERVER_ERROR: 'default'
+		SERVER_ERROR: 'default',
+		ALREADY_EXISTS: 'ALREADY_EXISTS'
 	};
 
 	return { ok: false, message: codeToKey[res.code ?? 'DEFAULT'] ?? 'default' };

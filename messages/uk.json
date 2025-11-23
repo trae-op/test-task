@@ -128,6 +128,7 @@
 			"default": "Не вдалося увійти",
 			"User already exists": "Користувач вже існує",
 			"wrongPassword": "Невірний пароль",
+			"ALREADY_EXISTS": "Вже існує",
 			"failedToLoadProducts": "Не вдалося завантажити продукти",
 			"failedToLoadOrders": "Не вдалося завантажити надходження",
 			"checkPathnames": {
