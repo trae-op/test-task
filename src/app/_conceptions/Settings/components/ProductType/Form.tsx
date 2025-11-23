@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { ChangeEvent } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 
@@ -19,7 +20,6 @@ import { SubmitButton } from './SubmitButton';
 
 export const FormProductType = () => {
 	const t = useTranslations('App');
-	const te = useTranslations('App.errors');
 	const form = useFormContext<TSettingsProductTypeFormData>();
 	const { onSubmit, state } = useActions();
 
@@ -34,6 +34,12 @@ export const FormProductType = () => {
 			event.preventDefault();
 			event.stopPropagation();
 		}
+	};
+
+	const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+		form.setValue('title', value);
+		form.setValue('value', value.toLocaleLowerCase());
 	};
 
 	const {
@@ -64,6 +70,7 @@ export const FormProductType = () => {
 						<Form.Control
 							{...register('title', { required: t('This field is required') })}
 							type='text'
+							onChange={handleChangeTitle}
 							placeholder={t('Enter title')}
 							isInvalid={!!errors.title}
 						/>
