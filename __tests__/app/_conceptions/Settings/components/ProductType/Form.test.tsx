@@ -59,7 +59,6 @@ describe('FormProductType', () => {
 			renderWithProvider();
 
 			await user.type(screen.getByLabelText('Title'), 'Gadget');
-			await user.type(screen.getByLabelText('Value'), 'gadget');
 
 			const form = screen.getByTestId('settings-product-type-form');
 			await act(async () => {
@@ -68,7 +67,7 @@ describe('FormProductType', () => {
 
 			expect(mockActions.onSubmit).toHaveBeenCalledWith({
 				title: 'Gadget',
-				value: 'gadgetgadget'
+				value: 'gadget'
 			});
 		});
 	});
@@ -85,25 +84,6 @@ describe('FormProductType', () => {
 			expect(
 				screen.getByTestId('settings-product-type-error-title')
 			).toHaveTextContent('This field is required');
-		});
-	});
-
-	describe('edge cases', () => {
-		test('shows lowercase error when value has uppercase letters', async () => {
-			const user = userEvent.setup();
-			renderWithProvider();
-
-			await user.type(screen.getByLabelText('Title'), 'Accessory');
-			await user.type(screen.getByLabelText('Value'), 'Accessory');
-
-			const form = screen.getByTestId('settings-product-type-form');
-			await act(async () => {
-				fireEvent.submit(form);
-			});
-
-			expect(
-				screen.getByTestId('settings-product-type-error-value')
-			).toHaveTextContent('Value must contain only lowercase Latin letters');
 		});
 	});
 });

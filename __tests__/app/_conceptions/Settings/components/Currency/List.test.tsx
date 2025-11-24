@@ -34,7 +34,7 @@ describe('CurrencyList', () => {
 
 			expect(screen.getByTestId('settings-currency-list')).toBeInTheDocument();
 			expect(screen.getByTestId('settings-currency-item-1')).toHaveTextContent(
-				'Dollar (USD)'
+				'Dollar'
 			);
 			expect(
 				screen.getByTestId('settings-currency-delete-2')

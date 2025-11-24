@@ -1,15 +1,12 @@
 import {
 	EMAIL_PATTERN,
-	LOWERCASE_VALUE_PATTERN,
 	NAME_PATTERN,
 	PASSWORD_PATTERN,
-	UPPERCASE_VALUE_PATTERN,
 	isValidEmail,
 	isValidName,
 	isValidPassword,
 	isValidUuid,
-	validationMessages,
-	validationMessagesExtended
+	validationMessages
 } from '@/utils/regExp';
 
 describe('regExp utils', () => {
@@ -40,9 +37,6 @@ describe('regExp utils', () => {
 	});
 
 	test('extended patterns and messages exports', () => {
-		expect('abc').toMatch(LOWERCASE_VALUE_PATTERN);
-		expect('ABC').toMatch(UPPERCASE_VALUE_PATTERN);
 		expect(validationMessages.required).toBeDefined();
-		expect(validationMessagesExtended.valueLowercase).toBeDefined();
 	});
 });

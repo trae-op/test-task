@@ -37,7 +37,7 @@ describe('ProductTypeList', () => {
 			).toBeInTheDocument();
 			expect(
 				screen.getByTestId('settings-product-type-item-2')
-			).toHaveTextContent('Device (device)');
+			).toHaveTextContent('Device');
 		});
 	});
 

@@ -57,7 +57,6 @@ describe('FormCurrency', () => {
 			renderWithProvider();
 
 			await user.type(screen.getByLabelText('Title'), 'Dollar');
-			await user.type(screen.getByLabelText('Value'), 'USD');
 
 			const form = screen.getByTestId('settings-currency-form');
 			await act(async () => {
@@ -66,7 +65,7 @@ describe('FormCurrency', () => {
 
 			expect(mockActions.onSubmit).toHaveBeenCalledWith({
 				title: 'Dollar',
-				value: 'DOLLARUSD'
+				value: 'DOLLAR'
 			});
 		});
 	});
@@ -83,25 +82,6 @@ describe('FormCurrency', () => {
 			expect(
 				screen.getByTestId('settings-currency-error-title')
 			).toHaveTextContent('This field is required');
-		});
-	});
-
-	describe('edge cases', () => {
-		test('shows uppercase validation error for invalid value input', async () => {
-			const user = userEvent.setup();
-			renderWithProvider();
-
-			await user.type(screen.getByLabelText('Title'), 'Euro');
-			await user.type(screen.getByLabelText('Value'), 'usd');
-
-			const form = screen.getByTestId('settings-currency-form');
-			await act(async () => {
-				fireEvent.submit(form);
-			});
-
-			expect(
-				screen.getByTestId('settings-currency-error-value')
-			).toHaveTextContent('Value must contain only uppercase Latin letters');
 		});
 	});
 });
