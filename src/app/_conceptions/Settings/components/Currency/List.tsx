@@ -23,9 +23,7 @@ export const CurrencyList = memo(() => {
 						className='d-flex align-items-center justify-content-between'
 						data-testid={`settings-currency-item-${item.id}`}
 					>
-						<span>
-							{item.title} ({item.value})
-						</span>
+						<span>{item.title}</span>
 						<DeleteButton entityId={item.id} />
 					</ListGroup.Item>
 				);

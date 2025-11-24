@@ -7,11 +7,6 @@ import { useFormContext } from 'react-hook-form';
 
 import { MessagesServer } from '@/components/MessagesServer';
 
-import {
-	UPPERCASE_VALUE_PATTERN,
-	validationMessagesExtended
-} from '@/utils/regExp';
-
 import { useActions } from '../../hooks/currency';
 import type { TSettingsCurrencyFormData } from '../../hooks/currency/types';
 
@@ -79,28 +74,6 @@ export const FormCurrency = () => {
 							data-testid='settings-currency-error-title'
 						>
 							{errors.title?.message as string}
-						</Form.Control.Feedback>
-					</Form.Group>
-
-					<Form.Group className='mb-3' controlId='cr-value'>
-						<Form.Label>{t('Value')}</Form.Label>
-						<Form.Control
-							{...register('value', {
-								required: t('This field is required'),
-								pattern: {
-									value: UPPERCASE_VALUE_PATTERN,
-									message: t(validationMessagesExtended.valueUppercase)
-								}
-							})}
-							type='text'
-							placeholder={t('Enter value')}
-							isInvalid={!!errors.value}
-						/>
-						<Form.Control.Feedback
-							type='invalid'
-							data-testid='settings-currency-error-value'
-						>
-							{errors.value?.message as string}
 						</Form.Control.Feedback>
 					</Form.Group>
 

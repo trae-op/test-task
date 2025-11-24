@@ -7,11 +7,6 @@ import { useFormContext } from 'react-hook-form';
 
 import { MessagesServer } from '@/components/MessagesServer';
 
-import {
-	LOWERCASE_VALUE_PATTERN,
-	validationMessagesExtended
-} from '@/utils/regExp';
-
 import { useActions } from '../../hooks/productType';
 import type { TSettingsProductTypeFormData } from '../../hooks/productType/types';
 
@@ -79,28 +74,6 @@ export const FormProductType = () => {
 							data-testid='settings-product-type-error-title'
 						>
 							{errors.title?.message as string}
-						</Form.Control.Feedback>
-					</Form.Group>
-
-					<Form.Group className='mb-3' controlId='pt-value'>
-						<Form.Label>{t('Value')}</Form.Label>
-						<Form.Control
-							{...register('value', {
-								required: t('This field is required'),
-								pattern: {
-									value: LOWERCASE_VALUE_PATTERN,
-									message: t(validationMessagesExtended.valueLowercase)
-								}
-							})}
-							type='text'
-							placeholder={t('Enter value')}
-							isInvalid={!!errors.value}
-						/>
-						<Form.Control.Feedback
-							type='invalid'
-							data-testid='settings-product-type-error-value'
-						>
-							{errors.value?.message as string}
 						</Form.Control.Feedback>
 					</Form.Group>
 
