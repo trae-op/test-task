@@ -4,7 +4,7 @@ import type { TDynamicPageProps } from '@/types/dynamicPage';
 
 import { getPicturesByProducts } from '@/utils/products';
 
-import { getPicturesByEntities } from '@/actions/pictures/products';
+import { getPicturesByEntities } from '@/app/_actions/pictures/products';
 import { AddProductButton } from '@/conceptions/AddProductButton';
 import { OrderViewLocation } from '@/conceptions/OrderViewLocation';
 import { OrderTable } from '@/conceptions/Orders';

@@ -22,7 +22,6 @@ const eslintConfig = [
 			'next-env.d.ts'
 		]
 	},
-	// Relax some strict rules for test files to reduce noise and allow testing patterns
 	{
 		files: [
 			'**/__tests__/**/*.{ts,tsx}',

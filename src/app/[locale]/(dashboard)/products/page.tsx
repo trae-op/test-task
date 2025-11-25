@@ -1,6 +1,6 @@
 import { getPicturesByProducts } from '@/utils/products';
 
-import { getPicturesByEntities } from '@/actions/pictures/products';
+import { getPicturesByEntities } from '@/app/_actions/pictures/products';
 import { Container } from '@/conceptions/Products';
 import { getProducts } from '@/conceptions/Products/actions';
 import { Provider } from '@/conceptions/Products/context';

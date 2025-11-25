@@ -8,7 +8,7 @@ import { getUserSession } from '@/utils/session';
 import { getFullPathUploadPicture } from '@/utils/upload-files';
 
 import styles from './Layout.module.scss';
-import { getPictureByEntityId } from '@/actions/pictures/profile';
+import { getPictureByEntityId } from '@/app/_actions/pictures/profile';
 import { Provider as ActiveSessionsProvider } from '@/app/_conceptions/ActiveSessionsCounter/context/activeSessions';
 import { LocalizationDropdown } from '@/app/_conceptions/LocalizationDropdown';
 import { getProductTypes } from '@/app/_conceptions/Settings/actions/productType/action';

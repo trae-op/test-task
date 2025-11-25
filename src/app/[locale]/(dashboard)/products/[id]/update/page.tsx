@@ -1,6 +1,6 @@
 import type { TDynamicPageProps } from '@/types/dynamicPage';
 
-import { getPictureByEntityId } from '@/actions/pictures/products';
+import { getPictureByEntityId } from '@/app/_actions/pictures/products';
 import { getProducts } from '@/conceptions/Products/actions';
 import { Container } from '@/conceptions/UpdateProduct';
 import { prisma } from '@/prisma/prisma-client';
