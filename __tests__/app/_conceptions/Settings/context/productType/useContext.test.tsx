@@ -3,8 +3,8 @@ import type { ReactNode } from 'react';
 
 import { Provider } from '@/app/_conceptions/Settings/context/productType/Context';
 import type { TEntity } from '@/app/_conceptions/Settings/context/productType/types';
+import { useEntityContext } from '@/app/_conceptions/Settings/context/productType/useContext';
 import {
-	useEntityContext,
 	useListLoadingSelector,
 	useListSelector,
 	useRemoveDispatch,

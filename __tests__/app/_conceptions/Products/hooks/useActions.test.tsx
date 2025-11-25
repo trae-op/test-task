@@ -17,7 +17,7 @@ jest.mock('@/app/_conceptions/Products/services', () => ({
 	deleteEntityById: jest.fn()
 }));
 
-jest.mock('@/app/_conceptions/Products/context/useContext', () => ({
+jest.mock('@/app/_conceptions/Products/context/useSelectors', () => ({
 	useRemoveDispatch: () => removeDispatchMock,
 	useSetDeleteLoadingDispatch: () => setDeleteLoadingMock
 }));

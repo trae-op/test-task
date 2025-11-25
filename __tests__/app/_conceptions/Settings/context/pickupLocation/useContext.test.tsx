@@ -3,8 +3,8 @@ import type { ReactNode } from 'react';
 
 import { Provider } from '@/app/_conceptions/Settings/context/pickupLocation/Context';
 import type { TEntity } from '@/app/_conceptions/Settings/context/pickupLocation/types';
+import { useEntityContext } from '@/app/_conceptions/Settings/context/pickupLocation/useContext';
 import {
-	useEntityContext,
 	useListLoadingSelector,
 	useListSelector,
 	useSetAllDispatch,

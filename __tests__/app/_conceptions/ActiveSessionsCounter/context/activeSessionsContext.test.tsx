@@ -13,8 +13,8 @@ import {
 	Provider
 } from '@/app/_conceptions/ActiveSessionsCounter/context/activeSessions/Context';
 import type { TActiveSessionsStatus } from '@/app/_conceptions/ActiveSessionsCounter/context/activeSessions/types';
+import { useActiveSessionsContext } from '@/app/_conceptions/ActiveSessionsCounter/context/activeSessions/useContext';
 import {
-	useActiveSessionsContext,
 	useActiveSessionsCountSelector,
 	useActiveSessionsStatusSelector
 } from '@/app/_conceptions/ActiveSessionsCounter/context/activeSessions/useSelectors';

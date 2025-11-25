@@ -3,8 +3,8 @@ import type { ReactNode } from 'react';
 
 import { Provider } from '@/app/_conceptions/Settings/context/currency/Context';
 import type { TEntity } from '@/app/_conceptions/Settings/context/currency/types';
+import { useEntityContext } from '@/app/_conceptions/Settings/context/currency/useContext';
 import {
-	useEntityContext,
 	useListLoadingSelector,
 	useListSelector,
 	useRemoveDispatch,

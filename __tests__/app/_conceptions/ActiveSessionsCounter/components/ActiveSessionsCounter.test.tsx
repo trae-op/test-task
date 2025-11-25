@@ -11,7 +11,7 @@ jest.mock('next-intl', () => ({
 }));
 
 jest.mock(
-	'@/app/_conceptions/ActiveSessionsCounter/context/activeSessions',
+	'@/app/_conceptions/ActiveSessionsCounter/context/activeSessions/useSelectors',
 	() => ({
 		useActiveSessionsCountSelector: () => mockCount,
 		useActiveSessionsStatusSelector: () => mockStatus

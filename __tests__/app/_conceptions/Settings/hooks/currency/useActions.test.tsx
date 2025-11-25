@@ -25,7 +25,7 @@ jest.mock('react-hook-form', () => ({
 	useFormContext: jest.fn()
 }));
 
-jest.mock('@/app/_conceptions/Settings/context/currency/useContext', () => ({
+jest.mock('@/app/_conceptions/Settings/context/currency/useSelectors', () => ({
 	useListSelector: jest.fn(),
 	useSetAllDispatch: jest.fn()
 }));

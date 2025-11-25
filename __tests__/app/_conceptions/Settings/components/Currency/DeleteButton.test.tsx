@@ -13,7 +13,7 @@ jest.mock('react-dom', () => ({
 	useFormStatus: jest.fn(() => ({ pending: false }))
 }));
 
-jest.mock('@/app/_conceptions/Settings/context/currency/useContext', () => ({
+jest.mock('@/app/_conceptions/Settings/context/currency/useSelectors', () => ({
 	useListSelector: jest.fn()
 }));
 

@@ -13,9 +13,12 @@ jest.mock('react-dom', () => ({
 	useFormStatus: jest.fn(() => ({ pending: false }))
 }));
 
-jest.mock('@/app/_conceptions/Settings/context/productType/useContext', () => ({
-	useListSelector: jest.fn()
-}));
+jest.mock(
+	'@/app/_conceptions/Settings/context/productType/useSelectors',
+	() => ({
+		useListSelector: jest.fn()
+	})
+);
 
 jest.mock('@/app/_conceptions/Settings/hooks/productType', () => ({
 	useActions: jest.fn()

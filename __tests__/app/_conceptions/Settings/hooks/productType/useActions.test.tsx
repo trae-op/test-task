@@ -25,10 +25,13 @@ jest.mock('react-hook-form', () => ({
 	useFormContext: jest.fn()
 }));
 
-jest.mock('@/app/_conceptions/Settings/context/productType/useContext', () => ({
-	useListSelector: jest.fn(),
-	useSetAllDispatch: jest.fn()
-}));
+jest.mock(
+	'@/app/_conceptions/Settings/context/productType/useSelectors',
+	() => ({
+		useListSelector: jest.fn(),
+		useSetAllDispatch: jest.fn()
+	})
+);
 
 jest.mock('@/app/_conceptions/Settings/actions/productType', () => ({
 	addProductTypeSubmit: jest.fn(),

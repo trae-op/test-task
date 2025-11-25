@@ -22,7 +22,7 @@ jest.mock(
 	})
 );
 jest.mock(
-	'@/app/_conceptions/Settings/context/pickupLocation/useContext',
+	'@/app/_conceptions/Settings/context/pickupLocation/useSelectors',
 	() => ({
 		useListSelector: jest.fn(),
 		useSetAllDispatch: jest.fn()

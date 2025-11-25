@@ -11,7 +11,7 @@ import type { TPickupLocation } from '@/types/pickupLocation';
 
 import { PickupLocationList } from '@/app/_conceptions/Settings/components/PickupLocation/List';
 import type { TPickupLocationItem } from '@/app/_conceptions/Settings/components/PickupLocation/types';
-import { useEntityContext } from '@/app/_conceptions/Settings/context/pickupLocation/useSelectors';
+import { useEntityContext } from '@/app/_conceptions/Settings/context/pickupLocation/useContext';
 
 jest.mock('next-intl', () => ({
 	useTranslations: () => (value: string) => value
