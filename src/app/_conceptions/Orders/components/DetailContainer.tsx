@@ -10,7 +10,7 @@ import {
 	useEntitiesTitleDispatch,
 	useSetEntitiesTotalDispatch,
 	useSetLinkAddEntityDispatch
-} from '@/context/global/useContext';
+} from '@/context/global/useSelectors';
 
 export const DetailContainer = ({ children }: { children?: ReactElement }) => {
 	const setEntitiesTitleDispatch = useEntitiesTitleDispatch();

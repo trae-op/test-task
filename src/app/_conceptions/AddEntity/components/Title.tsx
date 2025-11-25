@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import { useEntitiesTitleSelector } from '@/context/global/useContext';
+import { useEntitiesTitleSelector } from '@/context/global/useSelectors';
 
 export const Title = () => {
 	const t = useTranslations('App');

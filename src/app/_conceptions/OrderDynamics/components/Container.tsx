@@ -11,7 +11,7 @@ import {
 	useEntitiesTitleDispatch,
 	useSetEntitiesTotalDispatch,
 	useSetLinkAddEntityDispatch
-} from '@/context/global/useContext';
+} from '@/context/global/useSelectors';
 
 export const Container = ({ orders }: TOrderDynamicsProps) => {
 	const setEntitiesTitle = useEntitiesTitleDispatch();

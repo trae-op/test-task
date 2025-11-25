@@ -15,7 +15,7 @@ import {
 	useSetAvatarProfileDispatch,
 	useSetEntitiesTotalDispatch,
 	useSetLinkAddEntityDispatch
-} from '@/context/global/useContext';
+} from '@/context/global/useSelectors';
 
 type TestConsumerProps = {
 	children?: ReactNode;

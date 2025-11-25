@@ -9,7 +9,7 @@ import { SelectField } from '@/components/SelectField';
 
 import { getProductsHref, getWithoutLocalePath } from '@/utils/routing';
 
-import { useProductTypesSelector } from '@/context/global/useContext';
+import { useProductTypesSelector } from '@/context/global/useSelectors';
 
 const usePrevCurrentType = (value: string): string => {
 	const ref = useRef('');

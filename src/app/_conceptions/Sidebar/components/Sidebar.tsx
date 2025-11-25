@@ -15,7 +15,7 @@ import styles from '../styles/Sidebar.module.scss';
 import type { TSidebarProps } from '../types';
 
 import { NavItem } from './NavItem';
-import { useAvatarProfileSelector } from '@/context/global/useContext';
+import { useAvatarProfileSelector } from '@/context/global/useSelectors';
 
 const BLOCK = 'sidebar';
 

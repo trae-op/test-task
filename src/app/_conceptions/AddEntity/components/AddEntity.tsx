@@ -24,7 +24,7 @@ import { Title } from './Title';
 import {
 	useEntitiesTotalSelector,
 	useLinkAddEntitySelector
-} from '@/context/global/useContext';
+} from '@/context/global/useSelectors';
 
 const BLOCK = 'add-entity';
 

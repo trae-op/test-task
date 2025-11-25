@@ -21,7 +21,7 @@ import { uploadsPictures } from '@/utils/upload-files';
 import type { TProfileFormData } from '../hooks/types';
 import { useProfileActions } from '../hooks/useProfileActions';
 
-import { useSetAvatarProfileDispatch } from '@/context/global/useContext';
+import { useSetAvatarProfileDispatch } from '@/context/global/useSelectors';
 
 const ImageUpload = dynamic(
 	() => import('@/components/ImageUpload').then(m => m.ImageUpload),
