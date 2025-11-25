@@ -5,7 +5,7 @@ import { formatLocationLabel, toLocationFormValue } from '@/utils/map';
 import {
 	useListSelector,
 	useSetAllDispatch
-} from '../../context/pickupLocation/useContext';
+} from '../../context/pickupLocation/useSelectors';
 
 import type { TPickupLocationReturn } from './types';
 import { usePickupLocationActions } from './usePickupLocationActions';

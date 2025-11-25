@@ -3,7 +3,7 @@
 import { memo } from 'react';
 import { ListGroup } from 'react-bootstrap';
 
-import { useListSelector } from '../../context/currency/useContext';
+import { useListSelector } from '../../context/currency/useSelectors';
 
 import { DeleteButton } from './DeleteButton';
 

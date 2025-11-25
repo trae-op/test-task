@@ -9,7 +9,7 @@ import {
 import {
 	useListSelector,
 	useSetAllDispatch
-} from '@/app/_conceptions/Settings/context/currency/useContext';
+} from '@/app/_conceptions/Settings/context/currency/useSelectors';
 import { useActions } from '@/app/_conceptions/Settings/hooks/currency';
 
 jest.mock('react', () => {

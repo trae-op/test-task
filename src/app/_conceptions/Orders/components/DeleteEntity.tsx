@@ -11,7 +11,7 @@ import { TProduct } from '@/types/products';
 import {
 	useDeleteLoadingSelector,
 	useListSelector
-} from '../context/useContext';
+} from '../context/useSelectors';
 import { useActions as useDeleteEntityActions } from '../hooks';
 import type { TDeleteEntityProps } from '../types';
 

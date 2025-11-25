@@ -10,7 +10,7 @@ import {
 import {
 	useListSelector,
 	useSetAllDispatch
-} from '../../context/productType/useContext';
+} from '../../context/productType/useSelectors';
 
 import type { TActions, TSettingsProductTypeFormData } from './types';
 

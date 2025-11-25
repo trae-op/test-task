@@ -6,7 +6,7 @@ import { Trash } from 'react-bootstrap-icons';
 import { DeleteEntityButton } from '@/components/DeleteEntityButton';
 import { Popup } from '@/components/Popup/Popup';
 
-import { useDeleteLoadingSelector } from '../context/useContext';
+import { useDeleteLoadingSelector } from '../context/useSelectors';
 import { useActions as useDeleteEntityActions } from '../hooks';
 import type { TDeleteEntityProps } from '../types';
 

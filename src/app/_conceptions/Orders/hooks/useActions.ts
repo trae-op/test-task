@@ -7,7 +7,7 @@ import { useActions as useControlToaster } from '@/components/Toaster/useActions
 import {
 	useRemoveDispatch,
 	useSetDeleteLoadingDispatch
-} from '../context/useContext';
+} from '../context/useSelectors';
 import { deleteEntityById } from '../services';
 
 import type { TActionsHook, TDeleteEntityParams } from './types';

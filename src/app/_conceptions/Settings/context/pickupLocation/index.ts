@@ -1,8 +1,9 @@
 export { Provider } from './Context';
 export {
-	useEntityContext,
 	useListSelector,
 	useListLoadingSelector,
 	useSetAllDispatch,
 	useSetListLoadingDispatch
-} from './useContext';
+} from './useSelectors';
+
+export { useEntityContext } from './useContext';

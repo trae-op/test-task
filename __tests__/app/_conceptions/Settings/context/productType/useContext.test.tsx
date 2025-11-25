@@ -10,7 +10,7 @@ import {
 	useRemoveDispatch,
 	useSetAllDispatch,
 	useSetListLoadingDispatch
-} from '@/app/_conceptions/Settings/context/productType/useContext';
+} from '@/app/_conceptions/Settings/context/productType/useSelectors';
 
 describe('product type useContext hooks', () => {
 	const initialItems: TEntity[] = [

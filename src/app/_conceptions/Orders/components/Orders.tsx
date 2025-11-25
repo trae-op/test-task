@@ -6,8 +6,8 @@ import Table from 'react-bootstrap/Table';
 
 import { EmptyData } from '@/components/EmptyData';
 
-import { useListSelector } from '../context/useContext';
-import { useAdaptiveTableSelector } from '../context/useContext';
+import { useListSelector } from '../context/useSelectors';
+import { useAdaptiveTableSelector } from '../context/useSelectors';
 import styles from '../styles/Orders.module.scss';
 import type { TOrdersProps } from '../types';
 

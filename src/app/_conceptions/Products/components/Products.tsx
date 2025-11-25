@@ -6,8 +6,8 @@ import Table from 'react-bootstrap/Table';
 
 import { EmptyData } from '@/components/EmptyData/EmptyData';
 
-import { useListSelector } from '../context/useContext';
-import { useAdaptiveTableSelector } from '../context/useContext';
+import { useListSelector } from '../context/useSelectors';
+import { useAdaptiveTableSelector } from '../context/useSelectors';
 import styles from '../styles/Products.module.scss';
 import type { TProductsProps } from '../types';
 

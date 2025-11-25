@@ -8,7 +8,10 @@ import { Trash } from 'react-bootstrap-icons';
 import { useFormStatus } from 'react-dom';
 
 import { deletePickupLocationById } from '../../actions/pickupLocation';
-import { useEntityContext } from '../../context/pickupLocation/useContext';
+import {
+	useListSelector,
+	useSetAllDispatch
+} from '../../context/pickupLocation/useSelectors';
 
 import type { TPickupLocationItem, TPickupLocationListProps } from './types';
 
@@ -39,8 +42,9 @@ type TPickupLocationListItemProps = {
 };
 
 const PickupLocationListItem = memo(
-	({ item, deleteLabel }: TPickupLocationListItemProps) => {
-		const { get, setAll } = useEntityContext();
+	({ item }: TPickupLocationListItemProps) => {
+		const list = useListSelector();
+		const setAll = useSetAllDispatch();
 		const [state, formAction] = useActionState(deletePickupLocationById, {
 			ok: false
 		});
@@ -50,14 +54,13 @@ const PickupLocationListItem = memo(
 				return;
 			}
 
-			const current = get();
-			const next = current.filter(entity => entity.id !== item.id);
-			if (next.length === current.length) {
+			const next = list.filter(entity => entity.id !== item.id);
+			if (next.length === list.length) {
 				return;
 			}
 
 			setAll(next);
-		}, [state.ok, get, setAll, item.id]);
+		}, [state.ok, list, setAll, item.id]);
 
 		return (
 			<ListGroup.Item

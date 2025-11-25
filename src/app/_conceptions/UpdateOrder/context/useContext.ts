@@ -5,6 +5,8 @@ import { Context } from './Context';
 export const useEntityContext = () => {
 	const ctx = useContext(Context);
 	if (!ctx)
-		throw new Error('Currency useEntityContext must be used within a Provider');
+		throw new Error(
+			'PickupLocation useEntityContext by pickupLocation in UpdateOrder must be used within a Provider'
+		);
 	return ctx;
 };

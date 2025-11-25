@@ -7,7 +7,7 @@ import { addCurrencySubmit, deleteCurrency } from '../../actions/currency';
 import {
 	useListSelector,
 	useSetAllDispatch
-} from '../../context/currency/useContext';
+} from '../../context/currency/useSelectors';
 
 import type { TActions, TSettingsCurrencyFormData } from './types';
 

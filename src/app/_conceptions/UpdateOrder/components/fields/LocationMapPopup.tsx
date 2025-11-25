@@ -17,8 +17,9 @@ import {
 	toLocationFormValue
 } from '@/utils/map';
 
-import { useListSelector } from '@/app/_conceptions/Settings/context/pickupLocation/useContext';
-import type { TUpdateOrderFormData } from '@/app/_conceptions/UpdateOrder/hooks/types';
+import { useListSelector } from '../../context/useSelectors';
+import type { TUpdateOrderFormData } from '../../hooks/types';
+
 import { UKRAINE_POLYGON, WORLD_BOUNDS_POLYGON } from '@/constants';
 
 const UKRAINE_MASK_POLYGON: [number, number][][] = [

@@ -17,7 +17,7 @@ import {
 	useActiveSessionsContext,
 	useActiveSessionsCountSelector,
 	useActiveSessionsStatusSelector
-} from '@/app/_conceptions/ActiveSessionsCounter/context/activeSessions/useContext';
+} from '@/app/_conceptions/ActiveSessionsCounter/context/activeSessions/useSelectors';
 
 jest.mock('next-intl', () => ({
 	useTranslations: () => (key: string) => key

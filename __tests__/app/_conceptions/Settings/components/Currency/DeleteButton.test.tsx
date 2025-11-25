@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { DeleteButton } from '@/app/_conceptions/Settings/components/Currency/DeleteButton';
-import { useListSelector } from '@/app/_conceptions/Settings/context/currency/useContext';
+import { useListSelector } from '@/app/_conceptions/Settings/context/currency/useSelectors';
 import { useActions } from '@/app/_conceptions/Settings/hooks/currency';
 
 jest.mock('next-intl', () => ({

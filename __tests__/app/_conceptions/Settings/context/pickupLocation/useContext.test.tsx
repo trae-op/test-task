@@ -9,7 +9,7 @@ import {
 	useListSelector,
 	useSetAllDispatch,
 	useSetListLoadingDispatch
-} from '@/app/_conceptions/Settings/context/pickupLocation/useContext';
+} from '@/app/_conceptions/Settings/context/pickupLocation/useSelectors';
 
 describe('pickup location useContext hooks', () => {
 	const initialItems: TEntity[] = [

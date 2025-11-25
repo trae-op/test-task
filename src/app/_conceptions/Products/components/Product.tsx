@@ -12,7 +12,7 @@ import { Price } from '@/components/Price';
 import { formatDateTime } from '@/utils/dateTime';
 import { getProductUpdateHref } from '@/utils/routing/routing';
 
-import { useAdaptiveTableSelector } from '../context/useContext';
+import { useAdaptiveTableSelector } from '../context/useSelectors';
 import styles from '../styles/Products.module.scss';
 import type { TProductProps } from '../types';
 

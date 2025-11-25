@@ -3,7 +3,7 @@
 import { memo } from 'react';
 import { ListGroup } from 'react-bootstrap';
 
-import { useListSelector } from '../../context/productType/useContext';
+import { useListSelector } from '../../context/productType/useSelectors';
 
 import { DeleteButton } from './DeleteButton';
 

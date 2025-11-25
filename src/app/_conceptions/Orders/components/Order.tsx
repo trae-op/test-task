@@ -18,7 +18,7 @@ import { getOrderDetailHref, getOrderUpdateHref } from '@/utils/routing';
 import {
 	useAdaptiveTableSelector,
 	useEntityIdSelector
-} from '../context/useContext';
+} from '../context/useSelectors';
 import styles from '../styles/Orders.module.scss';
 import { type TOrderProps } from '../types';
 

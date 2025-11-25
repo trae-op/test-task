@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 import { memo } from 'react';
-import { Container } from 'react-bootstrap';
 
 import styles from '../styles/TopHeader.module.scss';
 import type { TTopHeaderProps } from '../types';

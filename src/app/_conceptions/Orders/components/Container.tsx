@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react';
 
 import { getAddOrderHref } from '@/utils/routing';
 
-import { useAmountEntitiesSelector } from '../context/useContext';
+import { useAmountEntitiesSelector } from '../context/useSelectors';
 
 import { OrderTable } from './Orders';
 import {

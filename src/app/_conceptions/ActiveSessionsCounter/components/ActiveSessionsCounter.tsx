@@ -8,7 +8,7 @@ import { PeopleFill } from 'react-bootstrap-icons';
 import {
 	useActiveSessionsCountSelector,
 	useActiveSessionsStatusSelector
-} from '../context/activeSessions';
+} from '../context/activeSessions/useSelectors';
 import styles from '../styles/ActiveSessionsCounter.module.scss';
 
 const BLOCK = 'active-sessions';

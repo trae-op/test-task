@@ -10,7 +10,7 @@ import {
 	useRemoveDispatch,
 	useSetAllDispatch,
 	useSetListLoadingDispatch
-} from '@/app/_conceptions/Settings/context/currency/useContext';
+} from '@/app/_conceptions/Settings/context/currency/useSelectors';
 
 describe('currency useContext hooks', () => {
 	const initialItems: TEntity[] = [

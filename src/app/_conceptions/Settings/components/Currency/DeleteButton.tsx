@@ -6,7 +6,7 @@ import { Spinner } from 'react-bootstrap';
 import { Trash } from 'react-bootstrap-icons';
 import { useFormStatus } from 'react-dom';
 
-import { useListSelector } from '../../context/currency/useContext';
+import { useListSelector } from '../../context/currency/useSelectors';
 import { useActions } from '../../hooks/currency';
 
 const DeleteEntity = () => {

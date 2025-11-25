@@ -7,7 +7,7 @@ import { formatLocationLabel, toLocationFormValue } from '@/utils/map';
 import {
 	useListSelector,
 	useSetAllDispatch
-} from '@/app/_conceptions/Settings/context/pickupLocation/useContext';
+} from '@/app/_conceptions/Settings/context/pickupLocation/useSelectors';
 import { usePickupLocation } from '@/app/_conceptions/Settings/hooks/pickupLocation';
 import { usePickupLocationActions } from '@/app/_conceptions/Settings/hooks/pickupLocation/usePickupLocationActions';
 import { usePickupLocationState } from '@/app/_conceptions/Settings/hooks/pickupLocation/usePickupLocationState';

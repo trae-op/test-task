@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react';
 
 import { getAddProductHref } from '@/utils/routing';
 
-import { useAmountEntitiesSelector } from '../context/useContext';
+import { useAmountEntitiesSelector } from '../context/useSelectors';
 
 import { ProductsTable } from './Products';
 import {

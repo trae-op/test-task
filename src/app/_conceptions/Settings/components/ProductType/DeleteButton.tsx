@@ -6,7 +6,7 @@ import { Spinner } from 'react-bootstrap';
 import { Trash } from 'react-bootstrap-icons';
 import { useFormStatus } from 'react-dom';
 
-import { useListSelector } from '../../context/productType/useContext';
+import { useListSelector } from '../../context/productType/useSelectors';
 import { useActions } from '../../hooks/productType';
 
 const DeleteEntity = () => {
